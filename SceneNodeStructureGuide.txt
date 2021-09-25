@@ -1,0 +1,5 @@
+Scene Name = Root Node Name
+
+Empty Node Children (Node2D, Position2D) - can have unique names
+
+Functional Node Children (Sprite, CollisionShape2D) - keep default name

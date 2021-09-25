@@ -1,0 +1,20 @@
+------B-u-l-l-e-t--C-o-l-l-i-s-i-o-n------
+
+------S-h-o-t--d-e-l-a-y-------
+
+Player bounce off wall
+
+Movement effects
+
+~Stop player slowing down if the go back and forth
+
+Testing enemy
+
+Enemy spawned
+
+Colours {
+    User configurable
+    Wall, Player, Enemies
+    Rainbow, Contrast, White
+}
+
