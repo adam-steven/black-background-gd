@@ -15,7 +15,6 @@ extents = Vector2( 100, 16.8 )
 extents = Vector2( 10, 100 )
 
 [sub_resource type="Animation" id=5]
-loop = true
 step = 0.01
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:rotation_degrees")
@@ -85,7 +84,6 @@ tracks/2/keys = {
 [node name="Level" type="Node2D"]
 
 [node name="Room" type="Position2D" parent="."]
-position = Vector2( 960, 540 )
 
 [node name="Top" type="RigidBody2D" parent="Room"]
 position = Vector2( 0, -510 )

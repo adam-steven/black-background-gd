@@ -1,5 +1,5 @@
 using Godot;
-using System.Linq;
+using System;
 
 //Player movement and firing
 //Player acts as a bullet, movement done via impulse forces
@@ -38,13 +38,14 @@ public class PlayerController : RigidBody2D
 			Shoot();
 	}
 
+	// Handels detection of a right click to apply a complete character force  stop
 	public override void _IntegrateForces(Physics2DDirectBodyState state)
 	{
-		//Complete Force Stop
 		if (Input.IsActionJustPressed("ui_fire2"))
-			state.LinearVelocity = new Vector2(0, 0);
+			state.LinearVelocity = Vector2.Zero;
 	}
 
+	// Handels detection of WASD inputs to apply character force 
 	private void WASDMovement()
 	{
 		Vector2 _thrust = Vector2.Zero;
@@ -65,42 +66,40 @@ public class PlayerController : RigidBody2D
 
 	private void MouseRotation() { playerSprite.LookAt(GetGlobalMousePosition()); }
 
-	// when player collides with *any rigibody bounce
+	//When player collides with *any rigibody bounce
 	private void _On_Player_Body_Entered(object body)
 	{
-		GD.Print("player pos: " + this.GlobalPosition);
-		GD.Print("col pos: " + ((Node)body).Get("global_position"));
+		//Collided rigidbody stats  
+		Godot.Sprite hitBodySprint = ((Node)body).GetNode<Godot.Sprite>("Sprite");
+		Vector2 hitCenter = hitBodySprint.GlobalPosition;
+		Vector2 hitScaleHalf = (hitBodySprint.GlobalScale/2f) * 20f; //Sprite scale is x20 smaller than global position (might change)    
 
-		if (Enumerable.Range(1,100).Contains((int)this.GlobalPosition.x)){}
-		if (Enumerable.Range(1,100).Contains((int)this.GlobalPosition.y)) {}
-		
+		//Player stats
+		Vector2 playerCenter = this.GlobalPosition;
 
-		Test((Node)body);
-		//Vector2 _thrust = (Vector2.Left * movementForce);
-		//ApplyCentralImpulse(_thrust);
+		//Apply opposite directional forces
+		Vector2 _thrust = new Vector2 (
+			GetCollisionForceDirection(playerCenter.x, hitCenter.x, hitScaleHalf.x),
+			GetCollisionForceDirection(playerCenter.y, hitCenter.y, hitScaleHalf.y)
+		) * movementForce;
+		ApplyCentralImpulse(_thrust);
 	}
-	
-	private void Test(Node hitPos) {
-		Vector2 hitPosCenter = (Vector2)hitPos.Get("global_position");
-		Vector2 hitPosScaleHalf = hitPos.GetNode<Godot.Sprite>("Sprite").GlobalScale/2f;
 
-		// Top, Bottom, Left, Right
-		float[] edgePoints = 
-			new float[4] {
-				3f,
-				3f,
-				3f,
-				3f
-			};
+	//Verifies player center Axis is at the edge of a collided object same axis
+	//If so it returns 1 or -1 for a force to push the player away
+	//If no it returns 0
+	private int GetCollisionForceDirection(float playerAxisPos, float objectAxisPos, float objectAxisScale)
+	{
+		float objectLowerPoint = objectAxisPos - objectAxisScale;
+		float objectUpperPoint = objectAxisPos + objectAxisScale;
 
-		PackedScene testingDot = (PackedScene)GD.Load("res://scenes/TestingDot.tscn");
-		Godot.Sprite tDot = (Godot.Sprite)testingDot.Instance();
+		if (playerAxisPos < objectLowerPoint || objectUpperPoint < playerAxisPos)
+		{
+			int direction = (int)(playerAxisPos - objectAxisPos);
+			return (direction / Math.Abs(direction));
+		}
 
-		tDot.GlobalPosition = hitPosCenter;
-		gameController.AddChild(tDot);
-
-		// tDot.GlobalPosition = this.Position;
-		// gameController.AddChild(tDot);
+		return 0;
 	}
 
 	//-- Shooting --
