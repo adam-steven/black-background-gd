@@ -25,4 +25,14 @@ shape = SubResource( 1 )
 [node name="Timer" type="Timer" parent="."]
 process_mode = 0
 
+[node name="MoveEffect" type="Node2D" parent="."]
+
+[node name="Sprite" type="Sprite" parent="MoveEffect"]
+texture = ExtResource( 1 )
+offset = Vector2( 0, 40 )
+
+[node name="StopEffect" type="Node2D" parent="."]
+
+[node name="Sprite" type="Sprite" parent="StopEffect"]
+
 [connection signal="body_entered" from="." to="." method="_On_Player_Body_Entered"]
