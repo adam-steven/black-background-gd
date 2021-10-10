@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://images/base_block.png" type="Texture" id=1]
-[ext_resource path="res://script/PlayerController.cs" type="Script" id=2]
+[ext_resource path="res://script/player/PlayerController.cs" type="Script" id=2]
 [ext_resource path="res://images/ring_block.png" type="Texture" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
@@ -26,16 +26,22 @@ shape = SubResource( 1 )
 [node name="Timer" type="Timer" parent="."]
 process_mode = 0
 
-[node name="MoveEffect" type="Node2D" parent="."]
+[node name="DirectionEffect" type="Node2D" parent="."]
+visible = false
 
-[node name="Sprite" type="Sprite" parent="MoveEffect"]
+[node name="Sprite" type="Sprite" parent="DirectionEffect"]
 texture = ExtResource( 1 )
 offset = Vector2( 0, 40 )
 
+[node name="Timer" type="Timer" parent="DirectionEffect"]
+
 [node name="StopEffect" type="Node2D" parent="."]
+visible = false
 
 [node name="Sprite" type="Sprite" parent="StopEffect"]
 scale = Vector2( 2, 2 )
 texture = ExtResource( 3 )
+
+[node name="Timer" type="Timer" parent="StopEffect"]
 
 [connection signal="body_entered" from="." to="." method="_On_Player_Body_Entered"]
