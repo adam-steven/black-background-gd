@@ -1,5 +1,5 @@
 using Godot;
-
+using static BulletOwnerList;
 public partial class PlayerController
 {
     private PackedScene bulletScene;
@@ -33,7 +33,7 @@ public partial class PlayerController
 		bullet.Rotation = playerSprite.Rotation;
 
 		// Access bullet script 
-		bulletCon.bOwner = BulletController.BulletOwnerList.PlayerController;
+		bulletCon.bOwner = BulletOwner.PlayerController;
 		bulletCon.openMotion = this.LinearVelocity/2f;
 
 		// Shoot bullet + start cooldown 

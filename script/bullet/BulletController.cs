@@ -1,10 +1,11 @@
 using Godot;
 using System;
+using static BulletOwnerList;
 
-public partial class BulletController : Area2D
+public class BulletController : Area2D
 {
 	[Export] private float  movementForce = 3000;
-	public BulletOwnerList bOwner;
+	public BulletOwner bOwner;
 	private Vector2 closedMotion; //The movement that the bullet has in a closed loop
 	public Vector2 openMotion; //The movement that the bullet gets from the players actions
 

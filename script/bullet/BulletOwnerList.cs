@@ -1,7 +1,7 @@
-public partial class BulletController
+public class BulletOwnerList
 {
 	/// <summary> Indicates whether the bullet was spawned by the player or an enemy </summary>
-	public enum BulletOwnerList {
+	public enum BulletOwner {
 		PlayerController,
 		ENEMY
 	};
