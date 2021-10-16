@@ -3,44 +3,20 @@ using System;
 
 public partial class PlayerController
 {
-    private void GetMovementInput() {
-        WASDMovement();
-        MouseRotation();
-    }
-
-    // Handels detection of a right click to apply a complete character force  stop
-	public override void _IntegrateForces(Physics2DDirectBodyState state)
-	{
-		if (Input.IsActionJustPressed("ui_fire2"))
-			state.LinearVelocity = Vector2.Zero;
-	}
-
 	// Handels detection of WASD inputs to apply character force 
 	private void WASDMovement()
 	{
-		Vector2 _thrust = Vector2.Zero;
-		float effectDirection = 0;
-
 		if (Input.IsActionJustPressed("ui_left")) {
-			_thrust += (Vector2.Left * movementForce);
-			effectDirection = 270;
+			PushPlayer(Vector2.Left, 270);
 		}
 		if (Input.IsActionJustPressed("ui_right")) {
-			_thrust += (Vector2.Right * movementForce);
-			effectDirection = 90;
+			PushPlayer(Vector2.Right, 90);
 		}
 		if (Input.IsActionJustPressed("ui_up")) {
-			_thrust += (Vector2.Up * movementForce);
-			effectDirection = 0;
+			PushPlayer(Vector2.Up, 0);
 		}
 		if (Input.IsActionJustPressed("ui_down")) {
-			_thrust += (Vector2.Down * movementForce);
-			effectDirection = 180;
-		}
-
-		if(_thrust != Vector2.Zero) {
-			ApplyCentralImpulse(_thrust);
-			DirectionEffect(effectDirection);
+			PushPlayer(Vector2.Down, 180);
 		}
 	}
 
@@ -61,11 +37,12 @@ public partial class PlayerController
 		Vector2 playerCenter = this.GlobalPosition;
 
 		//Apply opposite directional forces
-		Vector2 _thrust = this.LinearVelocity + new Vector2 (
+		Vector2 direction = new Vector2 (
 			GetCollisionForceDirection(playerCenter.x, hitCenter.x, hitScaleHalf.x),
 			GetCollisionForceDirection(playerCenter.y, hitCenter.y, hitScaleHalf.y)
-		) * movementForce;
-		ApplyCentralImpulse(_thrust);
+		);
+
+		PushPlayer(direction);
 	}
 
 	//Verifies player center Axis is at the edge of a collided object same axis
@@ -83,5 +60,34 @@ public partial class PlayerController
 		}
 
 		return 0;
+	}
+
+	//-- Movement Forces --
+
+	private void PushPlayer(Vector2 _thrustDirection) {
+		Vector2 _thrust = _thrustDirection * movementForce;
+		ApplyCentralImpulse(_thrust);
+    }
+    private void PushPlayer(Vector2 _thrustDirection, int effectDirection) {
+		Vector2 _thrust = _thrustDirection * movementForce;
+		ApplyCentralImpulse(_thrust);
+		DirectionEffect(effectDirection);
+    }
+
+    private void StopPlayer() {
+        this.LinearVelocity = Vector2.Zero;
+		StopEffect();
+    }
+
+    //-- Movement effects --
+	private void DirectionEffect(float oppositeDirection) {
+		Godot.Node2D directionEffect = this.GetNode<Godot.Node2D>("DirectionEffect");
+		directionEffect.RotationDegrees = oppositeDirection;
+		directionEffect.Visible = true;
+	}
+
+	private void StopEffect() {
+		Godot.Node2D stopEffect = this.GetNode<Godot.Node2D>("StopEffect");
+		stopEffect.Visible = true;
 	}
 }
