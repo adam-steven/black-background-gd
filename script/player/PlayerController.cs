@@ -1,5 +1,5 @@
 using Godot;
-using static BulletOwnerList;
+using static Enums;
 
 //Player movement and firing
 //Player acts as a bullet, movement done via impulse forces

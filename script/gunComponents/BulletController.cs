@@ -1,6 +1,6 @@
 using Godot;
 using System;
-using static BulletOwnerList;
+using static Enums;
 
 public class BulletController : Area2D
 {

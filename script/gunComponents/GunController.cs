@@ -1,5 +1,5 @@
 using Godot;
-using static BulletOwnerList;
+using static Enums;
 public class GunController : RigidBody2D
 {
 	private PackedScene bulletScene;
