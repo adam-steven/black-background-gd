@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Threading.Tasks;
 
 public partial class PlayerController
 {
@@ -80,14 +81,22 @@ public partial class PlayerController
     }
 
     //-- Movement effects --
-	private void DirectionEffect(float oppositeDirection) {
+	private async void DirectionEffect(float oppositeDirection) {
 		Godot.Node2D directionEffect = this.GetNode<Godot.Node2D>("DirectionEffect");
 		directionEffect.RotationDegrees = oppositeDirection;
 		directionEffect.Visible = true;
+
+		await Task.Delay(2000);
+
+		directionEffect.Visible = false;
 	}
 
-	private void StopEffect() {
+	private async void StopEffect() {
 		Godot.Node2D stopEffect = this.GetNode<Godot.Node2D>("StopEffect");
 		stopEffect.Visible = true;
+
+		await Task.Delay(2000);
+
+		stopEffect.Visible = false;
 	}
 }
