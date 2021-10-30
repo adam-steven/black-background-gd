@@ -15,6 +15,7 @@ extents = Vector2( 100, 16.8 )
 extents = Vector2( 10, 100 )
 
 [sub_resource type="Animation" id=5]
+loop = true
 step = 0.01
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:rotation_degrees")

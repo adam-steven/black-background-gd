@@ -8,16 +8,16 @@ public partial class PlayerController
 	private void WASDMovement()
 	{
 		if (Input.IsActionJustPressed("ui_left")) {
-			PushPlayer(Vector2.Left, 270);
+			PushPlayer(Vector2.Left, "Right");
 		}
 		if (Input.IsActionJustPressed("ui_right")) {
-			PushPlayer(Vector2.Right, 90);
+			PushPlayer(Vector2.Right, "Left");
 		}
 		if (Input.IsActionJustPressed("ui_up")) {
-			PushPlayer(Vector2.Up, 0);
+			PushPlayer(Vector2.Up, "Bottom");
 		}
 		if (Input.IsActionJustPressed("ui_down")) {
-			PushPlayer(Vector2.Down, 180);
+			PushPlayer(Vector2.Down, "Top");
 		}
 	}
 
@@ -69,34 +69,25 @@ public partial class PlayerController
 		Vector2 _thrust = _thrustDirection * movementForce;
 		ApplyCentralImpulse(_thrust);
     }
-    private void PushPlayer(Vector2 _thrustDirection, int effectDirection) {
+
+    private void PushPlayer(Vector2 _thrustDirection, string effectDirection) {
 		Vector2 _thrust = _thrustDirection * movementForce;
 		ApplyCentralImpulse(_thrust);
-		DirectionEffect(effectDirection);
+		PlayEffect(effectDirection);
     }
 
     private void StopPlayer() {
         this.LinearVelocity = Vector2.Zero;
-		StopEffect();
+		PlayEffect("Stop");
     }
 
     //-- Movement effects --
-	private async void DirectionEffect(float oppositeDirection) {
-		Godot.Node2D directionEffect = this.GetNode<Godot.Node2D>("DirectionEffect");
-		directionEffect.RotationDegrees = oppositeDirection;
-		directionEffect.Visible = true;
 
-		await Task.Delay(2000);
+	private void PlayEffect(string effectNodeName) {
+		Godot.Node2D effectNode = this.GetNode<Godot.Node2D>("Effects");
+		Godot.Node2D directionNode = effectNode.GetNode<Godot.Node2D>(effectNodeName);
+		AnimationPlayer anim  = directionNode.GetNode<AnimationPlayer>("AnimationPlayer");
 
-		directionEffect.Visible = false;
-	}
-
-	private async void StopEffect() {
-		Godot.Node2D stopEffect = this.GetNode<Godot.Node2D>("StopEffect");
-		stopEffect.Visible = true;
-
-		await Task.Delay(2000);
-
-		stopEffect.Visible = false;
+		anim.Play("Trigger");
 	}
 }

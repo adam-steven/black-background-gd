@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://images/base_block.png" type="Texture" id=1]
 [ext_resource path="res://script/player/PlayerController.cs" type="Script" id=2]
@@ -6,6 +6,275 @@
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 20, 20 )
+
+[sub_resource type="Animation" id=2]
+resource_name = "PlayerMoveTopInit"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.001 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, false ]
+}
+
+[sub_resource type="Animation" id=7]
+resource_name = "Trigger"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = false
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0.2, 0.2 ), Vector2( 1.2, 1.2 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Sprite:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = false
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, -40 ), Vector2( 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "PlayerMoveBottomInit"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+
+[sub_resource type="Animation" id=9]
+resource_name = "Trigger"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = false
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0.2, 0.2 ), Vector2( 1.2, 1.2 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Sprite:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = false
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 40 ), Vector2( 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "PlayerMoveRightInit"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+
+[sub_resource type="Animation" id=10]
+resource_name = "Trigger"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = false
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0.2, 0.2 ), Vector2( 1.2, 1.2 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Sprite:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = false
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 40, 0 ), Vector2( 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "PlayerMoveLeftInit"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+
+[sub_resource type="Animation" id=11]
+resource_name = "Trigger"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = false
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0.2, 0.2 ), Vector2( 1.2, 1.2 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Sprite:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = false
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( -40, 0 ), Vector2( 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=6]
+resource_name = "PlayerMoveStopInit"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+
+[sub_resource type="Animation" id=8]
+resource_name = "Trigger"
+length = 0.2
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.05, 0.1, 0.15, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, -10.0, 10.0, -10.0, 0.0 ]
+}
 
 [node name="Player" type="RigidBody2D"]
 position = Vector2( 960, 540 )
@@ -26,22 +295,71 @@ shape = SubResource( 1 )
 [node name="Timer" type="Timer" parent="."]
 process_mode = 0
 
-[node name="DirectionEffect" type="Node2D" parent="."]
-visible = false
+[node name="Effects" type="Node2D" parent="."]
 
-[node name="Sprite" type="Sprite" parent="DirectionEffect"]
+[node name="Top" type="Node2D" parent="Effects"]
+
+[node name="Sprite" type="Sprite" parent="Effects/Top"]
+visible = false
+scale = Vector2( 1.2, 1.2 )
+texture = ExtResource( 1 )
+offset = Vector2( 0, -40 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Effects/Top"]
+autoplay = "PlayerMoveTopInit"
+anims/PlayerMoveTopInit = SubResource( 2 )
+anims/Trigger = SubResource( 7 )
+
+[node name="Bottom" type="Node2D" parent="Effects"]
+
+[node name="Sprite" type="Sprite" parent="Effects/Bottom"]
+visible = false
+scale = Vector2( 1.2, 1.2 )
 texture = ExtResource( 1 )
 offset = Vector2( 0, 40 )
 
-[node name="Timer" type="Timer" parent="DirectionEffect"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Effects/Bottom"]
+autoplay = "PlayerMoveBottomInit"
+anims/PlayerMoveBottomInit = SubResource( 3 )
+anims/Trigger = SubResource( 9 )
 
-[node name="StopEffect" type="Node2D" parent="."]
+[node name="Right" type="Node2D" parent="Effects"]
+
+[node name="Sprite" type="Sprite" parent="Effects/Right"]
 visible = false
+scale = Vector2( 1.2, 1.2 )
+texture = ExtResource( 1 )
+offset = Vector2( 40, 0 )
 
-[node name="Sprite" type="Sprite" parent="StopEffect"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Effects/Right"]
+autoplay = "PlayerMoveRightInit"
+anims/PlayerMoveRightInit = SubResource( 4 )
+anims/Trigger = SubResource( 10 )
+
+[node name="Left" type="Node2D" parent="Effects"]
+
+[node name="Sprite" type="Sprite" parent="Effects/Left"]
+visible = false
+scale = Vector2( 1.2, 1.2 )
+texture = ExtResource( 1 )
+offset = Vector2( -40, 0 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Effects/Left"]
+autoplay = "PlayerMoveLeftInit"
+anims/PlayerMoveLeftInit = SubResource( 5 )
+anims/Trigger = SubResource( 11 )
+
+[node name="Stop" type="Node2D" parent="Effects"]
+
+[node name="Sprite" type="Sprite" parent="Effects/Stop"]
+visible = false
+rotation = 0.523599
 scale = Vector2( 2, 2 )
 texture = ExtResource( 3 )
 
-[node name="Timer" type="Timer" parent="StopEffect"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Effects/Stop"]
+autoplay = "PlayerMoveStopInit"
+anims/PlayerMoveStopInit = SubResource( 6 )
+anims/Trigger = SubResource( 8 )
 
 [connection signal="body_entered" from="." to="." method="_On_Player_Body_Entered"]

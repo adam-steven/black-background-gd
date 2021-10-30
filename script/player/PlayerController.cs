@@ -14,7 +14,7 @@ public partial class PlayerController : RigidBody2D
 	public override void _PhysicsProcess(float delta)
 	{
 		WASDMovement();
-        MouseRotation();
+		MouseRotation();
 
 		if (Input.IsActionPressed("ui_fire1"))
 			gun.Shoot();
