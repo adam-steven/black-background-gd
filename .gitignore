@@ -8,3 +8,5 @@ export_presets.cfg
 .mono/
 data_*/
 .vscode/settings.json
+Black Background.csproj
+project.godot
