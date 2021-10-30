@@ -18,6 +18,8 @@ config/icon="res://images/icon.png"
 
 window/size/width=1920
 window/size/height=1080
+window/size/test_width=720
+window/size/test_height=480
 window/stretch/mode="viewport"
 window/stretch/aspect="keep"
 
@@ -76,10 +78,6 @@ ui_fire2={
 2d_physics/layer_2="Player"
 2d_physics/layer_3="Enemy"
 2d_physics/layer_4="Bullet"
-
-[mono]
-
-debugger_agent/wait_for_debugger=true
 
 [physics]
 
