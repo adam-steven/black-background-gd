@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Reflection;
 using static Enums;
 
 public class BulletController : Area2D
@@ -22,8 +23,15 @@ public class BulletController : Area2D
 	
 	private void _On_Bullet_Body_Entered(object body)
 	{
+		Type bodyType = body.GetType();
+
 		//if collision is made by owner return
-		if(body.GetType().Name == bOwner.ToString()) return;
+		if(bodyType.Name == bOwner.ToString()) return;
+
+     	MethodInfo damageMethod = bodyType.GetMethod("TakeDamage");
+        if(damageMethod != null)
+			damageMethod.Invoke(body, new object[]{5});
+
 		//Delete self
 		this.QueueFree(); 
 	}
