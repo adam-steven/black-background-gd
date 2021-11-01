@@ -6,6 +6,6 @@ public partial class EnemyController
     public void Chaser()
     {
         FacePlayer();
-        //MoveInDirection(Vector2.Right);
+        MoveInDirection(Vector2.Right);
     }
 }

@@ -5,10 +5,11 @@ using static Enums;
 
 public class BulletController : Area2D
 {
-	[Export] private float  movementForce = 3000;
+	public float movementForce = 3000;
 	public BulletOwner bOwner;
 	private Vector2 closedMotion; //The movement that the bullet has in a closed loop
 	public Vector2 openMotion; //The movement that the bullet gets from the players actions
+	public int strength = 5;
 
 	public override void _Ready()
 	{
@@ -30,7 +31,7 @@ public class BulletController : Area2D
 
      	MethodInfo damageMethod = bodyType.GetMethod("TakeDamage");
         if(damageMethod != null)
-			damageMethod.Invoke(body, new object[]{5});
+			damageMethod.Invoke(body, new object[]{strength});
 
 		//Delete self
 		this.QueueFree(); 
