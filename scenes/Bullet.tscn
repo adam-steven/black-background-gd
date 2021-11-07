@@ -20,4 +20,6 @@ position = Vector2( 10.345, 0 )
 scale = Vector2( 1, 2 )
 shape = SubResource( 1 )
 
+[node name="Timer" type="Timer" parent="."]
+
 [connection signal="body_entered" from="." to="." method="_On_Bullet_Body_Entered"]

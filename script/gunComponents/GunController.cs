@@ -9,6 +9,7 @@ public class GunController : RigidBody2D
 	private BulletOwner bulletOwner;
 	private int bulletStrength;
 	private float bulletForce;
+	private float bulletAliveTime;
 
 	///<summary> 
 	///		Allows nodes to shoot bullets form there body.
@@ -17,12 +18,13 @@ public class GunController : RigidBody2D
 	///			Child Timer Node,
 	///			"ShootCooledDown()" to receive Timer call which should call "GunController.ShootCooledDown()" 
 	///</summary>
-	public GunController(float shotDelay, RigidBody2D ownerNode, BulletOwner bulletOwner, int bulletStrength, float bulletForce) {
+	public GunController(float shotDelay, RigidBody2D ownerNode, BulletOwner bulletOwner, int bulletStrength, float bulletForce, float bulletAliveTime) {
 		this.bulletScene = (PackedScene)GD.Load("res://scenes/Bullet.tscn");
 		this.ownerNode = ownerNode;
 		this.bulletOwner =  bulletOwner;
 		this.bulletStrength = bulletStrength;
 		this.bulletForce = bulletForce;
+		this.bulletAliveTime = bulletAliveTime;
 
 		this.shotTimer = ownerNode.GetNode<Timer>("Timer");
 		shotTimer.WaitTime = shotDelay;
@@ -47,6 +49,7 @@ public class GunController : RigidBody2D
 		bulletCon.openMotion = ownerNode.LinearVelocity/2f;
 		bulletCon.strength = bulletStrength;
 		bulletCon.movementForce = bulletForce;
+		bulletCon.timeAlive = bulletAliveTime;
 
 		// Shoot bullet + start cooldown 
 		gameController.AddChild(bullet);
