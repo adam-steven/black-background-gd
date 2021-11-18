@@ -22,10 +22,6 @@ public partial class PlayerController : RigidBody2D
 		if (Input.IsActionJustPressed("ui_fire2"))
 			StopPlayer();
 	}
-
-	private void ShootCooledDown() {
-		gun.ShootCooledDown();
-	}
 }
 
 

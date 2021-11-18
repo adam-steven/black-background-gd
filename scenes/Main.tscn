@@ -12,6 +12,7 @@ script = ExtResource( 3 )
 position = Vector2( 960, 540 )
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
+shotDelay = 1.0
 
 [node name="Chaser" parent="." instance=ExtResource( 4 )]
 position = Vector2( 960, 300 )

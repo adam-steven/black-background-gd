@@ -1,15 +1,19 @@
 using Godot;
 using static Enums;
+using System;
+using System.Threading;
+using System.Threading.Tasks;
+
 public class GunController : RigidBody2D
 {
 	private PackedScene bulletScene;
-	private Timer shotTimer;
 	private bool canShoot = true;
 	private RigidBody2D ownerNode;
 	private BulletOwner bulletOwner;
 	private int bulletStrength;
 	private float bulletForce;
 	private float bulletAliveTime;
+	private float shotDelay;
 
 	///<summary> 
 	///		Allows nodes to shoot bullets form there body.
@@ -25,10 +29,7 @@ public class GunController : RigidBody2D
 		this.bulletStrength = bulletStrength;
 		this.bulletForce = bulletForce;
 		this.bulletAliveTime = bulletAliveTime;
-
-		this.shotTimer = ownerNode.GetNode<Timer>("Timer");
-		shotTimer.WaitTime = shotDelay;
-		shotTimer.Connect("timeout", ownerNode, "ShootCooledDown");
+		this.shotDelay = shotDelay;
 	}
 
 	public void Shoot()
@@ -53,9 +54,13 @@ public class GunController : RigidBody2D
 
 		// Shoot bullet + start cooldown 
 		gameController.AddChild(bullet);
-		canShoot = false;
-		shotTimer.Start();
+		ShootCooledDown();
 	}
 
-	public void ShootCooledDown() { canShoot = true; }
+	private async void ShootCooledDown() {
+		TimeSpan span = TimeSpan.FromSeconds((double)(new decimal(shotDelay)));
+		canShoot = false;
+		await Task.Delay(span);
+        canShoot = true;
+	}
 }
