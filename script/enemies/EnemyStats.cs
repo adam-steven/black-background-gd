@@ -6,6 +6,7 @@ public partial class EnemyController
 	[Export] private float movementForce = 1000f;
 
     [Export] private float shotDelay = 0.2f;
+	[Export] private float noOfBullet = 1; //Number of bullets fired at once (Shotgun effect)
 	[Export] private float bulletForce = 3000; //Bullet's speed
 	[Export] private int bulletStrength = 10; //Amount of damage the bullet does
 	[Export] private float bulletTimeAlive = 0; //Bullet Range (0 infinite)
