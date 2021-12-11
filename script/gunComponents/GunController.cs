@@ -1,8 +1,5 @@
 using Godot;
 using static Enums;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
 
 public class GunController : RigidBody2D
 {
@@ -10,17 +7,18 @@ public class GunController : RigidBody2D
 	private bool canShoot = true;
 	private RigidBody2D ownerNode;
 	private BulletOwner bulletOwner;
+	
 	private int bulletStrength;
 	private float bulletForce;
 	private float bulletAliveTime;
+
 	private float shotDelay;
+    private int timeLastShot = 0;
 
 	///<summary> 
 	///		Allows nodes to shoot bullets form there body.
 	///		Requires: 
 	///			Child Sprite Node,
-	///			Child Timer Node,
-	///			"ShootCooledDown()" to receive Timer call which should call "GunController.ShootCooledDown()" 
 	///</summary>
 	public GunController(float shotDelay, RigidBody2D ownerNode, BulletOwner bulletOwner, int bulletStrength, float bulletForce, float bulletAliveTime) {
 		this.bulletScene = (PackedScene)GD.Load("res://scenes/Bullet.tscn");
@@ -34,7 +32,7 @@ public class GunController : RigidBody2D
 
 	public void Shoot()
 	{
-		if(!canShoot) return;
+		if(!CanShoot()) return;
 		
 		Godot.Sprite playerSprite = ownerNode.GetNode<Godot.Sprite>("Sprite");
 		Godot.Node2D gameController = ownerNode.GetParent<Godot.Node2D>();
@@ -54,13 +52,15 @@ public class GunController : RigidBody2D
 
 		// Shoot bullet + start cooldown 
 		gameController.AddChild(bullet);
-		ShootCooledDown();
 	}
 
-	private async void ShootCooledDown() {
-		TimeSpan span = TimeSpan.FromSeconds((double)(new decimal(shotDelay)));
-		canShoot = false;
-		await Task.Delay(span);
-        canShoot = true;
+	private bool CanShoot() {
+		int nextShotThreshold = timeLastShot + (int)(shotDelay * 1000);
+		int currentTime = (int)OS.GetTicksMsec();
+		bool canShoot = (currentTime >= nextShotThreshold);
+
+		if(canShoot) timeLastShot = currentTime;
+
+    	return canShoot;
 	}
 }
