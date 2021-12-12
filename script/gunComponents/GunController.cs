@@ -1,15 +1,21 @@
+using System;
 using Godot;
 using static Enums;
 
 public class GunController : RigidBody2D
 {
+	Random rnd = new Random();
+
 	private PackedScene bulletScene;
 	private bool canShoot = true;
 	private RigidBody2D ownerNode;
 	private BulletOwner bulletOwner;
 	
+	private int noOfBullets;
 	private int bulletStrength;
 	private float bulletForce;
+	private float bulletAccuracy;
+	private int bulletBurstAmount;
 	private float bulletAliveTime;
 
 	private float shotDelay;
@@ -20,12 +26,25 @@ public class GunController : RigidBody2D
 	///		Requires: 
 	///			Child Sprite Node,
 	///</summary>
-	public GunController(float shotDelay, RigidBody2D ownerNode, BulletOwner bulletOwner, int bulletStrength, float bulletForce, float bulletAliveTime) {
+	public GunController(
+		float shotDelay, 
+		RigidBody2D ownerNode, 
+		BulletOwner bulletOwner, 
+		int noOfBullets, 
+		int bulletStrength, 
+		float bulletForce, 
+		float bulletAccuracy, 
+		int bulletBurstAmount, 
+		float bulletAliveTime) 
+	{
 		this.bulletScene = (PackedScene)GD.Load("res://scenes/Bullet.tscn");
 		this.ownerNode = ownerNode;
 		this.bulletOwner =  bulletOwner;
+		this.noOfBullets = noOfBullets;
 		this.bulletStrength = bulletStrength;
 		this.bulletForce = bulletForce;
+		this.bulletAccuracy = bulletAccuracy;
+		this.bulletBurstAmount = bulletBurstAmount;
 		this.bulletAliveTime = bulletAliveTime;
 		this.shotDelay = shotDelay;
 	}
@@ -36,22 +55,12 @@ public class GunController : RigidBody2D
 		
 		Godot.Sprite playerSprite = ownerNode.GetNode<Godot.Sprite>("Sprite");
 		Godot.Node2D gameController = ownerNode.GetParent<Godot.Node2D>();
-		Area2D bullet = (Area2D)bulletScene.Instance();
-		BulletController bulletCon = (BulletController)bullet;
 
-		// Access bullet properties
-		bullet.Position = ownerNode.Position;
-		bullet.Rotation = playerSprite.Rotation;
-
-		// Access bullet script 
-		bulletCon.bOwner = bulletOwner;
-		bulletCon.openMotion = ownerNode.LinearVelocity/2f;
-		bulletCon.strength = bulletStrength;
-		bulletCon.movementForce = bulletForce;
-		bulletCon.timeAlive = bulletAliveTime;
-
-		// Shoot bullet + start cooldown 
-		gameController.AddChild(bullet);
+		//Loop for shotgun effect
+		for (int i = 0; i < noOfBullets; i++)
+		{
+			SpawnBullet(playerSprite, gameController);
+		}
 	}
 
 	private bool CanShoot() {
@@ -62,5 +71,25 @@ public class GunController : RigidBody2D
 		if(canShoot) timeLastShot = currentTime;
 
     	return canShoot;
+	}
+
+	private void SpawnBullet(Godot.Sprite playerSprite, Godot.Node2D gameController) {
+		Area2D bullet = (Area2D)bulletScene.Instance();
+		BulletController bulletCon = (BulletController)bullet;
+		float randomAccuracyDeviation = (float)((rnd.NextDouble() * bulletAccuracy) - (rnd.NextDouble() * bulletAccuracy));
+
+		// Access bullet properties
+		bullet.Position = ownerNode.Position;
+		bullet.Rotation = playerSprite.Rotation + randomAccuracyDeviation;
+
+		// Access bullet script 
+		bulletCon.bOwner = bulletOwner;
+		bulletCon.openMotion = ownerNode.LinearVelocity/2f;
+		bulletCon.strength = bulletStrength;
+		bulletCon.movementForce = bulletForce;
+		bulletCon.timeAlive = bulletAliveTime;
+
+		// Shoot bullet + start cooldown 
+		gameController.AddChild(bullet);
 	}
 }

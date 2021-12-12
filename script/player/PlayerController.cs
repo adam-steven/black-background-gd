@@ -8,7 +8,7 @@ public partial class PlayerController : RigidBody2D
 	GunController gun; 
 	public override void _Ready()
 	{
-		gun = new GunController(shotDelay, this, BulletOwner.PlayerController, bulletStrength, bulletForce, bulletTimeAlive); 
+		gun = new GunController(shotDelay, this, BulletOwner.PlayerController, noOfBullets, bulletStrength, bulletForce, bulletAccuracy, bulletBurstAmount, bulletTimeAlive); 
 	}
 
 	public override void _PhysicsProcess(float delta)
