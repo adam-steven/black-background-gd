@@ -14,7 +14,7 @@
 
 ------M-u-l-t-i--S-h-o-t------
 
-Burst fire
+------B-u-r-s-t--F-i-r-e------
 
 Death Effect
 
@@ -28,3 +28,4 @@ Colours {
     Rainbow, Contrast, White
 }
 
+REMEMBER: when decreasing shotDelay check if shotDelay is less than betweenBurstDelay

@@ -15,8 +15,12 @@ public class GunController : RigidBody2D
 	private int bulletStrength;
 	private float bulletForce;
 	private float bulletAccuracy;
-	private int bulletBurstAmount;
 	private float bulletAliveTime;
+
+	//If currentBulletInBurst < bulletBurstAmount the fire rate is halfed
+	private int currentBulletInBurst;
+	private int bulletBurstAmount;
+	private float betweenBurstDelay = 0.2f;
 
 	private float shotDelay;
     private int timeLastShot = 0;
@@ -49,9 +53,9 @@ public class GunController : RigidBody2D
 		this.shotDelay = shotDelay;
 	}
 
-	public void Shoot()
+	public void Shoot(bool isBursting = false)
 	{
-		if(!CanShoot()) return;
+		if(!CanShoot(isBursting)) return;
 		
 		Godot.Sprite playerSprite = ownerNode.GetNode<Godot.Sprite>("Sprite");
 		Godot.Node2D gameController = ownerNode.GetParent<Godot.Node2D>();
@@ -61,10 +65,17 @@ public class GunController : RigidBody2D
 		{
 			SpawnBullet(playerSprite, gameController);
 		}
+
+		currentBulletInBurst++;
+		if(currentBulletInBurst > bulletBurstAmount) currentBulletInBurst = 0;
 	}
 
-	private bool CanShoot() {
-		int nextShotThreshold = timeLastShot + (int)(shotDelay * 1000);
+	//Checks if the threshold amount of time has passed since the last shot
+	//isBursting = true lowers the nextShotThreshold
+	private bool CanShoot(bool isBursting = false) {
+		int shotDelayMs = (int)( (!isBursting ? shotDelay : betweenBurstDelay) * 1000 );
+		int nextShotThreshold = timeLastShot + shotDelayMs;
+		
 		int currentTime = (int)OS.GetTicksMsec();
 		bool canShoot = (currentTime >= nextShotThreshold);
 
@@ -91,5 +102,13 @@ public class GunController : RigidBody2D
 
 		// Shoot bullet + start cooldown 
 		gameController.AddChild(bullet);
+	}
+
+	//Call in _PhysicsProcess so that the gun can continue a burst fire without Shoot() being called
+	public void UpdateBurst()
+	{
+		if(currentBulletInBurst != 0) {
+			Shoot(true);
+		}
 	}
 }

@@ -15,6 +15,7 @@ public partial class PlayerController : RigidBody2D
 	{
 		WASDMovement();
 		MouseRotation();
+		gun.UpdateBurst();
 
 		if (Input.IsActionPressed("ui_fire1"))
 			gun.Shoot();

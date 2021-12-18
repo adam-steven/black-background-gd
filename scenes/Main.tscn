@@ -11,3 +11,4 @@ script = ExtResource( 3 )
 position = Vector2( 960, 540 )
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
+bulletBurstAmount = 1
