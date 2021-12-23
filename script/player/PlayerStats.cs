@@ -16,10 +16,17 @@ public partial class PlayerController
     //Called by the bullet script to take damage / die
 	public void TakeDamage(int damage)
 	{
+		if(health <= 0) return;
+
 		health -= damage;
 		GD.Print("Player: " + health);
 
-		if(health <= 0)
-			this.QueueFree(); 
+		if(health <= 0) {
+			AnimationPlayer anim  = this.GetNode<AnimationPlayer>("AnimationPlayer");
+			anim.Connect("animation_finished", this, "DestorySelf");
+			anim.Play("PlayerDeath");
+		}	
 	}
+
+	private void DestorySelf(string animName) { this.QueueFree(); }
 }
