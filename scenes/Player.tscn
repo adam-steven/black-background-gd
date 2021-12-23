@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://images/base_block.png" type="Texture" id=1]
 [ext_resource path="res://script/player/PlayerController.cs" type="Script" id=2]
@@ -7,8 +7,8 @@
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 20, 20 )
 
-[sub_resource type="Animation" id=12]
-resource_name = "PlayerInit"
+[sub_resource type="Animation" id=2]
+resource_name = "PlayerDeath"
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:visible")
 tracks/0/interp = 1
@@ -16,14 +16,29 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray(  ),
-"transitions": PoolRealArray(  ),
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
 "update": 1,
-"values": [  ]
+"values": [ false, true, false, true, false, true ]
 }
 
-[sub_resource type="Animation" id=2]
-resource_name = "PlayerMoveTopInit"
+[sub_resource type="Animation" id=3]
+resource_name = "PlayerInit"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
+[sub_resource type="Animation" id=4]
 length = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:visible")
@@ -38,8 +53,7 @@ tracks/0/keys = {
 "values": [ false, false ]
 }
 
-[sub_resource type="Animation" id=3]
-resource_name = "Trigger"
+[sub_resource type="Animation" id=5]
 length = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:visible")
@@ -78,7 +92,7 @@ tracks/2/keys = {
 "values": [ Vector2( 0, -40 ), Vector2( 0, 0 ) ]
 }
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=6]
 length = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:visible")
@@ -93,8 +107,7 @@ tracks/0/keys = {
 "values": [ false ]
 }
 
-[sub_resource type="Animation" id=5]
-resource_name = "Trigger"
+[sub_resource type="Animation" id=7]
 length = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:visible")
@@ -133,7 +146,7 @@ tracks/2/keys = {
 "values": [ Vector2( 0, 40 ), Vector2( 0, 0 ) ]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=8]
 length = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:visible")
@@ -148,8 +161,7 @@ tracks/0/keys = {
 "values": [ false ]
 }
 
-[sub_resource type="Animation" id=7]
-resource_name = "Trigger"
+[sub_resource type="Animation" id=9]
 length = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:visible")
@@ -188,7 +200,7 @@ tracks/2/keys = {
 "values": [ Vector2( 40, 0 ), Vector2( 0, 0 ) ]
 }
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=10]
 length = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:visible")
@@ -203,8 +215,7 @@ tracks/0/keys = {
 "values": [ false ]
 }
 
-[sub_resource type="Animation" id=9]
-resource_name = "Trigger"
+[sub_resource type="Animation" id=11]
 length = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:visible")
@@ -243,7 +254,7 @@ tracks/2/keys = {
 "values": [ Vector2( -40, 0 ), Vector2( 0, 0 ) ]
 }
 
-[sub_resource type="Animation" id=10]
+[sub_resource type="Animation" id=12]
 length = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:visible")
@@ -258,7 +269,7 @@ tracks/0/keys = {
 "values": [ false ]
 }
 
-[sub_resource type="Animation" id=11]
+[sub_resource type="Animation" id=13]
 length = 0.2
 step = 0.05
 tracks/0/type = "value"
@@ -296,6 +307,7 @@ contact_monitor = true
 script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
+visible = false
 scale = Vector2( 2, 2 )
 texture = ExtResource( 1 )
 
@@ -303,7 +315,9 @@ texture = ExtResource( 1 )
 shape = SubResource( 1 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/PlayerInit = SubResource( 12 )
+autoplay = "PlayerInit"
+anims/PlayerDeath = SubResource( 2 )
+anims/PlayerInit = SubResource( 3 )
 
 [node name="Effects" type="Node2D" parent="."]
 
@@ -317,8 +331,8 @@ offset = Vector2( 0, -40 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Effects/Top"]
 autoplay = "PlayerMoveTopInit"
-anims/PlayerMoveTopInit = SubResource( 2 )
-anims/Trigger = SubResource( 3 )
+anims/PlayerMoveTopInit = SubResource( 4 )
+anims/Trigger = SubResource( 5 )
 
 [node name="Bottom" type="Node2D" parent="Effects"]
 
@@ -330,8 +344,8 @@ offset = Vector2( 0, 40 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Effects/Bottom"]
 autoplay = "PlayerMoveBottomInit"
-anims/PlayerMoveBottomInit = SubResource( 4 )
-anims/Trigger = SubResource( 5 )
+anims/PlayerMoveBottomInit = SubResource( 6 )
+anims/Trigger = SubResource( 7 )
 
 [node name="Right" type="Node2D" parent="Effects"]
 
@@ -343,8 +357,8 @@ offset = Vector2( 40, 0 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Effects/Right"]
 autoplay = "PlayerMoveRightInit"
-anims/PlayerMoveRightInit = SubResource( 6 )
-anims/Trigger = SubResource( 7 )
+anims/PlayerMoveRightInit = SubResource( 8 )
+anims/Trigger = SubResource( 9 )
 
 [node name="Left" type="Node2D" parent="Effects"]
 
@@ -356,8 +370,8 @@ offset = Vector2( -40, 0 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Effects/Left"]
 autoplay = "PlayerMoveLeftInit"
-anims/PlayerMoveLeftInit = SubResource( 8 )
-anims/Trigger = SubResource( 9 )
+anims/PlayerMoveLeftInit = SubResource( 10 )
+anims/Trigger = SubResource( 11 )
 
 [node name="Stop" type="Node2D" parent="Effects"]
 
@@ -369,7 +383,5 @@ texture = ExtResource( 3 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Effects/Stop"]
 autoplay = "PlayerMoveStopInit"
-anims/PlayerMoveStopInit = SubResource( 10 )
-anims/Trigger = SubResource( 11 )
-
-[connection signal="body_entered" from="." to="." method="_On_Player_Body_Entered"]
+anims/PlayerMoveStopInit = SubResource( 12 )
+anims/Trigger = SubResource( 13 )

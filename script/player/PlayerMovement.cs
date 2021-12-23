@@ -26,10 +26,10 @@ public partial class PlayerController
 	}
 
 	//When player collides with *any rigibody bounce
-	private void _On_Player_Body_Entered(object body)
+	private void _OnPlayerBodyEntered(Node body)
 	{
 		//Collided rigidbody stats  
-		Godot.Sprite hitBodySprint = ((Node)body).GetNode<Godot.Sprite>("Sprite");
+		Godot.Sprite hitBodySprint = body.GetNode<Godot.Sprite>("Sprite");
 		Vector2 hitCenter = hitBodySprint.GlobalPosition;
 		Vector2 hitScaleHalf = (hitBodySprint.GlobalScale/2f) * 20f; //Sprite scale is x20 smaller than global position (might change)    
 

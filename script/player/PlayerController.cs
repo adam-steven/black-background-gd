@@ -9,11 +9,14 @@ public partial class PlayerController : RigidBody2D
 	
 	public override void _Ready()
 	{
-		gun = new GunController(shotDelay, this, BulletOwner.PlayerController, noOfBullets, bulletStrength, bulletForce, bulletAccuracy, bulletBurstAmount, bulletTimeAlive); 
+		gun = new GunController(shotDelay, this, BulletOwner.PlayerController, noOfBullets, bulletStrength, bulletForce, bulletAccuracy, bulletBurstAmount, bulletTimeAlive);
+		this.Connect("body_entered", this, "_OnPlayerBodyEntered"); 
 	}
 
 	public override void _PhysicsProcess(float delta)
 	{
+		if(health <= 0) return;
+
 		WASDMovement();
 		MouseRotation();
 		gun.UpdateBurst();

@@ -35,7 +35,8 @@ public partial class EnemyController : RigidBody2D
 
 	public override void _PhysicsProcess(float delta)
 	{
-		if(!IsInstanceValid(player) || variantMethod == null) return;
+		if(!IsInstanceValid(player) || variantMethod == null || health <= 0) 
+			return;
 
 		variantMethod.Invoke(this, null);
 		gun.UpdateBurst();

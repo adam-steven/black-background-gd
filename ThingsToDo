@@ -16,11 +16,17 @@
 
 ------B-u-r-s-t--F-i-r-e------
 
-Death Effect
+------D-e-a-t-h--E-f-f-e-c-t------
 
 ------T-e-s-t-i-n-g--e-n-e-m-y------
 
 Enemy spawned
+
+Randomize enemy stats on spawn
+
+Levels
+
+Increase enemy stats each level
 
 Colours {
     User configurable
