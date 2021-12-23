@@ -1,6 +1,6 @@
 using Godot;
 
-public partial class PlayerController
+public partial class EnemyController
 {
     [Export] private int health = 100;
 	[Export] private float movementForce = 1000f;
@@ -17,7 +17,7 @@ public partial class PlayerController
 	public void TakeDamage(int damage)
 	{
 		health -= damage;
-		GD.Print("Player: " + health);
+		GD.Print("Enemy: " + health);
 
 		if(health <= 0)
 			this.QueueFree(); 

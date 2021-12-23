@@ -8,7 +8,17 @@
 
 ~Stop player slowing down if the go back and forth
 
-Testing enemy
+------S-e-t--d-a-m-a-g-e--o-n--b-u-l-l-e-t--b-a-s-e-d--o-n--"-S-t-r-e-n-g-t-h-"------
+
+------B-u-l-l-e-t--R-a-n-g-e------
+
+------M-u-l-t-i--S-h-o-t------
+
+------B-u-r-s-t--F-i-r-e------
+
+Death Effect
+
+------T-e-s-t-i-n-g--e-n-e-m-y------
 
 Enemy spawned
 
@@ -18,3 +28,4 @@ Colours {
     Rainbow, Contrast, White
 }
 
+REMEMBER: when decreasing shotDelay check if shotDelay is less than betweenBurstDelay
