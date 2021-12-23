@@ -7,5 +7,6 @@ public partial class EnemyController
     {
         FacePlayer();
         MoveInDirection(Vector2.Right);
+        gun.Shoot();
     }
 }

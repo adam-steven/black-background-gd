@@ -5,7 +5,8 @@ using static Enums;
 //Player acts as a bullet, movement done via impulse forces
 public partial class PlayerController : RigidBody2D
 {
-	GunController gun; 
+	private GunController gun; 
+	
 	public override void _Ready()
 	{
 		gun = new GunController(shotDelay, this, BulletOwner.PlayerController, noOfBullets, bulletStrength, bulletForce, bulletAccuracy, bulletBurstAmount, bulletTimeAlive); 

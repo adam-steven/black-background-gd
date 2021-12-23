@@ -57,13 +57,13 @@ public class GunController : RigidBody2D
 	{
 		if(!CanShoot(isBursting)) return;
 		
-		Godot.Sprite playerSprite = ownerNode.GetNode<Godot.Sprite>("Sprite");
+		Godot.Sprite ownerSprite = ownerNode.GetNode<Godot.Sprite>("Sprite");
 		Godot.Node2D gameController = ownerNode.GetParent<Godot.Node2D>();
 
 		//Loop for shotgun effect
 		for (int i = 0; i < noOfBullets; i++)
 		{
-			SpawnBullet(playerSprite, gameController);
+			SpawnBullet(ownerSprite, gameController);
 		}
 
 		currentBulletInBurst++;
@@ -84,14 +84,14 @@ public class GunController : RigidBody2D
     	return canShoot;
 	}
 
-	private void SpawnBullet(Godot.Sprite playerSprite, Godot.Node2D gameController) {
+	private void SpawnBullet(Godot.Sprite ownerSprite, Godot.Node2D gameController) {
 		Area2D bullet = (Area2D)bulletScene.Instance();
 		BulletController bulletCon = (BulletController)bullet;
 		float randomAccuracyDeviation = (float)((rnd.NextDouble() * bulletAccuracy) - (rnd.NextDouble() * bulletAccuracy));
 
 		// Access bullet properties
 		bullet.Position = ownerNode.Position;
-		bullet.Rotation = playerSprite.Rotation + randomAccuracyDeviation;
+		bullet.Rotation = ownerSprite.GlobalRotation + randomAccuracyDeviation;
 
 		// Access bullet script 
 		bulletCon.bOwner = bulletOwner;
