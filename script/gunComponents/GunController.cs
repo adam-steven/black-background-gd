@@ -53,16 +53,14 @@ public class GunController : RigidBody2D
 		this.shotDelay = shotDelay;
 	}
 
-	public void Shoot(bool isBursting = false)
-	{
+	public void Shoot(bool isBursting = false) {
 		if(!CanShoot(isBursting)) return;
 		
 		Godot.Sprite ownerSprite = ownerNode.GetNode<Godot.Sprite>("Sprite");
 		Godot.Node2D gameController = ownerNode.GetParent<Godot.Node2D>();
 
 		//Loop for shotgun effect
-		for (int i = 0; i < noOfBullets; i++)
-		{
+		for (int i = 0; i < noOfBullets; i++) {
 			SpawnBullet(ownerSprite, gameController);
 		}
 
@@ -105,8 +103,7 @@ public class GunController : RigidBody2D
 	}
 
 	//Call in _PhysicsProcess so that the gun can continue a burst fire without Shoot() being called
-	public void UpdateBurst()
-	{
+	public void UpdateBurst() {
 		if(currentBulletInBurst != 0) {
 			Shoot(true);
 		}

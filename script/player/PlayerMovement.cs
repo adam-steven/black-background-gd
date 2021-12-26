@@ -4,8 +4,7 @@ using System;
 public partial class PlayerController
 {
 	// Handels detection of WASD inputs to apply character force 
-	private void WASDMovement()
-	{
+	private void WASDMovement() {
 		if (Input.IsActionJustPressed("ui_left")) {
 			PushPlayer(Vector2.Left, "Right");
 		}
@@ -26,8 +25,7 @@ public partial class PlayerController
 	}
 
 	//When player collides with *any rigibody bounce
-	private void _OnPlayerBodyEntered(Node body)
-	{
+	private void _OnPlayerBodyEntered(Node body) {
 		//Collided rigidbody stats  
 		Godot.Sprite hitBodySprint = body.GetNode<Godot.Sprite>("Sprite");
 		Vector2 hitCenter = hitBodySprint.GlobalPosition;
@@ -48,13 +46,11 @@ public partial class PlayerController
 	//Verifies player center Axis is at the edge of a collided object same axis
 	//If so it returns 1 or -1 for a force to push the player away
 	//If no it returns 0
-	private int GetCollisionForceDirection(float playerAxisPos, float objectAxisPos, float objectAxisScale)
-	{
+	private int GetCollisionForceDirection(float playerAxisPos, float objectAxisPos, float objectAxisScale) {
 		float objectLowerPoint = objectAxisPos - objectAxisScale;
 		float objectUpperPoint = objectAxisPos + objectAxisScale;
 
-		if (playerAxisPos < objectLowerPoint || objectUpperPoint < playerAxisPos)
-		{
+		if (playerAxisPos < objectLowerPoint || objectUpperPoint < playerAxisPos) {
 			int direction = (int)(playerAxisPos - objectAxisPos);
 			return (direction / Math.Abs(direction));
 		}

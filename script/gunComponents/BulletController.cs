@@ -12,8 +12,7 @@ public class BulletController : Area2D
 	public int strength = 5;
 	public float timeAlive = 0; //The range the bullet can go before destroying itself
 
-	public override void _Ready()
-	{
+	public override void _Ready() {
 		float angle = this.Rotation;
 		closedMotion = new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle)) * movementForce;
 
@@ -26,13 +25,11 @@ public class BulletController : Area2D
 		}
 	}
 
-	public override void _Process(float delta)
-	{
+	public override void _Process(float delta) {
   		this.Position += (closedMotion + openMotion) * delta;
 	}
 	
-	private void _On_Bullet_Body_Entered(object body)
-	{
+	private void _On_Bullet_Body_Entered(object body) {
 		Type bodyType = body.GetType();
 
 		//if collision is made by owner return
@@ -46,8 +43,7 @@ public class BulletController : Area2D
 	}
 
 	//Delete self
-	private void DestroyBullet() 
-	{
+	private void DestroyBullet() {
 		this.QueueFree(); 
 	}
 }

@@ -14,8 +14,7 @@ public partial class EnemyController
 	[Export] private float bulletTimeAlive = 0; //Bullet Range (0 infinite)
 
     //Called by the bullet script to take damage / die
-	public void TakeDamage(int damage)
-	{
+	public void TakeDamage(int damage) {
 		if(health <= 0) return;
 		
 		health -= damage;
