@@ -3,6 +3,7 @@
 using Godot;
 using System;
 using System.Reflection;
+using System.Text.RegularExpressions;
 using static Enums;
 
 public partial class EnemyController : RigidBody2D
@@ -13,8 +14,7 @@ public partial class EnemyController : RigidBody2D
 	//enemy specific function
 	private MethodInfo variantMethod;
 
-	public override void _Ready()
-	{
+	public override void _Ready() {
 		Godot.Node2D gameController = this.GetParent<Godot.Node2D>();
 		player = gameController.GetNode<RigidBody2D>("Player");
 		gun = new GunController(shotDelay, this, BulletOwner.EnemyController, noOfBullets, bulletStrength, bulletForce, bulletAccuracy, bulletBurstAmount, bulletTimeAlive); 
@@ -22,7 +22,7 @@ public partial class EnemyController : RigidBody2D
 		// Calls the needed variant function based on the enemies name
 		// *Variant function must equal variant name
 		// *Variant function must be public
-		string variantFuncName = this.Name; 
+		string variantFuncName = Regex.Replace(this.Name, @"[^a-zA-Z]+", "").Trim(); 
 		Type thisType = this.GetType();
 		variantMethod = thisType.GetMethod(variantFuncName);
 
@@ -33,8 +33,7 @@ public partial class EnemyController : RigidBody2D
 		}
 	}
 
-	public override void _PhysicsProcess(float delta)
-	{
+	public override void _PhysicsProcess(float delta) {
 		if(!IsInstanceValid(player) || variantMethod == null || health <= 0) 
 			return;
 
@@ -42,19 +41,16 @@ public partial class EnemyController : RigidBody2D
 		gun.UpdateBurst();
 	}
 
-	private void FacePlayer() 
-	{
+	private void FacePlayer() {
 		this.LookAt(player.GlobalPosition); 
 	}
 
-	private void MoveInDirection(Vector2 _thrustDirection)
-	{
+	private void MoveInDirection(Vector2 _thrustDirection) {
 		Vector2 _thrust = _thrustDirection * movementForce;
 		SetAxisVelocity(_thrust.Rotated(Rotation));
 	}
 
-	private void PushInDirection(Vector2 _thrustDirection)
-	{
+	private void PushInDirection(Vector2 _thrustDirection) {
 		Vector2 _thrust = _thrustDirection * movementForce;
 		ApplyCentralImpulse(_thrust);
 	}

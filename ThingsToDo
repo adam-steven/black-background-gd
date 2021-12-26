@@ -20,13 +20,17 @@
 
 ------T-e-s-t-i-n-g--e-n-e-m-y------
 
-Enemy spawned
+------E-n-e-m-y--s-p-a-w-n-e-d------
 
 Randomize enemy stats on spawn
 
 Levels
 
 Increase enemy stats each level
+
+Upgrades
+
+Movement effect revamp
 
 Colours {
     User configurable
