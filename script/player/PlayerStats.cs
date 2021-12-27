@@ -17,9 +17,16 @@ public partial class PlayerController
 	public void TakeDamage(int damage) {
 		if(health <= 0) return;
 
+		//Decrease health
 		health -= damage;
 		GD.Print("Player: " + health);
 
+		//Update background colour based on health
+		Godot.Node2D gameController = this.GetParent<Godot.Node2D>();
+		GameController controllerScript = (GameController)gameController;
+		controllerScript.UpdateBackgroundColor(health);
+
+		//Kill player if health is 0
 		if(health <= 0) {
 			AnimationPlayer anim  = this.GetNode<AnimationPlayer>("AnimationPlayer");
 			anim.Connect("animation_finished", this, "DestorySelf");
