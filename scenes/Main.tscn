@@ -11,3 +11,8 @@ script = ExtResource( 3 )
 position = Vector2( 960, 540 )
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
+health = 10
+shotDelay = 0.1
+noOfBullets = 100
+bulletStrength = 100
+bulletAccuracy = 10.0

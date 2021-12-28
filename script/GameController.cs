@@ -5,19 +5,48 @@ public class GameController : Node2D
 {
     Random rnd = new Random();
 
+	private int level = 0;
+	private int numberOfWaves = 0;
+
+	private int enemySpawnMin = 0;
+	private int enemySpawnMax = 2;
+	private int noOfEnemies = 0;
+	
 	public override void _Ready() {
-		SpawnEnemies();
+		CheckIfEnemies();
 	}
 
 	// public override void _Process(float delta) {}
 
+	//If the last enemy is dying spawn next way
+	public void CheckIfEnemies() {
+		noOfEnemies--;
+		if(noOfEnemies <= 0) {
+
+			numberOfWaves--;
+			if(numberOfWaves < 0) {
+				level++;
+				numberOfWaves = level + 2;
+
+				//Slowly increase the number of enemies each wave
+				if(level%2 == 0) enemySpawnMax++; 
+				else enemySpawnMin++;
+			}
+
+			GD.Print("Level: " + level + 
+					" Wave: " + numberOfWaves + 
+					" Boss: " + (numberOfWaves == 0));
+			SpawnEnemies(numberOfWaves == 0); //Bosses at level 0
+		}
+	}
+
 	private void SpawnEnemies(bool isBoss = false) {
-		if(isBoss) return;
+		//if(isBoss) return;
 
 		Vector2 levelCenter = this.GetNode<Godot.Node2D>("Level").GlobalPosition;
 		Vector2 levelSize = new Vector2(460, 460); //spawnable level radius (half of full dimentions)
 
-		int noOfEnemies = 1;
+		noOfEnemies = rnd.Next(enemySpawnMin, enemySpawnMax + 1);
 		for (int i = 0; i < noOfEnemies; i++) {
 			PackedScene spawnerScene = (PackedScene)GD.Load("res://scenes/enemies/Spawner.tscn");
 			Godot.Position2D spawner = (Godot.Position2D)spawnerScene.Instance();
