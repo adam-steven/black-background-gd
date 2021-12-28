@@ -24,11 +24,11 @@
 
 Randomize enemy stats on spawn
 
-Levels
-
-Increase enemy stats each level
-
-Upgrades (when selecting upgrades show player stats and max enemy stats. Upgrade enemies at the same time).
+Levels {
+    ------e-n-e-m-y--w-a-v-e-s------
+    boss wave after x waves 
+    upgrades after boss and at start (when selecting upgrades show player stats and max enemy stats. Upgrade enemies at the same time).
+}
 
 Movement effect revamp
 
@@ -41,3 +41,4 @@ Colours {
 }
 
 REMEMBER: when decreasing shotDelay check if shotDelay is less than betweenBurstDelay
+REMEMBER: enemies should no shoot instantly on spawn

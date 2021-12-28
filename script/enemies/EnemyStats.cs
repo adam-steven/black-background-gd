@@ -27,5 +27,11 @@ public partial class EnemyController
 		}	
 	}
 
-	private void DestorySelf(string animName) { this.QueueFree(); }
+	private void DestorySelf(string animName = "") {
+		Godot.Node2D gameController = this.GetParent<Godot.Node2D>();
+		GameController controllerScript = (GameController)gameController;
+		controllerScript.CheckIfEnemies();
+
+		this.QueueFree();
+	}
 }

@@ -16,7 +16,7 @@ public partial class EnemyController : RigidBody2D
 
 	public override void _Ready() {
 		Godot.Node2D gameController = this.GetParent<Godot.Node2D>();
-		player = gameController.GetNode<RigidBody2D>("Player");
+		player = gameController.GetNodeOrNull<RigidBody2D>("Player");
 		gun = new GunController(shotDelay, this, BulletOwner.EnemyController, noOfBullets, bulletStrength, bulletForce, bulletAccuracy, bulletBurstAmount, bulletTimeAlive); 
 
 		// Calls the needed variant function based on the enemies name
@@ -29,7 +29,7 @@ public partial class EnemyController : RigidBody2D
 		//if variant function not found delete bugged enemy 
 		if(variantMethod == null) {
 			GD.Print("no enemy script: " + variantFuncName);
-			this.QueueFree();
+			DestorySelf();
 		}
 	}
 
