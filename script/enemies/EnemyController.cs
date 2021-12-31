@@ -10,6 +10,7 @@ public partial class EnemyController : RigidBody2D
 {
 	private GunController gun; 
 	private RigidBody2D player;
+	private EntityStats stats;
 
 	//enemy specific function
 	private MethodInfo variantMethod;
@@ -17,7 +18,11 @@ public partial class EnemyController : RigidBody2D
 	public override void _Ready() {
 		Godot.Node2D gameController = this.GetParent<Godot.Node2D>();
 		player = gameController.GetNodeOrNull<RigidBody2D>("Player");
-		gun = new GunController(shotDelay, this, BulletOwner.EnemyController, noOfBullets, bulletStrength, bulletForce, bulletAccuracy, bulletBurstAmount, bulletTimeAlive); 
+
+		Node2D thisStats = this.GetNodeOrNull<Node2D>("Stats");
+        stats = (EntityStats)thisStats;
+
+		gun = new GunController(this, BulletOwner.EnemyController, stats); 
 
 		// Calls the needed variant function based on the enemies name
 		// *Variant function must equal variant name
@@ -34,7 +39,7 @@ public partial class EnemyController : RigidBody2D
 	}
 
 	public override void _PhysicsProcess(float delta) {
-		if(!IsInstanceValid(player) || variantMethod == null || health <= 0) 
+		if(!IsInstanceValid(player) || variantMethod == null || stats.health <= 0) 
 			return;
 
 		variantMethod.Invoke(this, null);
@@ -46,12 +51,12 @@ public partial class EnemyController : RigidBody2D
 	}
 
 	private void MoveInDirection(Vector2 _thrustDirection) {
-		Vector2 _thrust = _thrustDirection * movementForce;
+		Vector2 _thrust = _thrustDirection * stats.movementForce;
 		SetAxisVelocity(_thrust.Rotated(Rotation));
 	}
 
 	private void PushInDirection(Vector2 _thrustDirection) {
-		Vector2 _thrust = _thrustDirection * movementForce;
+		Vector2 _thrust = _thrustDirection * stats.movementForce;
 		ApplyCentralImpulse(_thrust);
 	}
 }

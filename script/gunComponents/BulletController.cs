@@ -16,13 +16,13 @@ public class BulletController : Area2D
 		float angle = this.Rotation;
 		closedMotion = new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle)) * movementForce;
 
-		if(timeAlive > 0) 
-		{
-			Timer deathTimer = this.GetNode<Timer>("Timer");
-			deathTimer.WaitTime = timeAlive;
-			deathTimer.Connect("timeout", this, "DestroyBullet");
-			deathTimer.Start();
-		}
+		if(timeAlive <= 0) 
+			timeAlive = 0.05f;
+		
+		Timer deathTimer = this.GetNode<Timer>("Timer");
+		deathTimer.WaitTime = timeAlive;
+		deathTimer.Connect("timeout", this, "DestroyBullet");
+		deathTimer.Start();
 	}
 
 	public override void _Process(float delta) {

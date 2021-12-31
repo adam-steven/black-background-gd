@@ -1,0 +1,96 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://fonts/Teko-SemiBold.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://script/upgrades/StatUpgrade.cs" type="Script" id=2]
+[ext_resource path="res://scenes/misc/EntityStats.tscn" type="PackedScene" id=3]
+
+[sub_resource type="DynamicFont" id=1]
+size = 60
+use_filter = true
+font_data = ExtResource( 1 )
+
+[sub_resource type="RectangleShape2D" id=2]
+
+[sub_resource type="Animation" id=3]
+resource_name = "UpgradeDeselected"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1.2, 1.2 ), Vector2( 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "UpgradeInit"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "UpgradeSelected"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1.2, 1.2 ) ]
+}
+
+[node name="Sniper" type="Area2D"]
+script = ExtResource( 2 )
+
+[node name="Label" type="Label" parent="."]
+margin_left = -85.0
+margin_top = -45.0
+margin_right = 85.0
+margin_bottom = 45.0
+custom_fonts/font = SubResource( 1 )
+text = "sniper"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2( 8, 2 )
+shape = SubResource( 2 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "UpgradeInit"
+anims/UpgradeDeselected = SubResource( 3 )
+anims/UpgradeInit = SubResource( 4 )
+anims/UpgradeSelected = SubResource( 5 )
+
+[node name="Stats" parent="." instance=ExtResource( 3 )]
+health = 0
+movementForce = 0.0
+shotDelay = 0.2
+noOfBullets = 0
+bulletForce = 200.0
+bulletStrength = 0
+bulletAccuracy = -0.1
+bulletTimeAlive = 0.05

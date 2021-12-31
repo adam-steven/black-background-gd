@@ -85,6 +85,7 @@ tracks/2/keys = {
 [node name="Level" type="Node2D"]
 
 [node name="Room" type="Position2D" parent="."]
+scale = Vector2( 1.07, 1.07 )
 
 [node name="Top" type="RigidBody2D" parent="Room"]
 position = Vector2( 0, -510 )

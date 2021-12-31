@@ -61,12 +61,12 @@ public partial class PlayerController
 	//-- Movement Forces --
 
 	private void PushPlayer(Vector2 _thrustDirection) {
-		Vector2 _thrust = _thrustDirection * movementForce;
+		Vector2 _thrust = _thrustDirection * stats.movementForce;
 		ApplyCentralImpulse(_thrust);
     }
 
     private void PushPlayer(Vector2 _thrustDirection, string effectDirection) {
-		Vector2 _thrust = _thrustDirection * movementForce;
+		Vector2 _thrust = _thrustDirection * stats.movementForce;
 		ApplyCentralImpulse(_thrust);
 		PlayEffect(effectDirection);
     }
