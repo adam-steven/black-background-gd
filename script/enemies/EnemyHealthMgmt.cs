@@ -10,8 +10,10 @@ public partial class EnemyController
 		stats.health -= damage;
 		GD.Print("Enemy: " + stats.health);
 
+		AnimationPlayer anim  = this.GetNode<AnimationPlayer>("AnimationPlayer");
+		anim.Play("EnemyHit");
+
 		if(stats.health <= 0) {
-			AnimationPlayer anim  = this.GetNode<AnimationPlayer>("AnimationPlayer");
 			anim.Connect("animation_finished", this, "DestorySelf");
 			anim.Play("EnemyDeath");
 		}	
