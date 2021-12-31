@@ -27,10 +27,20 @@ Randomize enemy stats on spawn
 Levels {
     ------e-n-e-m-y--w-a-v-e-s------
     boss wave after x waves 
-    upgrades after boss and at start (when selecting upgrades show player stats and max enemy stats. Upgrade enemies at the same time).
+    ------u-p-g-r-a-d-e-s--a-f-t-e-r--b-o-s-s--a-n-d-a-t--s-t-a-r-t------
 }
 
+Damage effect
+
+Stopping gives eye frames
+
 Movement effect revamp
+
+Upgrade enemies at the same time as player (more upgrades over time)
+
+~Upgrades bought use score as currency 
+
+Stat limits
 
 ------b-a-c-k-g-r-o-u-n-d--t-u-r-n-s--s-l-i-g-h-t-l-y--r-e-d--a-t--l-o-w--h-e-a-l-t-h------
 
@@ -40,5 +50,6 @@ Colours {
     Rainbow, Contrast, White
 }
 
-REMEMBER: when decreasing shotDelay check if shotDelay is less than betweenBurstDelay
+Rework starting stats and upgrade values
+
 REMEMBER: enemies should no shoot instantly on spawn

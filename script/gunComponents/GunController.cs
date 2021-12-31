@@ -7,23 +7,15 @@ public class GunController : RigidBody2D
 	Random rnd = new Random();
 
 	private PackedScene bulletScene;
-	private bool canShoot = true;
 	private RigidBody2D ownerNode;
 	private BulletOwner bulletOwner;
-	
-	private int noOfBullets;
-	private int bulletStrength;
-	private float bulletForce;
-	private float bulletAccuracy;
-	private float bulletAliveTime;
+	private EntityStats stats;
+
+    private int timeLastShot = 0;
 
 	//If currentBulletInBurst < bulletBurstAmount the fire rate is halfed
 	private int currentBulletInBurst;
-	private int bulletBurstAmount;
 	private float betweenBurstDelay = 0.2f;
-
-	private float shotDelay;
-    private int timeLastShot = 0;
 
 	///<summary> 
 	///		Allows nodes to shoot bullets form there body.
@@ -31,26 +23,14 @@ public class GunController : RigidBody2D
 	///			Child Sprite Node,
 	///</summary>
 	public GunController(
-		float shotDelay, 
 		RigidBody2D ownerNode, 
 		BulletOwner bulletOwner, 
-		int noOfBullets, 
-		int bulletStrength, 
-		float bulletForce, 
-		float bulletAccuracy, 
-		int bulletBurstAmount, 
-		float bulletAliveTime) 
-	{
-		this.bulletScene = (PackedScene)GD.Load("res://scenes/Bullet.tscn");
+		EntityStats stats
+	){
+		this.bulletScene = (PackedScene)GD.Load("res://scenes/misc/Bullet.tscn");
 		this.ownerNode = ownerNode;
 		this.bulletOwner =  bulletOwner;
-		this.noOfBullets = noOfBullets;
-		this.bulletStrength = bulletStrength;
-		this.bulletForce = bulletForce;
-		this.bulletAccuracy = bulletAccuracy;
-		this.bulletBurstAmount = bulletBurstAmount;
-		this.bulletAliveTime = bulletAliveTime;
-		this.shotDelay = shotDelay;
+		this.stats = stats;
 	}
 
 	public void Shoot(bool isBursting = false) {
@@ -60,18 +40,21 @@ public class GunController : RigidBody2D
 		Godot.Node2D gameController = ownerNode.GetParent<Godot.Node2D>();
 
 		//Loop for shotgun effect
-		for (int i = 0; i < noOfBullets; i++) {
+		for (int i = 0; i < stats.noOfBullets; i++) {
 			SpawnBullet(ownerSprite, gameController);
 		}
 
 		currentBulletInBurst++;
-		if(currentBulletInBurst > bulletBurstAmount) currentBulletInBurst = 0;
+		if(currentBulletInBurst > stats.bulletBurstAmount) currentBulletInBurst = 0;
 	}
 
 	//Checks if the threshold amount of time has passed since the last shot
 	//isBursting = true lowers the nextShotThreshold
 	private bool CanShoot(bool isBursting = false) {
-		int shotDelayMs = (int)( (!isBursting ? shotDelay : betweenBurstDelay) * 1000 );
+		//Make sure the burst is always faster than normal shots
+		betweenBurstDelay = (stats.shotDelay < betweenBurstDelay) ? stats.shotDelay/2f : 0.2f;
+
+		int shotDelayMs = (int)( (!isBursting ? stats.shotDelay : betweenBurstDelay) * 1000 );
 		int nextShotThreshold = timeLastShot + shotDelayMs;
 		
 		int currentTime = (int)OS.GetTicksMsec();
@@ -85,7 +68,7 @@ public class GunController : RigidBody2D
 	private void SpawnBullet(Godot.Sprite ownerSprite, Godot.Node2D gameController) {
 		Area2D bullet = (Area2D)bulletScene.Instance();
 		BulletController bulletCon = (BulletController)bullet;
-		float randomAccuracyDeviation = (float)((rnd.NextDouble() * bulletAccuracy) - (rnd.NextDouble() * bulletAccuracy));
+		float randomAccuracyDeviation = (float)((rnd.NextDouble() * stats.bulletAccuracy) - (rnd.NextDouble() * stats.bulletAccuracy));
 
 		// Access bullet properties
 		bullet.Position = ownerNode.Position;
@@ -94,9 +77,9 @@ public class GunController : RigidBody2D
 		// Access bullet script 
 		bulletCon.bOwner = bulletOwner;
 		bulletCon.openMotion = ownerNode.LinearVelocity/2f;
-		bulletCon.strength = bulletStrength;
-		bulletCon.movementForce = bulletForce;
-		bulletCon.timeAlive = bulletAliveTime;
+		bulletCon.strength = stats.bulletStrength;
+		bulletCon.movementForce = stats.bulletForce;
+		bulletCon.timeAlive = stats.bulletTimeAlive;
 
 		// Shoot bullet + start cooldown 
 		gameController.AddChild(bullet);
