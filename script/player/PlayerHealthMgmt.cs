@@ -3,9 +3,11 @@ using Godot;
 
 public partial class PlayerController
 {
+	private bool invincible = false;
+
     //Called by the bullet script to take damage / die
 	public void TakeDamage(int damage) {
-		if(stats.health <= 0) return;
+		if(stats.health <= 0 || invincible) return;
 
 		//Decrease health
 		stats.health -= damage;

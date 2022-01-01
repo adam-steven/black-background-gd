@@ -13,7 +13,9 @@ public partial class PlayerController : RigidBody2D
         stats = (EntityStats)thisStats;
 
 		gun = new GunController(this, BulletOwner.PlayerController, stats);
-		this.Connect("body_entered", this, "_OnPlayerBodyEntered"); 
+		this.Connect("body_entered", this, "_OnPlayerBodyEntered");
+
+		connectAnimEndSignal("Stop", "StopIFramesEnd"); 
 	}
 
 	public override void _PhysicsProcess(float delta) {
