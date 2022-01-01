@@ -72,6 +72,7 @@ public partial class PlayerController
     }
 
     private void StopPlayer() {
+		invincible = true;
         this.LinearVelocity = Vector2.Zero;
 		PlayEffect("Stop");
     }
@@ -84,5 +85,16 @@ public partial class PlayerController
 		AnimationPlayer anim  = directionNode.GetNode<AnimationPlayer>("AnimationPlayer");
 
 		anim.Play("Trigger");
+	}
+
+	private void connectAnimEndSignal(string effectNodeName, string endFunction) {
+		Godot.Node2D effectNode = this.GetNode<Godot.Node2D>("Effects");
+		Godot.Node2D directionNode = effectNode.GetNode<Godot.Node2D>(effectNodeName);
+		AnimationPlayer anim  = directionNode.GetNode<AnimationPlayer>("AnimationPlayer");
+		anim.Connect("animation_finished", this, endFunction);
+	}
+
+	private void StopIFramesEnd(string animName){
+		invincible = false;
 	}
 }
