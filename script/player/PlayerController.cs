@@ -10,7 +10,7 @@ public partial class PlayerController : RigidBody2D
 	
 	public override void _Ready() {
 		Node2D thisStats = this.GetNodeOrNull<Node2D>("Stats");
-        stats = (EntityStats)thisStats;
+		stats = (EntityStats)thisStats;
 
 		gun = new GunController(this, BulletOwner.PlayerController, stats);
 		this.Connect("body_entered", this, "_OnPlayerBodyEntered");

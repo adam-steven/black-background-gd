@@ -2,10 +2,10 @@ using Godot;
 
 public class EntityStats : Node2D
 {
-    [Export] public int health = 100;
+	[Export] public int health = 100;
 	[Export] public float movementForce = 1000f;
 
-    [Export] public float shotDelay = 1;
+	[Export] public float shotDelay = 1;
 	[Export] public int noOfBullets = 1; //Number of bullets fired at once (Shotgun effect)
 	[Export] public float bulletForce = 3000; //Bullet's speed
 	[Export] public int bulletStrength = 10; //Amount of damage the bullet does

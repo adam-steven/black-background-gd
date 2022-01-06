@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class GameController : Node2D
 {
-    Random rnd = new Random();
+	Random rnd = new Random();
 
 	Vector2 levelCenter;
 	Vector2 levelSize = new Vector2(460, 460); //spawnable level radius (half of full dimentions)

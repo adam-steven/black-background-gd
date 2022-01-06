@@ -3,61 +3,61 @@ using System;
 
 public class StatUpgrade : Area2D
 {    
-    private EntityStats stats;
-    private bool objectSelected = false;
-    GameController gameControlScript;
+	private EntityStats stats;
+	private bool objectSelected = false;
+	GameController gameControlScript;
 
-    public override void _Ready() {
-        Node2D thisStats = this.GetNodeOrNull<Node2D>("Stats");
-        stats = (EntityStats)thisStats;
+	public override void _Ready() {
+		Node2D thisStats = this.GetNodeOrNull<Node2D>("Stats");
+		stats = (EntityStats)thisStats;
 
-        this.Connect("mouse_entered", this, "MouseEntered");
-        this.Connect("mouse_exited", this, "MouseExited");
+		this.Connect("mouse_entered", this, "MouseEntered");
+		this.Connect("mouse_exited", this, "MouseExited");
 
-        Godot.Node2D gameController = this.GetParent<Godot.Node2D>();
-        gameControlScript = (GameController)gameController;
-        gameController.Connect("upgrading_finished", this, "DeleteSelf");
-    }
-
-    public override void _Process(float delta) {
-        if (Input.IsActionPressed("ui_select") && objectSelected){
-            Godot.Node2D gameController = this.GetParent<Godot.Node2D>();
-		    RigidBody2D player = gameController.GetNodeOrNull<RigidBody2D>("Player");
-            Node2D playerStats = player.GetNodeOrNull<Node2D>("Stats");
-
-            if(IsInstanceValid(playerStats)) {
-                EntityStats pStats = (EntityStats)playerStats;
-
-                pStats.health += stats.health;
-                pStats.movementForce += stats.movementForce;
-                
-                pStats.shotDelay += stats.shotDelay; 
-                pStats.noOfBullets += stats.noOfBullets;
-                pStats.bulletForce += stats.bulletForce; 
-                pStats.bulletStrength += stats.bulletStrength; 
-                pStats.bulletAccuracy += stats.bulletAccuracy; 
-                pStats.bulletBurstAmount += stats.bulletBurstAmount; 
-                pStats.bulletTimeAlive += stats.bulletTimeAlive;
-            }
-
-            gameControlScript.FinishedUpgrading();
-            DeleteSelf();
-        }	
+		Godot.Node2D gameController = this.GetParent<Godot.Node2D>();
+		gameControlScript = (GameController)gameController;
+		gameController.Connect("upgrading_finished", this, "DeleteSelf");
 	}
 
-    private void MouseEntered() {
-        AnimationPlayer anim  = this.GetNode<AnimationPlayer>("AnimationPlayer");
+	public override void _Process(float delta) {
+		if (Input.IsActionPressed("ui_select") && objectSelected){
+			Godot.Node2D gameController = this.GetParent<Godot.Node2D>();
+			RigidBody2D player = gameController.GetNodeOrNull<RigidBody2D>("Player");
+			Node2D playerStats = player.GetNodeOrNull<Node2D>("Stats");
+
+			if(IsInstanceValid(playerStats)) {
+				EntityStats pStats = (EntityStats)playerStats;
+
+				pStats.health += stats.health;
+				pStats.movementForce += stats.movementForce;
+				
+				pStats.shotDelay += stats.shotDelay; 
+				pStats.noOfBullets += stats.noOfBullets;
+				pStats.bulletForce += stats.bulletForce; 
+				pStats.bulletStrength += stats.bulletStrength; 
+				pStats.bulletAccuracy += stats.bulletAccuracy; 
+				pStats.bulletBurstAmount += stats.bulletBurstAmount; 
+				pStats.bulletTimeAlive += stats.bulletTimeAlive;
+			}
+
+			gameControlScript.FinishedUpgrading();
+			DeleteSelf();
+		}	
+	}
+
+	private void MouseEntered() {
+		AnimationPlayer anim  = this.GetNode<AnimationPlayer>("AnimationPlayer");
 		anim.Play("UpgradeSelected");
-        objectSelected = true;
-    }
+		objectSelected = true;
+	}
 
-    private void MouseExited() {
-        AnimationPlayer anim  = this.GetNode<AnimationPlayer>("AnimationPlayer");
+	private void MouseExited() {
+		AnimationPlayer anim  = this.GetNode<AnimationPlayer>("AnimationPlayer");
 		anim.Play("UpgradeDeselected");
-        objectSelected = false;
-    }
+		objectSelected = false;
+	}
 
-    private void DeleteSelf() {
-        this.QueueFree();
-    }
+	private void DeleteSelf() {
+		this.QueueFree();
+	}
 }
