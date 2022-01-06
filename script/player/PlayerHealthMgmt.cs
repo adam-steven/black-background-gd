@@ -1,4 +1,5 @@
 //Stat and stat management 
+using System;
 using Godot;
 
 public partial class PlayerController
@@ -7,7 +8,17 @@ public partial class PlayerController
 
     //Called by the bullet script to take damage / die
 	public void TakeDamage(int damage) {
-		if(stats.health <= 0 || invincible) return;
+		//Indicate that no damage was taken (+ health gained) by playing all movement effects
+		if(invincible) {
+			PlayEffect("Right");
+			PlayEffect("Left");
+			PlayEffect("Bottom");
+			PlayEffect("Top");
+			stats.health += damage/2;
+			return;
+		}
+
+		if(stats.health <= 0) return;
 
 		//Decrease health
 		stats.health -= damage;

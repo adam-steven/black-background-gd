@@ -25,18 +25,21 @@
 Randomize enemy stats on spawn
 
 Levels {
+    dodge section before enemies 
     ------e-n-e-m-y--w-a-v-e-s------
     boss wave after x waves 
     ------u-p-g-r-a-d-e-s--a-f-t-e-r--b-o-s-s--a-n-d-a-t--s-t-a-r-t------
+
+    transparent background text to indicate the current level section
 }
 
 ------D-a-m-a-g-e--e-f-f-e-c-t------
 
 ------S-t-o-p-p-i-n-g--g-i-v-e-s--e-y-e--f-r-a-m-e-s------
 
-Movement effect revamp
+split enemy folders up into different levels
 
-Upgrade enemies at the same time as player (more upgrades over time)
+------M-o-v-e-m-e-n-t--e-f-f-e-c-t--r-e-v-a-m-p------
 
 ~Upgrades bought use score as currency 
 

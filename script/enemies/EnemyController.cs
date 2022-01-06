@@ -20,7 +20,7 @@ public partial class EnemyController : RigidBody2D
 		player = gameController.GetNodeOrNull<RigidBody2D>("Player");
 
 		Node2D thisStats = this.GetNodeOrNull<Node2D>("Stats");
-        stats = (EntityStats)thisStats;
+		stats = (EntityStats)thisStats;
 
 		gun = new GunController(this, BulletOwner.EnemyController, stats); 
 
