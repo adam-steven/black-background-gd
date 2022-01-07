@@ -35,6 +35,7 @@ anims/BulletSpawnAnim = SubResource( 1 )
 [node name="Stats" parent="." instance=ExtResource( 3 )]
 health = 0
 movementForce = 0.0
+shotDelay = 2.0
 bulletAccuracy = 0.0
 bulletTimeAlive = 1.0
 

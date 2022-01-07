@@ -16,12 +16,18 @@ public class GameController : Node2D
 	private int enemySpawnMax = 2;
 	private int noOfEnemies = 0;
 
+	string enemySpawnerFolder = "res://scenes/misc/EnemySpawner.tscn";
+
+	string obstaclesFolder = "res://scenes/obstacles/";
+	List<string> obstacles; //paths to obstical scenes (dodge section)
+
 	string upgradesFolder = "res://scenes/upgrades/";
 	List<string> upgrades; //paths to upgrade scenes
 	
 	public override void _Ready() {
 		levelCenter = this.GetNode<Godot.Node2D>("Level").GlobalPosition;
 		upgrades = FileManager.GetScenes(upgradesFolder);
+		obstacles = FileManager.GetScenes(obstaclesFolder);
 		CheckIfEnemies();
 	}
 
@@ -40,7 +46,7 @@ public class GameController : Node2D
 		numberOfWaves--;
 		if(numberOfWaves < -1) {
 			level++;
-			numberOfWaves = level + 2;
+			numberOfWaves = (level + 2) * 2;
 
 			//Slowly increase the number of enemies each wave
 			if(level%2 == 0) { enemySpawnMax++; } 
@@ -49,15 +55,32 @@ public class GameController : Node2D
 
 		GD.Print("Level: " + level + " Wave: " + numberOfWaves);
 
-		if (numberOfWaves > 0) { SpawnEnemies(); }
+		if (numberOfWaves > level + 2) { SpawnObstacles(); }
+		else if (numberOfWaves > 0) { SpawnEnemies(); }
 		else if (numberOfWaves == 0) { SpawnBoss(); } 
 		else { SpawnUpgrades(); } 
+	}
+
+	private void SpawnObstacles() {
+		noOfEnemies = rnd.Next(enemySpawnMin, enemySpawnMax + 2);
+		for (int i = 0; i < noOfEnemies; i++) {
+			string randomObstacles = obstacles[rnd.Next(obstacles.Count)];
+			PackedScene obstacleScene = (PackedScene)GD.Load(obstaclesFolder + randomObstacles);
+			Godot.RigidBody2D obstacle = (Godot.RigidBody2D)obstacleScene.Instance();
+
+			int spawnPosX = rnd.Next((int)-levelSize.x, (int)levelSize.x);
+			int spawnPosY = rnd.Next((int)-levelSize.y, (int)levelSize.y);
+			Vector2 spawnPosition = new Vector2(spawnPosX, spawnPosY) + levelCenter;
+			obstacle.GlobalPosition = spawnPosition;
+
+			this.AddChild(obstacle);
+		}
 	}
 
 	private void SpawnEnemies() {
 		noOfEnemies = rnd.Next(enemySpawnMin, enemySpawnMax + 1);
 		for (int i = 0; i < noOfEnemies; i++) {
-			PackedScene spawnerScene = (PackedScene)GD.Load("res://scenes/misc/EnemySpawner.tscn");
+			PackedScene spawnerScene = (PackedScene)GD.Load(enemySpawnerFolder);
 			Godot.Position2D spawner = (Godot.Position2D)spawnerScene.Instance();
 
 			int spawnPosX = rnd.Next((int)-levelSize.x, (int)levelSize.x);

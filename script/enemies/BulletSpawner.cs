@@ -1,9 +1,13 @@
+using System;
 using Godot;
 using static Enums;
 
 public class BulletSpawner : RigidBody2D
 {
-	[Export] float spawnSpeedModifier = 1f; //(1 * spawnSpeedModifier) = speed of the animation;
+	Random rnd = new Random();
+
+	private float spawnSpeedModifier;
+	private EntityStats stats;
 	private RigidBody2D player;
 	private GunController gun;
 	
@@ -14,6 +18,8 @@ public class BulletSpawner : RigidBody2D
 
 		Node2D thisStats = this.GetNodeOrNull<Node2D>("Stats");
 		EntityStats stats = (EntityStats)thisStats;
+
+		spawnSpeedModifier = stats.shotDelay / rnd.Next(1, 3);
 
 		gun = new GunController(this, BulletOwner.EnemyController, stats); 
 
@@ -34,6 +40,11 @@ public class BulletSpawner : RigidBody2D
 
 	private void ShootBullet(string animName) { 
 		gun.Shoot();
+
+		Godot.Node2D gameController = this.GetParent<Godot.Node2D>();
+		GameController controllerScript = (GameController)gameController;
+		controllerScript.CheckIfEnemies();
+
 		this.QueueFree(); 
 	}
 }
