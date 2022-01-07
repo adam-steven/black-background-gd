@@ -25,7 +25,7 @@
 Randomize enemy stats on spawn
 
 Levels {
-    dodge section before enemies 
+    ------d-o-d-g-e--s-e-c-t-i-o-n--b-e-f-o-r-e--e-n-e-m-i-e-s------ 
     ------e-n-e-m-y--w-a-v-e-s------
     boss wave after x waves 
     ------u-p-g-r-a-d-e-s--a-f-t-e-r--b-o-s-s--a-n-d-a-t--s-t-a-r-t------
@@ -53,6 +53,12 @@ Colours {
     Rainbow, Contrast, White
 }
 
-Rework starting stats and upgrade values
+Rework starting stats and upgrade values (slow everything down)
+
+Start Menus
+
+Pause screen
+
+Death screen
 
 REMEMBER: enemies should no shoot instantly on spawn

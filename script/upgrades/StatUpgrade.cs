@@ -20,7 +20,7 @@ public class StatUpgrade : Area2D
 	}
 
 	public override void _Process(float delta) {
-		if (Input.IsActionPressed("ui_select") && objectSelected){
+		if (Input.IsActionJustPressed("ui_select") && objectSelected){
 			Godot.Node2D gameController = this.GetParent<Godot.Node2D>();
 			RigidBody2D player = gameController.GetNodeOrNull<RigidBody2D>("Player");
 			Node2D playerStats = player.GetNodeOrNull<Node2D>("Stats");
