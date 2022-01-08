@@ -38,6 +38,9 @@ public class StatUpgrade : Area2D
 				pStats.bulletAccuracy += stats.bulletAccuracy; 
 				pStats.bulletBurstAmount += stats.bulletBurstAmount; 
 				pStats.bulletTimeAlive += stats.bulletTimeAlive;
+
+				//Update the background colour just incase its no longer in the red
+				gameControlScript.UpdateBackgroundColor(pStats.health);
 			}
 
 			gameControlScript.FinishedUpgrading();
