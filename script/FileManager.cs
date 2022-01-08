@@ -17,7 +17,6 @@ public static class FileManager
             if(!file.EndsWith(".tscn")) continue;
 		
 			files.Add(file);
-			GD.Print(file);
 		}
 	
 		dir.ListDirEnd();
