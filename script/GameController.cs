@@ -6,6 +6,7 @@ public class GameController : Node2D
 {
 	Random rnd = new Random();
 
+	Godot.Node2D levelNode;
 	Vector2 levelCenter;
 	Vector2 levelSize = new Vector2(460, 460); //spawnable level radius (half of full dimentions)
 
@@ -25,7 +26,8 @@ public class GameController : Node2D
 	List<string> upgrades; //paths to upgrade scenes
 	
 	public override void _Ready() {
-		levelCenter = this.GetNode<Godot.Node2D>("Level").GlobalPosition;
+		levelNode = this.GetNode<Godot.Node2D>("Level");
+		levelCenter = levelNode.GlobalPosition;
 		upgrades = FileManager.GetScenes(upgradesFolder);
 		obstacles = FileManager.GetScenes(obstaclesFolder);
 		CheckIfEnemies();
@@ -55,10 +57,24 @@ public class GameController : Node2D
 
 		GD.Print("Level: " + level + " Wave: " + numberOfWaves);
 
-		if (numberOfWaves > level + 2) { SpawnObstacles(); }
-		else if (numberOfWaves > 0) { SpawnEnemies(); }
-		else if (numberOfWaves == 0) { SpawnBoss(); } 
-		else { SpawnUpgrades(); } 
+		if (numberOfWaves > level + 2) {
+
+			if(numberOfWaves ==  (level + 2) * 2) { DisplaySectionText("DODGE"); }
+			SpawnObstacles(); 
+		}
+		else if (numberOfWaves > 0) { 
+
+			if(numberOfWaves == level + 2) { DisplaySectionText("FIGHT"); }
+			SpawnEnemies(); 
+		}
+		else if (numberOfWaves == 0) { 
+			DisplaySectionText("BOSS"); 
+			SpawnBoss(); 
+		} 
+		else { 
+			LevelSpin();
+			SpawnUpgrades();
+		} 
 	}
 
 	private void SpawnObstacles() {
@@ -125,6 +141,24 @@ public class GameController : Node2D
 		//make sure the number is never less than 0
 		int red = Math.Max(0, 30 - playerHealth) * 2;
 		VisualServer.SetDefaultClearColor(Color.Color8((byte)red,0,0));
+	}
+
+	//Displays big faint text in the background for a short amount of time
+	//Used to indicate the changes in gameplay sections 
+	public void DisplaySectionText(string text) {
+		Position2D sectionText = levelNode.GetNode<Position2D>("SectionText");
+		Godot.Label label = sectionText.GetNode<Godot.Label>("Label");
+		AnimationPlayer anim  = sectionText.GetNode<AnimationPlayer>("AnimationPlayer");
+
+		label.Text = text;
+		anim.Play("SectionTxtDisplay");
+	}
+
+	//Spins the level boarders + changes the level colour
+	public void LevelSpin() {
+		Position2D room = levelNode.GetNode<Position2D>("Room");
+		AnimationPlayer anim = room.GetNode<AnimationPlayer>("AnimationPlayer");
+		anim.Play("RoomSpin");
 	}
 
 	#endregion 

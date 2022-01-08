@@ -1,6 +1,7 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://images/base_block.png" type="Texture" id=1]
+[ext_resource path="res://scenes/misc/SectionText.tscn" type="PackedScene" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 10, 100 )
@@ -15,7 +16,24 @@ extents = Vector2( 100, 16.8 )
 extents = Vector2( 10, 100 )
 
 [sub_resource type="Animation" id=5]
-loop = true
+resource_name = "RoomInit"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+
+[sub_resource type="Animation" id=6]
+resource_name = "RoomSpin"
+length = 0.4
 step = 0.01
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:rotation_degrees")
@@ -24,68 +42,15 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 1 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.39, 0.4 ),
+"transitions": PoolRealArray( 1, 1e+06, 1 ),
 "update": 0,
-"values": [ 0.0, 0.0, 0.0, 0.0 ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath(".:scale")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 1 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
-"update": 0,
-"values": [ Vector2( 1, 1 ), Vector2( 1.1, 1.1 ), Vector2( 1, 1 ), Vector2( 1, 1 ) ]
-}
-
-[sub_resource type="Animation" id=6]
-length = 0.2
-step = 0.01
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Vector2( 0, 0 ), Vector2( 0, 0 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath(".:rotation_degrees")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 0.2 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ 0.0, 90.0 ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath(".:scale")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0, 0.2 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Vector2( 1, 1 ), Vector2( 1, 1 ) ]
+"values": [ 0.0, 90.0, 0.0 ]
 }
 
 [node name="Level" type="Node2D"]
 
 [node name="Room" type="Position2D" parent="."]
-scale = Vector2( 1.07, 1.07 )
 
 [node name="Top" type="RigidBody2D" parent="Room"]
 position = Vector2( 0, -510 )
@@ -142,6 +107,8 @@ scale = Vector2( 49, 2 )
 shape = SubResource( 4 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Room"]
-autoplay = "Room_Pulse"
-anims/Room_Pulse = SubResource( 5 )
-anims/Room_Spin = SubResource( 6 )
+autoplay = "RoomInit"
+anims/RoomInit = SubResource( 5 )
+anims/RoomSpin = SubResource( 6 )
+
+[node name="SectionText" parent="." instance=ExtResource( 2 )]

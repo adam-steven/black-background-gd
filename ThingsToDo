@@ -43,8 +43,6 @@ split enemy folders up into different levels
 
 ~Upgrades bought use score as currency 
 
-Stat limits
-
 ------b-a-c-k-g-r-o-u-n-d--t-u-r-n-s--s-l-i-g-h-t-l-y--r-e-d--a-t--l-o-w--h-e-a-l-t-h------
 
 Colours {
@@ -52,6 +50,8 @@ Colours {
     Wall, Player, Enemies
     Rainbow, Contrast, White
 }
+
+Stat limits
 
 Rework starting stats and upgrade values (slow everything down)
 
@@ -61,4 +61,8 @@ Pause screen
 
 Death screen
 
+Minor screen shake on hit
+
 REMEMBER: enemies should no shoot instantly on spawn
+
+BUG: gaining health does not remove the red background
