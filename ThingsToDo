@@ -30,7 +30,7 @@ Levels {
     boss wave after x waves 
     ------u-p-g-r-a-d-e-s--a-f-t-e-r--b-o-s-s--a-n-d-a-t--s-t-a-r-t------
 
-    transparent background text to indicate the current level section
+    ------t-r-a-n-s-p-a-r-e-n-t--b-a-c-k-g-r-o-u-n-d--t-e-x-t--t-o--i-n-d-i-c-a-t-e--t-h-e--c-u-r-r-e-n-t--l-e-v-e-l--s-e-c-t-i-o-n------
 }
 
 ------D-a-m-a-g-e--e-f-f-e-c-t------
@@ -61,8 +61,8 @@ Pause screen
 
 Death screen
 
-Minor screen shake on hit
+------M-i-n-o-r--s-c-r-e-e-n--s-h-a-k-e--o-n--h-i-t------
 
-REMEMBER: enemies should no shoot instantly on spawn
+REMEMBER: enemies should nto shoot instantly on spawn
 
-BUG: gaining health does not remove the red background
+------B-U-G-:--g-a-i-n-i-n-g--h-e-a-l-t-h--d-o-e-s--n-o-t--r-e-m-o-v-e--t-h-e--r-e-d--b-a-c-k-g-r-o-u-n-d------
