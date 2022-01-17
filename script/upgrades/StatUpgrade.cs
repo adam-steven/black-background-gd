@@ -40,7 +40,7 @@ public class StatUpgrade : Area2D
 				pStats.bulletTimeAlive += stats.bulletTimeAlive;
 
 				//Update the background colour just incase its no longer in the red
-				gameControlScript.UpdateBackgroundColor(pStats.health);
+				gameControlScript.UpdateBackgroundColour(pStats.health);
 			}
 
 			gameControlScript.FinishedUpgrading();
