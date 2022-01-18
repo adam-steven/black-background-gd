@@ -9,13 +9,7 @@ public partial class GameController
     private void UpdateGameColours() {
         enemyColour = Color.Color8(0,255,255);
 
-        Position2D room = levelNode.GetNode<Position2D>("Room");
-        foreach (var child in room.GetChildren())
-        {
-            if(!(child is RigidBody2D)) continue;
-            Godot.Sprite childSprint = ((RigidBody2D)child).GetNode<Godot.Sprite>("Sprite");
-            childSprint.SelfModulate = enemyColour;
-        }
+        levelNode.Modulate = enemyColour;
     }
 
     //Starts turning the background red if player health is less than 30
