@@ -14,7 +14,7 @@ public partial class GameController
         {
             if(!(child is RigidBody2D)) continue;
             Godot.Sprite childSprint = ((RigidBody2D)child).GetNode<Godot.Sprite>("Sprite");
-            childSprint.Modulate = enemyColour;
+            childSprint.SelfModulate = enemyColour;
         }
     }
 

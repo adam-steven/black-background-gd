@@ -21,7 +21,7 @@ public partial class EnemyController : RigidBody2D
 
 		GameController controllerScript = (GameController)gameController;
 		Godot.Sprite thisSprite = this.GetNode<Godot.Sprite>("Sprite");
-		thisSprite.Modulate = controllerScript.enemyColour;
+		thisSprite.SelfModulate = controllerScript.enemyColour;
 
 		Node2D thisStats = this.GetNode<Node2D>("Stats");
 		stats = (EntityStats)thisStats;
