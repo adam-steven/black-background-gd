@@ -2,7 +2,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-public class GameController : Node2D
+public partial class GameController : Node2D
 {
 	Random rnd = new Random();
 
@@ -73,6 +73,7 @@ public class GameController : Node2D
 		} 
 		else { 
 			LevelSpin();
+			UpdateGameColours();
 			SpawnUpgrades();
 		} 
 	}
@@ -135,13 +136,6 @@ public class GameController : Node2D
 	#endregion 
 
 	#region Misc Functions 
-
-	//Starts turning the background red if player health is less than 30
-	public void UpdateBackgroundColour(int playerHealth) {
-		//make sure the number is never less than 0
-		int red = Math.Max(0, 30 - playerHealth) * 2;
-		VisualServer.SetDefaultClearColor(Color.Color8((byte)red,0,0));
-	}
 
 	//Displays big faint text in the background for a short amount of time
 	//Used to indicate the changes in gameplay sections 

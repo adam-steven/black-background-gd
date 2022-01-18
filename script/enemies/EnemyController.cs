@@ -19,7 +19,11 @@ public partial class EnemyController : RigidBody2D
 		Godot.Node2D gameController = this.GetParent<Godot.Node2D>();
 		player = gameController.GetNodeOrNull<RigidBody2D>("Player");
 
-		Node2D thisStats = this.GetNodeOrNull<Node2D>("Stats");
+		GameController controllerScript = (GameController)gameController;
+		Godot.Sprite thisSprite = this.GetNode<Godot.Sprite>("Sprite");
+		thisSprite.Modulate = controllerScript.enemyColour;
+
+		Node2D thisStats = this.GetNode<Node2D>("Stats");
 		stats = (EntityStats)thisStats;
 
 		gun = new GunController(this, BulletOwner.EnemyController, stats); 
