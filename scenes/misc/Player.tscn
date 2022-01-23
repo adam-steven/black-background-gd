@@ -102,7 +102,7 @@ tracks/2/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Color( 1, 1, 1, 0.0392157 ) ]
+"values": [ Color( 1, 1, 1, 0.0705882 ) ]
 }
 tracks/3/type = "value"
 tracks/3/path = NodePath("Sprite2:position")
@@ -138,7 +138,7 @@ tracks/5/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Color( 1, 1, 1, 0.0392157 ) ]
+"values": [ Color( 1, 1, 1, 0.0705882 ) ]
 }
 
 [sub_resource type="Animation" id=6]
@@ -177,7 +177,7 @@ tracks/2/keys = {
 "times": PoolRealArray( 0, 0.1 ),
 "transitions": PoolRealArray( 1e+06, 1 ),
 "update": 0,
-"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0.0392157 ) ]
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0.0705882 ) ]
 }
 tracks/3/type = "value"
 tracks/3/path = NodePath("Sprite2:position")
@@ -213,7 +213,7 @@ tracks/5/keys = {
 "times": PoolRealArray( 0, 0.1 ),
 "transitions": PoolRealArray( 1e+06, 1 ),
 "update": 0,
-"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0.0392157 ) ]
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0.0705882 ) ]
 }
 
 [sub_resource type="Animation" id=7]
@@ -252,7 +252,7 @@ tracks/2/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Color( 1, 1, 1, 0.0392157 ) ]
+"values": [ Color( 1, 1, 1, 0.0705882 ) ]
 }
 tracks/3/type = "value"
 tracks/3/path = NodePath("Sprite2:position")
@@ -288,7 +288,7 @@ tracks/5/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Color( 1, 1, 1, 0.0392157 ) ]
+"values": [ Color( 1, 1, 1, 0.0705882 ) ]
 }
 
 [sub_resource type="Animation" id=8]
@@ -327,7 +327,7 @@ tracks/2/keys = {
 "times": PoolRealArray( 0, 0.1 ),
 "transitions": PoolRealArray( 1e+06, 1 ),
 "update": 0,
-"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0.0392157 ) ]
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0.0705882 ) ]
 }
 tracks/3/type = "value"
 tracks/3/path = NodePath("Sprite2:position")
@@ -363,7 +363,7 @@ tracks/5/keys = {
 "times": PoolRealArray( 0, 0.1 ),
 "transitions": PoolRealArray( 1e+06, 1 ),
 "update": 0,
-"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0.0392157 ) ]
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0.0705882 ) ]
 }
 
 [sub_resource type="Animation" id=9]
@@ -402,7 +402,7 @@ tracks/2/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Color( 1, 1, 1, 0.0392157 ) ]
+"values": [ Color( 1, 1, 1, 0.0705882 ) ]
 }
 tracks/3/type = "value"
 tracks/3/path = NodePath("Sprite2:position")
@@ -438,7 +438,7 @@ tracks/5/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Color( 1, 1, 1, 0.0392157 ) ]
+"values": [ Color( 1, 1, 1, 0.0705882 ) ]
 }
 
 [sub_resource type="Animation" id=10]
@@ -477,7 +477,7 @@ tracks/2/keys = {
 "times": PoolRealArray( 0, 0.1 ),
 "transitions": PoolRealArray( 1e+06, 1 ),
 "update": 0,
-"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0.0392157 ) ]
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0.0705882 ) ]
 }
 tracks/3/type = "value"
 tracks/3/path = NodePath("Sprite2:position")
@@ -513,7 +513,7 @@ tracks/5/keys = {
 "times": PoolRealArray( 0, 0.1 ),
 "transitions": PoolRealArray( 1e+06, 1 ),
 "update": 0,
-"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0.0392157 ) ]
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0.0705882 ) ]
 }
 
 [sub_resource type="Animation" id=11]
@@ -552,7 +552,7 @@ tracks/2/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Color( 1, 1, 1, 0.0392157 ) ]
+"values": [ Color( 1, 1, 1, 0.0705882 ) ]
 }
 tracks/3/type = "value"
 tracks/3/path = NodePath("Sprite2:position")
@@ -588,7 +588,7 @@ tracks/5/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Color( 1, 1, 1, 0.0392157 ) ]
+"values": [ Color( 1, 1, 1, 0.0705882 ) ]
 }
 
 [sub_resource type="Animation" id=12]
@@ -627,7 +627,7 @@ tracks/2/keys = {
 "times": PoolRealArray( 0, 0.1 ),
 "transitions": PoolRealArray( 1e+06, 1 ),
 "update": 0,
-"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0.0392157 ) ]
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0.0705882 ) ]
 }
 tracks/3/type = "value"
 tracks/3/path = NodePath("Sprite2:position")
@@ -663,7 +663,7 @@ tracks/5/keys = {
 "times": PoolRealArray( 0, 0.1 ),
 "transitions": PoolRealArray( 1e+06, 1 ),
 "update": 0,
-"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0.0392157 ) ]
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0.0705882 ) ]
 }
 
 [sub_resource type="Animation" id=13]

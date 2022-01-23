@@ -1,3 +1,38 @@
+~Stop player slowing down if the go back and forth
+
+Randomize enemy stats on spawn
+
+split enemy folders up into different levels
+
+~Upgrades bought use score as currency 
+
+Colours {
+    User configurable
+    Player, -Wall-, -Enemies-
+    -Rainbow-, Contrast, White
+}
+
+Stat limits
+
+Rework starting stats and upgrade values (slow everything down)
+
+Start Menus
+Setting (link to colours)
+Pause screen
+Death screen
+
+Upgrades[]
+Enemies[]
+Bosses[]
+
+Score
+
+Leaderboard (Score + Time)
+
+REMEMBER: enemies should not shoot instantly on spawn
+
+____________________________________________________________________________________
+
 ------B-u-l-l-e-t--C-o-l-l-i-s-i-o-n------
 
 ------S-h-o-t--d-e-l-a-y-------
@@ -5,8 +40,6 @@
 ------P-l-a-y-e-r--b-o-u-n-c-e--o-f-f--w-a-l-l------
 
 ------M-o-v-e-m-e-n-t--e-f-f-e-c-t-s------
-
-~Stop player slowing down if the go back and forth
 
 ------S-e-t--d-a-m-a-g-e--o-n--b-u-l-l-e-t--b-a-s-e-d--o-n--"-S-t-r-e-n-g-t-h-"------
 
@@ -22,12 +55,10 @@
 
 ------E-n-e-m-y--s-p-a-w-n-e-d------
 
-Randomize enemy stats on spawn
-
 Levels {
     ------d-o-d-g-e--s-e-c-t-i-o-n--b-e-f-o-r-e--e-n-e-m-i-e-s------ 
     ------e-n-e-m-y--w-a-v-e-s------
-    boss wave after x waves 
+    ------b-o-s-s--w-a-v-e--a-f-t-e-r--x--w-a-v-e-s------ 
     ------u-p-g-r-a-d-e-s--a-f-t-e-r--b-o-s-s--a-n-d-a-t--s-t-a-r-t------
 
     ------t-r-a-n-s-p-a-r-e-n-t--b-a-c-k-g-r-o-u-n-d--t-e-x-t--t-o--i-n-d-i-c-a-t-e--t-h-e--c-u-r-r-e-n-t--l-e-v-e-l--s-e-c-t-i-o-n------
@@ -37,32 +68,10 @@ Levels {
 
 ------S-t-o-p-p-i-n-g--g-i-v-e-s--e-y-e--f-r-a-m-e-s------
 
-split enemy folders up into different levels
-
 ------M-o-v-e-m-e-n-t--e-f-f-e-c-t--r-e-v-a-m-p------
-
-~Upgrades bought use score as currency 
-
-------b-a-c-k-g-r-o-u-n-d--t-u-r-n-s--s-l-i-g-h-t-l-y--r-e-d--a-t--l-o-w--h-e-a-l-t-h------
-
-Colours {
-    User configurable
-    Wall, Player, Enemies
-    Rainbow, Contrast, White
-}
-
-Stat limits
-
-Rework starting stats and upgrade values (slow everything down)
-
-Start Menus
-
-Pause screen
-
-Death screen
 
 ------M-i-n-o-r--s-c-r-e-e-n--s-h-a-k-e--o-n--h-i-t------
 
-REMEMBER: enemies should nto shoot instantly on spawn
+------b-a-c-k-g-r-o-u-n-d--t-u-r-n-s--s-l-i-g-h-t-l-y--r-e-d--a-t--l-o-w--h-e-a-l-t-h------
 
 ------B-U-G-:--g-a-i-n-i-n-g--h-e-a-l-t-h--d-o-e-s--n-o-t--r-e-m-o-v-e--t-h-e--r-e-d--b-a-c-k-g-r-o-u-n-d------
