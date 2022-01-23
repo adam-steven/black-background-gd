@@ -7,8 +7,10 @@ public partial class GameController
     public Color enemyColour;
 
     private void UpdateGameColours() {
-        enemyColour = Color.Color8(0,255,255);
+        var values = Enum.GetValues(typeof(Enums.Colour));
+        String colourName = values.GetValue(rnd.Next(values.Length)).ToString();
 
+        enemyColour = Color.ColorN(colourName);
         levelNode.Modulate = enemyColour;
     }
 

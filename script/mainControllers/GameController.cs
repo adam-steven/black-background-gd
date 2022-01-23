@@ -172,16 +172,30 @@ public partial class GameController : Node2D
 
 	#region Testing Functions
 
-	private void PlaceTestingDot(Vector2 tDotPos) {
-		PackedScene testingDot = (PackedScene)GD.Load("res://scenes/TestingDot.tscn");
-		Godot.Sprite tDot = (Godot.Sprite)testingDot.Instance();
-		tDot.GlobalPosition = tDotPos;
-		this.AddChild(tDot);
-	}
+	// private void PlaceTestingDot(Vector2 tDotPos) {
+	// 	PackedScene testingDot = (PackedScene)GD.Load("res://scenes/TestingDot.tscn");
+	// 	Godot.Sprite tDot = (Godot.Sprite)testingDot.Instance();
+	// 	tDot.GlobalPosition = tDotPos;
+	// 	this.AddChild(tDot);
+	// }
 
-	private void LogFrameRate() {
-	  	GD.Print(Performance.GetMonitor(0));
-	}
+	// private void LogFrameRate() {
+	//   	GD.Print(Performance.GetMonitor(0));
+	// }
+
+    // private int currentColour = -1;
+    // private string colourName;
+    // private void RunThoughColours() {
+    //     currentColour++;
+
+    //     var values = Enum.GetValues(typeof(Enums.Colour));
+    //     colourName = values.GetValue(currentColour).ToString();
+        
+    //     enemyColour = Color.ColorN(colourName);
+    //     levelNode.Modulate = enemyColour;
+
+	// 	GD.Print(colourName);
+    // }
 
 	#endregion
 }
