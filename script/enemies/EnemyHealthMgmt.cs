@@ -20,7 +20,7 @@ public partial class EnemyController
 	}
 
 	private void DestorySelf(string animName = "") {
-		Godot.Node2D gameController = this.GetParent<Godot.Node2D>();
+		Godot.Node2D gameController = (Godot.Node2D)GetNode("/root/GameController");
 		GameController controllerScript = (GameController)gameController;
 		controllerScript.CheckIfEnemies();
 

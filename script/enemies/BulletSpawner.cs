@@ -13,7 +13,7 @@ public class BulletSpawner : RigidBody2D
 	
 	public override void _Ready()
 	{
-		Godot.Node2D gameController = this.GetParent<Godot.Node2D>();
+		Godot.Node2D gameController = (Godot.Node2D)GetNode("/root/GameController");
 		player = gameController.GetNodeOrNull<RigidBody2D>("Player");
 
 		Node2D thisStats = this.GetNodeOrNull<Node2D>("Stats");
@@ -41,7 +41,7 @@ public class BulletSpawner : RigidBody2D
 	private void ShootBullet(string animName) { 
 		gun.Shoot();
 
-		Godot.Node2D gameController = this.GetParent<Godot.Node2D>();
+		Godot.Node2D gameController = (Godot.Node2D)GetNode("/root/GameController");
 		GameController controllerScript = (GameController)gameController;
 		controllerScript.CheckIfEnemies();
 
