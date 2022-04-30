@@ -30,7 +30,6 @@ public partial class GameController : Node2D
 		levelCenter = levelNode.GlobalPosition;
 		upgrades = FileManager.GetScenes(upgradesFolder);
 		obstacles = FileManager.GetScenes(obstaclesFolder);
-		CheckIfEnemies();
 	}
 
 	// public override void _Process(float delta) {}
