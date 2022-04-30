@@ -6,6 +6,14 @@ public class Enums
 		EnemyController
 	};
 
+	/// <summary> Buttons of the Main Menu GUI </summary>
+	public enum MainMenuBtn {
+		Play, 
+		Options,
+		Quit
+	};
+
+	/// <summary> List of Godot's integrated colour </summary>
 	public enum Colour {
 		aqua, 
 		aquamarine,  
