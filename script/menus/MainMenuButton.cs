@@ -47,6 +47,7 @@ public class MainMenuButton : Button
     private void Play() {
         Godot.Node2D gameController = (Godot.Node2D)GetNode("/root/GameController");
 		GameController controllerScript = (GameController)gameController;
+        controllerScript.LevelSpin();
 		controllerScript.CheckIfEnemies();
     }
 

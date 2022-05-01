@@ -11,7 +11,7 @@ public partial class GameController : Node2D
 	Vector2 levelSize = new Vector2(460, 460); //spawnable level radius (half of full dimentions)
 
 	private int level = 0;
-	private int numberOfWaves = 0;
+	private int numberOfWaves = -1;
 
 	private int enemySpawnMin = 0;
 	private int enemySpawnMax = 2;
@@ -72,7 +72,6 @@ public partial class GameController : Node2D
 		} 
 		else { 
 			LevelSpin();
-			UpdateGameColours();
 			SpawnUpgrades();
 		} 
 	}
@@ -152,6 +151,7 @@ public partial class GameController : Node2D
 		Position2D room = levelNode.GetNode<Position2D>("Room");
 		AnimationPlayer anim = room.GetNode<AnimationPlayer>("AnimationPlayer");
 		anim.Play("RoomSpin");
+		UpdateGameColours();
 	}
 
 	#endregion 
