@@ -25,6 +25,9 @@ public class MainMenuButton : Button
             case MainMenuBtn.Options:
                 Options();
                 break;
+            case MainMenuBtn.Leaderboard:
+                Leaderboard();
+                break;
             case MainMenuBtn.Quit:
                 Quit();
                 break;
@@ -52,7 +55,9 @@ public class MainMenuButton : Button
     }
 
     private void Options() {
+    }
 
+    private void Leaderboard() {
     }
 
     private void Quit() {

@@ -6,7 +6,7 @@ split enemy folders up into different levels
 
 ~Upgrades bought use score as currency 
 
-Colours {
+Settings Option: Colours {
     User configurable
     Player, -Wall-, -Enemies-
     -Rainbow-, Contrast, White
@@ -19,9 +19,12 @@ Stat limits
 Rework starting stats and upgrade values (slow everything down)
 
     Start Menus
-    Setting (link to colours)
+    Settings
     Pause screen
-    Death screen
+    Death screen { 
+        Score
+        retry, main menu, leaderboard, quit
+        }
 
 Upgrades[]
 Enemies[]
@@ -29,7 +32,12 @@ Bosses[]
 
 Score
 
-Leaderboard (Score + Time)
+Leaderboard (Score + Time) {
+    world leaderboard - top 100 - restart every day
+    personal leaderboard - top ten - don't reset
+
+    allow username 4 char name
+}
 
 REMEMBER: enemies should not shoot instantly on spawn
 

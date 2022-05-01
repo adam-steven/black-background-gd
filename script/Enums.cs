@@ -10,6 +10,7 @@ public class Enums
 	public enum MainMenuBtn {
 		Play, 
 		Options,
+		Leaderboard,
 		Quit
 	};
 
