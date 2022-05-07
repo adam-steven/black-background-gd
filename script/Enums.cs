@@ -6,8 +6,8 @@ public class Enums
 		EnemyController
 	};
 
-	/// <summary> Buttons of the Main Menu GUI </summary>
-	public enum MainMenuBtn {
+	/// <summary> Buttons for Menu GUI </summary>
+	public enum MenuButtons {
 		Play, 
 		Options,
 		Leaderboard,

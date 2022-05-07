@@ -5,6 +5,7 @@ public partial class PlayerController
 {
 	private bool invincible = false;
 
+
     //Called by the bullet script to take damage / die
 	public void TakeDamage(int damage) {
 		//Indicate that no damage was taken (+ health gained) by playing all movement effects
@@ -33,12 +34,17 @@ public partial class PlayerController
 
 		//Kill player if health is 0
 		if(stats.health <= 0) {
+			//spawn game over screen
+			Godot.Node2D gameController = (Godot.Node2D)GetNode("/root/GameController");
+			GameController gc = (GameController)gameController;
+			gc.ShowGameOverScreen();
+
 			anim.Connect("animation_finished", this, "DestorySelf");
 			anim.Play("PlayerDeath");
 		}	
 	}
 
-	private void UpdateBackgroundColour(){
+	private void UpdateBackgroundColour() {
 		//Update background colour based on health
 		Godot.Node2D gameController = (Godot.Node2D)GetNode("/root/GameController");
 		GameController controllerScript = (GameController)gameController;

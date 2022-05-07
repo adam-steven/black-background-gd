@@ -1,6 +1,6 @@
 [gd_scene load_steps=15 format=2]
 
-[ext_resource path="res://script/menus/MainMenuButton.cs" type="Script" id=1]
+[ext_resource path="res://script/menus/MainMenuButtons.cs" type="Script" id=1]
 [ext_resource path="res://fonts/Teko-Bold-90.tres" type="DynamicFont" id=2]
 
 [sub_resource type="Animation" id=1]
@@ -295,7 +295,7 @@ rect_min_size = Vector2( 200, 120 )
 size_flags_horizontal = 0
 flat = true
 script = ExtResource( 1 )
-action = 2
+action = 3
 
 [node name="Label" type="Label" parent="Buttons/Quit"]
 margin_right = 40.0

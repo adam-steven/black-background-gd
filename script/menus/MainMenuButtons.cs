@@ -1,10 +1,9 @@
 using Godot;
-using System;
 using static Enums;
 
-public class MainMenuButton : Button
+public class MainMenuButtons : Button
 {
-    [Export] MainMenuBtn action;
+    [Export] MenuButtons action;
     Godot.Control mainMenu;
 
     public override void _Ready()
@@ -19,16 +18,16 @@ public class MainMenuButton : Button
 	private void _OnButtonPress() {
 		switch (action)
         {
-            case MainMenuBtn.Play:
+            case MenuButtons.Play:
                 Play();
                 break;
-            case MainMenuBtn.Options:
+            case MenuButtons.Options:
                 Options();
                 break;
-            case MainMenuBtn.Leaderboard:
+            case MenuButtons.Leaderboard:
                 Leaderboard();
                 break;
-            case MainMenuBtn.Quit:
+            case MenuButtons.Quit:
                 Quit();
                 break;
         }
@@ -42,6 +41,7 @@ public class MainMenuButton : Button
 		anim.Play("MenuBtnSelected");
     }
 
+    //Play collapse anim
     private void _OnMouseExit() {
         AnimationPlayer anim  = this.GetNode<AnimationPlayer>("AnimationPlayer");
 		anim.Play("MenuBtnDeselected");

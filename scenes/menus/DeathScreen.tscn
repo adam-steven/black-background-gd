@@ -1,6 +1,6 @@
 [gd_scene load_steps=16 format=2]
 
-[ext_resource path="res://script/menus/GameOverButton.cs" type="Script" id=1]
+[ext_resource path="res://script/menus/GameOverButtons.cs" type="Script" id=1]
 [ext_resource path="res://fonts/Teko-Bold-90.tres" type="DynamicFont" id=3]
 
 [sub_resource type="Animation" id=1]
@@ -322,6 +322,7 @@ margin_bottom = 520.0
 rect_min_size = Vector2( 200, 120 )
 flat = true
 script = ExtResource( 1 )
+action = 2
 
 [node name="Position2D" type="Position2D" parent="Buttons/Leaderboard"]
 position = Vector2( 420, 65 )
@@ -353,6 +354,7 @@ margin_bottom = 686.0
 rect_min_size = Vector2( 200, 120 )
 flat = true
 script = ExtResource( 1 )
+action = 1
 
 [node name="Position2D" type="Position2D" parent="Buttons/Options"]
 position = Vector2( 420, 65 )
@@ -384,6 +386,7 @@ margin_bottom = 852.0
 rect_min_size = Vector2( 200, 120 )
 flat = true
 script = ExtResource( 1 )
+action = 3
 
 [node name="Position2D" type="Position2D" parent="Buttons/Quit"]
 position = Vector2( 420, 65 )
