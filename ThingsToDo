@@ -41,6 +41,11 @@ Leaderboard (Score + Time) {
 
 REMEMBER: enemies should not shoot instantly on spawn
 
+~Only have "Major bosses" every X amount of levels {
+    "Minor bosses" are either mini bosses or a "fight" wave from a later level
+    The first level is a "Minor boss" as the player has no upgrades
+}
+
 ____________________________________________________________________________________
 
 ------B-u-l-l-e-t--C-o-l-l-i-s-i-o-n------
