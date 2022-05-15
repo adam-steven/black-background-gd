@@ -43,13 +43,13 @@ public class GameOverButtons : Button
     }
 
     private void Play() {
+        SceneController sceneScript = GetNode<SceneController>(Globals.scenePath);
+
 		//Reset the background color
-		Godot.Node2D gameController = (Godot.Node2D)GetNode(Globals.gamePath);
+		Godot.Node2D gameController = sceneScript.GetCurrentScene();
 		GameController gameScript = (GameController)gameController;
 		gameScript.UpdateBackgroundColour(1000);
 
-        Godot.Node2D sceneController = (Godot.Node2D)GetNode(Globals.scenePath);
-		SceneController sceneScript = (SceneController)sceneController;
         sceneScript.ChangeScene("res://scenes/Main.tscn");
     }
 

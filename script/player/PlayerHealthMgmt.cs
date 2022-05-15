@@ -35,9 +35,8 @@ public partial class PlayerController
 		//Kill player if health is 0
 		if(stats.health <= 0) {
 			//spawn game over screen
-			Godot.Node2D gameController = (Godot.Node2D)GetNode(Globals.gamePath);
-			GameController gc = (GameController)gameController;
-			gc.ShowGameOverScreen();
+			SceneController sceneController = GetNode<SceneController>(Globals.scenePath);
+			sceneController.ShowGameOverScreen();
 
 			anim.Connect("animation_finished", this, "DestorySelf");
 			anim.Play("PlayerDeath");
@@ -46,7 +45,7 @@ public partial class PlayerController
 
 	private void UpdateBackgroundColour() {
 		//Update background colour based on health
-		Godot.Node2D gameController = (Godot.Node2D)GetNode(Globals.gamePath);
+		Godot.Node2D gameController = GetNode<SceneController>(Globals.scenePath).GetCurrentScene();
 		GameController controllerScript = (GameController)gameController;
 		controllerScript.UpdateBackgroundColour(stats.health);
 	}

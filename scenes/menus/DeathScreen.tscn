@@ -24,7 +24,7 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.9 ),
+"times": PoolRealArray( 0, 1 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
 "values": [ false, true ]
@@ -222,27 +222,30 @@ tracks/0/keys = {
 "values": [ Vector2( 1, 1 ), Vector2( 1.2, 1.2 ) ]
 }
 
-[node name="DeathScene" type="Control"]
+[node name="DeathScreen" type="Node2D"]
+
+[node name="Control" type="Control" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="ColorRect" type="ColorRect" parent="Control"]
 margin_right = 40.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 1920, 1080 )
-color = Color( 0, 0, 0, 0.9 )
+color = Color( 0, 0, 0, 0 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Control"]
 autoplay = "DeathSceneInit"
 anims/DeathSceneInit = SubResource( 1 )
 
-[node name="Buttons" type="VBoxContainer" parent="."]
+[node name="Buttons" type="VBoxContainer" parent="Control"]
+visible = false
 margin_left = 540.0
 margin_top = 80.0
 margin_right = 1380.0
@@ -253,7 +256,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Game Over" type="Button" parent="Buttons"]
+[node name="Game Over" type="Button" parent="Control/Buttons"]
 margin_top = 68.0
 margin_right = 840.0
 margin_bottom = 188.0
@@ -264,11 +267,11 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Position2D" type="Position2D" parent="Buttons/Game Over"]
+[node name="Position2D" type="Position2D" parent="Control/Buttons/Game Over"]
 position = Vector2( 420, 65 )
 scale = Vector2( 1.4, 1.4 )
 
-[node name="Label" type="Label" parent="Buttons/Game Over/Position2D"]
+[node name="Label" type="Label" parent="Control/Buttons/Game Over/Position2D"]
 margin_left = -420.0
 margin_top = -65.0
 margin_right = 420.0
@@ -281,7 +284,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Replay" type="Button" parent="Buttons"]
+[node name="Replay" type="Button" parent="Control/Buttons"]
 margin_top = 234.0
 margin_right = 840.0
 margin_bottom = 354.0
@@ -292,10 +295,10 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Position2D" type="Position2D" parent="Buttons/Replay"]
+[node name="Position2D" type="Position2D" parent="Control/Buttons/Replay"]
 position = Vector2( 420, 65 )
 
-[node name="Label" type="Label" parent="Buttons/Replay/Position2D"]
+[node name="Label" type="Label" parent="Control/Buttons/Replay/Position2D"]
 margin_left = -420.0
 margin_top = -65.0
 margin_right = 420.0
@@ -308,13 +311,13 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Buttons/Replay"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Control/Buttons/Replay"]
 autoplay = "MenuBtnInit"
 anims/MenuBtnDeselected = SubResource( 14 )
 anims/MenuBtnInit = SubResource( 15 )
 anims/MenuBtnSelected = SubResource( 16 )
 
-[node name="Leaderboard" type="Button" parent="Buttons"]
+[node name="Leaderboard" type="Button" parent="Control/Buttons"]
 margin_top = 400.0
 margin_right = 840.0
 margin_bottom = 520.0
@@ -323,11 +326,11 @@ flat = true
 script = ExtResource( 1 )
 action = 2
 
-[node name="Position2D" type="Position2D" parent="Buttons/Leaderboard"]
+[node name="Position2D" type="Position2D" parent="Control/Buttons/Leaderboard"]
 position = Vector2( 420, 65 )
 scale = Vector2( 1.2, 1.2 )
 
-[node name="Label" type="Label" parent="Buttons/Leaderboard/Position2D"]
+[node name="Label" type="Label" parent="Control/Buttons/Leaderboard/Position2D"]
 margin_left = -420.0
 margin_top = -65.0
 margin_right = 420.0
@@ -340,13 +343,13 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Buttons/Leaderboard"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Control/Buttons/Leaderboard"]
 autoplay = "MenuBtnInit"
 anims/MenuBtnDeselected = SubResource( 17 )
 anims/MenuBtnInit = SubResource( 18 )
 anims/MenuBtnSelected = SubResource( 19 )
 
-[node name="Options" type="Button" parent="Buttons"]
+[node name="Options" type="Button" parent="Control/Buttons"]
 margin_top = 566.0
 margin_right = 840.0
 margin_bottom = 686.0
@@ -355,11 +358,11 @@ flat = true
 script = ExtResource( 1 )
 action = 1
 
-[node name="Position2D" type="Position2D" parent="Buttons/Options"]
+[node name="Position2D" type="Position2D" parent="Control/Buttons/Options"]
 position = Vector2( 420, 65 )
 scale = Vector2( 1.2, 1.2 )
 
-[node name="Label" type="Label" parent="Buttons/Options/Position2D"]
+[node name="Label" type="Label" parent="Control/Buttons/Options/Position2D"]
 margin_left = -420.0
 margin_top = -65.0
 margin_right = 420.0
@@ -372,13 +375,13 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Buttons/Options"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Control/Buttons/Options"]
 autoplay = "MenuBtnInit"
 anims/MenuBtnDeselected = SubResource( 20 )
 anims/MenuBtnInit = SubResource( 21 )
 anims/MenuBtnSelected = SubResource( 22 )
 
-[node name="Quit" type="Button" parent="Buttons"]
+[node name="Quit" type="Button" parent="Control/Buttons"]
 margin_top = 732.0
 margin_right = 840.0
 margin_bottom = 852.0
@@ -387,11 +390,11 @@ flat = true
 script = ExtResource( 1 )
 action = 3
 
-[node name="Position2D" type="Position2D" parent="Buttons/Quit"]
+[node name="Position2D" type="Position2D" parent="Control/Buttons/Quit"]
 position = Vector2( 420, 65 )
 scale = Vector2( 1.2, 1.2 )
 
-[node name="Label" type="Label" parent="Buttons/Quit/Position2D"]
+[node name="Label" type="Label" parent="Control/Buttons/Quit/Position2D"]
 margin_left = -420.0
 margin_top = -65.0
 margin_right = 420.0
@@ -404,7 +407,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Buttons/Quit"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Control/Buttons/Quit"]
 autoplay = "MenuBtnInit"
 anims/MenuBtnDeselected = SubResource( 11 )
 anims/MenuBtnInit = SubResource( 12 )

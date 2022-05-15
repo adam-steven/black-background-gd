@@ -16,7 +16,7 @@ public partial class EnemyController : RigidBody2D
 	private MethodInfo variantMethod;
 
 	public override void _Ready() {
-		Godot.Node2D gameController = (Godot.Node2D)GetNode(Globals.gamePath);
+		Godot.Node2D gameController = GetNode<SceneController>(Globals.scenePath).GetCurrentScene();
 		player = gameController.GetNodeOrNull<RigidBody2D>("Player");
 
 		GameController controllerScript = (GameController)gameController;
