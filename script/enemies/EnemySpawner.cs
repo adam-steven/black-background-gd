@@ -19,7 +19,7 @@ public class EnemySpawner : Position2D
 	private void SpawnEnemy(string animName) { 
 		if(enemies.Count > 0) {
 			string chosenEnemyScene = enemies[rnd.Next(enemies.Count)];
-			Godot.Node2D gameController = (Godot.Node2D)GetNode("/root/GameController");
+			Godot.Node2D gameController = (Godot.Node2D)GetNode(Globals.gamePath);
 
 			PackedScene enemyScene = (PackedScene)GD.Load(enemyFolder + chosenEnemyScene);
 			RigidBody2D enemy = (RigidBody2D)enemyScene.Instance();

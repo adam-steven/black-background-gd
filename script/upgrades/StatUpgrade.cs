@@ -14,14 +14,14 @@ public class StatUpgrade : Area2D
 		this.Connect("mouse_entered", this, "MouseEntered");
 		this.Connect("mouse_exited", this, "MouseExited");
 
-		Godot.Node2D gameController = (Godot.Node2D)GetNode("/root/GameController");
+		Godot.Node2D gameController = (Godot.Node2D)GetNode(Globals.gamePath);
 		gameControlScript = (GameController)gameController;
 		gameController.Connect("upgrading_finished", this, "DeleteSelf");
 	}
 
 	public override void _Process(float delta) {
 		if (Input.IsActionJustPressed("ui_select") && objectSelected){
-			Godot.Node2D gameController = (Godot.Node2D)GetNode("/root/GameController");
+			Godot.Node2D gameController = (Godot.Node2D)GetNode(Globals.gamePath);
 			RigidBody2D player = gameController.GetNodeOrNull<RigidBody2D>("Player");
 			Node2D playerStats = player.GetNodeOrNull<Node2D>("Stats");
 

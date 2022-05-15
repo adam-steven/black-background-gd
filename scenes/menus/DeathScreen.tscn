@@ -233,7 +233,7 @@ __meta__ = {
 margin_right = 40.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 1920, 1080 )
-color = Color( 0, 0, 0, 0 )
+color = Color( 0, 0, 0, 0.9 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -243,7 +243,6 @@ autoplay = "DeathSceneInit"
 anims/DeathSceneInit = SubResource( 1 )
 
 [node name="Buttons" type="VBoxContainer" parent="."]
-visible = false
 margin_left = 540.0
 margin_top = 80.0
 margin_right = 1380.0

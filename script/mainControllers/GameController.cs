@@ -8,7 +8,7 @@ public partial class GameController : Node2D
 
 	Godot.Node2D levelNode;
 	Vector2 levelCenter;
-	Vector2 levelSize = new Vector2(460, 460); //spawnable level radius (half of full dimentions)
+	private static Vector2 levelSize = new Vector2(460, 460); //spawnable level radius (half of full dimentions)
 
 	private int level = 0;
 	private int numberOfWaves = -1;
@@ -17,12 +17,12 @@ public partial class GameController : Node2D
 	private int enemySpawnMax = 2;
 	private int noOfEnemies = 0;
 
-	string enemySpawnerFolder = "res://scenes/misc/EnemySpawner.tscn";
+	private static string enemySpawnerFolder = "res://scenes/misc/EnemySpawner.tscn";
 
-	string obstaclesFolder = "res://scenes/obstacles/";
+	private static string obstaclesFolder = "res://scenes/obstacles/";
 	List<string> obstacles; //paths to obstical scenes (dodge section)
 
-	string upgradesFolder = "res://scenes/upgrades/";
+	private static string upgradesFolder = "res://scenes/upgrades/";
 	List<string> upgrades; //paths to upgrade scenes
 	
 	public override void _Ready() {

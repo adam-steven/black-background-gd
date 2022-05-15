@@ -9,10 +9,6 @@ public class CameraController : Camera2D
     private int shakeDuration = 0; 
     private bool isShakeing;
 
-  	public override void _Ready() {
-
-	}
-
     public override void _Process(float delta) {
         if(!isShakeing) return;
 

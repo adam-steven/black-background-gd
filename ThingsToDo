@@ -39,6 +39,8 @@ Leaderboard (Score + Time) {
     allow username 4 char name
 }
 
+look into "C# polymorphism" for enemy scripts
+
 REMEMBER: enemies should not shoot instantly on spawn
 
 ~Only have "Major bosses" every X amount of levels {
