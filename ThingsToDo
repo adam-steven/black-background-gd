@@ -37,6 +37,7 @@ Leaderboard (Score + Time) {
     personal leaderboard - top ten - don't reset
 
     allow username 4 char name
+    make PRs a celebration
 }
 
 look into "C# polymorphism" for enemy scripts
