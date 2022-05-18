@@ -7,7 +7,6 @@ public class BulletSpawner : RigidBody2D
 	Random rnd = new Random();
 
 	private float spawnSpeedModifier;
-	private EntityStats stats;
 	private RigidBody2D player;
 	private GunController gun;
 	

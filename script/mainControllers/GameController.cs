@@ -26,6 +26,9 @@ public partial class GameController : Node2D
 	List<string> upgrades; //paths to upgrade scenes
 	
 	public override void _Ready() {
+		//Reset the background color
+		UpdateBackgroundColour(10000);
+
 		levelNode = this.GetNode<Godot.Node2D>("Level");
 		levelCenter = levelNode.GlobalPosition;
 		upgrades = FileManager.GetScenes(upgradesFolder);

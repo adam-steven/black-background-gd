@@ -6,7 +6,7 @@ public partial class PlayerController
 	private bool invincible = false;
 
 
-    //Called by the bullet script to take damage / die
+	//Called by the bullet script to take damage / die
 	public void TakeDamage(int damage) {
 		//Indicate that no damage was taken (+ health gained) by playing all movement effects
 		if(invincible) {
@@ -34,10 +34,6 @@ public partial class PlayerController
 
 		//Kill player if health is 0
 		if(stats.health <= 0) {
-			//spawn game over screen
-			SceneController sceneController = GetNode<SceneController>(Globals.scenePath);
-			sceneController.ShowGameOverScreen();
-
 			anim.Connect("animation_finished", this, "DestorySelf");
 			anim.Play("PlayerDeath");
 		}	
@@ -50,5 +46,12 @@ public partial class PlayerController
 		controllerScript.UpdateBackgroundColour(stats.health);
 	}
 
-	private void DestorySelf(string animName) { this.QueueFree(); }
+	private void DestorySelf(string animName) { 
+		//Go to gameover screen (transition needed)
+		SceneController sceneScript = GetNode<SceneController>(Globals.scenePath);
+		sceneScript.ChangeScene("res://scenes/menus/DeathScreen.tscn");
+
+		//Delete player just in case
+		this.QueueFree(); 
+	}
 }

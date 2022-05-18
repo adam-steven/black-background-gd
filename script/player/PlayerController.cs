@@ -16,8 +16,7 @@ public partial class PlayerController : RigidBody2D
 		gun = new GunController(this, BulletOwner.PlayerController, stats);
 		this.Connect("body_entered", this, "_OnPlayerBodyEntered");
 
-		Godot.Node2D gameController = GetNode<SceneController>(Globals.scenePath).GetCurrentScene();
-		Camera2D camera = gameController.GetNode<Camera2D>("Camera2D");
+		Camera2D camera = GetNode<SceneController>(Globals.scenePath).GetMainCamera();
 		cameraControl = (CameraController)camera;
 
 		connectAnimEndSignal("Stop", "StopIFramesEnd"); 

@@ -3,14 +3,21 @@ using System;
 
 public class SceneController : Node2D
 {
+	private Camera2D mainCamera;
 	private Node2D currentScene;
+
 	public override void _Ready()
 	{
-		currentScene = this.GetChild<Node2D>(0);
+		mainCamera = this.GetNode<Camera2D>("Camera2D");
+		currentScene = this.GetChild<Node2D>(1);
+	}
+
+	public Camera2D GetMainCamera() {
+		return mainCamera ?? this.GetNode<Camera2D>("Camera2D");
 	}
 
 	public Node2D GetCurrentScene() {
-		return currentScene ?? this.GetChild<Node2D>(0);
+		return currentScene ?? this.GetChild<Node2D>(1);
 	}
 
 	public void ChangeScene(string scenePath) {
@@ -21,12 +28,5 @@ public class SceneController : Node2D
 		AddChild(newSceneInstance);
 		currentScene.QueueFree();
 		currentScene = newSceneInstance;
-	}
-
-	public void ShowGameOverScreen() {
-		string gameOverSceneLocation = "res://scenes/menus/DeathScreen.tscn";
-		PackedScene gameOverScene = (PackedScene)GD.Load(gameOverSceneLocation);
-		Godot.Node2D gameOver = (Godot.Node2D)gameOverScene.Instance();
-		this.AddChild(gameOver);
 	}
 }
