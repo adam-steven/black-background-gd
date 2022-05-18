@@ -48,6 +48,8 @@ REMEMBER: enemies should not shoot instantly on spawn
     The first level is a "Minor boss" as the player has no upgrades
 }
 
+~Event levels (like the ai test uni proj)
+
 ____________________________________________________________________________________
 
 ------B-u-l-l-e-t--C-o-l-l-i-s-i-o-n------
