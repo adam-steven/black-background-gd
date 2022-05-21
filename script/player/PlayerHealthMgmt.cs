@@ -34,8 +34,11 @@ public partial class PlayerController
 
 		//Kill player if health is 0
 		if(stats.health <= 0) {
-			anim.Connect("animation_finished", this, "DestorySelf");
 			anim.Play("PlayerDeath");
+
+			//Go to gameover screen
+			SceneController sceneScript = GetNode<SceneController>(Globals.scenePath);
+			sceneScript.ChangeScene("res://scenes/menus/DeathScreen.tscn");
 		}	
 	}
 
@@ -44,14 +47,5 @@ public partial class PlayerController
 		Godot.Node2D gameController = GetNode<SceneController>(Globals.scenePath).GetCurrentScene();
 		GameController controllerScript = (GameController)gameController;
 		controllerScript.UpdateBackgroundColour(stats.health);
-	}
-
-	private void DestorySelf(string animName) { 
-		//Go to gameover screen (transition needed)
-		SceneController sceneScript = GetNode<SceneController>(Globals.scenePath);
-		sceneScript.ChangeScene("res://scenes/menus/DeathScreen.tscn");
-
-		//Delete player just in case
-		this.QueueFree(); 
 	}
 }
