@@ -26,7 +26,10 @@ public class SceneController : Node2D
 		return currentScene ?? this.GetNode<Node2D>("GameController");
 	}
 
-	public void ChangeScene(string scenePath, float animSpeed = 1f) {
+	private void HandelDataTransfer(Node2D oldScene, Node2D newScene, System.Object data) {
+	}
+
+	public void ChangeScene(string scenePath, float animSpeed = 1f, System.Object passThroughData = null) {
 		if(String.IsNullOrEmpty(scenePath)) { return; }
 
 		PackedScene newScene = (PackedScene)GD.Load(scenePath);
@@ -34,6 +37,10 @@ public class SceneController : Node2D
 		newSceneInstance.Visible = false;
 		AddChild(newSceneInstance);
 
+		if(passThroughData != null) {
+			HandelDataTransfer(currentScene, newSceneInstance, passThroughData);
+		}
+		
 		anim.PlaybackSpeed = animSpeed;
 		anim.Play("SceneTransition");
 	}
