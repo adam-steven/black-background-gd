@@ -16,7 +16,7 @@ public class GameOverButtons : Button
 		switch (action)
 		{
 			case MenuButtons.Play:
-				Play();
+				Replay();
 				break;
 			case MenuButtons.Options:
 				Options();
@@ -42,9 +42,10 @@ public class GameOverButtons : Button
 		anim.Play("MenuBtnDeselected");
 	}
 
-	private void Play() {
+	private void Replay() {
+		MainGameObj restartObj = new MainGameObj(true);
 		SceneController sceneScript = GetNode<SceneController>(Globals.scenePath);
-		sceneScript.ChangeScene("res://scenes/Main.tscn", 5f);
+		sceneScript.ChangeScene("res://scenes/Main.tscn", 5f, restartObj);
 		this.Disabled = true;
 	}
 

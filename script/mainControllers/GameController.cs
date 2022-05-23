@@ -33,6 +33,16 @@ public partial class GameController : Node2D
 		levelCenter = levelNode.GlobalPosition;
 		upgrades = FileManager.GetScenes(upgradesFolder);
 		obstacles = FileManager.GetScenes(obstaclesFolder);
+
+		//Grabs any data that was passed through on scene change
+		LoadLevelParameters(); 
+	}
+
+	private void LoadLevelParameters() {
+		MainGameObj sceneDataObj = (MainGameObj)(GetNode<SceneController>(Globals.scenePath).GetSceneData());
+		if(sceneDataObj == null) return;
+
+		GD.Print(sceneDataObj.isQuickReset);
 	}
 
 	// public override void _Process(float delta) {}
