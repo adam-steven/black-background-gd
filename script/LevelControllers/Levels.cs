@@ -14,11 +14,8 @@ namespace Godot
         [Signal]
         public delegate void change_scene();
 
-        public void LoadLevelParameters(System.Object sceneData) {
+        public virtual void LoadLevelParameters(System.Object sceneData) {
             this.sceneData = sceneData;
-
-            if(this.sceneData == null) return;
-                GD.Print(((MainGameObj)this.sceneData).isQuickReset);
         }
     }
 }

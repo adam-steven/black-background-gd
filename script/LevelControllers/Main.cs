@@ -36,6 +36,11 @@ public class Main : Levels
 		obstacles = FileManager.GetScenes(obstaclesFolder);
 	}
 
+	public override void LoadLevelParameters(System.Object sceneData) {
+		if(sceneData == null) return;
+		GD.Print(((MainGameObj)sceneData).isQuickReset);
+	}
+
 	// public override void _Process(float delta) {}
 
 	#region Spawn Functions
