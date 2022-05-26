@@ -30,8 +30,21 @@ public class SceneController : Node2D
 		newSceneInstance.Visible = false;
 		AddChild(newSceneInstance);
 
+		if(passThroughData != null) {
+			HandelSceneDataPass(newSceneInstance, passThroughData);
+		}
+
 		anim.PlaybackSpeed = animSpeed;
 		anim.Play("SceneTransition");
+	}
+
+	private void HandelSceneDataPass(Node2D newScene, System.Object data) {
+		Levels newSceneLevel = (Levels)newScene;
+
+		newSceneLevel.LoadLevelParameters(data);
+
+		newSceneLevel.Connect("change_scene", this, "ChangeScene");
+		//Add listener to level
 	}
 
 	private void _animation_finished(string animName) {
@@ -52,10 +65,6 @@ public class SceneController : Node2D
 
 	public Node2D GetCurrentScene() {
 		return currentScene ?? this.GetNode<Node2D>("GameController");
-	}
-
-	public System.Object GetSceneData() {
-		return sceneData;
 	}
 
 	#endregion

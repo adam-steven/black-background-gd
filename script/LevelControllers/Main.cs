@@ -2,7 +2,8 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-public partial class GameController : Node2D
+//Main.tscn 
+public class Main : Levels
 {
 	Random rnd = new Random();
 
@@ -33,16 +34,6 @@ public partial class GameController : Node2D
 		levelCenter = levelNode.GlobalPosition;
 		upgrades = FileManager.GetScenes(upgradesFolder);
 		obstacles = FileManager.GetScenes(obstaclesFolder);
-
-		//Grabs any data that was passed through on scene change
-		LoadLevelParameters(); 
-	}
-
-	private void LoadLevelParameters() {
-		MainGameObj sceneDataObj = (MainGameObj)(GetNode<SceneController>(Globals.scenePath).GetSceneData());
-		if(sceneDataObj == null) return;
-
-		GD.Print(sceneDataObj.isQuickReset);
 	}
 
 	// public override void _Process(float delta) {}
@@ -182,6 +173,28 @@ public partial class GameController : Node2D
 
 	#endregion
 
+	#region Colour Controls
+
+	public Color playerColour;
+	public Color enemyColour;
+
+	private void UpdateGameColours() {
+		var values = Enum.GetValues(typeof(Enums.Colour));
+		String colourName = values.GetValue(rnd.Next(values.Length)).ToString();
+
+		enemyColour = Color.ColorN(colourName);
+		levelNode.Modulate = enemyColour;
+	}
+
+	//Starts turning the background red if player health is less than 30
+	public void UpdateBackgroundColour(int playerHealth) {
+		//make sure the number is never less than 0
+		int red = Math.Max(0, 30 - playerHealth) * 2;
+		VisualServer.SetDefaultClearColor(Color.Color8((byte)red,0,0));
+	}
+
+	#endregion
+
 	#region Testing Functions
 
 	// private void PlaceTestingDot(Vector2 tDotPos) {
@@ -210,4 +223,6 @@ public partial class GameController : Node2D
 	// }
 
 	#endregion
+
+
 }

@@ -1,6 +1,7 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://script/menus/GameOverButtons.cs" type="Script" id=1]
+[ext_resource path="res://script/LevelControllers/DeathScreen.cs" type="Script" id=2]
 [ext_resource path="res://fonts/Teko-Bold-90.tres" type="DynamicFont" id=3]
 
 [sub_resource type="Animation" id=14]
@@ -196,6 +197,7 @@ tracks/0/keys = {
 }
 
 [node name="DeathScreen" type="Node2D"]
+script = ExtResource( 2 )
 
 [node name="Control" type="Control" parent="."]
 anchor_right = 1.0

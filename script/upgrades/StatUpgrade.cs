@@ -5,7 +5,7 @@ public class StatUpgrade : Area2D
 {    
 	private EntityStats stats;
 	private bool objectSelected = false;
-	GameController gameControlScript;
+	Main gameControlScript;
 
 	public override void _Ready() {
 		Node2D thisStats = this.GetNodeOrNull<Node2D>("Stats");
@@ -15,7 +15,7 @@ public class StatUpgrade : Area2D
 		this.Connect("mouse_exited", this, "MouseExited");
 
 		Godot.Node2D gameController = GetNode<SceneController>(Globals.scenePath).GetCurrentScene();
-		gameControlScript = (GameController)gameController;
+		gameControlScript = (Main)gameController;
 		gameController.Connect("upgrading_finished", this, "DeleteSelf");
 	}
 

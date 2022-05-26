@@ -45,7 +45,7 @@ public partial class PlayerController
 	private void UpdateBackgroundColour() {
 		//Update background colour based on health
 		Godot.Node2D gameController = GetNode<SceneController>(Globals.scenePath).GetCurrentScene();
-		GameController controllerScript = (GameController)gameController;
+		Main controllerScript = (Main)gameController;
 		controllerScript.UpdateBackgroundColour(stats.health);
 	}
 }

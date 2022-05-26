@@ -41,7 +41,7 @@ public class BulletSpawner : RigidBody2D
 		gun.Shoot();
 
 		Godot.Node2D gameController = GetNode<SceneController>(Globals.scenePath).GetCurrentScene();
-		GameController controllerScript = (GameController)gameController;
+		Main controllerScript = (Main)gameController;
 		controllerScript.CheckIfEnemies();
 
 		this.QueueFree(); 
