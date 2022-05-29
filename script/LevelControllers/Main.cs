@@ -41,7 +41,13 @@ public class Main : Levels
 		GD.Print(((MainGameObj)sceneData).isQuickReset);
 	}
 
-	// public override void _Process(float delta) {}
+	public override void _Process(float delta) {
+		if (Input.IsActionJustPressed("ui_fire1")) {
+			GD.Print("hello?");
+			EmitChangeScene("res://scenes/menus/DeathScreen.tscn");
+		}
+			
+	}
 
 	#region Spawn Functions
 
@@ -228,6 +234,5 @@ public class Main : Levels
 	// }
 
 	#endregion
-
 
 }
