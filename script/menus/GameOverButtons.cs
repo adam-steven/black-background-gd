@@ -3,7 +3,7 @@ using static Enums;
 
 public class GameOverButtons : Button
 {
-	[Export] MenuButtons action;
+	[Export] public MenuButtons action;
 
 	public override void _Ready()
 	{
@@ -12,22 +12,10 @@ public class GameOverButtons : Button
 		this.Connect("mouse_exited", this, "_OnMouseExit");
 	}
 
+	[Signal]
+    public delegate void on_pressed(GameOverButtons button);
 	private void _OnButtonPress() {
-		switch (action)
-		{
-			case MenuButtons.Play:
-				Replay();
-				break;
-			case MenuButtons.Options:
-				Options();
-				break;
-			case MenuButtons.Leaderboard:
-				Leaderboard();
-				break;
-			case MenuButtons.Quit:
-				Quit();
-				break;
-		}
+		this.EmitSignal("on_pressed", this);
 	}
 
 	//Play expand anim
@@ -40,24 +28,5 @@ public class GameOverButtons : Button
 	private void _OnMouseExit() {
 		AnimationPlayer anim  = this.GetNode<AnimationPlayer>("AnimationPlayer");
 		anim.Play("MenuBtnDeselected");
-	}
-
-	private void Replay() {
-		MainGameObj restartObj = new MainGameObj(true);
-		SceneController sceneScript = GetNode<SceneController>(Globals.scenePath);
-		sceneScript.ChangeScene("res://scenes/Main.tscn", 5f, restartObj);
-		this.Disabled = true;
-	}
-
-	private void Options() {
-		this.Disabled = true;
-	}
-
-	private void Leaderboard() {
-		this.Disabled = true;
-	}
-
-	private void Quit() {
-		GetTree().Quit();
 	}
 }
