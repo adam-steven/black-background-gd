@@ -18,7 +18,7 @@ public class SceneController : Node2D
 		anim.Connect("animation_finished", this, "_animation_finished");
 
 		currentScene = this.GetNode<Node2D>("GameController");
-		currentScene.Connect("change_scene", this, "ChangeScene");
+		HandelSceneDataPass(currentScene, null);
 	}
 
 	public void ChangeScene(string scenePath, float animSpeed, string jsonData) {
@@ -29,7 +29,9 @@ public class SceneController : Node2D
 		newSceneInstance.Visible = false;
 		AddChild(newSceneInstance);
 		
-		System.Object deserializedData = JsonConvert.DeserializeObject<System.Object>(jsonData);
+		var settings = new JsonSerializerSettings();
+		settings.TypeNameHandling = TypeNameHandling.Objects;
+		System.Object deserializedData = JsonConvert.DeserializeObject<System.Object>(jsonData, settings);
 		HandelSceneDataPass(newSceneInstance, deserializedData);
 
 		anim.PlaybackSpeed = animSpeed;
@@ -54,11 +56,7 @@ public class SceneController : Node2D
 	private void HandelSceneDataPass(Node2D newScene, System.Object data = null) {
 		
 		Levels newSceneLevel = (Levels)newScene;
-
-		if(data != null) {
-			newSceneLevel.LoadLevelParameters(data);
-		}
-
+		newSceneLevel.LoadLevelParameters(data);
 		newSceneLevel.Connect("change_scene", this, "ChangeScene");
 	}
 

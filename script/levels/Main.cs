@@ -37,19 +37,37 @@ public class Main : Levels
 	}
 
 	public override void LoadLevelParameters(System.Object sceneData) {
-		if(sceneData == null) return;
-		GD.Print(((MainGameObj)sceneData).isQuickReset);
-	}
+		MainGameObj mainData = (sceneData != null) 
+			? (MainGameObj)sceneData 
+			: new MainGameObj(false);
 
-	public override void _Process(float delta) {
-		if (Input.IsActionJustPressed("ui_fire1")) {
-			GD.Print("hello?");
-			EmitChangeScene("res://scenes/menus/DeathScreen.tscn");
+		if(mainData.isQuickReset) {
+			Vector2 playerPos = new Vector2(960, 540);
+			SpawnPlayer(playerPos);
+			PlayGame();
+		} else {
+			Vector2 playerPos = new Vector2(1200, 540);
+			SpawnPlayer(playerPos);
+			SpawnMainMenu();
 		}
-			
 	}
 
 	#region Spawn Functions
+
+	private void SpawnPlayer(Vector2 location) {
+		PackedScene playerScene = (PackedScene)GD.Load("res://scenes/misc/Player.tscn");
+		RigidBody2D player = (RigidBody2D)playerScene.Instance();
+		player.GlobalPosition = location;
+		this.AddChild(player);
+	}
+
+	private void SpawnMainMenu() {
+		PackedScene mainMenuScene = (PackedScene)GD.Load("res://scenes/menus/MainMenu.tscn");
+		Godot.Control mainMenu = (Godot.Control)mainMenuScene.Instance();
+		this.AddChild(mainMenu);
+
+		mainMenu.Connect("play_game", this, "PlayGame");
+	}
 
 	//If the last enemy is dying spawn next way
 	public void CheckIfEnemies() {
@@ -149,6 +167,11 @@ public class Main : Levels
 	#endregion 
 
 	#region Misc Functions 
+
+	public void PlayGame() {
+		this.LevelSpin();
+		this.CheckIfEnemies();
+	}
 
 	//Displays big faint text in the background for a short amount of time
 	//Used to indicate the changes in gameplay sections 

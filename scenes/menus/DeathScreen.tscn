@@ -1,7 +1,7 @@
 [gd_scene load_steps=16 format=2]
 
-[ext_resource path="res://script/menus/GameOverButtons.cs" type="Script" id=1]
-[ext_resource path="res://script/LevelControllers/DeathScreen.cs" type="Script" id=2]
+[ext_resource path="res://script/menus/MenuButtons.cs" type="Script" id=1]
+[ext_resource path="res://script/menus/DeathScreen.cs" type="Script" id=2]
 [ext_resource path="res://fonts/Teko-Bold-90.tres" type="DynamicFont" id=3]
 
 [sub_resource type="Animation" id=14]

@@ -12,10 +12,9 @@ public class DeathScreen : Levels
 
 		for (int i = 0; i < buttons.Count; i++)
 		{
-			if(!buttons[i].GetType().Equals(typeof(GameOverButtons))) { continue; }
+			if(!buttons[i].GetType().Equals(typeof(MenuButtons))) { continue; }
 		
 			Godot.Button button = (Godot.Button)buttons[i];
-			GD.Print(button.Name);
 			button.Connect("on_pressed", this, "_OnButtonPress");
 		}
 	}
@@ -26,36 +25,35 @@ public class DeathScreen : Levels
 		GD.Print(((MainGameObj)sceneData).isQuickReset);
 	}
 
-	private void _OnButtonPress(GameOverButtons button) {
+	private void _OnButtonPress(MenuButtons button) {
 		switch (button.action)
 		{
-			case MenuButtons.Play:
+			case MenuButtonActions.Play:
 				Replay(button);
 				break;
-			case MenuButtons.Options:
+			case MenuButtonActions.Options:
 				Options(button);
 				break;
-			case MenuButtons.Leaderboard:
+			case MenuButtonActions.Leaderboard:
 				Leaderboard(button);
 				break;
-			case MenuButtons.Quit:
+			case MenuButtonActions.Quit:
 				Quit();
 				break;
 		}
 	}
 
-	private void Replay(GameOverButtons button) {
+	private void Replay(MenuButtons button) {
 		MainGameObj restartObj = new MainGameObj(true);
-		SceneController sceneScript = GetNode<SceneController>(Globals.scenePath);
-		sceneScript.ChangeScene("res://scenes/Main.tscn", 5f, restartObj);
+		EmitChangeScene("res://scenes/Main.tscn", 5f, restartObj);
 		button.Disabled = true;
 	}
 
-	private void Options(GameOverButtons button) {
+	private void Options(MenuButtons button) {
 		button.Disabled = true;
 	}
 
-	private void Leaderboard(GameOverButtons button) {
+	private void Leaderboard(MenuButtons button) {
 		button.Disabled = true;
 	}
 

@@ -1,7 +1,8 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
-[ext_resource path="res://script/menus/MainMenuButtons.cs" type="Script" id=1]
+[ext_resource path="res://script/menus/MenuButtons.cs" type="Script" id=1]
 [ext_resource path="res://fonts/Teko-Bold-90.tres" type="DynamicFont" id=2]
+[ext_resource path="res://script/menus/MainMenu.cs" type="Script" id=3]
 
 [sub_resource type="Animation" id=1]
 resource_name = "MenuBtnDeselected"
@@ -198,9 +199,7 @@ tracks/0/keys = {
 [node name="MainMenu" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
+script = ExtResource( 3 )
 
 [node name="Buttons" type="VBoxContainer" parent="."]
 margin_left = 540.0
@@ -209,9 +208,6 @@ margin_right = 1380.0
 margin_bottom = 1000.0
 custom_constants/separation = 114
 alignment = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Play" type="Button" parent="Buttons"]
 margin_top = 49.0

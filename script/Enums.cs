@@ -7,7 +7,7 @@ public static class Enums
 	};
 
 	/// <summary> Buttons for Menu GUI </summary>
-	public enum MenuButtons {
+	public enum MenuButtonActions {
 		Play, 
 		Options,
 		Leaderboard,

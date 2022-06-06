@@ -1,9 +1,9 @@
 using Godot;
 using static Enums;
 
-public class GameOverButtons : Button
+public class MenuButtons : Button
 {
-	[Export] public MenuButtons action;
+	[Export] public MenuButtonActions action;
 
 	public override void _Ready()
 	{
@@ -13,7 +13,7 @@ public class GameOverButtons : Button
 	}
 
 	[Signal]
-    public delegate void on_pressed(GameOverButtons button);
+    public delegate void on_pressed(MenuButtons button);
 	private void _OnButtonPress() {
 		this.EmitSignal("on_pressed", this);
 	}
