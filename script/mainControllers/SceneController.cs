@@ -38,23 +38,7 @@ public class SceneController : Node2D
 		anim.Play("SceneTransition");
 	}
 
-	//Remember to remove
-	public void ChangeScene(string scenePath, float animSpeed = 1f, System.Object passThroughData = null) {
-		if(String.IsNullOrEmpty(scenePath)) { return; }
-
-		PackedScene newScene = (PackedScene)GD.Load(scenePath);
-		newSceneInstance = (Node2D)newScene.Instance();
-		newSceneInstance.Visible = false;
-		AddChild(newSceneInstance);
-		
-		HandelSceneDataPass(newSceneInstance, passThroughData);
-
-		anim.PlaybackSpeed = animSpeed;
-		anim.Play("SceneTransition");
-	}
-
 	private void HandelSceneDataPass(Node2D newScene, System.Object data = null) {
-		
 		Levels newSceneLevel = (Levels)newScene;
 		newSceneLevel.LoadLevelParameters(data);
 		newSceneLevel.Connect("change_scene", this, "ChangeScene");

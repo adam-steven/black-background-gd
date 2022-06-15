@@ -5,25 +5,27 @@ public partial class PlayerController
 {
 	private bool invincible = false;
 
+	[Signal]
+	public delegate void end_game();
 
 	//Called by the bullet script to take damage / die
-	public void TakeDamage(int damage) {
+	public override void TakeDamage(int damage) {
 		//Indicate that no damage was taken (+ health gained) by playing all movement effects
 		if(invincible) {
 			string[] effectPos = {"Right", "Left", "Bottom", "Top"};
 			for (int i = 0; i < effectPos.Length; i++)
 				PlayEffect(effectPos[i]);
 
-			stats.health += damage/2;
+			health += damage/2;
 			UpdateBackgroundColour();
 			return;
 		}
 
-		if(stats.health <= 0) return;
+		if(health <= 0) return;
 
 		//Decrease health
-		stats.health -= damage;
-		GD.Print("Player: " + stats.health);
+		health -= damage;
+		GD.Print("Player: " + health);
 
 		//Damage indication
 		AnimationPlayer anim  = this.GetNode<AnimationPlayer>("AnimationPlayer");
@@ -33,12 +35,11 @@ public partial class PlayerController
 		UpdateBackgroundColour();
 
 		//Kill player if health is 0
-		if(stats.health <= 0) {
+		if(health <= 0) {
 			anim.Play("PlayerDeath");
 
 			//Go to gameover screen
-			SceneController sceneScript = GetNode<SceneController>(Globals.scenePath);
-			sceneScript.ChangeScene("res://scenes/menus/DeathScreen.tscn");
+			this.EmitSignal("end_game");
 		}	
 	}
 
@@ -46,6 +47,6 @@ public partial class PlayerController
 		//Update background colour based on health
 		Godot.Node2D gameController = GetNode<SceneController>(Globals.scenePath).GetCurrentScene();
 		Main controllerScript = (Main)gameController;
-		controllerScript.UpdateBackgroundColour(stats.health);
+		controllerScript.UpdateBackgroundColour(health);
 	}
 }

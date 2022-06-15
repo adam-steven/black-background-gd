@@ -12,9 +12,7 @@ namespace Godot
         //     Global sceneData.
         public System.Object sceneData  { get; set; }
 
-        public virtual void LoadLevelParameters(System.Object sceneData) {
-            this.sceneData = sceneData;
-        }
+        public virtual void LoadLevelParameters(System.Object sceneData) {}
 
         [Signal]
         public delegate void change_scene(string scenePath, float animSpeed, string passThroughData);

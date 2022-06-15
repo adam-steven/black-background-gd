@@ -4,16 +4,16 @@ using Godot;
 public partial class EnemyController
 {
     //Called by the bullet script to take damage / die
-	public void TakeDamage(int damage) {
-		if(stats.health <= 0) return;
+	public override void TakeDamage(int damage) {
+		if(health <= 0) return;
 		
-		stats.health -= damage;
-		GD.Print("Enemy: " + stats.health);
+		health -= damage;
+		GD.Print("Enemy: " + health);
 
 		AnimationPlayer anim  = this.GetNode<AnimationPlayer>("AnimationPlayer");
 		anim.Play("EnemyHit");
 
-		if(stats.health <= 0) {
+		if(health <= 0) {
 			anim.Connect("animation_finished", this, "DestorySelf");
 			anim.Play("EnemyDeath");
 		}	

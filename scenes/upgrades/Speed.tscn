@@ -1,8 +1,7 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://fonts/Teko-SemiBold-60.tres" type="DynamicFont" id=1]
 [ext_resource path="res://script/upgrades/StatUpgrade.cs" type="Script" id=2]
-[ext_resource path="res://scenes/misc/EntityStats.tscn" type="PackedScene" id=3]
 
 [sub_resource type="RectangleShape2D" id=2]
 
@@ -57,6 +56,14 @@ tracks/0/keys = {
 [node name="Speed" type="Area2D"]
 scale = Vector2( 1.1, 1.1 )
 script = ExtResource( 2 )
+health = 0
+movementForce = 400.0
+shotDelay = 0.0
+noOfBullets = 0
+bulletForce = -400.0
+bulletStrength = 0
+bulletAccuracy = 0.0
+bulletTimeAlive = 0.0
 
 [node name="Label" type="Label" parent="."]
 margin_left = -85.0
@@ -80,13 +87,3 @@ autoplay = "UpgradeInit"
 anims/UpgradeDeselected = SubResource( 3 )
 anims/UpgradeInit = SubResource( 4 )
 anims/UpgradeSelected = SubResource( 5 )
-
-[node name="Stats" parent="." instance=ExtResource( 3 )]
-health = 0
-movementForce = 400.0
-shotDelay = 0.0
-noOfBullets = 0
-bulletForce = -400.0
-bulletStrength = 0
-bulletAccuracy = 0.0
-bulletTimeAlive = 0.0

@@ -59,6 +59,8 @@ public class Main : Levels
 		RigidBody2D player = (RigidBody2D)playerScene.Instance();
 		player.GlobalPosition = location;
 		this.AddChild(player);
+
+		player.Connect("end_game", this, "EndGame");
 	}
 
 	private void SpawnMainMenu() {
@@ -171,6 +173,10 @@ public class Main : Levels
 	public void PlayGame() {
 		this.LevelSpin();
 		this.CheckIfEnemies();
+	}
+
+	public void EndGame() {
+		EmitChangeScene("res://scenes/menus/DeathScreen.tscn", 1f, null);
 	}
 
 	//Displays big faint text in the background for a short amount of time
