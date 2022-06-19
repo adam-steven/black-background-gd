@@ -9,8 +9,7 @@ public class Main : Levels
 
 	Godot.Node2D levelNode;
 	Vector2 levelCenter;
-	private static Vector2 levelSize = new Vector2(460, 460); //spawnable level radius (half of full dimentions)
-
+	
 	private int level = 0;
 	private int numberOfWaves = -1;
 
@@ -18,21 +17,19 @@ public class Main : Levels
 	private int enemySpawnMax = 2;
 	private int noOfEnemies = 0;
 
+	private Entities player;
+
 	private static string enemySpawnerFolder = "res://scenes/misc/EnemySpawner.tscn";
 
 	private static string obstaclesFolder = "res://scenes/obstacles/";
 	List<string> obstacles; //paths to obstical scenes (dodge section)
 
-	private static string upgradesFolder = "res://scenes/upgrades/";
-	List<string> upgrades; //paths to upgrade scenes
-	
 	public override void _Ready() {
 		//Reset the background color
-		UpdateBackgroundColour(10000);
+		ColourControl.UpdateBackgroundColour(10000);
 
 		levelNode = this.GetNode<Godot.Node2D>("Level");
 		levelCenter = levelNode.GlobalPosition;
-		upgrades = FileManager.GetScenes(upgradesFolder);
 		obstacles = FileManager.GetScenes(obstaclesFolder);
 	}
 
@@ -56,10 +53,11 @@ public class Main : Levels
 
 	private void SpawnPlayer(Vector2 location) {
 		PackedScene playerScene = (PackedScene)GD.Load("res://scenes/misc/Player.tscn");
-		RigidBody2D player = (RigidBody2D)playerScene.Instance();
-		player.GlobalPosition = location;
-		this.AddChild(player);
+		RigidBody2D playerRB = (RigidBody2D)playerScene.Instance();
+		playerRB.GlobalPosition = location;
+		this.AddChild(playerRB);
 
+		player = (Entities)playerRB;
 		player.Connect("end_game", this, "EndGame");
 	}
 
@@ -118,8 +116,8 @@ public class Main : Levels
 			PackedScene obstacleScene = (PackedScene)GD.Load(obstaclesFolder + randomObstacles);
 			Godot.RigidBody2D obstacle = (Godot.RigidBody2D)obstacleScene.Instance();
 
-			int spawnPosX = rnd.Next((int)-levelSize.x, (int)levelSize.x);
-			int spawnPosY = rnd.Next((int)-levelSize.y, (int)levelSize.y);
+			int spawnPosX = rnd.Next((int)-Globals.levelSize.x, (int)Globals.levelSize.x);
+			int spawnPosY = rnd.Next((int)-Globals.levelSize.y, (int)Globals.levelSize.y);
 			Vector2 spawnPosition = new Vector2(spawnPosX, spawnPosY) + levelCenter;
 			obstacle.GlobalPosition = spawnPosition;
 
@@ -133,8 +131,8 @@ public class Main : Levels
 			PackedScene spawnerScene = (PackedScene)GD.Load(enemySpawnerFolder);
 			Godot.Position2D spawner = (Godot.Position2D)spawnerScene.Instance();
 
-			int spawnPosX = rnd.Next((int)-levelSize.x, (int)levelSize.x);
-			int spawnPosY = rnd.Next((int)-levelSize.y, (int)levelSize.y);
+			int spawnPosX = rnd.Next((int)-Globals.levelSize.x, (int)Globals.levelSize.x);
+			int spawnPosY = rnd.Next((int)-Globals.levelSize.y, (int)Globals.levelSize.y);
 			Vector2 spawnPosition = new Vector2(spawnPosX, spawnPosY) + levelCenter;
 			spawner.GlobalPosition = spawnPosition;
 
@@ -148,22 +146,17 @@ public class Main : Levels
 	}
 
 	private void SpawnUpgrades() {
-		Vector2[] spawnPoints = {
-			new Vector2(0,-levelSize.y/2),
-			new Vector2(levelSize.x/2,levelSize.y/2),
-			new Vector2(-levelSize.x/2,levelSize.y/2),
-		};
+		PackedScene upgradeMenuScene = (PackedScene)GD.Load("res://scenes/menus/UpgradeMenu.tscn");
+		Godot.Control upgradeMenu = (Godot.Control)upgradeMenuScene.Instance();
 
-		for (int i = 0; i < spawnPoints.Length; i++) {
-			string randomUpgrade = upgrades[rnd.Next(upgrades.Count)];
-			PackedScene upgradeScene = (PackedScene)GD.Load(upgradesFolder + randomUpgrade);
-			Godot.Node2D upgrade = (Godot.Node2D)upgradeScene.Instance();
+		UpgradeMenu upgradeMenuScript = (UpgradeMenu)upgradeMenu;
+		upgradeMenuScript.levelCenter = levelCenter;
+		upgradeMenuScript.player = player;
 
-			Vector2 spawnPosition = spawnPoints[i] + levelCenter;
-			upgrade.GlobalPosition = spawnPosition;
+		this.AddChild(upgradeMenu);
 
-			this.AddChild(upgrade);
-		}
+		//if the upgrading is finished call CheckIfEnemies to continue game
+		upgradeMenuScript.Connect("upgrading_finished", this, "CheckIfEnemies");
 	}
 
 	#endregion 
@@ -200,19 +193,6 @@ public class Main : Levels
 
 	#endregion 
 
-	#region Signals
-
-	[Signal]
-	public delegate void upgrading_finished();
-
-	//Emit signal to delete any existing upgrades
-	public void FinishedUpgrading() {
-		this.EmitSignal("upgrading_finished");
-		CheckIfEnemies();
-	}
-
-	#endregion
-
 	#region Colour Controls
 
 	public Color playerColour;
@@ -224,13 +204,6 @@ public class Main : Levels
 
 		enemyColour = Color.ColorN(colourName);
 		levelNode.Modulate = enemyColour;
-	}
-
-	//Starts turning the background red if player health is less than 30
-	public void UpdateBackgroundColour(int playerHealth) {
-		//make sure the number is never less than 0
-		int red = Math.Max(0, 30 - playerHealth) * 2;
-		VisualServer.SetDefaultClearColor(Color.Color8((byte)red,0,0));
 	}
 
 	#endregion
