@@ -121,7 +121,12 @@ public class Main : Levels
 			Vector2 spawnPosition = new Vector2(spawnPosX, spawnPosY) + levelCenter;
 			obstacle.GlobalPosition = spawnPosition;
 
+			Enemies obstacleScript = (Enemies)obstacle;
+			obstacleScript.player = player;
+
 			this.AddChild(obstacle);
+
+			obstacle.Connect("_on_death", this, "CheckIfEnemies");
 		}
 	}
 

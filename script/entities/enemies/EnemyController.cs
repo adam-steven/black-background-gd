@@ -6,11 +6,8 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using static Enums;
 
-public partial class EnemyController : Entities
+public partial class EnemyController : Enemies
 {
-	private GunController gun; 
-	private RigidBody2D player;
-
 	//enemy specific function
 	private MethodInfo variantMethod;
 
@@ -44,19 +41,5 @@ public partial class EnemyController : Entities
 
 		variantMethod.Invoke(this, null);
 		gun.UpdateBurst();
-	}
-
-	private void FacePlayer() {
-		this.LookAt(player.GlobalPosition); 
-	}
-
-	private void MoveInDirection(Vector2 _thrustDirection) {
-		Vector2 _thrust = _thrustDirection * movementForce;
-		SetAxisVelocity(_thrust.Rotated(Rotation));
-	}
-
-	private void PushInDirection(Vector2 _thrustDirection) {
-		Vector2 _thrust = _thrustDirection * movementForce;
-		ApplyCentralImpulse(_thrust);
 	}
 }

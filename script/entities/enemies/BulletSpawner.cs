@@ -2,20 +2,13 @@ using System;
 using Godot;
 using static Enums;
 
-public class BulletSpawner : Entities
+public class BulletSpawner : Enemies
 {
 	Random rnd = new Random();
-
-	private float spawnSpeedModifier;
-	private RigidBody2D player;
-	private GunController gun;
 	
 	public override void _Ready()
 	{
-		Godot.Node2D gameController = GetNode<SceneController>(Globals.scenePath).GetCurrentScene();
-		player = gameController.GetNodeOrNull<RigidBody2D>("Player");
-
-		spawnSpeedModifier = shotDelay / rnd.Next(1, 3);
+		float spawnSpeedModifier = shotDelay / rnd.Next(1, 3);
 
 		gun = new GunController(this, BulletOwner.EnemyController); 
 
@@ -30,17 +23,9 @@ public class BulletSpawner : Entities
 		FacePlayer();
 	}
 
-	private void FacePlayer() {
-		this.LookAt(player.GlobalPosition); 
-	}
-
 	private void ShootBullet(string animName) { 
 		gun.Shoot();
-
-		Godot.Node2D gameController = GetNode<SceneController>(Globals.scenePath).GetCurrentScene();
-		Main controllerScript = (Main)gameController;
-		controllerScript.CheckIfEnemies();
-
+		EmitDeathSignal();
 		this.QueueFree(); 
 	}
 }
