@@ -75,7 +75,7 @@ public class GunController : RigidBody2D
 
 		// Access bullet script 
 		bulletCon.bOwner = bulletOwner;
-		bulletCon.openMotion = ownerNode.LinearVelocity/2f;
+		// bulletCon.openMotion = ownerNode.LinearVelocity/2f;
 		bulletCon.strength = stats.bulletStrength;
 		bulletCon.movementForce = stats.bulletForce;
 		bulletCon.timeAlive = stats.bulletTimeAlive;

@@ -56,13 +56,9 @@ tracks/0/keys = {
 [node name="Shotgun" type="Area2D"]
 scale = Vector2( 1.1, 1.1 )
 script = ExtResource( 2 )
-health = 0
-movementForce = 0.0
-shotDelay = 0.0
+noOfBullets = 1
 bulletForce = -200.0
-bulletStrength = 0
 bulletAccuracy = 0.15
-bulletTimeAlive = 0.0
 
 [node name="Label" type="Label" parent="."]
 margin_left = -85.0

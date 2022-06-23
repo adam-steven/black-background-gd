@@ -6,15 +6,10 @@ using static Enums;
 public partial class PlayerController : Entities
 {
 	private GunController gun; 
-
-	private CameraController cameraControl;
 	
 	public override void _Ready() {
 		gun = new GunController(this, BulletOwner.PlayerController);
 		this.Connect("body_entered", this, "_OnPlayerBodyEntered");
-
-		Camera2D camera = GetNode<SceneController>(Globals.scenePath).GetMainCamera();
-		cameraControl = (CameraController)camera;
 
 		connectAnimEndSignal("Stop", "StopIFramesEnd"); 
 	}

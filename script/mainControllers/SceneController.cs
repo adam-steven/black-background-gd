@@ -10,8 +10,6 @@ public class SceneController : Node2D
 	private Node2D newSceneInstance = null;
 	private Node2D currentScene;
 
-	//private System.Object sceneData = null;
-
 	public override void _Ready() {
 		mainCamera = this.GetNode<Camera2D>("Camera2D");
 		anim = this.GetNode<AnimationPlayer>("AnimationPlayer");
@@ -40,6 +38,7 @@ public class SceneController : Node2D
 
 	private void HandelSceneDataPass(Node2D newScene, System.Object data = null) {
 		Levels newSceneLevel = (Levels)newScene;
+		newSceneLevel.mainCamera = mainCamera;
 		newSceneLevel.LoadLevelParameters(data);
 		newSceneLevel.Connect("change_scene", this, "ChangeScene");
 	}
@@ -53,16 +52,4 @@ public class SceneController : Node2D
 			anim.Play("SceneDefault");
 		}
 	}
-
-	#region Getters
-
-	public Camera2D GetMainCamera() {
-		return mainCamera ?? this.GetNode<Camera2D>("Camera2D");
-	}
-
-	public Node2D GetCurrentScene() {
-		return currentScene ?? this.GetNode<Node2D>("GameController");
-	}
-
-	#endregion
 }

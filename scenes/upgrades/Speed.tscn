@@ -56,14 +56,8 @@ tracks/0/keys = {
 [node name="Speed" type="Area2D"]
 scale = Vector2( 1.1, 1.1 )
 script = ExtResource( 2 )
-health = 0
 movementForce = 400.0
-shotDelay = 0.0
-noOfBullets = 0
 bulletForce = -400.0
-bulletStrength = 0
-bulletAccuracy = 0.0
-bulletTimeAlive = 0.0
 
 [node name="Label" type="Label" parent="."]
 margin_left = -85.0

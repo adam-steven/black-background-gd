@@ -55,12 +55,8 @@ tracks/0/keys = {
 
 [node name="Sniper" type="Area2D"]
 script = ExtResource( 2 )
-health = 0
-movementForce = 0.0
 shotDelay = 0.2
-noOfBullets = 0
 bulletForce = 200.0
-bulletStrength = 0
 bulletAccuracy = -0.1
 bulletTimeAlive = 0.05
 

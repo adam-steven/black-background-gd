@@ -5,8 +5,8 @@ public partial class PlayerController
 {
 	private bool invincible = false;
 
-	[Signal]
-	public delegate void end_game();
+	[Signal] public delegate void _end_game();
+	[Signal] public delegate void _shake_screen(int shakeForce, float shakeDuration);
 
 	//Called by the bullet script to take damage / die
 	public override void TakeDamage(int damage) {
@@ -17,7 +17,8 @@ public partial class PlayerController
 				PlayEffect(effectPos[i]);
 
 			health += damage/2;
-			UpdateBackgroundColour();
+			//Update background colour based on health
+			ColourControl.UpdateBackgroundColour(health);
 			return;
 		}
 
@@ -30,21 +31,17 @@ public partial class PlayerController
 		//Damage indication
 		AnimationPlayer anim  = this.GetNode<AnimationPlayer>("AnimationPlayer");
 		anim.Play("PlayerHit");
-		cameraControl.StartShakeScreen(12, 0.2f);
+		this.EmitSignal("_shake_screen", 12, 0.2f);
 
-		UpdateBackgroundColour();
+		//Update background colour based on health
+		ColourControl.UpdateBackgroundColour(health);
 
 		//Kill player if health is 0
 		if(health <= 0) {
 			anim.Play("PlayerDeath");
 
 			//Go to gameover screen
-			this.EmitSignal("end_game");
+			this.EmitSignal("_end_game");
 		}	
-	}
-
-	private void UpdateBackgroundColour() {
-		//Update background colour based on health
-		ColourControl.UpdateBackgroundColour(health);
 	}
 }

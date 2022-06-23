@@ -25,7 +25,6 @@ public class BulletSpawner : Enemies
 
 	private void ShootBullet(string animName) { 
 		gun.Shoot();
-		EmitDeathSignal();
-		this.QueueFree(); 
+		EmitDeathSignal(); 
 	}
 }

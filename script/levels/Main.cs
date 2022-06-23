@@ -19,9 +19,7 @@ public class Main : Levels
 
 	private Entities player;
 
-	private static string enemySpawnerFolder = "res://scenes/misc/EnemySpawner.tscn";
-
-	private static string obstaclesFolder = "res://scenes/obstacles/";
+	List<string> enemies; //paths to enemy scenes
 	List<string> obstacles; //paths to obstical scenes (dodge section)
 
 	public override void _Ready() {
@@ -30,7 +28,9 @@ public class Main : Levels
 
 		levelNode = this.GetNode<Godot.Node2D>("Level");
 		levelCenter = levelNode.GlobalPosition;
-		obstacles = FileManager.GetScenes(obstaclesFolder);
+
+		obstacles = FileManager.GetScenes(Globals.obstaclesFolder);
+		enemies = FileManager.GetScenes(Globals.enemyFolder);
 	}
 
 	public override void LoadLevelParameters(System.Object sceneData) {
@@ -51,165 +51,173 @@ public class Main : Levels
 
 	#region Spawn Functions
 
-	private void SpawnPlayer(Vector2 location) {
-		PackedScene playerScene = (PackedScene)GD.Load("res://scenes/misc/Player.tscn");
-		RigidBody2D playerRB = (RigidBody2D)playerScene.Instance();
-		playerRB.GlobalPosition = location;
-		this.AddChild(playerRB);
+		private void SpawnPlayer(Vector2 location) {
+			PackedScene playerScene = (PackedScene)GD.Load("res://scenes/misc/Player.tscn");
+			RigidBody2D playerRB = (RigidBody2D)playerScene.Instance();
+			playerRB.GlobalPosition = location;
+			this.AddChild(playerRB);
 
-		player = (Entities)playerRB;
-		player.Connect("end_game", this, "EndGame");
-	}
-
-	private void SpawnMainMenu() {
-		PackedScene mainMenuScene = (PackedScene)GD.Load("res://scenes/menus/MainMenu.tscn");
-		Godot.Control mainMenu = (Godot.Control)mainMenuScene.Instance();
-		this.AddChild(mainMenu);
-
-		mainMenu.Connect("play_game", this, "PlayGame");
-	}
-
-	//If the last enemy is dying spawn next way
-	public void CheckIfEnemies() {
-		noOfEnemies--;
-		if(noOfEnemies > 0) return;
-
-		//Waves >0 basic enemies
-		//Wave 0 bosses
-		//Waves <0 Upgrades
-		numberOfWaves--;
-		if(numberOfWaves < -1) {
-			level++;
-			numberOfWaves = (level + 2) * 2;
-
-			//Slowly increase the number of enemies each wave
-			if(level%2 == 0) { enemySpawnMax++; } 
-			else { enemySpawnMin++; }
+			player = (Entities)playerRB;
+			player.Connect("_end_game", this, "EndGame");
+			player.Connect("_shake_screen", (CameraController)mainCamera, "StartShakeScreen");
 		}
 
-		GD.Print("Level: " + level + " Wave: " + numberOfWaves);
+		private void SpawnMainMenu() {
+			PackedScene mainMenuScene = (PackedScene)GD.Load("res://scenes/menus/MainMenu.tscn");
+			Godot.Control mainMenu = (Godot.Control)mainMenuScene.Instance();
+			this.AddChild(mainMenu);
 
-		if (numberOfWaves > level + 2) {
-
-			if(numberOfWaves ==  (level + 2) * 2) { DisplaySectionText("DODGE"); }
-			SpawnObstacles(); 
+			mainMenu.Connect("play_game", this, "PlayGame");
 		}
-		else if (numberOfWaves > 0) { 
 
-			if(numberOfWaves == level + 2) { DisplaySectionText("FIGHT"); }
-			SpawnEnemies(); 
+		//If the last enemy is dying spawn next way
+		public void CheckIfEnemies() {
+			noOfEnemies--;
+			if(noOfEnemies > 0) return;
+
+			//Waves >0 basic enemies
+			//Wave 0 bosses
+			//Waves <0 Upgrades
+			numberOfWaves--;
+			if(numberOfWaves < -1) {
+				level++;
+				numberOfWaves = (level + 2) * 2;
+
+				//Slowly increase the number of enemies each wave
+				if(level%2 == 0) { enemySpawnMax++; } 
+				else { enemySpawnMin++; }
+			}
+
+			GD.Print("Level: " + level + " Wave: " + numberOfWaves);
+
+			if (numberOfWaves > level + 2) {
+
+				if(numberOfWaves ==  (level + 2) * 2) { DisplaySectionText("DODGE"); }
+				SpawnObstacles(); 
+			}
+			else if (numberOfWaves > 0) { 
+
+				if(numberOfWaves == level + 2) { DisplaySectionText("FIGHT"); }
+				SpawnEnemies(); 
+			}
+			else if (numberOfWaves == 0) { 
+				DisplaySectionText("BOSS"); 
+				SpawnBoss(); 
+			} 
+			else { 
+				LevelSpin();
+				SpawnUpgrades();
+			} 
 		}
-		else if (numberOfWaves == 0) { 
-			DisplaySectionText("BOSS"); 
-			SpawnBoss(); 
-		} 
-		else { 
-			LevelSpin();
-			SpawnUpgrades();
-		} 
-	}
 
-	private void SpawnObstacles() {
-		noOfEnemies = rnd.Next(enemySpawnMin, enemySpawnMax + 2);
-		for (int i = 0; i < noOfEnemies; i++) {
-			string randomObstacles = obstacles[rnd.Next(obstacles.Count)];
-			PackedScene obstacleScene = (PackedScene)GD.Load(obstaclesFolder + randomObstacles);
-			Godot.RigidBody2D obstacle = (Godot.RigidBody2D)obstacleScene.Instance();
+		private void SpawnObstacles() {
+			noOfEnemies = rnd.Next(enemySpawnMin, enemySpawnMax + 2);
+			for (int i = 0; i < noOfEnemies; i++) {
+				string randomObstacles = obstacles[rnd.Next(obstacles.Count)];
+				PackedScene obstacleScene = (PackedScene)GD.Load(Globals.obstaclesFolder + randomObstacles);
+				Godot.RigidBody2D obstacle = (Godot.RigidBody2D)obstacleScene.Instance();
 
-			int spawnPosX = rnd.Next((int)-Globals.levelSize.x, (int)Globals.levelSize.x);
-			int spawnPosY = rnd.Next((int)-Globals.levelSize.y, (int)Globals.levelSize.y);
-			Vector2 spawnPosition = new Vector2(spawnPosX, spawnPosY) + levelCenter;
-			obstacle.GlobalPosition = spawnPosition;
+				int spawnPosX = rnd.Next((int)-Globals.levelSize.x, (int)Globals.levelSize.x);
+				int spawnPosY = rnd.Next((int)-Globals.levelSize.y, (int)Globals.levelSize.y);
+				Vector2 spawnPosition = new Vector2(spawnPosX, spawnPosY) + levelCenter;
+				obstacle.GlobalPosition = spawnPosition;
 
-			Enemies obstacleScript = (Enemies)obstacle;
-			obstacleScript.player = player;
+				Enemies obstacleScript = (Enemies)obstacle;
+				obstacleScript.player = player;
 
-			this.AddChild(obstacle);
+				this.AddChild(obstacle);
 
-			obstacle.Connect("_on_death", this, "CheckIfEnemies");
+				obstacle.Connect("_on_death", this, "CheckIfEnemies");
+			}
 		}
-	}
 
-	private void SpawnEnemies() {
-		noOfEnemies = rnd.Next(enemySpawnMin, enemySpawnMax + 1);
-		for (int i = 0; i < noOfEnemies; i++) {
-			PackedScene spawnerScene = (PackedScene)GD.Load(enemySpawnerFolder);
-			Godot.Position2D spawner = (Godot.Position2D)spawnerScene.Instance();
+		private void SpawnEnemies() {
+			noOfEnemies = rnd.Next(enemySpawnMin, enemySpawnMax + 1);
+			for (int i = 0; i < noOfEnemies; i++) {
+				string chosenEnemyScene = enemies[rnd.Next(enemies.Count)];
+				PackedScene enemyScene = (PackedScene)GD.Load(Globals.enemyFolder + chosenEnemyScene);
+				RigidBody2D enemy = (RigidBody2D)enemyScene.Instance();
 
-			int spawnPosX = rnd.Next((int)-Globals.levelSize.x, (int)Globals.levelSize.x);
-			int spawnPosY = rnd.Next((int)-Globals.levelSize.y, (int)Globals.levelSize.y);
-			Vector2 spawnPosition = new Vector2(spawnPosX, spawnPosY) + levelCenter;
-			spawner.GlobalPosition = spawnPosition;
+				int spawnPosX = rnd.Next((int)-Globals.levelSize.x, (int)Globals.levelSize.x);
+				int spawnPosY = rnd.Next((int)-Globals.levelSize.y, (int)Globals.levelSize.y);
+				Vector2 spawnPosition = new Vector2(spawnPosX, spawnPosY) + levelCenter;
+				enemy.GlobalPosition = spawnPosition;
 
-			this.AddChild(spawner);
+				Enemies enemyScript = (Enemies)enemy;
+				enemyScript.player = player;
+				enemyScript.colour = enemyColour;
+
+				this.AddChild(enemy);
+
+				enemy.Connect("_on_death", this, "CheckIfEnemies");
+			}
 		}
-	}
 
-	private void SpawnBoss() {
-		GD.Print("Boss");
-		SpawnEnemies();
-	}
+		private void SpawnBoss() {
+			GD.Print("Boss");
+			SpawnEnemies();
+		}
 
-	private void SpawnUpgrades() {
-		PackedScene upgradeMenuScene = (PackedScene)GD.Load("res://scenes/menus/UpgradeMenu.tscn");
-		Godot.Control upgradeMenu = (Godot.Control)upgradeMenuScene.Instance();
+		private void SpawnUpgrades() {
+			PackedScene upgradeMenuScene = (PackedScene)GD.Load("res://scenes/menus/UpgradeMenu.tscn");
+			Godot.Control upgradeMenu = (Godot.Control)upgradeMenuScene.Instance();
 
-		UpgradeMenu upgradeMenuScript = (UpgradeMenu)upgradeMenu;
-		upgradeMenuScript.levelCenter = levelCenter;
-		upgradeMenuScript.player = player;
+			UpgradeMenu upgradeMenuScript = (UpgradeMenu)upgradeMenu;
+			upgradeMenuScript.levelCenter = levelCenter;
+			upgradeMenuScript.player = player;
 
-		this.AddChild(upgradeMenu);
+			this.AddChild(upgradeMenu);
 
-		//if the upgrading is finished call CheckIfEnemies to continue game
-		upgradeMenuScript.Connect("upgrading_finished", this, "CheckIfEnemies");
-	}
+			//if the upgrading is finished call CheckIfEnemies to continue game
+			upgradeMenuScript.Connect("upgrading_finished", this, "CheckIfEnemies");
+		}
 
 	#endregion 
 
 	#region Misc Functions 
 
-	public void PlayGame() {
-		this.LevelSpin();
-		this.CheckIfEnemies();
-	}
+		public void PlayGame() {
+			this.LevelSpin();
+			this.CheckIfEnemies();
+		}
 
-	public void EndGame() {
-		EmitChangeScene("res://scenes/menus/DeathScreen.tscn", 1f, null);
-	}
+		public void EndGame() {
+			EmitChangeScene("res://scenes/menus/DeathScreen.tscn", 1f, null);
+		}
 
-	//Displays big faint text in the background for a short amount of time
-	//Used to indicate the changes in gameplay sections 
-	public void DisplaySectionText(string text) {
-		Position2D sectionText = levelNode.GetNode<Position2D>("SectionText");
-		Godot.Label label = sectionText.GetNode<Godot.Label>("Label");
-		AnimationPlayer anim  = sectionText.GetNode<AnimationPlayer>("AnimationPlayer");
+		//Displays big faint text in the background for a short amount of time
+		//Used to indicate the changes in gameplay sections 
+		public void DisplaySectionText(string text) {
+			Position2D sectionText = levelNode.GetNode<Position2D>("SectionText");
+			Godot.Label label = sectionText.GetNode<Godot.Label>("Label");
+			AnimationPlayer anim  = sectionText.GetNode<AnimationPlayer>("AnimationPlayer");
 
-		label.Text = text;
-		anim.Play("SectionTxtDisplay");
-	}
+			label.Text = text;
+			anim.Play("SectionTxtDisplay");
+		}
 
-	//Spins the level boarders + changes the level colour
-	public void LevelSpin() {
-		Position2D room = levelNode.GetNode<Position2D>("Room");
-		AnimationPlayer anim = room.GetNode<AnimationPlayer>("AnimationPlayer");
-		anim.Play("RoomSpin");
-		UpdateGameColours();
-	}
+		//Spins the level boarders + changes the level colour
+		public void LevelSpin() {
+			Position2D room = levelNode.GetNode<Position2D>("Room");
+			AnimationPlayer anim = room.GetNode<AnimationPlayer>("AnimationPlayer");
+			anim.Play("RoomSpin");
+			UpdateGameColours();
+		}
 
 	#endregion 
 
 	#region Colour Controls
 
-	public Color playerColour;
-	public Color enemyColour;
+		public Color playerColour;
+		public Color enemyColour;
 
-	private void UpdateGameColours() {
-		var values = Enum.GetValues(typeof(Enums.Colour));
-		String colourName = values.GetValue(rnd.Next(values.Length)).ToString();
+		private void UpdateGameColours() {
+			var values = Enum.GetValues(typeof(Enums.Colour));
+			String colourName = values.GetValue(rnd.Next(values.Length)).ToString();
 
-		enemyColour = Color.ColorN(colourName);
-		levelNode.Modulate = enemyColour;
-	}
+			enemyColour = Color.ColorN(colourName);
+			levelNode.Modulate = enemyColour;
+		}
 
 	#endregion
 

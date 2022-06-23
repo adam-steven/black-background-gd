@@ -12,6 +12,8 @@ namespace Godot
         //     Global sceneData.
         public System.Object sceneData  { get; set; }
 
+        public Camera2D mainCamera;
+
         public virtual void LoadLevelParameters(System.Object sceneData) {}
 
         [Signal]
