@@ -2,7 +2,7 @@ using System;
 using Godot;
 using static Enums;
 
-public class GunController : RigidBody2D
+public class GunController
 {
 	Random rnd = new Random();
 
