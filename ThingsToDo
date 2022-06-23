@@ -6,6 +6,7 @@ split enemy folders up into different levels
 
 ~Upgrades bought use score as currency 
 
+~Refactor colour code 
 Settings Option: Colours {
     User configurable
     Player, -Wall-, -Enemies-
@@ -23,7 +24,10 @@ Rework starting stats and upgrade values (slow everything down)
     Pause screen
     Death screen { 
         Score
-        retry, main menu, leaderboard, quit
+        ------r-e-t-r-y------, 
+        main menu, 
+        leaderboard, 
+        ------q-u-i-t------
         }
 
 Upgrades[]
