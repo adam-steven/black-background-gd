@@ -14,12 +14,12 @@ public partial class EnemyController
 		anim.Play("EnemyHit");
 
 		if(health <= 0) {
-			anim.Connect("animation_finished", this, "DestorySelf");
+			anim.Connect("animation_finished", this, "DestroySelf");
 			anim.Play("EnemyDeath");
 		}	
 	}
 
-	private void DestorySelf(string animName = "") {
+	private void DestroySelf(string animName = "") {
 		Godot.Node2D gameController = GetNode<SceneController>(Globals.scenePath).GetCurrentScene();
 		Main controllerScript = (Main)gameController;
 		controllerScript.CheckIfEnemies();
