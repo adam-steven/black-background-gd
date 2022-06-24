@@ -1,3 +1,8 @@
+REMEMBER: enemies should not shoot instantly on spawn
+
+REMEMBER: try tow rework it into a call down approach "avoid calling functions in parents"
+____________________________________________________________________________________
+
 ~Stop player slowing down if the go back and forth
 
 Randomize enemy stats on spawn
@@ -17,7 +22,7 @@ Settings Option: toggle count down before the first wave
 
 Stat limits
 
-Rework starting stats and upgrade values (slow everything down)
+Rework starting stats and upgrade values (slow everything down, but speed up waves)
 
     Start Menus
     Settings
@@ -36,17 +41,13 @@ Bosses[]
 
 Score
 
-Leaderboard (Score + Time) {
+Leaderboard (Score & Time) {
     world leaderboard - top 100 - restart every day
     personal leaderboard - top ten - don't reset
 
     allow username 4 char name
     make PRs a celebration
 }
-
-look into "C# polymorphism" for enemy scripts
-
-REMEMBER: enemies should not shoot instantly on spawn
 
 ~Only have "Major bosses" every X amount of levels {
     "Minor bosses" are either mini bosses or a "fight" wave from a later level
@@ -57,7 +58,7 @@ REMEMBER: enemies should not shoot instantly on spawn
 
 Add better indication of healing on invincible 
 
-Draw of the structure of the game (try tow rework it into a call down approach "avoid calling functions in parents")
+Bullet size modifier (start the player off with semi-large bullets)
 ____________________________________________________________________________________
 
 ------B-u-l-l-e-t--C-o-l-l-i-s-i-o-n------
@@ -102,3 +103,7 @@ Levels {
 ------b-a-c-k-g-r-o-u-n-d--t-u-r-n-s--s-l-i-g-h-t-l-y--r-e-d--a-t--l-o-w--h-e-a-l-t-h------
 
 ------B-U-G-:--g-a-i-n-i-n-g--h-e-a-l-t-h--d-o-e-s--n-o-t--r-e-m-o-v-e--t-h-e--r-e-d--b-a-c-k-g-r-o-u-n-d------
+
+------D-r-a-w--o-f--t-h-e--s-t-r-u-c-t-u-r-e--o-f--t-h-e--g-a-m-e------
+
+------l-o-o-k--i-n-t-o--"-C-#--p-o-l-y-m-o-r-p-h-i-s-m-"--f-o-r--e-n-e-m-y--s-c-r-i-p-t-s------
