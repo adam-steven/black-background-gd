@@ -176,13 +176,30 @@ public class Main : Levels
 
 	#region Misc Functions 
 
-		public void PlayGame() {
+		private void PlayGame() {
 			this.LevelSpin();
 			this.CheckIfEnemies();
+
+			PackedScene pauseMenuScene = (PackedScene)GD.Load("res://scenes/menus/PauseMenu.tscn");
+			Godot.Control pauseMenu = (Godot.Control)pauseMenuScene.Instance();
+			this.AddChild(pauseMenu);
+			
+			pauseMenu.Connect("_restart_game", this, "RestartGame");
+			pauseMenu.Connect("_back_to_menu", this, "ReturnToMenu");
 		}
 
-		public void EndGame() {
+		private void RestartGame() {
+			MainGameObj restartObj = new MainGameObj(true);
+			EmitChangeScene("res://scenes/Main.tscn", 5f, restartObj);
+		}
+
+		private void EndGame() {
 			EmitChangeScene("res://scenes/menus/DeathScreen.tscn", 1f, null);
+		}
+
+		private void ReturnToMenu() {
+			MainGameObj restartObj = new MainGameObj(false);
+			EmitChangeScene("res://scenes/Main.tscn", 5f, restartObj);
 		}
 
 		//Displays big faint text in the background for a short amount of time

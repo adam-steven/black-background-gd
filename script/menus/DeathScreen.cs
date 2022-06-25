@@ -31,6 +31,9 @@ public class DeathScreen : Levels
 			case MenuButtonActions.Play:
 				Replay(button);
 				break;
+			case MenuButtonActions.MainMenu: 
+				MainMenu(button);
+				break;
 			case MenuButtonActions.Options:
 				Options(button);
 				break;
@@ -45,6 +48,12 @@ public class DeathScreen : Levels
 
 	private void Replay(MenuButtons button) {
 		MainGameObj restartObj = new MainGameObj(true);
+		EmitChangeScene("res://scenes/Main.tscn", 5f, restartObj);
+		button.Disabled = true;
+	}
+
+	private void MainMenu(MenuButtons button) {
+		MainGameObj restartObj = new MainGameObj(false);
 		EmitChangeScene("res://scenes/Main.tscn", 5f, restartObj);
 		button.Disabled = true;
 	}

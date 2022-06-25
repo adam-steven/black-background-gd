@@ -30,7 +30,7 @@ Rework starting stats and upgrade values (slow everything down, but speed up wav
     Death screen { 
         Score
         ------r-e-t-r-y------, 
-        main menu, 
+        ------m-a-i-n--m-e-n-u------, 
         leaderboard, 
         ------q-u-i-t------
         }
@@ -59,6 +59,8 @@ Leaderboard (Score & Time) {
 Add better indication of healing on invincible 
 
 Bullet size modifier (start the player off with semi-large bullets)
+
+Enemy look delay
 ____________________________________________________________________________________
 
 ------B-u-l-l-e-t--C-o-l-l-i-s-i-o-n------

@@ -38,9 +38,7 @@ public class MainMenu : Control
 		this.QueueFree();
 	}
 
-	[Signal]
-	public delegate void play_game();
-
+	[Signal] public delegate void play_game();
 	private void Play(MenuButtons button) {
 		this.EmitSignal("play_game");
 		button.Disabled = true;

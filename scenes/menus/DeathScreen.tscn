@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://script/menus/MenuButtons.cs" type="Script" id=1]
 [ext_resource path="res://script/menus/DeathScreen.cs" type="Script" id=2]
@@ -37,6 +37,54 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Animation" id=16]
+resource_name = "MenuBtnSelected"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("Position2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1.2, 1.2 ) ]
+}
+
+[sub_resource type="Animation" id=23]
+resource_name = "MenuBtnDeselected"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("Position2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1.2, 1.2 ), Vector2( 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=24]
+resource_name = "MenuBtnInit"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Position2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=25]
 resource_name = "MenuBtnSelected"
 length = 0.2
 tracks/0/type = "value"
@@ -221,9 +269,8 @@ custom_constants/separation = 46
 alignment = 1
 
 [node name="Game Over" type="Button" parent="Control/Buttons"]
-margin_top = 68.0
 margin_right = 840.0
-margin_bottom = 188.0
+margin_bottom = 120.0
 rect_min_size = Vector2( 200, 120 )
 disabled = true
 flat = true
@@ -249,15 +296,16 @@ __meta__ = {
 }
 
 [node name="Replay" type="Button" parent="Control/Buttons"]
-margin_top = 234.0
+margin_top = 166.0
 margin_right = 840.0
-margin_bottom = 354.0
+margin_bottom = 286.0
 rect_min_size = Vector2( 200, 120 )
 flat = true
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+action = 1
 
 [node name="Position2D" type="Position2D" parent="Control/Buttons/Replay"]
 position = Vector2( 420, 65 )
@@ -281,14 +329,44 @@ anims/MenuBtnDeselected = SubResource( 14 )
 anims/MenuBtnInit = SubResource( 15 )
 anims/MenuBtnSelected = SubResource( 16 )
 
-[node name="Leaderboard" type="Button" parent="Control/Buttons"]
-margin_top = 400.0
+[node name="MainMenu" type="Button" parent="Control/Buttons"]
+margin_top = 332.0
 margin_right = 840.0
-margin_bottom = 520.0
+margin_bottom = 452.0
 rect_min_size = Vector2( 200, 120 )
 flat = true
 script = ExtResource( 1 )
-action = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Position2D" type="Position2D" parent="Control/Buttons/MainMenu"]
+position = Vector2( 420, 65 )
+
+[node name="Label" type="Label" parent="Control/Buttons/MainMenu/Position2D"]
+margin_left = -420.0
+margin_top = -65.0
+margin_right = 420.0
+margin_bottom = 65.0
+rect_min_size = Vector2( 840, 0 )
+custom_fonts/font = ExtResource( 3 )
+text = "Main Menu"
+align = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Control/Buttons/MainMenu"]
+autoplay = "MenuBtnInit"
+anims/MenuBtnDeselected = SubResource( 23 )
+anims/MenuBtnInit = SubResource( 24 )
+anims/MenuBtnSelected = SubResource( 25 )
+
+[node name="Leaderboard" type="Button" parent="Control/Buttons"]
+margin_top = 498.0
+margin_right = 840.0
+margin_bottom = 618.0
+rect_min_size = Vector2( 200, 120 )
+flat = true
+script = ExtResource( 1 )
+action = 3
 
 [node name="Position2D" type="Position2D" parent="Control/Buttons/Leaderboard"]
 position = Vector2( 420, 65 )
@@ -314,13 +392,13 @@ anims/MenuBtnInit = SubResource( 18 )
 anims/MenuBtnSelected = SubResource( 19 )
 
 [node name="Options" type="Button" parent="Control/Buttons"]
-margin_top = 566.0
+margin_top = 664.0
 margin_right = 840.0
-margin_bottom = 686.0
+margin_bottom = 784.0
 rect_min_size = Vector2( 200, 120 )
 flat = true
 script = ExtResource( 1 )
-action = 1
+action = 2
 
 [node name="Position2D" type="Position2D" parent="Control/Buttons/Options"]
 position = Vector2( 420, 65 )
@@ -346,13 +424,13 @@ anims/MenuBtnInit = SubResource( 21 )
 anims/MenuBtnSelected = SubResource( 22 )
 
 [node name="Quit" type="Button" parent="Control/Buttons"]
-margin_top = 732.0
+margin_top = 830.0
 margin_right = 840.0
-margin_bottom = 852.0
+margin_bottom = 950.0
 rect_min_size = Vector2( 200, 120 )
 flat = true
 script = ExtResource( 1 )
-action = 3
+action = 4
 
 [node name="Position2D" type="Position2D" parent="Control/Buttons/Quit"]
 position = Vector2( 420, 65 )

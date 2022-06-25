@@ -3,15 +3,17 @@ public static class Enums
 	/// <summary> Indicates whether the bullet was spawned by the player or an enemy </summary>
 	public enum BulletOwner {
 		PlayerController,
-		EnemyController
+		EnemyController,
 	};
 
 	/// <summary> Buttons for Menu GUI </summary>
 	public enum MenuButtonActions {
+		MainMenu,
 		Play, 
 		Options,
 		Leaderboard,
-		Quit
+		Quit,
+		Continue,
 	};
 
 	/// <summary> List of Godot's integrated colour </summary>
