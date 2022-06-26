@@ -38,13 +38,16 @@ public class MainMenu : Control
 		this.QueueFree();
 	}
 
-	[Signal] public delegate void play_game();
+	[Signal] public delegate void _play_game();
+	[Signal] public delegate void _options();
+
 	private void Play(MenuButtons button) {
-		this.EmitSignal("play_game");
+		this.EmitSignal("_play_game");
 		button.Disabled = true;
 	}
 
 	private void Options(MenuButtons button) {
+		this.EmitSignal("_options");
 		button.Disabled = true;
 	}
 

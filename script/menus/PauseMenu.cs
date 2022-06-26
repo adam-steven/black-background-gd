@@ -60,6 +60,7 @@ public class PauseMenu : Control
 
 	[Signal] public delegate void _restart_game();
     [Signal] public delegate void _back_to_menu();
+	[Signal] public delegate void _options();
 
 	private void Play(MenuButtons button) {
 		this.EmitSignal("_restart_game");
@@ -72,6 +73,7 @@ public class PauseMenu : Control
 	}
 
 	private void Options(MenuButtons button) {
+		this.EmitSignal("_options");
 		button.Disabled = true;
 	}
 

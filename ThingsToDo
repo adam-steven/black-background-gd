@@ -26,7 +26,8 @@ Rework starting stats and upgrade values (slow everything down, but speed up wav
 
     Start Menus
     Settings
-    Pause screen
+    ------P-a-u-s-e--s-c-r-e-e-n------
+    Leaderboard
     Death screen { 
         Score
         ------r-e-t-r-y------, 
@@ -61,6 +62,8 @@ Add better indication of healing on invincible
 Bullet size modifier (start the player off with semi-large bullets)
 
 Enemy look delay
+
+Save game (quick save when going into the options menu)
 ____________________________________________________________________________________
 
 ------B-u-l-l-e-t--C-o-l-l-i-s-i-o-n------

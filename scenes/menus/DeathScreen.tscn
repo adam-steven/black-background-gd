@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://script/menus/MenuButtons.cs" type="Script" id=1]
 [ext_resource path="res://script/menus/DeathScreen.cs" type="Script" id=2]
@@ -148,54 +148,6 @@ tracks/0/keys = {
 "values": [ Vector2( 1, 1 ), Vector2( 1.2, 1.2 ) ]
 }
 
-[sub_resource type="Animation" id=20]
-resource_name = "MenuBtnDeselected"
-length = 0.2
-tracks/0/type = "value"
-tracks/0/path = NodePath("Position2D:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Vector2( 1.2, 1.2 ), Vector2( 1, 1 ) ]
-}
-
-[sub_resource type="Animation" id=21]
-resource_name = "MenuBtnInit"
-length = 0.1
-tracks/0/type = "value"
-tracks/0/path = NodePath("Position2D:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( 1, 1 ) ]
-}
-
-[sub_resource type="Animation" id=22]
-resource_name = "MenuBtnSelected"
-length = 0.2
-tracks/0/type = "value"
-tracks/0/path = NodePath("Position2D:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Vector2( 1, 1 ), Vector2( 1.2, 1.2 ) ]
-}
-
 [sub_resource type="Animation" id=11]
 resource_name = "MenuBtnDeselected"
 length = 0.2
@@ -250,9 +202,6 @@ script = ExtResource( 2 )
 [node name="Control" type="Control" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="ColorRect" type="ColorRect" parent="Control"]
 margin_right = 40.0
@@ -269,8 +218,9 @@ custom_constants/separation = 46
 alignment = 1
 
 [node name="Game Over" type="Button" parent="Control/Buttons"]
+margin_top = 68.0
 margin_right = 840.0
-margin_bottom = 120.0
+margin_bottom = 188.0
 rect_min_size = Vector2( 200, 120 )
 disabled = true
 flat = true
@@ -296,9 +246,9 @@ __meta__ = {
 }
 
 [node name="Replay" type="Button" parent="Control/Buttons"]
-margin_top = 166.0
+margin_top = 234.0
 margin_right = 840.0
-margin_bottom = 286.0
+margin_bottom = 354.0
 rect_min_size = Vector2( 200, 120 )
 flat = true
 script = ExtResource( 1 )
@@ -330,9 +280,9 @@ anims/MenuBtnInit = SubResource( 15 )
 anims/MenuBtnSelected = SubResource( 16 )
 
 [node name="MainMenu" type="Button" parent="Control/Buttons"]
-margin_top = 332.0
+margin_top = 400.0
 margin_right = 840.0
-margin_bottom = 452.0
+margin_bottom = 520.0
 rect_min_size = Vector2( 200, 120 )
 flat = true
 script = ExtResource( 1 )
@@ -360,9 +310,9 @@ anims/MenuBtnInit = SubResource( 24 )
 anims/MenuBtnSelected = SubResource( 25 )
 
 [node name="Leaderboard" type="Button" parent="Control/Buttons"]
-margin_top = 498.0
+margin_top = 566.0
 margin_right = 840.0
-margin_bottom = 618.0
+margin_bottom = 686.0
 rect_min_size = Vector2( 200, 120 )
 flat = true
 script = ExtResource( 1 )
@@ -381,9 +331,6 @@ rect_min_size = Vector2( 840, 0 )
 custom_fonts/font = ExtResource( 3 )
 text = "Leaderboard"
 align = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Control/Buttons/Leaderboard"]
 autoplay = "MenuBtnInit"
@@ -391,42 +338,10 @@ anims/MenuBtnDeselected = SubResource( 17 )
 anims/MenuBtnInit = SubResource( 18 )
 anims/MenuBtnSelected = SubResource( 19 )
 
-[node name="Options" type="Button" parent="Control/Buttons"]
-margin_top = 664.0
-margin_right = 840.0
-margin_bottom = 784.0
-rect_min_size = Vector2( 200, 120 )
-flat = true
-script = ExtResource( 1 )
-action = 2
-
-[node name="Position2D" type="Position2D" parent="Control/Buttons/Options"]
-position = Vector2( 420, 65 )
-scale = Vector2( 1.2, 1.2 )
-
-[node name="Label" type="Label" parent="Control/Buttons/Options/Position2D"]
-margin_left = -420.0
-margin_top = -65.0
-margin_right = 420.0
-margin_bottom = 65.0
-rect_min_size = Vector2( 840, 0 )
-custom_fonts/font = ExtResource( 3 )
-text = "Options"
-align = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Control/Buttons/Options"]
-autoplay = "MenuBtnInit"
-anims/MenuBtnDeselected = SubResource( 20 )
-anims/MenuBtnInit = SubResource( 21 )
-anims/MenuBtnSelected = SubResource( 22 )
-
 [node name="Quit" type="Button" parent="Control/Buttons"]
-margin_top = 830.0
+margin_top = 732.0
 margin_right = 840.0
-margin_bottom = 950.0
+margin_bottom = 852.0
 rect_min_size = Vector2( 200, 120 )
 flat = true
 script = ExtResource( 1 )

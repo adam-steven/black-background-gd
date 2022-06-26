@@ -67,7 +67,8 @@ public class Main : Levels
 			Godot.Control mainMenu = (Godot.Control)mainMenuScene.Instance();
 			this.AddChild(mainMenu);
 
-			mainMenu.Connect("play_game", this, "PlayGame");
+			mainMenu.Connect("_play_game", this, "PlayGame");
+			mainMenu.Connect("_options", this, "GoToOptions");
 		}
 
 		//If the last enemy is dying spawn next way
@@ -186,6 +187,7 @@ public class Main : Levels
 			
 			pauseMenu.Connect("_restart_game", this, "RestartGame");
 			pauseMenu.Connect("_back_to_menu", this, "ReturnToMenu");
+			pauseMenu.Connect("_options", this, "GoToOptions");
 		}
 
 		private void RestartGame() {
@@ -200,6 +202,12 @@ public class Main : Levels
 		private void ReturnToMenu() {
 			MainGameObj restartObj = new MainGameObj(false);
 			EmitChangeScene("res://scenes/Main.tscn", 5f, restartObj);
+		}
+
+		private void GoToOptions() {
+			bool inGame = level > 0;
+			OptionsObj optionsObj = new OptionsObj(inGame);
+			EmitChangeScene("res://scenes/menus/OptionsScreen.tscn", 5f, optionsObj);
 		}
 
 		//Displays big faint text in the background for a short amount of time
