@@ -24,17 +24,11 @@ Stat limits
 
 Rework starting stats and upgrade values (slow everything down, but speed up waves)
 
-    Start Menus
-    Settings
-    ------P-a-u-s-e--s-c-r-e-e-n------
-    Leaderboard
-    Death screen { 
-        Score
-        ------r-e-t-r-y------, 
-        ------m-a-i-n--m-e-n-u------, 
-        leaderboard, 
-        ------q-u-i-t------
-        }
+Settings
+Leaderboard
+Death screen { 
+    Score
+    }
 
 Upgrades[]
 Enemies[]
@@ -117,3 +111,12 @@ Levels {
 ------D-r-a-w--o-f--t-h-e--s-t-r-u-c-t-u-r-e--o-f--t-h-e--g-a-m-e------
 
 ------l-o-o-k--i-n-t-o--"-C-#--p-o-l-y-m-o-r-p-h-i-s-m-"--f-o-r--e-n-e-m-y--s-c-r-i-p-t-s------
+
+------S-t-a-r-t--M-e-n-u-s------
+------P-a-u-s-e--s-c-r-e-e-n------
+~Death screen { 
+    ------r-e-t-r-y------, 
+    ------m-a-i-n--m-e-n-u------, 
+    ------l-e-a-d-e-r-b-o-a-r-d------, 
+    ------q-u-i-t------
+    }

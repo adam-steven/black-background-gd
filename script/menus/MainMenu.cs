@@ -40,6 +40,7 @@ public class MainMenu : Control
 
 	[Signal] public delegate void _play_game();
 	[Signal] public delegate void _options();
+	[Signal] public delegate void _leaderboard();
 
 	private void Play(MenuButtons button) {
 		this.EmitSignal("_play_game");
@@ -52,6 +53,7 @@ public class MainMenu : Control
 	}
 
 	private void Leaderboard(MenuButtons button) {
+		this.EmitSignal("_leaderboard");
 		button.Disabled = true;
 	}
 

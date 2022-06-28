@@ -69,6 +69,7 @@ public class Main : Levels
 
 			mainMenu.Connect("_play_game", this, "PlayGame");
 			mainMenu.Connect("_options", this, "GoToOptions");
+			mainMenu.Connect("_leaderboard", this, "GoToLeaderboard");
 		}
 
 		//If the last enemy is dying spawn next way
@@ -208,6 +209,10 @@ public class Main : Levels
 			bool inGame = level > 0;
 			OptionsObj optionsObj = new OptionsObj(inGame);
 			EmitChangeScene("res://scenes/menus/OptionsScreen.tscn", 5f, optionsObj);
+		}
+
+		private void GoToLeaderboard() {
+			EmitChangeScene("res://scenes/menus/LeaderboardScreen.tscn", 5f);
 		}
 
 		//Displays big faint text in the background for a short amount of time

@@ -55,6 +55,7 @@ public class DeathScreen : Levels
 	}
 
 	private void Leaderboard(MenuButtons button) {
+		EmitChangeScene("res://scenes/menus/LeaderboardScreen.tscn", 5f);
 		button.Disabled = true;
 	}
 
