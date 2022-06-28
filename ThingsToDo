@@ -57,13 +57,18 @@ Leaderboard (Score & Time) {
 
 ~Event levels (like the ai test uni proj)
 
-Add better indication of healing on invincible 
+Add better indication of healing on invincible (~green background and freeze frame)
+    Add special bullet that destroys all other bullets if blocked
 
 Bullet size modifier (start the player off with semi-large bullets)
 
 Enemy look delay
 
 Save game (quick save when going into the options menu)
+
+Refactor menus to use polymorphism 
+
+Look into Godot's versions of prefabs for buttons and upgrades
 ____________________________________________________________________________________
 
 ------B-u-l-l-e-t--C-o-l-l-i-s-i-o-n------
