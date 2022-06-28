@@ -1,7 +1,6 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://images/ring_block.png" type="Texture" id=1]
-[ext_resource path="res://script/enemies/EnemySpawner.cs" type="Script" id=2]
 
 [sub_resource type="Animation" id=1]
 tracks/0/type = "value"
@@ -41,8 +40,7 @@ tracks/2/keys = {
 "values": [ 45.0, 225.0 ]
 }
 
-[node name="Spawner" type="Position2D"]
-script = ExtResource( 2 )
+[node name="LoadingSpinner" type="Position2D"]
 
 [node name="Ring1" type="Sprite" parent="."]
 rotation = 0.479966

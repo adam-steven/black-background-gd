@@ -8,7 +8,7 @@ public class BulletController : Area2D
 	public float movementForce = 3000;
 	public BulletOwner bOwner;
 	private Vector2 closedMotion; //The movement that the bullet has in a closed loop
-	public Vector2 openMotion; //The movement that the bullet gets from the players actions
+	public Vector2 openMotion = Vector2.Zero; //The movement that the bullet gets from the players actions
 	public int strength = 5;
 	public float timeAlive = 0; //The range the bullet can go before destroying itself
 
@@ -30,15 +30,16 @@ public class BulletController : Area2D
 	}
 	
 	private void _On_Bullet_Body_Entered(object body) {
+		//Make sure i hit an entity
 		Type bodyType = body.GetType();
+		if(!bodyType.IsSubclassOf(typeof(Godot.Entities))) return;
 
-		//if collision is made by owner return
-		if(bodyType.Name == bOwner.ToString()) return;
+		Entities hitEntity = (Entities)body;
 
-	 	MethodInfo damageMethod = bodyType.GetMethod("TakeDamage");
-		if(damageMethod != null)
-			damageMethod.Invoke(body, new object[]{strength});
+		//If collision is made by owner return
+		if(hitEntity.entityType == bOwner) return;
 
+		hitEntity.TakeDamage(strength);
 		DestroyBullet();
 	}
 

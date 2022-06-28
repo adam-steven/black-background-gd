@@ -2,14 +2,14 @@ using System;
 using Godot;
 using static Enums;
 
-public class GunController : RigidBody2D
+public class GunController
 {
 	Random rnd = new Random();
 
 	private PackedScene bulletScene;
 	private RigidBody2D ownerNode;
 	private BulletOwner bulletOwner;
-	private EntityStats stats;
+	private Entities stats;
 
     private int timeLastShot = 0;
 
@@ -24,13 +24,12 @@ public class GunController : RigidBody2D
 	///</summary>
 	public GunController(
 		RigidBody2D ownerNode, 
-		BulletOwner bulletOwner, 
-		EntityStats stats
+		BulletOwner bulletOwner
 	){
 		this.bulletScene = (PackedScene)GD.Load("res://scenes/misc/Bullet.tscn");
 		this.ownerNode = ownerNode;
 		this.bulletOwner =  bulletOwner;
-		this.stats = stats;
+		this.stats = (Entities)ownerNode;
 	}
 
 	public void Shoot(bool isBursting = false) {
@@ -76,7 +75,7 @@ public class GunController : RigidBody2D
 
 		// Access bullet script 
 		bulletCon.bOwner = bulletOwner;
-		bulletCon.openMotion = ownerNode.LinearVelocity/2f;
+		// bulletCon.openMotion = ownerNode.LinearVelocity/2f;
 		bulletCon.strength = stats.bulletStrength;
 		bulletCon.movementForce = stats.bulletForce;
 		bulletCon.timeAlive = stats.bulletTimeAlive;

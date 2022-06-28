@@ -7,14 +7,10 @@ public class CameraController : Camera2D
 
     private int shakeForce = 1;
     private int shakeDuration = 0; 
-    private bool isShakeing;
-
-  	public override void _Ready() {
-
-	}
+    private bool isShaking;
 
     public override void _Process(float delta) {
-        if(!isShakeing) return;
+        if(!isShaking) return;
 
         if((int)OS.GetTicksMsec() >= shakeDuration){
             StopShakeScreen();
@@ -30,11 +26,11 @@ public class CameraController : Camera2D
     public void StartShakeScreen(int shakeForce, float shakeDuration) {
         this.shakeForce = shakeForce;
         this.shakeDuration = (int)OS.GetTicksMsec() + (int)(shakeDuration * 1000);
-        isShakeing = true;
+        isShaking = true;
     }
 
     public void StopShakeScreen() {
         this.GlobalPosition = Vector2.Zero;
-        isShakeing = false;
+        isShaking = false;
     }
 }

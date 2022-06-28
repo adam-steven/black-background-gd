@@ -1,0 +1,298 @@
+[gd_scene load_steps=16 format=2]
+
+[ext_resource path="res://script/menus/MenuButtons.cs" type="Script" id=1]
+[ext_resource path="res://fonts/Teko-Bold-90.tres" type="DynamicFont" id=2]
+[ext_resource path="res://script/menus/MainMenu.cs" type="Script" id=3]
+
+[sub_resource type="Animation" id=1]
+resource_name = "MenuBtnDeselected"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1.2, 1.2 ), Vector2( 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "MenuBtnInit"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "MenuBtnSelected"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1.2, 1.2 ) ]
+}
+
+[sub_resource type="Animation" id=10]
+resource_name = "MenuBtnDeselected"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1.2, 1.2 ), Vector2( 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=11]
+resource_name = "MenuBtnInit"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=12]
+resource_name = "MenuBtnSelected"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1.2, 1.2 ) ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "MenuBtnDeselected"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1.2, 1.2 ), Vector2( 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "MenuBtnInit"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=6]
+resource_name = "MenuBtnSelected"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1.2, 1.2 ) ]
+}
+
+[sub_resource type="Animation" id=7]
+resource_name = "MenuBtnDeselected"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1.2, 1.2 ), Vector2( 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=8]
+resource_name = "MenuBtnInit"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=9]
+resource_name = "MenuBtnSelected"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1.2, 1.2 ) ]
+}
+
+[node name="MainMenu" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 3 )
+
+[node name="Buttons" type="VBoxContainer" parent="."]
+margin_left = 540.0
+margin_top = 80.0
+margin_right = 1380.0
+margin_bottom = 1000.0
+custom_constants/separation = 114
+alignment = 1
+
+[node name="Play" type="Button" parent="Buttons"]
+margin_top = 49.0
+margin_right = 200.0
+margin_bottom = 169.0
+rect_min_size = Vector2( 200, 120 )
+size_flags_horizontal = 0
+flat = true
+script = ExtResource( 1 )
+action = 1
+
+[node name="Label" type="Label" parent="Buttons/Play"]
+margin_right = 40.0
+margin_bottom = 14.0
+custom_fonts/font = ExtResource( 2 )
+text = "Play"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Buttons/Play"]
+autoplay = "MenuBtnInit"
+anims/MenuBtnDeselected = SubResource( 1 )
+anims/MenuBtnInit = SubResource( 2 )
+anims/MenuBtnSelected = SubResource( 3 )
+
+[node name="Leaderboard" type="Button" parent="Buttons"]
+margin_top = 283.0
+margin_right = 450.0
+margin_bottom = 403.0
+rect_min_size = Vector2( 450, 120 )
+size_flags_horizontal = 0
+flat = true
+script = ExtResource( 1 )
+action = 3
+
+[node name="Label" type="Label" parent="Buttons/Leaderboard"]
+margin_right = 40.0
+margin_bottom = 14.0
+custom_fonts/font = ExtResource( 2 )
+text = "Leaderboard"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Buttons/Leaderboard"]
+autoplay = "MenuBtnInit"
+anims/MenuBtnDeselected = SubResource( 10 )
+anims/MenuBtnInit = SubResource( 11 )
+anims/MenuBtnSelected = SubResource( 12 )
+
+[node name="Options" type="Button" parent="Buttons"]
+margin_top = 517.0
+margin_right = 300.0
+margin_bottom = 637.0
+rect_min_size = Vector2( 300, 120 )
+size_flags_horizontal = 0
+flat = true
+script = ExtResource( 1 )
+action = 2
+
+[node name="Label" type="Label" parent="Buttons/Options"]
+margin_right = 40.0
+margin_bottom = 14.0
+custom_fonts/font = ExtResource( 2 )
+text = "Options"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Buttons/Options"]
+autoplay = "MenuBtnInit"
+anims/MenuBtnDeselected = SubResource( 4 )
+anims/MenuBtnInit = SubResource( 5 )
+anims/MenuBtnSelected = SubResource( 6 )
+
+[node name="Quit" type="Button" parent="Buttons"]
+margin_top = 751.0
+margin_right = 200.0
+margin_bottom = 871.0
+rect_min_size = Vector2( 200, 120 )
+size_flags_horizontal = 0
+flat = true
+script = ExtResource( 1 )
+action = 4
+
+[node name="Label" type="Label" parent="Buttons/Quit"]
+margin_right = 40.0
+margin_bottom = 14.0
+custom_fonts/font = ExtResource( 2 )
+text = "Quit"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Buttons/Quit"]
+autoplay = "MenuBtnInit"
+anims/MenuBtnDeselected = SubResource( 7 )
+anims/MenuBtnInit = SubResource( 8 )
+anims/MenuBtnSelected = SubResource( 9 )

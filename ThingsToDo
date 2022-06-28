@@ -1,3 +1,8 @@
+REMEMBER: enemies should not shoot instantly on spawn
+
+REMEMBER: try tow rework it into a call down approach "avoid calling functions in parents"
+____________________________________________________________________________________
+
 ~Stop player slowing down if the go back and forth
 
 Randomize enemy stats on spawn
@@ -6,20 +11,24 @@ split enemy folders up into different levels
 
 ~Upgrades bought use score as currency 
 
-Colours {
+~Refactor colour code 
+Settings Option: Colours {
     User configurable
     Player, -Wall-, -Enemies-
     -Rainbow-, Contrast, White
 }
 
+Settings Option: toggle count down before the first wave 
+
 Stat limits
 
-Rework starting stats and upgrade values (slow everything down)
+Rework starting stats and upgrade values (slow everything down, but speed up waves)
 
-Start Menus
-Setting (link to colours)
-Pause screen
-Death screen
+Settings
+Leaderboard
+Death screen { 
+    Score
+    }
 
 Upgrades[]
 Enemies[]
@@ -27,10 +36,33 @@ Bosses[]
 
 Score
 
-Leaderboard (Score + Time)
+Leaderboard (Score & Time) {
+    world leaderboard - top 100 - restart every day
+    personal leaderboard - top ten - don't reset
 
-REMEMBER: enemies should not shoot instantly on spawn
+    allow username 4 char name
+    make PRs a celebration
+}
 
+~Only have "Major bosses" every X amount of levels {
+    "Minor bosses" are either mini bosses or a "fight" wave from a later level
+    The first level is a "Minor boss" as the player has no upgrades
+}
+
+~Event levels (like the ai test uni proj)
+
+Add better indication of healing on invincible (~green background and freeze frame)
+    Add special bullet that destroys all other bullets if blocked
+
+Bullet size modifier (start the player off with semi-large bullets)
+
+Enemy look delay
+
+Save game (quick save when going into the options menu)
+
+Refactor menus to use polymorphism 
+
+Look into Godot's versions of prefabs for buttons and upgrades
 ____________________________________________________________________________________
 
 ------B-u-l-l-e-t--C-o-l-l-i-s-i-o-n------
@@ -75,3 +107,16 @@ Levels {
 ------b-a-c-k-g-r-o-u-n-d--t-u-r-n-s--s-l-i-g-h-t-l-y--r-e-d--a-t--l-o-w--h-e-a-l-t-h------
 
 ------B-U-G-:--g-a-i-n-i-n-g--h-e-a-l-t-h--d-o-e-s--n-o-t--r-e-m-o-v-e--t-h-e--r-e-d--b-a-c-k-g-r-o-u-n-d------
+
+------D-r-a-w--o-f--t-h-e--s-t-r-u-c-t-u-r-e--o-f--t-h-e--g-a-m-e------
+
+------l-o-o-k--i-n-t-o--"-C-#--p-o-l-y-m-o-r-p-h-i-s-m-"--f-o-r--e-n-e-m-y--s-c-r-i-p-t-s------
+
+------S-t-a-r-t--M-e-n-u-s------
+------P-a-u-s-e--s-c-r-e-e-n------
+~Death screen { 
+    ------r-e-t-r-y------, 
+    ------m-a-i-n--m-e-n-u------, 
+    ------l-e-a-d-e-r-b-o-a-r-d------, 
+    ------q-u-i-t------
+    }
