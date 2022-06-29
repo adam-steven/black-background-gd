@@ -18,6 +18,7 @@ namespace Godot
         [Export] public float bulletAccuracy = 0.2f; //Bullet's accuracy (0 is perfect accuracy)
         [Export] public int bulletBurstAmount = 0; //Number of bullets fired in quick succession (fixed delay interval)
         [Export] public float bulletTimeAlive = 0.25f; //Bullet Range (>0 = 0.05f)
+        [Export] public float bulletSize = 1.5f; //Modifies the size of the bullet sprite
 
         public virtual void TakeDamage(int damage) {}
     }

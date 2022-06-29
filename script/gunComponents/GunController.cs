@@ -8,7 +8,6 @@ public class GunController
 
 	private PackedScene bulletScene;
 	private RigidBody2D ownerNode;
-	private BulletOwner bulletOwner;
 	private Entities stats;
 
     private int timeLastShot = 0;
@@ -22,13 +21,9 @@ public class GunController
 	///		Requires: 
 	///			Child Sprite Node,
 	///</summary>
-	public GunController(
-		RigidBody2D ownerNode, 
-		BulletOwner bulletOwner
-	){
+	public GunController(RigidBody2D ownerNode) {
 		this.bulletScene = (PackedScene)GD.Load("res://scenes/misc/Bullet.tscn");
 		this.ownerNode = ownerNode;
-		this.bulletOwner =  bulletOwner;
 		this.stats = (Entities)ownerNode;
 	}
 
@@ -72,9 +67,10 @@ public class GunController
 		// Access bullet properties
 		bullet.Position = ownerNode.Position;
 		bullet.Rotation = ownerSprite.GlobalRotation + randomAccuracyDeviation;
+		bullet.Scale = new Vector2(stats.bulletSize, stats.bulletSize);
 
 		// Access bullet script 
-		bulletCon.bOwner = bulletOwner;
+		bulletCon.bOwner = stats.entityType;
 		// bulletCon.openMotion = ownerNode.LinearVelocity/2f;
 		bulletCon.strength = stats.bulletStrength;
 		bulletCon.movementForce = stats.bulletForce;
