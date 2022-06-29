@@ -718,6 +718,7 @@ contacts_reported = 10
 contact_monitor = true
 script = ExtResource( 2 )
 shotDelay = 0.1
+bulletSize = 1.75
 
 [node name="Sprite" type="Sprite" parent="."]
 modulate = Color( 1, 1, 1, 0.501961 )

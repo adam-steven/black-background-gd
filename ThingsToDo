@@ -54,8 +54,6 @@ Leaderboard (Score & Time) {
 Add better indication of healing on invincible (~green background and freeze frame)
     Add special bullet that destroys all other bullets if blocked
 
-Bullet size modifier (start the player off with semi-large bullets)
-
 Enemy look delay
 
 Save game (quick save when going into the options menu)
@@ -120,3 +118,5 @@ Levels {
     ------l-e-a-d-e-r-b-o-a-r-d------, 
     ------q-u-i-t------
     }
+
+------B-u-l-l-e-t--s-i-z-e--m-o-d-i-f-i-e-r------

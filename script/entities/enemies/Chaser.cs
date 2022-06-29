@@ -11,7 +11,7 @@ public class Chaser : Enemies
 		Godot.Sprite thisSprite = this.GetNode<Godot.Sprite>("Sprite");
 		thisSprite.SelfModulate = colour;
 
-		gun = new GunController(this, BulletOwner.EnemyController); 
+		gun = new GunController(this); 
 	}
 
 	public override void _PhysicsProcess(float delta) 

@@ -12,6 +12,7 @@ public class UpgradeButton : Area2D
 	[Export] private float bulletAccuracy = 0; //Bullet's accuracy (0 is perfect accuracy)
 	[Export] private int bulletBurstAmount = 0; //Number of bullets fired in quick succession (fixed delay interval)
 	[Export] private float bulletTimeAlive = 0; //Bullet Range (>0 = 0.05f)
+	[Export] public float bulletSize = 0; //Modifies the size of the bullet sprite
 
 	[Export] public bool endUpgrading = true;
 
@@ -37,6 +38,7 @@ public class UpgradeButton : Area2D
 				player.bulletAccuracy += bulletAccuracy; 
 				player.bulletBurstAmount += bulletBurstAmount; 
 				player.bulletTimeAlive += bulletTimeAlive;
+				player.bulletSize += bulletSize;
 
 				//Update the background colour just incase its no longer in the red
 				ColourControl.UpdateBackgroundColour(player.health);

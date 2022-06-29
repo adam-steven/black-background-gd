@@ -10,7 +10,7 @@ public class BulletSpawner : Enemies
 	{
 		float spawnSpeedModifier = shotDelay / rnd.Next(1, 3);
 
-		gun = new GunController(this, BulletOwner.EnemyController); 
+		gun = new GunController(this); 
 
 		AnimationPlayer anim  = this.GetNode<AnimationPlayer>("AnimationPlayer");
 		anim.PlaybackSpeed = spawnSpeedModifier;

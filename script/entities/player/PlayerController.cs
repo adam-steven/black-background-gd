@@ -8,7 +8,7 @@ public partial class PlayerController : Entities
 	private GunController gun; 
 	
 	public override void _Ready() {
-		gun = new GunController(this, BulletOwner.PlayerController);
+		gun = new GunController(this);
 		this.Connect("body_entered", this, "_OnPlayerBodyEntered");
 
 		connectAnimEndSignal("Stop", "StopIFramesEnd"); 
