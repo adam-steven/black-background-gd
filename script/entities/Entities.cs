@@ -20,6 +20,8 @@ namespace Godot
         [Export] public float bulletTimeAlive = 0.25f; //Bullet Range (>0 = 0.05f)
         [Export] public float bulletSize = 1.5f; //Modifies the size of the bullet sprite
 
+        public Color colour;
+
         public virtual void TakeDamage(int damage) {}
     }
 }

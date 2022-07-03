@@ -11,7 +11,6 @@ split enemy folders up into different levels
 
 ~Upgrades bought use score as currency 
 
-~Refactor colour code 
 Settings Option: Colours {
     User configurable
     Player, -Wall-, -Enemies-
@@ -120,3 +119,5 @@ Levels {
     }
 
 ------B-u-l-l-e-t--s-i-z-e--m-o-d-i-f-i-e-r------
+
+------R-e-f-a-c-t-o-r--c-o-l-o-u-r--c-o-d-e------ 

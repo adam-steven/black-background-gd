@@ -1,5 +1,6 @@
 //Stat and stat management 
 using Godot;
+using static Enums;
 
 public partial class PlayerController
 {
@@ -12,13 +13,7 @@ public partial class PlayerController
 	public override void TakeDamage(int damage) {
 		//Indicate that no damage was taken (+ health gained) by playing all movement effects
 		if(invincible) {
-			string[] effectPos = {"Right", "Left", "Bottom", "Top"};
-			for (int i = 0; i < effectPos.Length; i++)
-				PlayEffect(effectPos[i]);
-
-			health += damage/2;
-			//Update background colour based on health
-			ColourControl.UpdateBackgroundColour(health);
+			GainHealth(damage);
 			return;
 		}
 
@@ -43,5 +38,16 @@ public partial class PlayerController
 			//Go to gameover screen
 			this.EmitSignal("_end_game");
 		}	
+	}
+
+	private void GainHealth(int damage) {
+		string[] effectPos = {"Right", "Left", "Bottom", "Top"};
+		for (int i = 0; i < effectPos.Length; i++)
+			PlayEffect(effectPos[i]);
+
+		health += damage/2;
+
+		//Update background colour based on health
+		ColourControl.FlashBackgroundColour(ColourControl.enemyColour, GetTree(), health);
 	}
 }

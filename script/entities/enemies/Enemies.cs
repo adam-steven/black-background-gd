@@ -8,8 +8,6 @@ namespace Godot
         public GunController gun; 
 	    public RigidBody2D player;
 
-        public Color colour;
-
         public Enemies() {}
 
         public void FacePlayer() {
