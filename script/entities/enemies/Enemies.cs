@@ -27,10 +27,10 @@ namespace Godot
         #region Death handling
 
             //Called by the bullet script to take damage / die
-            public override void TakeDamage(int damage) {
+            public override void TakeDamage(BulletController strikingBullet) {
                 if(health <= 0) return;
                 
-                health -= damage;
+                health -= strikingBullet.strength;
                 GD.Print("Enemy: " + health);
 
                 AnimationPlayer anim  = this.GetNode<AnimationPlayer>("AnimationPlayer");

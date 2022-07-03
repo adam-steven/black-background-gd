@@ -63,6 +63,8 @@ public class Main : Levels
 			player = (Entities)playerRB;
 			player.Connect("_end_game", this, "EndGame");
 			player.Connect("_shake_screen", (CameraController)mainCamera, "StartShakeScreen");
+			player.Connect("_section_text", this, "DisplaySectionText");
+			player.Connect("_destroy_all_bullets", this, "DestroyBullets");
 		}
 
 		private void SpawnMainMenu() {
@@ -221,10 +223,13 @@ public class Main : Levels
 
 		//Displays big faint text in the background for a short amount of time
 		//Used to indicate the changes in gameplay sections 
-		public void DisplaySectionText(string text) {
+		public void DisplaySectionText(string text, bool inverted = false) {
 			Position2D sectionText = this.GetNode<Position2D>("SectionText");
 			Godot.Label label = sectionText.GetNode<Godot.Label>("Label");
 			AnimationPlayer anim  = sectionText.GetNode<AnimationPlayer>("AnimationPlayer");
+
+			string textColor = inverted ? "black" : "white";
+			sectionText.Modulate = Color.ColorN(textColor);
 
 			label.Text = text;
 			anim.Play("SectionTxtDisplay");
@@ -236,6 +241,15 @@ public class Main : Levels
 			AnimationPlayer anim = room.GetNode<AnimationPlayer>("AnimationPlayer");
 			anim.Play("RoomSpin");
 			ColourControl.UpdateGameColours(levelNode, player);
+		}
+
+		//Destroys all bullets on the screen
+		public void DestroyBullets() {
+			var children = this.GetChildren();
+
+			foreach (var child in children)
+				if(child.GetType() == typeof(BulletController))
+					((BulletController)child).QueueFree(); 
 		}
 
 	#endregion 

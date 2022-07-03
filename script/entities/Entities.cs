@@ -22,6 +22,10 @@ namespace Godot
 
         public Color colour;
 
-        public virtual void TakeDamage(int damage) {}
+        [Signal] public delegate void _destroy_all_bullets();
+        [Signal] public delegate void _section_text(string text, bool inverted);
+	    [Signal] public delegate void _shake_screen(int shakeForce, float shakeDuration);
+
+        public virtual void TakeDamage(BulletController strikingBullet) {}
     }
 }

@@ -18,7 +18,10 @@ public static class ColourControl
 	public static async void FlashBackgroundColour(Color colourToFlash, SceneTree tree, int playerHealth) {
 		VisualServer.SetDefaultClearColor(colourToFlash);
 		tree.Paused = true;
+
+		//Freeze frame always with colour flash to minimise seizure risk
 		await Task.Delay(200);
+
 		tree.Paused = false;
 		UpdateBackgroundColour(playerHealth);
 	}

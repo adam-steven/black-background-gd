@@ -17,7 +17,7 @@ Settings Option: Colours {
     -Rainbow-, Contrast, White
 }
 
-Settings Option: toggle count down before the first wave 
+    Settings Option: toggle count down before the first wave 
 
 Stat limits
 
@@ -49,9 +49,6 @@ Leaderboard (Score & Time) {
 }
 
 ~Event levels (like the ai test uni proj)
-
-    Add better indication of healing on invincible (~green background and freeze frame)
-        Add special bullet that destroys all other bullets if blocked
 
 Enemy look delay
 
@@ -121,3 +118,6 @@ Levels {
 ------B-u-l-l-e-t--s-i-z-e--m-o-d-i-f-i-e-r------
 
 ------R-e-f-a-c-t-o-r--c-o-l-o-u-r--c-o-d-e------ 
+
+------A-d-d--b-e-t-t-e-r--i-n-d-i-c-a-t-i-o-n--o-f--h-e-a-l-i-n-g--o-n--i-n-v-i-n-c-i-b-l-e------
+------A-d-d--s-p-e-c-i-a-l--b-u-l-l-e-t--t-h-a-t--d-e-s-t-r-o-y-s--a-l-l--o-t-h-e-r--b-u-l-l-e-t-s--i-f--b-l-o-c-k-e-d------
