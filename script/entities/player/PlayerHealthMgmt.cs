@@ -6,26 +6,19 @@ public partial class PlayerController
 	private bool invincible = false;
 
 	[Signal] public delegate void _end_game();
-	[Signal] public delegate void _shake_screen(int shakeForce, float shakeDuration);
 
 	//Called by the bullet script to take damage / die
-	public override void TakeDamage(int damage) {
+	public override void TakeDamage(BulletController strikingBullet) {
 		//Indicate that no damage was taken (+ health gained) by playing all movement effects
 		if(invincible) {
-			string[] effectPos = {"Right", "Left", "Bottom", "Top"};
-			for (int i = 0; i < effectPos.Length; i++)
-				PlayEffect(effectPos[i]);
-
-			health += damage/2;
-			//Update background colour based on health
-			ColourControl.UpdateBackgroundColour(health);
+			GainHealth(strikingBullet);
 			return;
 		}
 
 		if(health <= 0) return;
 
 		//Decrease health
-		health -= damage;
+		health -= strikingBullet.strength;
 		GD.Print("Player: " + health);
 
 		//Damage indication
@@ -43,5 +36,23 @@ public partial class PlayerController
 			//Go to gameover screen
 			this.EmitSignal("_end_game");
 		}	
+	}
+
+	private void GainHealth(BulletController strikingBullet) {
+		string[] effectPos = {"Right", "Left", "Bottom", "Top"};
+		for (int i = 0; i < effectPos.Length; i++)
+			PlayEffect(effectPos[i]);
+
+		health += strikingBullet.strength/2;
+
+		//Flash text
+		if(strikingBullet.special) { 
+			this.EmitSignal("_section_text", "NICE", true);
+			this.EmitSignal("_destroy_all_bullets");  
+		}
+
+		//Flash colour + freeze frame
+		var darkenedColour = ColourControl.enemyColour.LinearInterpolate(Color.ColorN("black"), 0.5f);
+		ColourControl.FlashBackgroundColour(darkenedColour, GetTree(), health);
 	}
 }

@@ -2,7 +2,6 @@
 
 [ext_resource path="res://fonts/ttf/Teko-SemiBold.ttf" type="DynamicFontData" id=1]
 
-
 [sub_resource type="DynamicFont" id=1]
 size = 1000
 use_filter = true
@@ -45,7 +44,7 @@ tracks/2/keys = {
 "times": PoolRealArray( 0, 0.2 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Color( 1, 1, 1, 0.0196078 ), Color( 1, 1, 1, 0.0705882 ) ]
+"values": [ Color( 1, 1, 1, 0.0196078 ), Color( 1, 1, 1, 0.117647 ) ]
 }
 
 [sub_resource type="Animation" id=3]
@@ -65,11 +64,10 @@ tracks/0/keys = {
 }
 
 [node name="SectionText" type="Position2D"]
-visible = false
 scale = Vector2( 0.8, 1.4 )
 
 [node name="Label" type="Label" parent="."]
-modulate = Color( 1, 1, 1, 0.0392157 )
+modulate = Color( 1, 1, 1, 0.117647 )
 margin_left = -1200.0
 margin_top = -675.0
 margin_right = 1200.0
@@ -78,9 +76,6 @@ custom_fonts/font = SubResource( 1 )
 text = "DODGE"
 align = 1
 valign = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "SectionTxtInit"

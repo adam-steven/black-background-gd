@@ -12,12 +12,16 @@ public class BulletController : Area2D
 	public int strength = 5;
 	public float timeAlive = 0; //The range the bullet can go before destroying itself
 
+	public bool special = false;
+	[Export] Godot.Color specialColor;
+
 	public override void _Ready() {
 		float angle = this.Rotation;
 		closedMotion = new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle)) * movementForce;
 
-		if(timeAlive <= 0) 
-			timeAlive = 0.05f;
+		if(timeAlive <= 0) { timeAlive = 0.05f; }
+
+		if(special) { Glow(); }
 		
 		Timer deathTimer = this.GetNode<Timer>("Timer");
 		deathTimer.WaitTime = timeAlive;
@@ -32,20 +36,26 @@ public class BulletController : Area2D
 	private void _On_Bullet_Body_Entered(object body) {
 		//Make sure i hit an entity
 		Type bodyType = body.GetType();
-		if(!bodyType.IsSubclassOf(typeof(Godot.Entities))) return;
+		if(bodyType.IsSubclassOf(typeof(Godot.Entities))) {
+			Entities hitEntity = (Entities)body;
 
-		Entities hitEntity = (Entities)body;
+			//If collision is made by owner return
+			if(hitEntity.entityType == bOwner) return;
 
-		//If collision is made by owner return
-		if(hitEntity.entityType == bOwner) return;
+			hitEntity.TakeDamage(this);
+		} 
 
-		hitEntity.TakeDamage(strength);
 		DestroyBullet();
 	}
 
 	//Delete self
 	private void DestroyBullet() {
 		this.QueueFree(); 
+	}
+
+	private void Glow() {
+		this.Modulate = specialColor;
+		strength = strength * 2;
 	}
 }
 

@@ -1,7 +1,6 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://images/base_block.png" type="Texture" id=1]
-[ext_resource path="res://scenes/misc/SectionText.tscn" type="PackedScene" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 10, 100 )
@@ -110,5 +109,3 @@ shape = SubResource( 4 )
 autoplay = "RoomInit"
 anims/RoomInit = SubResource( 5 )
 anims/RoomSpin = SubResource( 6 )
-
-[node name="SectionText" parent="." instance=ExtResource( 2 )]

@@ -27,7 +27,7 @@ public class GunController
 		this.stats = (Entities)ownerNode;
 	}
 
-	public void Shoot(bool isBursting = false) {
+	public void Shoot(bool isBursting = false, bool specialShot = false) {
 		if(!CanShoot(isBursting)) return;
 		
 		Godot.Sprite ownerSprite = ownerNode.GetNode<Godot.Sprite>("Sprite");
@@ -35,7 +35,7 @@ public class GunController
 
 		//Loop for shotgun effect
 		for (int i = 0; i < stats.noOfBullets; i++) {
-			SpawnBullet(ownerSprite, gameController);
+			SpawnBullet(ownerSprite, gameController, specialShot);
 		}
 
 		currentBulletInBurst++;
@@ -59,7 +59,7 @@ public class GunController
     	return canShoot;
 	}
 
-	private void SpawnBullet(Godot.Sprite ownerSprite, Godot.Node2D gameController) {
+	private void SpawnBullet(Godot.Sprite ownerSprite, Godot.Node2D gameController, bool specialShot) {
 		Area2D bullet = (Area2D)bulletScene.Instance();
 		BulletController bulletCon = (BulletController)bullet;
 		float randomAccuracyDeviation = (float)((rnd.NextDouble() * stats.bulletAccuracy) - (rnd.NextDouble() * stats.bulletAccuracy));
@@ -75,6 +75,7 @@ public class GunController
 		bulletCon.strength = stats.bulletStrength;
 		bulletCon.movementForce = stats.bulletForce;
 		bulletCon.timeAlive = stats.bulletTimeAlive;
+		bulletCon.special = specialShot;
 
 		// Shoot bullet + start cooldown 
 		gameController.AddChild(bullet);

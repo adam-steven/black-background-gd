@@ -5,6 +5,8 @@ using static Enums;
 //DeathScreen.tscn 
 public class DeathScreen : Levels
 {
+	GameOverObj deathData;
+
 	public override void _Ready() {
 		Godot.Control control = this.GetNode<Godot.Control>("Control");
 		Godot.VBoxContainer buttonContainer = control.GetNode<Godot.VBoxContainer>("Buttons");
@@ -21,7 +23,9 @@ public class DeathScreen : Levels
 
 	//Handel score
 	public override void LoadLevelParameters(System.Object sceneData) {
-		if(sceneData == null) return;
+		deathData = (sceneData != null) ? (GameOverObj)sceneData : new GameOverObj(0, 0);
+		GD.Print("Score: " + deathData.score);
+		GD.Print("Time: " + deathData.time);
 	}
 
 	private void _OnButtonPress(MenuButtons button) {

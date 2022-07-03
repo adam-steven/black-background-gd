@@ -20,6 +20,12 @@ namespace Godot
         [Export] public float bulletTimeAlive = 0.25f; //Bullet Range (>0 = 0.05f)
         [Export] public float bulletSize = 1.5f; //Modifies the size of the bullet sprite
 
-        public virtual void TakeDamage(int damage) {}
+        public Color colour;
+
+        [Signal] public delegate void _destroy_all_bullets();
+        [Signal] public delegate void _section_text(string text, bool inverted);
+	    [Signal] public delegate void _shake_screen(int shakeForce, float shakeDuration);
+
+        public virtual void TakeDamage(BulletController strikingBullet) {}
     }
 }

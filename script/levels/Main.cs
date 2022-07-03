@@ -5,10 +5,10 @@ using System.Collections.Generic;
 //Main.tscn 
 public class Main : Levels
 {
-	Random rnd = new Random();
+	private Random rnd = new Random();
 
-	Godot.Node2D levelNode;
-	Vector2 levelCenter;
+	private Godot.Node2D levelNode;
+	private Vector2 levelCenter;
 	
 	private int level = 0;
 	private int numberOfWaves = -1;
@@ -19,8 +19,11 @@ public class Main : Levels
 
 	private Entities player;
 
-	List<string> enemies; //paths to enemy scenes
-	List<string> obstacles; //paths to obstical scenes (dodge section)
+	private List<string> enemies; //paths to enemy scenes
+	private List<string> obstacles; //paths to obstical scenes (dodge section)
+
+	private int score;
+	private int scoreMultiplier;
 
 	public override void _Ready() {
 		//Reset the background color
@@ -60,6 +63,8 @@ public class Main : Levels
 			player = (Entities)playerRB;
 			player.Connect("_end_game", this, "EndGame");
 			player.Connect("_shake_screen", (CameraController)mainCamera, "StartShakeScreen");
+			player.Connect("_section_text", this, "DisplaySectionText");
+			player.Connect("_destroy_all_bullets", this, "DestroyBullets");
 		}
 
 		private void SpawnMainMenu() {
@@ -147,7 +152,7 @@ public class Main : Levels
 
 				Enemies enemyScript = (Enemies)enemy;
 				enemyScript.player = player;
-				enemyScript.colour = enemyColour;
+				enemyScript.colour = ColourControl.enemyColour;
 
 				this.AddChild(enemy);
 
@@ -197,7 +202,8 @@ public class Main : Levels
 		}
 
 		private void EndGame() {
-			EmitChangeScene("res://scenes/menus/DeathScreen.tscn", 1f, null);
+			GameOverObj deathObj = new GameOverObj(score, 0);
+			EmitChangeScene("res://scenes/menus/DeathScreen.tscn", 1f, deathObj);
 		}
 
 		private void ReturnToMenu() {
@@ -217,10 +223,13 @@ public class Main : Levels
 
 		//Displays big faint text in the background for a short amount of time
 		//Used to indicate the changes in gameplay sections 
-		public void DisplaySectionText(string text) {
-			Position2D sectionText = levelNode.GetNode<Position2D>("SectionText");
+		public void DisplaySectionText(string text, bool inverted = false) {
+			Position2D sectionText = this.GetNode<Position2D>("SectionText");
 			Godot.Label label = sectionText.GetNode<Godot.Label>("Label");
 			AnimationPlayer anim  = sectionText.GetNode<AnimationPlayer>("AnimationPlayer");
+
+			string textColor = inverted ? "black" : "white";
+			sectionText.Modulate = Color.ColorN(textColor);
 
 			label.Text = text;
 			anim.Play("SectionTxtDisplay");
@@ -231,25 +240,19 @@ public class Main : Levels
 			Position2D room = levelNode.GetNode<Position2D>("Room");
 			AnimationPlayer anim = room.GetNode<AnimationPlayer>("AnimationPlayer");
 			anim.Play("RoomSpin");
-			UpdateGameColours();
+			ColourControl.UpdateGameColours(levelNode, player);
+		}
+
+		//Destroys all bullets on the screen
+		public void DestroyBullets() {
+			var children = this.GetChildren();
+
+			foreach (var child in children)
+				if(child.GetType() == typeof(BulletController))
+					((BulletController)child).QueueFree(); 
 		}
 
 	#endregion 
-
-	#region Colour Controls
-
-		public Color playerColour;
-		public Color enemyColour;
-
-		private void UpdateGameColours() {
-			var values = Enum.GetValues(typeof(Enums.Colour));
-			String colourName = values.GetValue(rnd.Next(values.Length)).ToString();
-
-			enemyColour = Color.ColorN(colourName);
-			levelNode.Modulate = enemyColour;
-		}
-
-	#endregion
 
 	#region Testing Functions
 
