@@ -23,7 +23,7 @@ public class Main : Levels
 	private List<string> obstacles; //paths to obstical scenes (dodge section)
 
 	private int score;
-	private int scoreMultiplier;
+	private int scoreMultiplier = 4;
 
 	public override void _Ready() {
 		//Reset the background color
@@ -113,6 +113,7 @@ public class Main : Levels
 			} 
 			else { 
 				LevelSpin();
+				scoreMultiplier = 4;
 				SpawnUpgrades();
 			} 
 		}
@@ -223,7 +224,7 @@ public class Main : Levels
 
 		//Displays big faint text in the background for a short amount of time
 		//Used to indicate the changes in gameplay sections 
-		public void DisplaySectionText(string text, bool inverted = false) {
+		private void DisplaySectionText(string text, bool inverted = false) {
 			Position2D sectionText = this.GetNode<Position2D>("SectionText");
 			Godot.Label label = sectionText.GetNode<Godot.Label>("Label");
 			AnimationPlayer anim  = sectionText.GetNode<AnimationPlayer>("AnimationPlayer");
@@ -236,7 +237,7 @@ public class Main : Levels
 		}
 
 		//Spins the level boarders + changes the level colour
-		public void LevelSpin() {
+		private void LevelSpin() {
 			Position2D room = levelNode.GetNode<Position2D>("Room");
 			AnimationPlayer anim = room.GetNode<AnimationPlayer>("AnimationPlayer");
 			anim.Play("RoomSpin");
@@ -244,12 +245,17 @@ public class Main : Levels
 		}
 
 		//Destroys all bullets on the screen
-		public void DestroyBullets() {
+		private void DestroyBullets() {
 			var children = this.GetChildren();
 
 			foreach (var child in children)
 				if(child.GetType() == typeof(BulletController))
 					((BulletController)child).QueueFree(); 
+		}
+
+		private void UpdateScore(int points) {
+			score = points * scoreMultiplier;
+			GD.Print($"Score: {score}");
 		}
 
 	#endregion 
