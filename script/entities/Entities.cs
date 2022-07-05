@@ -25,7 +25,9 @@ namespace Godot
         [Signal] public delegate void _destroy_all_bullets();
         [Signal] public delegate void _section_text(string text, bool inverted);
 	    [Signal] public delegate void _shake_screen(int shakeForce, float shakeDuration);
+        
         [Signal] public delegate void _update_score(int points);
+        [Signal] public delegate void _stop_score_update();
 
         public virtual void TakeDamage(BulletController strikingBullet) {}
     }
