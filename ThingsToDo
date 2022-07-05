@@ -33,7 +33,12 @@ Upgrades[]
 Enemies[]
 Bosses[]
 
-Score
+    Score {
+        gain score via: kills and successful blocks
+        score counter slowly increments when gaining points
+        getting hit stops the incrementing (earth bound style) 
+    }
+
 
 Leaderboard (Score & Time) {
     world leaderboard - top 100 - restart every day
