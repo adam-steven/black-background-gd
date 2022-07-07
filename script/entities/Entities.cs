@@ -27,7 +27,7 @@ namespace Godot
 	    [Signal] public delegate void _shake_screen(int shakeForce, float shakeDuration);
         
         [Signal] public delegate void _update_score(int points);
-        [Signal] public delegate void _stop_score_update();
+        [Signal] public delegate void _break_score_update();
 
         public virtual void TakeDamage(BulletController strikingBullet) {}
     }

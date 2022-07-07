@@ -65,6 +65,8 @@ public class Main : Levels
 			player.Connect("_shake_screen", (CameraController)mainCamera, "StartShakeScreen");
 			player.Connect("_section_text", this, "DisplaySectionText");
 			player.Connect("_destroy_all_bullets", this, "DestroyBullets");
+			player.Connect("_update_score", this, "UpdateScore");
+			player.Connect("_break_score_update", this, "BreakScoreUpdate");
 		}
 
 		private void SpawnMainMenu() {
@@ -158,6 +160,7 @@ public class Main : Levels
 				this.AddChild(enemy);
 
 				enemy.Connect("_on_death", this, "CheckIfEnemies");
+				enemy.Connect("_update_score", this, "UpdateScore");
 			}
 		}
 
@@ -181,6 +184,19 @@ public class Main : Levels
 		}
 
 	#endregion 
+
+	#region Score 
+
+		private void UpdateScore(int points) {
+			score = points * scoreMultiplier;
+			GD.Print($"Score: {score}");
+		}
+
+		private void BreakScoreUpdate() {
+			
+		}
+
+	#endregion
 
 	#region Misc Functions 
 
@@ -251,11 +267,6 @@ public class Main : Levels
 			foreach (var child in children)
 				if(child.GetType() == typeof(BulletController))
 					((BulletController)child).QueueFree(); 
-		}
-
-		private void UpdateScore(int points) {
-			score = points * scoreMultiplier;
-			GD.Print($"Score: {score}");
 		}
 
 	#endregion 
