@@ -41,7 +41,7 @@ public class UpgradeButton : Area2D
 				player.bulletSize += bulletSize;
 
 				//Update the background colour just incase its no longer in the red
-				ColourControl.UpdateBackgroundColour(player.health);
+				ColourController.UpdateBackgroundColour(player.health);
 			}
 
 			_OnButtonPress();

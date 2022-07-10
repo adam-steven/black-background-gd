@@ -27,7 +27,7 @@ public partial class PlayerController
 		this.EmitSignal("_shake_screen", 12, 0.2f);
 
 		//Update background colour based on health
-		ColourControl.UpdateBackgroundColour(health);
+		ColourController.UpdateBackgroundColour(health);
 
 		//Kill player if health is 0
 		if(health <= 0) {
@@ -52,7 +52,7 @@ public partial class PlayerController
 		}
 
 		//Flash colour + freeze frame
-		var darkenedColour = ColourControl.enemyColour.LinearInterpolate(Color.ColorN("black"), 0.5f);
-		ColourControl.FlashBackgroundColour(darkenedColour, GetTree(), health);
+		var darkenedColour = ColourController.enemyColour.LinearInterpolate(Color.ColorN("black"), 0.5f);
+		ColourController.FlashBackgroundColour(darkenedColour, GetTree(), health);
 	}
 }

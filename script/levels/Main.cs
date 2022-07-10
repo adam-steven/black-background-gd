@@ -7,6 +7,8 @@ public class Main : Levels
 {
 	private Random rnd = new Random();
 
+	private UiController ui;
+
 	private Godot.Node2D levelNode;
 	private Vector2 levelCenter;
 	
@@ -22,12 +24,12 @@ public class Main : Levels
 	private List<string> enemies; //paths to enemy scenes
 	private List<string> obstacles; //paths to obstical scenes (dodge section)
 
-	private int score;
-	private int scoreMultiplier = 4;
-
 	public override void _Ready() {
 		//Reset the background color
-		ColourControl.UpdateBackgroundColour(10000);
+		ColourController.UpdateBackgroundColour(10000);
+
+		Godot.Control uiNode = this.GetNode<Godot.Control>("UI");
+		ui = (UiController)uiNode; 
 
 		levelNode = this.GetNode<Godot.Node2D>("Level");
 		levelCenter = levelNode.GlobalPosition;
@@ -65,8 +67,8 @@ public class Main : Levels
 			player.Connect("_shake_screen", (CameraController)mainCamera, "StartShakeScreen");
 			player.Connect("_section_text", this, "DisplaySectionText");
 			player.Connect("_destroy_all_bullets", this, "DestroyBullets");
-			player.Connect("_update_score", this, "UpdateScore");
-			player.Connect("_break_score_update", this, "BreakScoreUpdate");
+			player.Connect("_update_score", ui, "UpdateScore");
+			player.Connect("_break_score_update", ui, "BreakScoreUpdate");
 		}
 
 		private void SpawnMainMenu() {
@@ -115,7 +117,7 @@ public class Main : Levels
 			} 
 			else { 
 				LevelSpin();
-				scoreMultiplier = 4;
+				ui.ResetMultiplier();
 				SpawnUpgrades();
 			} 
 		}
@@ -155,12 +157,12 @@ public class Main : Levels
 
 				Enemies enemyScript = (Enemies)enemy;
 				enemyScript.player = player;
-				enemyScript.colour = ColourControl.enemyColour;
+				enemyScript.colour = ColourController.enemyColour;
 
 				this.AddChild(enemy);
 
 				enemy.Connect("_on_death", this, "CheckIfEnemies");
-				enemy.Connect("_update_score", this, "UpdateScore");
+				enemy.Connect("_update_score", ui, "UpdateScore");
 			}
 		}
 
@@ -185,19 +187,6 @@ public class Main : Levels
 
 	#endregion 
 
-	#region Score 
-
-		private void UpdateScore(int points) {
-			score = points * scoreMultiplier;
-			GD.Print($"Score: {score}");
-		}
-
-		private void BreakScoreUpdate() {
-			
-		}
-
-	#endregion
-
 	#region Misc Functions 
 
 		private void PlayGame() {
@@ -219,7 +208,7 @@ public class Main : Levels
 		}
 
 		private void EndGame() {
-			GameOverObj deathObj = new GameOverObj(score, 0);
+			GameOverObj deathObj = new GameOverObj(ui.score, 0);
 			EmitChangeScene("res://scenes/menus/DeathScreen.tscn", 1f, deathObj);
 		}
 
@@ -257,7 +246,7 @@ public class Main : Levels
 			Position2D room = levelNode.GetNode<Position2D>("Room");
 			AnimationPlayer anim = room.GetNode<AnimationPlayer>("AnimationPlayer");
 			anim.Play("RoomSpin");
-			ColourControl.UpdateGameColours(levelNode, player);
+			ColourController.UpdateGameColours(levelNode, player);
 		}
 
 		//Destroys all bullets on the screen
