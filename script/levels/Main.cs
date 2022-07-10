@@ -8,6 +8,7 @@ public class Main : Levels
 	private Random rnd = new Random();
 
 	private UiController ui;
+	private Score scoreControl;
 
 	private Godot.Node2D levelNode;
 	private Vector2 levelCenter;
