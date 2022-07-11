@@ -22,8 +22,8 @@ public class UiController : Control
 
 	#region UpdateElements
 
-		public void UpdateScoreUi(int value) {
-			scoreUi.Text = value.ToString();
+		public void UpdateScoreUi(long value) {
+			scoreUi.Text = value.ToString("D6");
 		}
 
 	#endregion

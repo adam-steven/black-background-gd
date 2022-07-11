@@ -4,8 +4,8 @@ using System;
 public class Score : Godot.Object
 {
     private UiController ui;
-    public int score { private set; get; }
-    private int tempScore;
+    public long score { private set; get; }
+    private long tempScore;
 	public int scoreMultiplier { private set; get; }
 
     public Score(UiController ui) {
@@ -15,7 +15,6 @@ public class Score : Godot.Object
 
     public void _ScoreProcess(float delta) {
         if(score < tempScore) {
-            //Need to truncate or power the score
             score = score + 1;
             ui.UpdateScoreUi(score);
         }
@@ -23,6 +22,7 @@ public class Score : Godot.Object
 
     private void UpdateScore(int points) {
         tempScore += points * scoreMultiplier;
+        tempScore = Math.Min(tempScore, 99999999999999);
         GD.Print("temp score " + tempScore);
     }
 
