@@ -32,6 +32,8 @@ public class Main : Levels
 		Godot.Control uiNode = this.GetNode<Godot.Control>("UI");
 		ui = (UiController)uiNode; 
 
+		scoreControl = new Score(ui);
+
 		levelNode = this.GetNode<Godot.Node2D>("Level");
 		levelCenter = levelNode.GlobalPosition;
 
@@ -55,6 +57,10 @@ public class Main : Levels
 		}
 	}
 
+	public override void _Process(float delta) {
+		scoreControl._ScoreProcess(delta);
+	}
+
 	#region Spawn Functions
 
 		private void SpawnPlayer(Vector2 location) {
@@ -68,8 +74,8 @@ public class Main : Levels
 			player.Connect("_shake_screen", (CameraController)mainCamera, "StartShakeScreen");
 			player.Connect("_section_text", this, "DisplaySectionText");
 			player.Connect("_destroy_all_bullets", this, "DestroyBullets");
-			player.Connect("_update_score", ui, "UpdateScore");
-			player.Connect("_break_score_update", ui, "BreakScoreUpdate");
+			player.Connect("_update_score", scoreControl, "UpdateScore");
+			player.Connect("_break_score_update", scoreControl, "BreakScoreUpdate");
 		}
 
 		private void SpawnMainMenu() {
@@ -118,7 +124,7 @@ public class Main : Levels
 			} 
 			else { 
 				LevelSpin();
-				ui.ResetMultiplier();
+				scoreControl.ResetMultiplier();
 				SpawnUpgrades();
 			} 
 		}
@@ -163,7 +169,7 @@ public class Main : Levels
 				this.AddChild(enemy);
 
 				enemy.Connect("_on_death", this, "CheckIfEnemies");
-				enemy.Connect("_update_score", ui, "UpdateScore");
+				enemy.Connect("_update_score", scoreControl, "UpdateScore");
 			}
 		}
 
@@ -209,7 +215,7 @@ public class Main : Levels
 		}
 
 		private void EndGame() {
-			GameOverObj deathObj = new GameOverObj(ui.score, 0);
+			GameOverObj deathObj = new GameOverObj(scoreControl.score, 0);
 			EmitChangeScene("res://scenes/menus/DeathScreen.tscn", 1f, deathObj);
 		}
 

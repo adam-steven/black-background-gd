@@ -37,6 +37,10 @@ namespace Godot
                 anim.Play("EnemyHit");
 
                 if(health <= 0) {
+                    //Give score
+                    this.EmitSignal("_update_score", 1000);
+
+                    //Start death sequence 
                     anim.Connect("animation_finished", this, "EmitDeathSignal");
                     anim.Play("EnemyDeath");
                 }	

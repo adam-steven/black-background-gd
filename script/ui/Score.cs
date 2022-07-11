@@ -1,28 +1,30 @@
 using Godot;
 using System;
 
-public class Score
+public class Score : Godot.Object
 {
+    private UiController ui;
     public int score { private set; get; }
     private int tempScore;
 	public int scoreMultiplier { private set; get; }
 
-    // public override void _Ready()
-    // {
-    //     ResetMultiplier();
-    // }
+    public Score(UiController ui) {
+        this.ui = ui;
+        ResetMultiplier();
+    }
 
-    // public override void _PhysicsProcess(float delta) {
-    //     if(score < tempScore) {
-
-    //         //Need to truncate or power the score
-    //         //Add delay
-    //         score = score + 1;
-    //     }
-    // }
+    public void _ScoreProcess(float delta) {
+        if(score < tempScore) {
+            //Need to truncate or power the score
+            //Add delay
+            score = score + 1;
+            ui.UpdateScoreUi(score);
+        }
+    }
 
     private void UpdateScore(int points) {
-        tempScore = points * scoreMultiplier;
+        tempScore += points * scoreMultiplier;
+        GD.Print("temp score " + tempScore);
     }
 
     private void BreakScoreUpdate() {
