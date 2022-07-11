@@ -34,9 +34,9 @@ Enemies[]
 Bosses[]
 
     Score {
-        gain score via: kills and successful blocks
-        score counter slowly increments when gaining points
-        getting hit stops the incrementing (earth bound style) 
+        ------gain score via: kills and successful blocks
+        ------score counter slowly increments when gaining points
+        ------getting hit stops the incrementing (earth bound style) 
     }
 
 

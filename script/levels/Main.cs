@@ -23,7 +23,7 @@ public class Main : Levels
 	private Entities player;
 
 	private List<string> enemies; //paths to enemy scenes
-	private List<string> obstacles; //paths to obstical scenes (dodge section)
+	private List<string> obstacles; //paths to obstacle scenes (dodge section)
 
 	public override void _Ready() {
 		//Reset the background color

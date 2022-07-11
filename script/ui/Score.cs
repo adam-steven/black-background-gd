@@ -16,7 +16,6 @@ public class Score : Godot.Object
     public void _ScoreProcess(float delta) {
         if(score < tempScore) {
             //Need to truncate or power the score
-            //Add delay
             score = score + 1;
             ui.UpdateScoreUi(score);
         }
