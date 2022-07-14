@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://script/ui/UiController.cs" type="Script" id=1]
 [ext_resource path="res://fonts/Teko-SemiBold-60.tres" type="DynamicFont" id=2]
+[ext_resource path="res://fonts/Teko-Bold-90.tres" type="DynamicFont" id=3]
 
 [node name="UI" type="Control"]
 anchor_right = 1.0
@@ -17,12 +18,35 @@ margin_right = 430.0
 margin_bottom = 1080.0
 rect_min_size = Vector2( 430, 0 )
 
-[node name="Score" type="Label" parent="HBoxContainer/VBoxContainer"]
+[node name="PointsIndicator" type="Label" parent="HBoxContainer/VBoxContainer"]
+modulate = Color( 1, 1, 1, 0.490196 )
 margin_right = 430.0
-margin_bottom = 404.0
-rect_min_size = Vector2( 0, 404 )
+margin_bottom = 87.0
+rect_min_size = Vector2( 0, 80 )
+custom_fonts/font = ExtResource( 2 )
+text = "+00000"
+align = 1
+valign = 1
+clip_text = true
+
+[node name="Score" type="Label" parent="HBoxContainer/VBoxContainer"]
+margin_top = 91.0
+margin_right = 430.0
+margin_bottom = 178.0
+rect_min_size = Vector2( 0, 80 )
 custom_fonts/font = ExtResource( 2 )
 text = "000000"
+align = 1
+valign = 1
+clip_text = true
+
+[node name="ScoreMultiplier" type="Label" parent="HBoxContainer/VBoxContainer"]
+margin_top = 182.0
+margin_right = 430.0
+margin_bottom = 312.0
+rect_min_size = Vector2( 0, 100 )
+custom_fonts/font = ExtResource( 3 )
+text = "x4"
 align = 1
 valign = 1
 clip_text = true
