@@ -5,7 +5,7 @@ public class Score : Godot.Object
 {
     private UiController ui;
     public long score { private set; get; }
-    private long tempScore;
+    private long tempScore; //Temporarily holds the full score value for a tick up effect
 	public int scoreMultiplier { private set; get; }
 
     public Score(UiController ui) {

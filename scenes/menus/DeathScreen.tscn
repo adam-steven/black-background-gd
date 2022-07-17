@@ -1,8 +1,10 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://script/menus/MenuButtons.cs" type="Script" id=1]
 [ext_resource path="res://script/menus/DeathScreen.cs" type="Script" id=2]
 [ext_resource path="res://fonts/Teko-Bold-90.tres" type="DynamicFont" id=3]
+[ext_resource path="res://fonts/Teko-Bold-120.tres" type="DynamicFont" id=4]
+[ext_resource path="res://fonts/Teko-SemiBold-75.tres" type="DynamicFont" id=5]
 
 [sub_resource type="Animation" id=14]
 resource_name = "MenuBtnDeselected"
@@ -209,46 +211,43 @@ margin_bottom = 40.0
 rect_min_size = Vector2( 1920, 1080 )
 color = Color( 0, 0, 0, 1 )
 
+[node name="Labels" type="VBoxContainer" parent="Control"]
+margin_left = 540.0
+margin_top = 116.0
+margin_right = 1380.0
+margin_bottom = 300.0
+
+[node name="GameOver" type="Label" parent="Control/Labels"]
+margin_right = 840.0
+margin_bottom = 122.0
+rect_min_size = Vector2( 840, 0 )
+custom_fonts/font = ExtResource( 4 )
+text = "Game Over"
+align = 1
+
+[node name="Score" type="Label" parent="Control/Labels"]
+margin_top = 126.0
+margin_right = 840.0
+margin_bottom = 184.0
+grow_horizontal = 2
+grow_vertical = 2
+rect_min_size = Vector2( 840, 0 )
+custom_fonts/font = ExtResource( 5 )
+text = "000000"
+align = 1
+
 [node name="Buttons" type="VBoxContainer" parent="Control"]
 margin_left = 540.0
-margin_top = 80.0
+margin_top = 300.0
 margin_right = 1380.0
-margin_bottom = 1000.0
+margin_bottom = 1001.0
 custom_constants/separation = 46
 alignment = 1
 
-[node name="Game Over" type="Button" parent="Control/Buttons"]
-margin_top = 68.0
-margin_right = 840.0
-margin_bottom = 188.0
-rect_min_size = Vector2( 200, 120 )
-disabled = true
-flat = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Position2D" type="Position2D" parent="Control/Buttons/Game Over"]
-position = Vector2( 420, 65 )
-scale = Vector2( 1.4, 1.4 )
-
-[node name="Label" type="Label" parent="Control/Buttons/Game Over/Position2D"]
-margin_left = -420.0
-margin_top = -65.0
-margin_right = 420.0
-margin_bottom = 65.0
-rect_min_size = Vector2( 840, 0 )
-custom_fonts/font = ExtResource( 3 )
-text = "Game Over"
-align = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="Replay" type="Button" parent="Control/Buttons"]
-margin_top = 234.0
+margin_top = 41.0
 margin_right = 840.0
-margin_bottom = 354.0
+margin_bottom = 161.0
 rect_min_size = Vector2( 200, 120 )
 flat = true
 script = ExtResource( 1 )
@@ -259,6 +258,7 @@ action = 1
 
 [node name="Position2D" type="Position2D" parent="Control/Buttons/Replay"]
 position = Vector2( 420, 65 )
+scale = Vector2( 1.2, 1.2 )
 
 [node name="Label" type="Label" parent="Control/Buttons/Replay/Position2D"]
 margin_left = -420.0
@@ -280,9 +280,9 @@ anims/MenuBtnInit = SubResource( 15 )
 anims/MenuBtnSelected = SubResource( 16 )
 
 [node name="MainMenu" type="Button" parent="Control/Buttons"]
-margin_top = 400.0
+margin_top = 207.0
 margin_right = 840.0
-margin_bottom = 520.0
+margin_bottom = 327.0
 rect_min_size = Vector2( 200, 120 )
 flat = true
 script = ExtResource( 1 )
@@ -310,9 +310,9 @@ anims/MenuBtnInit = SubResource( 24 )
 anims/MenuBtnSelected = SubResource( 25 )
 
 [node name="Leaderboard" type="Button" parent="Control/Buttons"]
-margin_top = 566.0
+margin_top = 373.0
 margin_right = 840.0
-margin_bottom = 686.0
+margin_bottom = 493.0
 rect_min_size = Vector2( 200, 120 )
 flat = true
 script = ExtResource( 1 )
@@ -339,9 +339,9 @@ anims/MenuBtnInit = SubResource( 18 )
 anims/MenuBtnSelected = SubResource( 19 )
 
 [node name="Quit" type="Button" parent="Control/Buttons"]
-margin_top = 732.0
+margin_top = 539.0
 margin_right = 840.0
-margin_bottom = 852.0
+margin_bottom = 659.0
 rect_min_size = Vector2( 200, 120 )
 flat = true
 script = ExtResource( 1 )

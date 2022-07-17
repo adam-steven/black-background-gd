@@ -25,9 +25,6 @@ Rework starting stats and upgrade values (slow everything down, but speed up wav
 
 Settings
 Leaderboard
-Death screen { 
-    Score
-    }
 
 Upgrades[]
 Enemies[]
@@ -111,9 +108,10 @@ Levels {
 ------S-t-a-r-t--M-e-n-u-s------
 ------P-a-u-s-e--s-c-r-e-e-n------
 ~Death screen { 
-    ------r-e-t-r-y------, 
-    ------m-a-i-n--m-e-n-u------, 
-    ------l-e-a-d-e-r-b-o-a-r-d------, 
+    ------S-c-o-r-e------
+    ------r-e-t-r-y------
+    ------m-a-i-n--m-e-n-u------ 
+    ------l-e-a-d-e-r-b-o-a-r-d------ 
     ------q-u-i-t------
     }
 

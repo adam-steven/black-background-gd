@@ -5,10 +5,21 @@ using static Enums;
 //DeathScreen.tscn 
 public class DeathScreen : Levels
 {
-	GameOverObj deathData;
+	private GameOverObj deathData;
+	
+	private Godot.Label scoreUi;
+	private long scoreUiVal = 0; //Slowly gains the full score value for a tick up effect
+	[Export] private int scoreNoOfTicks = 500; //How many ticks until the scoreUiVal = score
+	private long tickAmount = 1;
 
 	public override void _Ready() {
 		Godot.Control control = this.GetNode<Godot.Control>("Control");
+
+		//Labels 
+		Godot.VBoxContainer labelContainer = control.GetNode<Godot.VBoxContainer>("Labels");
+		scoreUi = labelContainer.GetNode<Godot.Label>("Score");
+
+		//Buttons
 		Godot.VBoxContainer buttonContainer = control.GetNode<Godot.VBoxContainer>("Buttons");
 		Godot.Collections.Array buttons = buttonContainer.GetChildren();
 
@@ -21,10 +32,22 @@ public class DeathScreen : Levels
 		}
 	}
 
+	public override void _Process(float delta) {
+		if(deathData == null) { return; }
+		if(scoreUiVal >= deathData.score) { return; }
+		UpdateScoreUi();
+	}
+
 	//Handel score
+	private void UpdateScoreUi() {
+		scoreUiVal += tickAmount;
+		scoreUiVal = Math.Min(scoreUiVal, deathData.score);
+		scoreUi.Text = scoreUiVal.ToString("D6");
+	}
+
 	public override void LoadLevelParameters(System.Object sceneData) {
 		deathData = (sceneData != null) ? (GameOverObj)sceneData : new GameOverObj(0, 0);
-		GD.Print("Score: " + deathData.score);
+		tickAmount = Math.Max((deathData.score / scoreNoOfTicks), 1);
 		GD.Print("Time: " + deathData.time);
 	}
 
