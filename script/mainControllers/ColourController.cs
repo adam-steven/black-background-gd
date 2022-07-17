@@ -2,7 +2,7 @@ using Godot;
 using System;
 using System.Threading.Tasks;
 
-public static class ColourControl
+public static class ColourController
 {
 	public static Color playerColour { get; set; }
 	public static Color enemyColour { get; set; }

@@ -11,9 +11,7 @@ public class BulletController : Area2D
 	public Vector2 openMotion = Vector2.Zero; //The movement that the bullet gets from the players actions
 	public int strength = 5;
 	public float timeAlive = 0; //The range the bullet can go before destroying itself
-
 	public bool special = false;
-	[Export] Godot.Color specialColor;
 
 	public override void _Ready() {
 		float angle = this.Rotation;
@@ -54,6 +52,8 @@ public class BulletController : Area2D
 	}
 
 	private void Glow() {
+		//values about 1 glow
+		Godot.Color specialColor = new Godot.Color(1.2f, 0.8f, 0.8f, 1f); 
 		this.Modulate = specialColor;
 		strength = strength * 2;
 	}

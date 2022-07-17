@@ -17,7 +17,7 @@ Settings Option: Colours {
     -Rainbow-, Contrast, White
 }
 
-    Settings Option: toggle count down before the first wave 
+Settings Option: toggle count down before the first wave 
 
 Stat limits
 
@@ -33,8 +33,6 @@ Upgrades[]
 Enemies[]
 Bosses[]
 
-Score
-
 Leaderboard (Score & Time) {
     world leaderboard - top 100 - restart every day
     personal leaderboard - top ten - don't reset
@@ -48,7 +46,7 @@ Leaderboard (Score & Time) {
     The first level is a "Minor boss" as the player has no upgrades
 }
 
-~Event levels (like the ai test uni proj)
+~Event levels (like the ai test uni proj, dodge to music, dynasty warriors)
 
 Enemy look delay
 
@@ -57,6 +55,10 @@ Save game (quick save when going into the options menu)
 Refactor menus to use polymorphism 
 
 Look into Godot's versions of prefabs for buttons and upgrades
+
+~Do something if player hits max score
+
+add a stage numberOfWaves left indicator (segments att the side of the level that reduce on wave clear)
 ____________________________________________________________________________________
 
 ------B-u-l-l-e-t--C-o-l-l-i-s-i-o-n------
@@ -121,3 +123,9 @@ Levels {
 
 ------A-d-d--b-e-t-t-e-r--i-n-d-i-c-a-t-i-o-n--o-f--h-e-a-l-i-n-g--o-n--i-n-v-i-n-c-i-b-l-e------
 ------A-d-d--s-p-e-c-i-a-l--b-u-l-l-e-t--t-h-a-t--d-e-s-t-r-o-y-s--a-l-l--o-t-h-e-r--b-u-l-l-e-t-s--i-f--b-l-o-c-k-e-d------
+
+Score {
+    ------g-a-i-n--s-c-o-r-e--v-i-a-:--k-i-l-l-s--a-n-d--s-u-c-c-e-s-s-f-u-l--b-l-o-c-k-s------
+    ------s-c-o-r-e--c-o-u-n-t-e-r--s-l-o-w-l-y--i-n-c-r-e-m-e-n-t-s--w-h-e-n--g-a-i-n-i-n-g--p-o-i-n-t-s------
+    ------g-e-t-t-i-n-g--h-i-t--s-t-o-p-s--t-h-e--i-n-c-r-e-m-e-n-t-i-n-g------
+}

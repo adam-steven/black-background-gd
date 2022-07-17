@@ -5,7 +5,8 @@ namespace Godot
 {
     public class Enemies : Entities
     {
-        public GunController gun; 
+        [Export] private int pointsOnKill = 100;
+
 	    public RigidBody2D player;
 
         public Enemies() {}
@@ -37,6 +38,10 @@ namespace Godot
                 anim.Play("EnemyHit");
 
                 if(health <= 0) {
+                    //Give score
+                    this.EmitSignal("_update_score", pointsOnKill);
+
+                    //Start death sequence 
                     anim.Connect("animation_finished", this, "EmitDeathSignal");
                     anim.Play("EnemyDeath");
                 }	

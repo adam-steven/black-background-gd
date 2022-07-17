@@ -3,6 +3,8 @@ using Godot;
 
 public partial class PlayerController
 {
+	[Export] private int pointsOnBlock = 50;
+	
 	private bool invincible = false;
 
 	[Signal] public delegate void _end_game();
@@ -25,9 +27,10 @@ public partial class PlayerController
 		AnimationPlayer anim  = this.GetNode<AnimationPlayer>("AnimationPlayer");
 		anim.Play("PlayerHit");
 		this.EmitSignal("_shake_screen", 12, 0.2f);
+		this.EmitSignal("_break_score_update");
 
 		//Update background colour based on health
-		ColourControl.UpdateBackgroundColour(health);
+		ColourController.UpdateBackgroundColour(health);
 
 		//Kill player if health is 0
 		if(health <= 0) {
@@ -44,6 +47,7 @@ public partial class PlayerController
 			PlayEffect(effectPos[i]);
 
 		health += strikingBullet.strength/2;
+		this.EmitSignal("_update_score", pointsOnBlock);
 
 		//Flash text
 		if(strikingBullet.special) { 
@@ -52,7 +56,7 @@ public partial class PlayerController
 		}
 
 		//Flash colour + freeze frame
-		var darkenedColour = ColourControl.enemyColour.LinearInterpolate(Color.ColorN("black"), 0.5f);
-		ColourControl.FlashBackgroundColour(darkenedColour, GetTree(), health);
+		var darkenedColour = ColourController.enemyColour.LinearInterpolate(Color.ColorN("black"), 0.5f);
+		ColourController.FlashBackgroundColour(darkenedColour, GetTree(), health);
 	}
 }

@@ -2,10 +2,10 @@
 
 public class GameOverObj {
 
-    public int score { get; set; }
+    public long score { get; set; }
     public int time { get; set; }
 
-    public GameOverObj(int score, int time ) {
+    public GameOverObj(long score, int time ) {
         this.score = score;
         this.time = time;
     }
