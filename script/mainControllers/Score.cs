@@ -21,9 +21,12 @@ public class Score : Godot.Object
     }
 
     private void UpdateScore(int points) {
-        tempScore += points * scoreMultiplier;
+        int calcPoints = points * scoreMultiplier;
+
+        ui.FlashPoints(calcPoints);
+
+        tempScore += calcPoints;
         tempScore = Math.Min(tempScore, 99999999999999);
-        GD.Print("temp score " + tempScore);
     }
 
     private void BreakScoreUpdate() {

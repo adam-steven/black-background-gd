@@ -93,6 +93,7 @@ public class Main : Levels
 			noOfEnemies--;
 			if(noOfEnemies > 0) return;
 
+			//Waves > level + 2 obstacles 
 			//Waves >0 basic enemies
 			//Wave 0 bosses
 			//Waves <0 Upgrades
