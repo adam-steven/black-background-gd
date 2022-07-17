@@ -1,6 +1,7 @@
 REMEMBER: enemies should not shoot instantly on spawn
+REMEMBER: enemies should not shoot on death
 
-REMEMBER: try tow rework it into a call down approach "avoid calling functions in parents"
+REMEMBER: call down approach "avoid calling functions in parents"
 ____________________________________________________________________________________
 
 ~Stop player slowing down if the go back and forth
@@ -17,7 +18,7 @@ Settings Option: Colours {
     -Rainbow-, Contrast, White
 }
 
-Settings Option: toggle count down before the first wave 
+    Settings Option: toggle count down before the first wave 
 
 Stat limits
 
