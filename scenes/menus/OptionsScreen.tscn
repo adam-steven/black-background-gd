@@ -74,9 +74,9 @@ custom_constants/separation = 46
 alignment = 1
 
 [node name="Options" type="Button" parent="Control/Buttons"]
-margin_top = 317.0
+margin_top = 234.0
 margin_right = 840.0
-margin_bottom = 437.0
+margin_bottom = 354.0
 rect_min_size = Vector2( 200, 120 )
 disabled = true
 flat = true
@@ -98,10 +98,29 @@ custom_fonts/font = ExtResource( 1 )
 text = "Options"
 align = 1
 
-[node name="Return" type="Button" parent="Control/Buttons"]
-margin_top = 483.0
+[node name="CountDown" type="CheckButton" parent="Control/Buttons"]
+margin_top = 400.0
 margin_right = 840.0
-margin_bottom = 603.0
+margin_bottom = 520.0
+rect_min_size = Vector2( 0, 120 )
+
+[node name="Position2D" type="Position2D" parent="Control/Buttons/CountDown"]
+position = Vector2( 420, 65 )
+
+[node name="Label" type="Label" parent="Control/Buttons/CountDown/Position2D"]
+margin_left = -420.0
+margin_top = -65.0
+margin_right = 420.0
+margin_bottom = 65.0
+rect_min_size = Vector2( 840, 0 )
+custom_fonts/font = ExtResource( 1 )
+text = "Start Countdown"
+align = 1
+
+[node name="Return" type="Button" parent="Control/Buttons"]
+margin_top = 566.0
+margin_right = 840.0
+margin_bottom = 686.0
 rect_min_size = Vector2( 200, 120 )
 flat = true
 script = ExtResource( 2 )

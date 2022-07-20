@@ -4,7 +4,7 @@ using static Enums;
 
 public class OptionsScreen : Levels
 {
-    OptionsObj optionsData;
+	OptionsObj optionsData;
 
 	public override void _Ready() {
 		Godot.Control control = this.GetNode<Godot.Control>("Control");
