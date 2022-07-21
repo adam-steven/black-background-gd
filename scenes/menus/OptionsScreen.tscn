@@ -1,8 +1,11 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://fonts/Teko-Bold-90.tres" type="DynamicFont" id=1]
 [ext_resource path="res://script/menus/MenuButtons.cs" type="Script" id=2]
 [ext_resource path="res://script/menus/OptionsScreen.cs" type="Script" id=3]
+[ext_resource path="res://images/Checkbox_Unchecked.png" type="Texture" id=4]
+[ext_resource path="res://fonts/Teko-Bold-120.tres" type="DynamicFont" id=5]
+[ext_resource path="res://images/Checkbox_Checked.png" type="Texture" id=6]
 
 [sub_resource type="Animation" id=1]
 resource_name = "MenuBtnDeselected"
@@ -73,39 +76,27 @@ margin_bottom = 1000.0
 custom_constants/separation = 46
 alignment = 1
 
-[node name="Options" type="Button" parent="Control/Buttons"]
-margin_top = 234.0
+[node name="Label" type="Label" parent="Control/Buttons"]
+margin_top = 233.0
 margin_right = 840.0
-margin_bottom = 354.0
-rect_min_size = Vector2( 200, 120 )
-disabled = true
-flat = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Position2D" type="Position2D" parent="Control/Buttons/Options"]
-position = Vector2( 420, 65 )
-scale = Vector2( 1.4, 1.4 )
-
-[node name="Label" type="Label" parent="Control/Buttons/Options/Position2D"]
-margin_left = -420.0
-margin_top = -65.0
-margin_right = 420.0
-margin_bottom = 65.0
+margin_bottom = 355.0
 rect_min_size = Vector2( 840, 0 )
-custom_fonts/font = ExtResource( 1 )
+custom_fonts/font = ExtResource( 5 )
 text = "Options"
 align = 1
 
 [node name="CountDown" type="CheckButton" parent="Control/Buttons"]
-margin_top = 400.0
+margin_top = 401.0
 margin_right = 840.0
-margin_bottom = 520.0
+margin_bottom = 521.0
 rect_min_size = Vector2( 0, 120 )
+custom_icons/off = ExtResource( 4 )
+custom_icons/on = ExtResource( 6 )
+script = ExtResource( 2 )
 
 [node name="Position2D" type="Position2D" parent="Control/Buttons/CountDown"]
-position = Vector2( 420, 65 )
+position = Vector2( 350, 65 )
+scale = Vector2( 1.2, 1.2 )
 
 [node name="Label" type="Label" parent="Control/Buttons/CountDown/Position2D"]
 margin_left = -420.0
@@ -117,10 +108,16 @@ custom_fonts/font = ExtResource( 1 )
 text = "Start Countdown"
 align = 1
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Control/Buttons/CountDown"]
+autoplay = "MenuBtnInit"
+anims/MenuBtnDeselected = SubResource( 1 )
+anims/MenuBtnInit = SubResource( 2 )
+anims/MenuBtnSelected = SubResource( 3 )
+
 [node name="Return" type="Button" parent="Control/Buttons"]
-margin_top = 566.0
+margin_top = 567.0
 margin_right = 840.0
-margin_bottom = 686.0
+margin_bottom = 687.0
 rect_min_size = Vector2( 200, 120 )
 flat = true
 script = ExtResource( 2 )

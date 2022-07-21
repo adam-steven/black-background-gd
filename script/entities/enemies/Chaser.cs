@@ -7,8 +7,8 @@ public class Chaser : Enemies
 	private Random rnd = new Random();
 
 	public override void _Ready() 
-    {
-        InitDelayedStart();
+	{
+		InitDelayedStart();
 
 		Godot.Sprite thisSprite = this.GetNode<Godot.Sprite>("Sprite");
 		thisSprite.SelfModulate = colour;
@@ -17,14 +17,14 @@ public class Chaser : Enemies
 	}
 
 	public override void _PhysicsProcess(float delta) 
-    {
-        if(!start) return;
+	{
+		if(!start) return;
 
 		FacePlayer();
-        MoveInDirection(Vector2.Right);
+		MoveInDirection(Vector2.Right);
 
 		int shootSpecialChance = rnd.Next(20);
-        gun.Shoot(false, (shootSpecialChance > 15));
+		gun.Shoot(false, (shootSpecialChance > 15));
 		gun.UpdateBurst();
 	}
 }
