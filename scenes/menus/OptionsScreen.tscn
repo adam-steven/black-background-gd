@@ -93,6 +93,7 @@ rect_min_size = Vector2( 0, 120 )
 custom_icons/off = ExtResource( 4 )
 custom_icons/on = ExtResource( 6 )
 script = ExtResource( 2 )
+action = 6
 
 [node name="Position2D" type="Position2D" parent="Control/Buttons/CountDown"]
 position = Vector2( 350, 65 )

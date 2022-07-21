@@ -50,7 +50,11 @@ Enemy look delay
 
 Save game (quick save when going into the options menu)
 
-Refactor menus to use polymorphism 
+Refactor menus to use polymorphism (
+    Problem: some menus use Levels and other Controls
+
+    Idea: only use controls for menus and have the Levels listen in
+)
 
 Look into Godot's versions of prefabs for buttons and upgrades
 

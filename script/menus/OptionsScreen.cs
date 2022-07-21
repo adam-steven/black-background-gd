@@ -1,6 +1,6 @@
 using Godot;
-using System;
 using static Enums;
+using System.Collections.Generic;
 
 public class OptionsScreen : Levels
 {
@@ -10,6 +10,12 @@ public class OptionsScreen : Levels
 		Godot.Control control = this.GetNode<Godot.Control>("Control");
 		Godot.VBoxContainer buttonContainer = control.GetNode<Godot.VBoxContainer>("Buttons");
 		Godot.Collections.Array buttons = buttonContainer.GetChildren();
+
+		List<KeyValuePair<string, object>> savedSettings = SettingsController.GetAllValues();
+		foreach (var setting in savedSettings)
+		{
+			GD.Print(setting);
+		}
 
 		for (int i = 0; i < buttons.Count; i++)
 		{
@@ -30,6 +36,9 @@ public class OptionsScreen : Levels
 			case MenuButtonActions.Continue:
 				Return(button);
 				break;
+			case MenuButtonActions.StartCountDown:
+				SaveStartCountDown(button);
+				break;
 		}
 	}
 
@@ -37,6 +46,10 @@ public class OptionsScreen : Levels
 		MainGameObj restartObj = new MainGameObj(optionsData.inGame);
 		EmitChangeScene("res://scenes/Main.tscn", 5f, restartObj);
 		button.Disabled = true;
+	}
+
+	private void SaveStartCountDown(MenuButtons button) {
+		SettingsController.SetValue(button.action.ToString(), button.Pressed);
 	}
 
 }
