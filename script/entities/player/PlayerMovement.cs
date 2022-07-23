@@ -17,6 +17,10 @@ public partial class PlayerController
 		if (Input.IsActionJustPressed("ui_down")) {
 			PushPlayer(Vector2.Down, "Top");
 		}
+		
+		if (Input.IsActionJustPressed("ui_fire2")) {
+			StopPlayer();
+		}
 	}
 
 	private void MouseRotation() {

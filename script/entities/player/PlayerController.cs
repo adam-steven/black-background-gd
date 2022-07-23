@@ -20,9 +20,6 @@ public partial class PlayerController : Entities
 
 		if (Input.IsActionPressed("ui_fire1"))
 			gun.Shoot();
-
-		if (Input.IsActionJustPressed("ui_fire2"))
-			StopPlayer();
 	}
 }
 

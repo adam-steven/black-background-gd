@@ -51,9 +51,6 @@ public class PauseMenu : Control
 				break;
 			case MenuButtonActions.Options:
 				Options(button);
-				break;
-			case MenuButtonActions.Quit:
-				Quit();
 				break;	
 		}
 	}
@@ -75,9 +72,5 @@ public class PauseMenu : Control
 	private void Options(MenuButtons button) {
 		this.EmitSignal("_options");
 		button.Disabled = true;
-	}
-
-	private void Quit() {
-		GetTree().Quit();
 	}
 }

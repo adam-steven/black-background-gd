@@ -1,5 +1,7 @@
 using Godot;
 using static Enums;
+using System;
+using System.Linq;
 using System.Collections.Generic;
 
 public class OptionsScreen : Levels
@@ -11,11 +13,8 @@ public class OptionsScreen : Levels
 		Godot.VBoxContainer buttonContainer = control.GetNode<Godot.VBoxContainer>("Buttons");
 		Godot.Collections.Array buttons = buttonContainer.GetChildren();
 
+		//Get the saved settings to load in
 		List<KeyValuePair<string, object>> savedSettings = SettingsController.GetAllValues();
-		foreach (var setting in savedSettings)
-		{
-			GD.Print(setting);
-		}
 
 		for (int i = 0; i < buttons.Count; i++)
 		{
@@ -23,6 +22,22 @@ public class OptionsScreen : Levels
 		
 			Godot.Button button = (Godot.Button)buttons[i];
 			button.Connect("on_pressed", this, "_OnButtonPress");
+
+			LoadSavedValue((MenuButtons)button);
+		}
+
+		void LoadSavedValue(MenuButtons button) {
+			string action = button.action.ToString();
+			KeyValuePair<string, object> savedSettingPair = savedSettings.SingleOrDefault(kvp => kvp.Key == action);
+
+			if(savedSettingPair.Value == null) { return; }
+
+			switch (Type.GetTypeCode(savedSettingPair.Value.GetType()))
+			{
+				case TypeCode.Boolean:
+					button.Pressed = (bool)savedSettingPair.Value;
+				break;
+			}
 		}
 	}
 

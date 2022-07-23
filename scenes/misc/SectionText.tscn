@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://fonts/ttf/Teko-SemiBold.ttf" type="DynamicFontData" id=1]
 
@@ -6,6 +6,61 @@
 size = 1000
 use_filter = true
 font_data = ExtResource( 1 )
+
+[sub_resource type="Animation" id=4]
+resource_name = "SectionTextCountDown"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.4, 0.5, 0.9, 1, 1.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ true, false, true, false, true, false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2, 0.5, 0.7, 1, 1.2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0.7, 1.2 ), Vector2( 0.8, 1.4 ), Vector2( 0.7, 1.2 ), Vector2( 0.8, 1.4 ), Vector2( 0.7, 1.2 ), Vector2( 0.8, 1.4 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Label:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.2, 0.5, 0.7, 1, 1.2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0.0196078 ), Color( 1, 1, 1, 0.117647 ), Color( 1, 1, 1, 0.0196078 ), Color( 1, 1, 1, 0.117647 ), Color( 1, 1, 1, 0.0196078 ), Color( 1, 1, 1, 0.117647 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Label:text")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ "3
+", "2
+", "1
+" ]
+}
 
 [sub_resource type="Animation" id=2]
 resource_name = "SectionTxtDisplay"
@@ -73,11 +128,13 @@ margin_top = -675.0
 margin_right = 1200.0
 margin_bottom = 825.0
 custom_fonts/font = SubResource( 1 )
-text = "DODGE"
+text = "1
+"
 align = 1
 valign = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "SectionTxtInit"
+anims/SectionTextCountDown = SubResource( 4 )
 anims/SectionTxtDisplay = SubResource( 2 )
 anims/SectionTxtInit = SubResource( 3 )

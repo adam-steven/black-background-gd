@@ -9,7 +9,7 @@ public class DeathScreen : Levels
 	
 	private Godot.Label scoreUi;
 	private long scoreUiVal = 0; //Slowly gains the full score value for a tick up effect
-	private int scoreNoOfTicks = 200; //How many ticks until the scoreUiVal = score
+	private int scoreNoOfTicks = 100; //How many ticks until the scoreUiVal = score
 	private long tickAmount = 1;
 
 	//tick up delay
