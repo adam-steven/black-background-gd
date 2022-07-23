@@ -2,6 +2,8 @@ REMEMBER: enemies should not shoot instantly on spawn
 REMEMBER: enemies should not shoot on death
 
 REMEMBER: call down approach "avoid calling functions in parents"
+
+REMEMBER: test with vsync on and of for frame rate checking
 ____________________________________________________________________________________
 
 ~Stop player slowing down if the go back and forth
