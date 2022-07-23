@@ -14,6 +14,7 @@ public static class Enums
 		Leaderboard,
 		Quit,
 		Continue,
+		StartCountDown,
 	};
 
 	/// <summary> List of Godot's integrated colour </summary>

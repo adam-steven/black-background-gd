@@ -8,15 +8,23 @@ public class Score : Godot.Object
     private long tempScore; //Temporarily holds the full score value for a tick up effect
 	public int scoreMultiplier { private set; get; }
 
+    //tick up delay
+    public float delay = 60;
+    public float delayCounter = 0;
+
     public Score(UiController ui) {
         this.ui = ui;
         ResetMultiplier();
     }
 
     public void _ScoreProcess(float delta) {
-        if(score < tempScore) {
-            score = score + 1;
+        if(score >= tempScore) { return; }
+        delayCounter += delay * delta;
+
+        if(delayCounter >= 1) {
+            score++;
             ui.UpdateScoreUi(score);
+            delayCounter = 0;
         }
     }
 

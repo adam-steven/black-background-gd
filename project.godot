@@ -20,8 +20,13 @@ window/size/width=1920
 window/size/height=1080
 window/size/test_width=720
 window/size/test_height=480
+window/vsync/use_vsync=false
 window/stretch/mode="viewport"
 window/stretch/aspect="keep"
+
+[global]
+
+vsync=false
 
 [input]
 

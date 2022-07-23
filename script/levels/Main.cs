@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using static Enums;
 
 //Main.tscn 
 public class Main : Levels
@@ -83,7 +84,9 @@ public class Main : Levels
 			Godot.Control mainMenu = (Godot.Control)mainMenuScene.Instance();
 			this.AddChild(mainMenu);
 
-			mainMenu.Connect("_play_game", this, "PlayGame");
+			//PlayGame() requires a string to be passed in
+			//as this is not needed in the _play_game signal a surrogate  param is added
+			mainMenu.Connect("_play_game", this, "PlayGame", new Godot.Collections.Array(new string[1]));
 			mainMenu.Connect("_options", this, "GoToOptions");
 			mainMenu.Connect("_leaderboard", this, "GoToLeaderboard");
 		}
@@ -197,7 +200,14 @@ public class Main : Levels
 
 	#region Misc Functions 
 
-		private void PlayGame() {
+		private void PlayGame(string animName = "") {
+			//count down
+			bool isStartingCountDown = (bool)SettingsController.GetValue(MenuButtonActions.StartCountDown.ToString(), false);
+			if(isStartingCountDown && animName != "SectionTextCountDown") {
+				DisplaySectionTextCountDown();
+				return;
+			}
+			
 			this.LevelSpin();
 			this.CheckIfEnemies();
 
@@ -247,6 +257,15 @@ public class Main : Levels
 
 			label.Text = text;
 			anim.Play("SectionTxtDisplay");
+		}
+
+		private void DisplaySectionTextCountDown() {
+			Position2D sectionText = this.GetNode<Position2D>("SectionText");
+			Godot.Label label = sectionText.GetNode<Godot.Label>("Label");
+			AnimationPlayer anim  = sectionText.GetNode<AnimationPlayer>("AnimationPlayer");
+			
+			anim.Connect("animation_finished", this, "PlayGame", null, (uint)Godot.Object.ConnectFlags.Oneshot);
+			anim.Play("SectionTextCountDown");
 		}
 
 		//Spins the level boarders + changes the level colour

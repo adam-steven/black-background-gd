@@ -1,6 +1,9 @@
 REMEMBER: enemies should not shoot instantly on spawn
+REMEMBER: enemies should not shoot on death
 
-REMEMBER: try tow rework it into a call down approach "avoid calling functions in parents"
+REMEMBER: call down approach "avoid calling functions in parents"
+
+REMEMBER: test with vsync on and of for frame rate checking
 ____________________________________________________________________________________
 
 ~Stop player slowing down if the go back and forth
@@ -17,8 +20,6 @@ Settings Option: Colours {
     -Rainbow-, Contrast, White
 }
 
-Settings Option: toggle count down before the first wave 
-
 Stat limits
 
 Rework starting stats and upgrade values (slow everything down, but speed up waves)
@@ -31,8 +32,10 @@ Enemies[]
 Bosses[]
 
 Leaderboard (Score & Time) {
-    world leaderboard - top 100 - restart every day
-    personal leaderboard - top ten - don't reset
+    world leaderboard - top 100
+    personal leaderboard - top ten
+
+    spilt the leaderboard into time groups (sprint, run, marathon)
 
     allow username 4 char name
     make PRs a celebration
@@ -49,7 +52,11 @@ Enemy look delay
 
 Save game (quick save when going into the options menu)
 
-Refactor menus to use polymorphism 
+Refactor menus to use polymorphism (
+    Problem: some menus use Levels and other Controls
+
+    Idea: only use controls for menus and have the Levels listen in
+)
 
 Look into Godot's versions of prefabs for buttons and upgrades
 
@@ -127,3 +134,5 @@ Score {
     ------s-c-o-r-e--c-o-u-n-t-e-r--s-l-o-w-l-y--i-n-c-r-e-m-e-n-t-s--w-h-e-n--g-a-i-n-i-n-g--p-o-i-n-t-s------
     ------g-e-t-t-i-n-g--h-i-t--s-t-o-p-s--t-h-e--i-n-c-r-e-m-e-n-t-i-n-g------
 }
+
+------S-e-t-t-i-n-g-s--O-p-t-i-o-n-:--t-o-g-g-l-e--c-o-u-n-t--d-o-w-n--b-e-f-o-r-e--t-h-e--f-i-r-s-t--w-a-v-e------ 

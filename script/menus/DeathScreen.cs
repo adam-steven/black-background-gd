@@ -9,8 +9,12 @@ public class DeathScreen : Levels
 	
 	private Godot.Label scoreUi;
 	private long scoreUiVal = 0; //Slowly gains the full score value for a tick up effect
-	[Export] private int scoreNoOfTicks = 500; //How many ticks until the scoreUiVal = score
+	private int scoreNoOfTicks = 100; //How many ticks until the scoreUiVal = score
 	private long tickAmount = 1;
+
+	//tick up delay
+    public float delay = 60;
+    public float delayCounter = 0;
 
 	public override void _Ready() {
 		Godot.Control control = this.GetNode<Godot.Control>("Control");
@@ -35,14 +39,19 @@ public class DeathScreen : Levels
 	public override void _Process(float delta) {
 		if(deathData == null) { return; }
 		if(scoreUiVal >= deathData.score) { return; }
-		UpdateScoreUi();
+		UpdateScoreUi(delta);
 	}
 
 	//Handel score
-	private void UpdateScoreUi() {
-		scoreUiVal += tickAmount;
-		scoreUiVal = Math.Min(scoreUiVal, deathData.score);
-		scoreUi.Text = scoreUiVal.ToString("D6");
+	private void UpdateScoreUi(float delta) {
+		delayCounter += delay * delta;
+
+        if(delayCounter >= 1) {
+			scoreUiVal += tickAmount;
+			scoreUiVal = Math.Min(scoreUiVal, deathData.score);
+			scoreUi.Text = scoreUiVal.ToString("D6");
+			delayCounter = 0;
+        }
 	}
 
 	public override void LoadLevelParameters(System.Object sceneData) {
@@ -62,9 +71,6 @@ public class DeathScreen : Levels
 				break;
 			case MenuButtonActions.Leaderboard:
 				Leaderboard(button);
-				break;
-			case MenuButtonActions.Quit:
-				Quit();
 				break;
 		}
 	}
@@ -86,7 +92,4 @@ public class DeathScreen : Levels
 		button.Disabled = true;
 	}
 
-	private void Quit() {
-		GetTree().Quit();
-	}
 }

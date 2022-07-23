@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://fonts/Teko-Bold-90.tres" type="DynamicFont" id=1]
 [ext_resource path="res://script/menus/MenuButtons.cs" type="Script" id=2]
@@ -37,54 +37,6 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Animation" id=3]
-resource_name = "MenuBtnSelected"
-length = 0.2
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:rect_scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Vector2( 1, 1 ), Vector2( 1.2, 1.2 ) ]
-}
-
-[sub_resource type="Animation" id=13]
-resource_name = "MenuBtnDeselected"
-length = 0.2
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:rect_scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Vector2( 1.2, 1.2 ), Vector2( 1, 1 ) ]
-}
-
-[sub_resource type="Animation" id=14]
-resource_name = "MenuBtnInit"
-length = 0.1
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:rect_scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( 1, 1 ) ]
-}
-
-[sub_resource type="Animation" id=15]
 resource_name = "MenuBtnSelected"
 length = 0.2
 tracks/0/type = "value"
@@ -196,7 +148,7 @@ tracks/0/keys = {
 "values": [ Vector2( 1, 1 ), Vector2( 1.2, 1.2 ) ]
 }
 
-[sub_resource type="Animation" id=10]
+[sub_resource type="Animation" id=13]
 resource_name = "MenuBtnDeselected"
 length = 0.2
 tracks/0/type = "value"
@@ -212,7 +164,7 @@ tracks/0/keys = {
 "values": [ Vector2( 1.2, 1.2 ), Vector2( 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=11]
+[sub_resource type="Animation" id=14]
 resource_name = "MenuBtnInit"
 length = 0.1
 tracks/0/type = "value"
@@ -228,7 +180,7 @@ tracks/0/keys = {
 "values": [ Vector2( 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=12]
+[sub_resource type="Animation" id=15]
 resource_name = "MenuBtnSelected"
 length = 0.2
 tracks/0/type = "value"
@@ -259,9 +211,9 @@ custom_constants/separation = 70
 alignment = 1
 
 [node name="Continue" type="Button" parent="Buttons"]
-margin_top = 20.0
+margin_top = 115.0
 margin_right = 340.0
-margin_bottom = 140.0
+margin_bottom = 235.0
 rect_min_size = Vector2( 340, 120 )
 size_flags_horizontal = 0
 flat = true
@@ -280,31 +232,10 @@ anims/MenuBtnDeselected = SubResource( 1 )
 anims/MenuBtnInit = SubResource( 2 )
 anims/MenuBtnSelected = SubResource( 3 )
 
-[node name="MainMenu" type="Button" parent="Buttons"]
-margin_top = 210.0
-margin_right = 400.0
-margin_bottom = 330.0
-rect_min_size = Vector2( 400, 120 )
-size_flags_horizontal = 0
-flat = true
-script = ExtResource( 2 )
-
-[node name="Label" type="Label" parent="Buttons/MainMenu"]
-margin_right = 40.0
-margin_bottom = 14.0
-custom_fonts/font = ExtResource( 1 )
-text = "Main Menu"
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Buttons/MainMenu"]
-autoplay = "MenuBtnInit"
-anims/MenuBtnDeselected = SubResource( 13 )
-anims/MenuBtnInit = SubResource( 14 )
-anims/MenuBtnSelected = SubResource( 15 )
-
 [node name="Restart" type="Button" parent="Buttons"]
-margin_top = 400.0
+margin_top = 305.0
 margin_right = 280.0
-margin_bottom = 520.0
+margin_bottom = 425.0
 rect_min_size = Vector2( 280, 120 )
 size_flags_horizontal = 0
 flat = true
@@ -324,9 +255,9 @@ anims/MenuBtnInit = SubResource( 5 )
 anims/MenuBtnSelected = SubResource( 6 )
 
 [node name="Options" type="Button" parent="Buttons"]
-margin_top = 590.0
+margin_top = 495.0
 margin_right = 300.0
-margin_bottom = 710.0
+margin_bottom = 615.0
 rect_min_size = Vector2( 300, 120 )
 size_flags_horizontal = 0
 flat = true
@@ -348,27 +279,23 @@ anims/MenuBtnDeselected = SubResource( 7 )
 anims/MenuBtnInit = SubResource( 8 )
 anims/MenuBtnSelected = SubResource( 9 )
 
-[node name="Quit" type="Button" parent="Buttons"]
-margin_top = 780.0
-margin_right = 200.0
-margin_bottom = 900.0
-rect_min_size = Vector2( 200, 120 )
+[node name="MainMenu" type="Button" parent="Buttons"]
+margin_top = 685.0
+margin_right = 400.0
+margin_bottom = 805.0
+rect_min_size = Vector2( 400, 120 )
 size_flags_horizontal = 0
 flat = true
 script = ExtResource( 2 )
-action = 4
 
-[node name="Label" type="Label" parent="Buttons/Quit"]
+[node name="Label" type="Label" parent="Buttons/MainMenu"]
 margin_right = 40.0
 margin_bottom = 14.0
 custom_fonts/font = ExtResource( 1 )
-text = "Quit"
-__meta__ = {
-"_edit_use_anchors_": false
-}
+text = "Main Menu"
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Buttons/Quit"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Buttons/MainMenu"]
 autoplay = "MenuBtnInit"
-anims/MenuBtnDeselected = SubResource( 10 )
-anims/MenuBtnInit = SubResource( 11 )
-anims/MenuBtnSelected = SubResource( 12 )
+anims/MenuBtnDeselected = SubResource( 13 )
+anims/MenuBtnInit = SubResource( 14 )
+anims/MenuBtnSelected = SubResource( 15 )
