@@ -3,22 +3,9 @@ using System;
 using static Enums;
 
 //MainMenu.tscn 
-public class MainMenu : Control
+public class MainMenu : MenuController
 {
-	public override void _Ready() {
-		Godot.VBoxContainer buttonContainer = this.GetNode<Godot.VBoxContainer>("Buttons");
-		Godot.Collections.Array buttons = buttonContainer.GetChildren();
-
-		for (int i = 0; i < buttons.Count; i++)
-		{
-			if(!buttons[i].GetType().Equals(typeof(MenuButtons))) { continue; }
-		
-			Godot.Button button = (Godot.Button)buttons[i];
-			button.Connect("on_pressed", this, "_OnButtonPress");
-		}
-	}
-
-	private void _OnButtonPress(MenuButtons button) {
+	public override void _OnButtonPress(MenuButtons button) {
 		switch (button.action)
 		{
 			case MenuButtonActions.Play:
@@ -37,10 +24,6 @@ public class MainMenu : Control
 
 		this.QueueFree();
 	}
-
-	[Signal] public delegate void _play_game();
-	[Signal] public delegate void _options();
-	[Signal] public delegate void _leaderboard();
 
 	private void Play(MenuButtons button) {
 		this.EmitSignal("_play_game");

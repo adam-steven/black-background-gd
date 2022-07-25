@@ -213,10 +213,11 @@ public class Main : Levels
 
 			PackedScene pauseMenuScene = (PackedScene)GD.Load("res://scenes/menus/PauseMenu.tscn");
 			Godot.Control pauseMenu = (Godot.Control)pauseMenuScene.Instance();
+			pauseMenu.Visible = false;
 			this.AddChild(pauseMenu);
 			
-			pauseMenu.Connect("_restart_game", this, "RestartGame");
-			pauseMenu.Connect("_back_to_menu", this, "ReturnToMenu");
+			pauseMenu.Connect("_play_game", this, "RestartGame");
+			pauseMenu.Connect("_main_menu", this, "ReturnToMenu");
 			pauseMenu.Connect("_options", this, "GoToOptions");
 		}
 

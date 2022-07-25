@@ -2,10 +2,11 @@
 
 [ext_resource path="res://fonts/Teko-Bold-90.tres" type="DynamicFont" id=1]
 [ext_resource path="res://script/menus/MenuButtons.cs" type="Script" id=2]
-[ext_resource path="res://script/menus/OptionsScreen.cs" type="Script" id=3]
+[ext_resource path="res://script/levels/OptionsScreen.cs" type="Script" id=3]
 [ext_resource path="res://images/Checkbox_Unchecked.png" type="Texture" id=4]
 [ext_resource path="res://fonts/Teko-Bold-120.tres" type="DynamicFont" id=5]
 [ext_resource path="res://images/Checkbox_Checked.png" type="Texture" id=6]
+
 
 [sub_resource type="Animation" id=1]
 resource_name = "MenuBtnDeselected"

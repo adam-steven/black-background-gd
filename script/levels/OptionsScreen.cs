@@ -27,6 +27,8 @@ public class OptionsScreen : Levels
 		}
 
 		void LoadSavedValue(MenuButtons button) {
+			if(savedSettings == null) { return; }
+
 			string action = button.action.ToString();
 			KeyValuePair<string, object> savedSettingPair = savedSettings.SingleOrDefault(kvp => kvp.Key == action);
 
