@@ -17,7 +17,7 @@ public static class SettingsController
         Error err = config.Load(settingsFileName);
 
         //If fail brake
-        if(err != Error.Ok) { return null; }
+        if(err != Error.Ok) { return defaultVal; }
 
         return config.GetValue(settingsSection, key, defaultVal);
     }

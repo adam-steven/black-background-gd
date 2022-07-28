@@ -2,51 +2,44 @@ using Godot;
 using System;
 using static Enums;
 
-public class PauseMenu : Control
+public class PauseMenu : MenuController
 {
-	public override void _Ready() {
-        this.Visible = false;
 
-		Godot.VBoxContainer buttonContainer = this.GetNode<Godot.VBoxContainer>("Buttons");
-		Godot.Collections.Array buttons = buttonContainer.GetChildren();
+	#region Handel Pause
 
-		for (int i = 0; i < buttons.Count; i++)
-		{
-			if(!buttons[i].GetType().Equals(typeof(MenuButtons))) { continue; }
-		
-			Godot.Button button = (Godot.Button)buttons[i];
-			button.Connect("on_pressed", this, "_OnButtonPress");
+		public override void _UnhandledInput(InputEvent @event) {
+			if (@event is InputEventKey eventKey) {
+				if (eventKey.Pressed && eventKey.Scancode == (int)KeyList.Escape) {
+					TogglePause();
+				}
+			}
 		}
-	}
 
-    public override void _UnhandledInput(InputEvent @event) {
-		if (@event is InputEventKey eventKey) {
-			if (eventKey.Pressed && eventKey.Scancode == (int)KeyList.Escape) {
-				TogglePause();
-            }
-        }
-	}
+		private void TogglePause() {
+			bool currentPauseState = GetTree().Paused;
+			GetTree().Paused = !currentPauseState;
+			this.Visible = !currentPauseState;
+		}
 
-    private void TogglePause() {
-        bool currentPauseState = GetTree().Paused;
-        GetTree().Paused = !currentPauseState;
-        this.Visible = !currentPauseState;
-    }
+		private void TogglePause(bool forcePause) {
+			GetTree().Paused = forcePause;
+			this.Visible = forcePause;
+		}
 
-    private void TogglePause(bool forcePause) {
-        GetTree().Paused = forcePause;
-        this.Visible = forcePause;
-    }
-
-	private void _OnButtonPress(MenuButtons button) {
-        TogglePause(false);
+	#endregion
+	
+	public override void _OnButtonPress(MenuButtons button) {
+		TogglePause(false);
 
 		switch (button.action)
 		{
+			case MenuButtonActions.Continue:
+				//Do nothing
+				break;
 			case MenuButtonActions.Play:
 				Play(button);
 				break;
-            case MenuButtonActions.MainMenu:
+			case MenuButtonActions.MainMenu:
 				MainMenu(button);
 				break;
 			case MenuButtonActions.Options:
@@ -55,17 +48,13 @@ public class PauseMenu : Control
 		}
 	}
 
-	[Signal] public delegate void _restart_game();
-    [Signal] public delegate void _back_to_menu();
-	[Signal] public delegate void _options();
-
 	private void Play(MenuButtons button) {
-		this.EmitSignal("_restart_game");
+		this.EmitSignal("_play_game");
 		button.Disabled = true;
 	}
 
-    private void MainMenu(MenuButtons button) {
-        this.EmitSignal("_back_to_menu");
+	private void MainMenu(MenuButtons button) {
+		this.EmitSignal("_main_menu");
 		button.Disabled = true;
 	}
 

@@ -1,5 +1,4 @@
 using Godot;
-using static Enums;
 using System;
 using System.Linq;
 using System.Collections.Generic;
@@ -10,23 +9,26 @@ public class OptionsScreen : Levels
 
 	public override void _Ready() {
 		Godot.Control control = this.GetNode<Godot.Control>("Control");
+		control.Connect("_main_menu", this, "Return");
+		control.Connect("_set_count_down", this, "SaveStartCountDown");
+
+		LoadSavedOptions(control);
+	}
+
+	//Get the saved settings to load in
+	private void LoadSavedOptions(Godot.Control control) {
+		List<KeyValuePair<string, object>> savedSettings = SettingsController.GetAllValues();
+		if(savedSettings == null) { return; }
+
 		Godot.VBoxContainer buttonContainer = control.GetNode<Godot.VBoxContainer>("Buttons");
 		Godot.Collections.Array buttons = buttonContainer.GetChildren();
-
-		//Get the saved settings to load in
-		List<KeyValuePair<string, object>> savedSettings = SettingsController.GetAllValues();
 
 		for (int i = 0; i < buttons.Count; i++)
 		{
 			if(!buttons[i].GetType().Equals(typeof(MenuButtons))) { continue; }
 		
-			Godot.Button button = (Godot.Button)buttons[i];
-			button.Connect("on_pressed", this, "_OnButtonPress");
-
-			LoadSavedValue((MenuButtons)button);
-		}
-
-		void LoadSavedValue(MenuButtons button) {
+			MenuButtons button = (MenuButtons)buttons[i];
+			
 			string action = button.action.ToString();
 			KeyValuePair<string, object> savedSettingPair = savedSettings.SingleOrDefault(kvp => kvp.Key == action);
 
@@ -45,22 +47,9 @@ public class OptionsScreen : Levels
 		optionsData = (sceneData != null) ? (OptionsObj)sceneData : new OptionsObj(false);
 	}
 
-	private void _OnButtonPress(MenuButtons button) {
-		switch (button.action)
-		{
-			case MenuButtonActions.Continue:
-				Return(button);
-				break;
-			case MenuButtonActions.StartCountDown:
-				SaveStartCountDown(button);
-				break;
-		}
-	}
-
-	private void Return(MenuButtons button) {
+	private void Return() {
 		MainGameObj restartObj = new MainGameObj(optionsData.inGame);
 		EmitChangeScene("res://scenes/Main.tscn", 5f, restartObj);
-		button.Disabled = true;
 	}
 
 	private void SaveStartCountDown(MenuButtons button) {
