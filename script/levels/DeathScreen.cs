@@ -1,6 +1,5 @@
 using Godot;
 using System;
-using static Enums;
 
 //DeathScreen.tscn 
 public class DeathScreen : Levels
@@ -23,17 +22,10 @@ public class DeathScreen : Levels
 		Godot.VBoxContainer labelContainer = control.GetNode<Godot.VBoxContainer>("Labels");
 		scoreUi = labelContainer.GetNode<Godot.Label>("Score");
 
-		//Buttons
-		Godot.VBoxContainer buttonContainer = control.GetNode<Godot.VBoxContainer>("Buttons");
-		Godot.Collections.Array buttons = buttonContainer.GetChildren();
-
-		for (int i = 0; i < buttons.Count; i++)
-		{
-			if(!buttons[i].GetType().Equals(typeof(MenuButtons))) { continue; }
-		
-			Godot.Button button = (Godot.Button)buttons[i];
-			button.Connect("on_pressed", this, "_OnButtonPress");
-		}
+		//Connect the menu
+		control.Connect("_play_game", this, "Replay");
+		control.Connect("_main_menu", this, "MainMenu");
+		control.Connect("_leaderboard", this, "Leaderboard");
 	}
 
 	public override void _Process(float delta) {
@@ -60,36 +52,18 @@ public class DeathScreen : Levels
 		GD.Print("Time: " + deathData.time);
 	}
 
-	private void _OnButtonPress(MenuButtons button) {
-		switch (button.action)
-		{
-			case MenuButtonActions.Play:
-				Replay(button);
-				break;
-			case MenuButtonActions.MainMenu: 
-				MainMenu(button);
-				break;
-			case MenuButtonActions.Leaderboard:
-				Leaderboard(button);
-				break;
-		}
-	}
-
-	private void Replay(MenuButtons button) {
+	private void Replay() {
 		MainGameObj restartObj = new MainGameObj(true);
 		EmitChangeScene("res://scenes/Main.tscn", 5f, restartObj);
-		button.Disabled = true;
 	}
 
-	private void MainMenu(MenuButtons button) {
+	private void MainMenu() {
 		MainGameObj restartObj = new MainGameObj(false);
 		EmitChangeScene("res://scenes/Main.tscn", 5f, restartObj);
-		button.Disabled = true;
 	}
 
-	private void Leaderboard(MenuButtons button) {
+	private void Leaderboard() {
 		EmitChangeScene("res://scenes/menus/LeaderboardScreen.tscn", 5f);
-		button.Disabled = true;
 	}
 
 }

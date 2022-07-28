@@ -1,11 +1,11 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://script/menus/MenuButtons.cs" type="Script" id=1]
 [ext_resource path="res://script/levels/DeathScreen.cs" type="Script" id=2]
 [ext_resource path="res://fonts/Teko-Bold-90.tres" type="DynamicFont" id=3]
 [ext_resource path="res://fonts/Teko-Bold-120.tres" type="DynamicFont" id=4]
 [ext_resource path="res://fonts/Teko-SemiBold-75.tres" type="DynamicFont" id=5]
-
+[ext_resource path="res://script/menus/DeathMenu.cs" type="Script" id=6]
 
 [sub_resource type="Animation" id=14]
 resource_name = "MenuBtnDeselected"
@@ -157,6 +157,7 @@ script = ExtResource( 2 )
 [node name="Control" type="Control" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
+script = ExtResource( 6 )
 
 [node name="ColorRect" type="ColorRect" parent="Control"]
 margin_right = 40.0
