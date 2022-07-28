@@ -6,7 +6,7 @@ using static Enums;
 //Main.tscn 
 public class Main : Levels
 {
-	private Random rnd = new Random();
+	private static Random rnd = new Random();
 
 	private UiController ui;
 	private Score scoreControl;
@@ -25,6 +25,8 @@ public class Main : Levels
 
 	private List<string> enemies; //paths to enemy scenes
 	private List<string> obstacles; //paths to obstacle scenes (dodge section)
+
+	private bool isStartingCountDown;
 
 	public override void _Ready() {
 		//Reset the background color
@@ -91,48 +93,6 @@ public class Main : Levels
 			mainMenu.Connect("_leaderboard", this, "GoToLeaderboard");
 		}
 
-		//If the last enemy is dying spawn next way
-		public void CheckIfEnemies() {
-			noOfEnemies--;
-			if(noOfEnemies > 0) return;
-
-			//Waves > level + 2 obstacles 
-			//Waves >0 basic enemies
-			//Wave 0 bosses
-			//Waves <0 Upgrades
-			numberOfWaves--;
-			if(numberOfWaves < -1) {
-				level++;
-				numberOfWaves = (level + 2) * 2;
-
-				//Slowly increase the number of enemies each wave
-				if(level%2 == 0) { enemySpawnMax++; } 
-				else { enemySpawnMin++; }
-			}
-
-			GD.Print("Level: " + level + " Wave: " + numberOfWaves);
-
-			if (numberOfWaves > level + 2) {
-
-				if(numberOfWaves ==  (level + 2) * 2) { DisplaySectionText("DODGE"); }
-				SpawnObstacles(); 
-			}
-			else if (numberOfWaves > 0) { 
-
-				if(numberOfWaves == level + 2) { DisplaySectionText("FIGHT"); }
-				SpawnEnemies(); 
-			}
-			else if (numberOfWaves == 0) { 
-				DisplaySectionText("BOSS"); 
-				SpawnBoss(); 
-			} 
-			else { 
-				LevelSpin();
-				scoreControl.ResetMultiplier();
-				SpawnUpgrades();
-			} 
-		}
-
 		private void SpawnObstacles() {
 			noOfEnemies = rnd.Next(enemySpawnMin, enemySpawnMax + 2);
 			for (int i = 0; i < noOfEnemies; i++) {
@@ -193,18 +153,18 @@ public class Main : Levels
 			this.AddChild(upgradeMenu);
 
 			//if the upgrading is finished call CheckIfEnemies to continue game
-			upgradeMenuScript.Connect("upgrading_finished", this, "CheckIfEnemies");
+			upgradeMenuScript.Connect("upgrading_finished", this, "UpgradingFinished", new Godot.Collections.Array(new string[1]));
 		}
 
 	#endregion 
 
-	#region Misc Functions 
+ 	#region Navigation Functions
 
 		private void PlayGame(string animName = "") {
 			//count down
-			bool isStartingCountDown = (bool)SettingsController.GetValue(MenuButtonActions.StartCountDown.ToString(), false);
+			isStartingCountDown = (bool)SettingsController.GetValue(MenuButtonActions.StartCountDown.ToString(), false);
 			if(isStartingCountDown && animName != "SectionTextCountDown") {
-				DisplaySectionTextCountDown();
+				DisplaySectionTextCountDown("PlayGame");
 				return;
 			}
 			
@@ -246,6 +206,61 @@ public class Main : Levels
 			EmitChangeScene("res://scenes/menus/LeaderboardScreen.tscn", 5f);
 		}
 
+		private void UpgradingFinished(string animName = "") {
+			//count down
+			if(isStartingCountDown && animName != "SectionTextCountDown") {
+				DisplaySectionTextCountDown("UpgradingFinished");
+			} else {
+				this.CheckIfEnemies();
+			}
+		}	
+
+	#endregion
+
+	#region Misc Functions
+
+		//If the last enemy is dying spawn next way
+		public void CheckIfEnemies() {
+			noOfEnemies--;
+			if(noOfEnemies > 0) return;
+
+			//Waves > level + 2 obstacles 
+			//Waves >0 basic enemies
+			//Wave 0 bosses
+			//Waves <0 Upgrades
+			numberOfWaves--;
+			if(numberOfWaves < -1) {
+				level++;
+				numberOfWaves = (level + 2) * 2;
+
+				//Slowly increase the number of enemies each wave
+				if(level%2 == 0) { enemySpawnMax++; } 
+				else { enemySpawnMin++; }
+			}
+
+			GD.Print("Level: " + level + " Wave: " + numberOfWaves);
+
+			if (numberOfWaves > level + 2) {
+
+				if(numberOfWaves ==  (level + 2) * 2) { DisplaySectionText("DODGE"); }
+				SpawnObstacles(); 
+			}
+			else if (numberOfWaves > 0) { 
+
+				if(numberOfWaves == level + 2) { DisplaySectionText("FIGHT"); }
+				SpawnEnemies(); 
+			}
+			else if (numberOfWaves == 0) { 
+				DisplaySectionText("BOSS"); 
+				SpawnBoss(); 
+			} 
+			else { 
+				LevelSpin();
+				scoreControl.ResetMultiplier();
+				SpawnUpgrades();
+			} 
+		}
+
 		//Displays big faint text in the background for a short amount of time
 		//Used to indicate the changes in gameplay sections 
 		private void DisplaySectionText(string text, bool inverted = false) {
@@ -260,12 +275,12 @@ public class Main : Levels
 			anim.Play("SectionTxtDisplay");
 		}
 
-		private void DisplaySectionTextCountDown() {
+		private void DisplaySectionTextCountDown(string callFunction) {
 			Position2D sectionText = this.GetNode<Position2D>("SectionText");
 			Godot.Label label = sectionText.GetNode<Godot.Label>("Label");
 			AnimationPlayer anim  = sectionText.GetNode<AnimationPlayer>("AnimationPlayer");
 			
-			anim.Connect("animation_finished", this, "PlayGame", null, (uint)Godot.Object.ConnectFlags.Oneshot);
+			anim.Connect("animation_finished", this, callFunction, null, (uint)Godot.Object.ConnectFlags.Oneshot);
 			anim.Play("SectionTextCountDown");
 		}
 
