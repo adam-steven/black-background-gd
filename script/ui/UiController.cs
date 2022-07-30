@@ -47,8 +47,14 @@ public class UiController : Control
 
 		public void UpdateMultiplierUi(int value) {
 			if(multiplierUi == null) { return; }
-			//multiplierAnim.Play("");
+			multiplierAnim.Connect("animation_finished", this, "MultiplierUiIdleAnim", null, (uint)Godot.Object.ConnectFlags.Oneshot);
+			multiplierAnim.Play("multiplierChange");
 			multiplierUi.Text = $"x{value}";
+		}
+
+		//Go back to idle animation after change anim finishes
+		private void MultiplierUiIdleAnim(string animName = "") {
+			multiplierAnim.Play("multiplierIdle");
 		}
 
 	#endregion
