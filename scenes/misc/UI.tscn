@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://script/ui/UiController.cs" type="Script" id=1]
 [ext_resource path="res://fonts/Teko-SemiBold-60.tres" type="DynamicFont" id=2]
@@ -48,8 +48,48 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 0 ) ]
 }
 
+[sub_resource type="Animation" id=4]
+resource_name = "multiplierChange"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1.4, 1.4 ), Vector2( 1.4, 1.4 ), Vector2( 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rect_rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 0.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:rect_position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( -88, 211 ), Vector2( -88, 211 ), Vector2( 0, 211 ) ]
+}
+
 [sub_resource type="Animation" id=1]
-resource_name = "multiplierIdel"
+resource_name = "multiplierIdle"
 length = 4.0
 loop = true
 tracks/0/type = "value"
@@ -136,12 +176,9 @@ valign = 1
 clip_text = true
 
 [node name="ScoreMultiplier" type="Label" parent="HBoxContainer/VBoxContainer"]
-margin_left = -15.0
-margin_top = 190.0
-margin_right = 415.0
-margin_bottom = 248.0
-rect_rotation = 5.0
-rect_scale = Vector2( 1.1, 1.1 )
+margin_top = 211.0
+margin_right = 430.0
+margin_bottom = 269.0
 rect_clip_content = true
 custom_fonts/font = ExtResource( 3 )
 text = "x4"
@@ -150,8 +187,9 @@ valign = 1
 clip_text = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="HBoxContainer/VBoxContainer/ScoreMultiplier"]
-autoplay = "multiplierIdel"
-anims/multiplierIdel = SubResource( 1 )
+autoplay = "multiplierIdle"
+anims/multiplierChange = SubResource( 4 )
+anims/multiplierIdle = SubResource( 1 )
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer"]
 margin_left = 434.0

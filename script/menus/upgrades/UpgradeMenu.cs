@@ -4,20 +4,33 @@ using System.Collections.Generic;
 
 public class UpgradeMenu : Control
 {
-    private Random rnd = new Random();
+	[Signal] public delegate void _decrease_multiplier();
+	[Signal] public delegate void _upgrading_finished();
 
+
+    private Random rnd = new Random();
 	public Vector2 levelCenter;
 	public Entities player;
 
+
     public override void _Ready()
     {
-        List<string> upgrades = FileManager.GetScenes(Globals.upgradesFolder);
+		//Connect exit listener
+		Godot.Area2D exitBtn = this.GetNode<Godot.Area2D>("Exit");
+		exitBtn.Connect("on_pressed", this, "_OnButtonPress");
 
-        Vector2[] spawnPoints = {
+		//Spawn upgrades
+		Vector2[] spawnPoints = {
 			new Vector2(0,-Globals.levelSize.y/2),
 			new Vector2(Globals.levelSize.x/2,Globals.levelSize.y/2),
 			new Vector2(-Globals.levelSize.x/2,Globals.levelSize.y/2),
 		};
+
+		spawnUpgrades(spawnPoints);
+    }
+
+	private void spawnUpgrades(Vector2[] spawnPoints) {
+        List<string> upgrades = FileManager.GetScenes(Globals.upgradesFolder);
 
 		for (int i = 0; i < spawnPoints.Length; i++) {
 			string randomUpgrade = upgrades[rnd.Next(upgrades.Count)];
@@ -34,21 +47,26 @@ public class UpgradeMenu : Control
 
 			upgradeOption.Connect("on_pressed", this, "_OnButtonPress");
 		}
-    }
+	}
 
 	private void _OnButtonPress(UpgradeButton button) {
-		if(button.endUpgrading) {
+		if(!button.endUpgrading) { decreaseMultiplier(); }
+
+		//If the button has endUpgrading set or only the exit button is left
+		Godot.Collections.Array buttons = this.GetChildren();
+		if(button.endUpgrading || (buttons.Count - 1) <= 1) {
 			FinishedUpgrading();
 		}
 	}
 
-
-    [Signal]
-	public delegate void upgrading_finished();
+	//Emit signal to decrement score multiplier
+	public void decreaseMultiplier() {
+		this.EmitSignal("_decrease_multiplier");
+	}
 
 	//Emit signal to delete any existing upgrades
 	public void FinishedUpgrading() {
-		this.EmitSignal("upgrading_finished");
+		this.EmitSignal("_upgrading_finished");
         this.QueueFree();
 	}
 }

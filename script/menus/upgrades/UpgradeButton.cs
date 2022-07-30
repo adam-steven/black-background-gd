@@ -14,7 +14,7 @@ public class UpgradeButton : Area2D
 	[Export] private float bulletTimeAlive = 0; //Bullet Range (>0 = 0.05f)
 	[Export] public float bulletSize = 0; //Modifies the size of the bullet sprite
 
-	[Export] public bool endUpgrading = true;
+	[Export] public bool endUpgrading = false;
 
 	private bool objectSelected = false;
 
@@ -61,8 +61,7 @@ public class UpgradeButton : Area2D
 		objectSelected = false;
 	}
 
-	[Signal]
-    public delegate void on_pressed(MenuButtons button);
+	[Signal] public delegate void on_pressed(MenuButtons button);
 	private void _OnButtonPress() {
 		this.EmitSignal("on_pressed", this);
 	}

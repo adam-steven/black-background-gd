@@ -144,16 +144,16 @@ public class Main : Levels
 
 		private void SpawnUpgrades() {
 			PackedScene upgradeMenuScene = (PackedScene)GD.Load("res://scenes/menus/UpgradeMenu.tscn");
-			Godot.Control upgradeMenu = (Godot.Control)upgradeMenuScene.Instance();
+			UpgradeMenu upgradeMenu = (UpgradeMenu)upgradeMenuScene.Instance();
 
-			UpgradeMenu upgradeMenuScript = (UpgradeMenu)upgradeMenu;
-			upgradeMenuScript.levelCenter = levelCenter;
-			upgradeMenuScript.player = player;
+			upgradeMenu.levelCenter = levelCenter;
+			upgradeMenu.player = player;
 
 			this.AddChild(upgradeMenu);
 
 			//if the upgrading is finished call CheckIfEnemies to continue game
-			upgradeMenuScript.Connect("upgrading_finished", this, "UpgradingFinished", new Godot.Collections.Array(new string[1]));
+			upgradeMenu.Connect("_upgrading_finished", this, "UpgradingFinished", new Godot.Collections.Array(new string[1]));
+			upgradeMenu.Connect("_decrease_multiplier", scoreControl, "DecrementMultiplier");
 		}
 
 	#endregion 

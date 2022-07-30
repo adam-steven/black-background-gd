@@ -1,8 +1,86 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://script/menus/upgrades/UpgradeMenu.cs" type="Script" id=1]
+[ext_resource path="res://script/menus/upgrades/UpgradeButton.cs" type="Script" id=2]
+[ext_resource path="res://fonts/Teko-SemiBold-60.tres" type="DynamicFont" id=3]
+
+[sub_resource type="RectangleShape2D" id=2]
+
+[sub_resource type="Animation" id=3]
+resource_name = "UpgradeDeselected"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1.2, 1.2 ), Vector2( 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "UpgradeInit"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "UpgradeSelected"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1.2, 1.2 ) ]
+}
 
 [node name="UpgradeMenu" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 1 )
+
+[node name="Exit" type="Area2D" parent="."]
+position = Vector2( 960, 540 )
+scale = Vector2( 1.2, 1.2 )
+script = ExtResource( 2 )
+endUpgrading = true
+
+[node name="Label" type="Label" parent="Exit"]
+margin_left = -85.0
+margin_top = -45.0
+margin_right = 85.0
+margin_bottom = 45.0
+custom_fonts/font = ExtResource( 3 )
+text = "Exit"
+align = 1
+valign = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Exit"]
+scale = Vector2( 8, 2 )
+shape = SubResource( 2 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Exit"]
+autoplay = "UpgradeInit"
+anims/UpgradeDeselected = SubResource( 3 )
+anims/UpgradeInit = SubResource( 4 )
+anims/UpgradeSelected = SubResource( 5 )

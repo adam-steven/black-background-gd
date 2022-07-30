@@ -41,6 +41,13 @@ public class Score : Godot.Object
         tempScore = score;
     }
 
-    public void DecrementMultiplier () { scoreMultiplier--; }
-    public void ResetMultiplier() { scoreMultiplier = 4; }
+    public void DecrementMultiplier () { 
+        scoreMultiplier--;
+        ui.UpdateMultiplierUi(scoreMultiplier);
+    }
+
+    public void ResetMultiplier() { 
+        scoreMultiplier = 4; 
+        ui.UpdateMultiplierUi(scoreMultiplier);
+    }
 }
