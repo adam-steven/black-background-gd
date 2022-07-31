@@ -68,11 +68,10 @@ public class Main : Levels
 
 		private void SpawnPlayer(Vector2 location) {
 			PackedScene playerScene = (PackedScene)GD.Load("res://scenes/misc/Player.tscn");
-			RigidBody2D playerRB = (RigidBody2D)playerScene.Instance();
-			playerRB.GlobalPosition = location;
-			this.AddChild(playerRB);
+			player = (Entities)playerScene.Instance();
+			player.GlobalPosition = location;
+			this.AddChild(player);
 
-			player = (Entities)playerRB;
 			player.Connect("_end_game", this, "EndGame");
 			player.Connect("_shake_screen", (CameraController)mainCamera, "StartShakeScreen");
 			player.Connect("_section_text", this, "DisplaySectionText");
@@ -98,15 +97,14 @@ public class Main : Levels
 			for (int i = 0; i < noOfEnemies; i++) {
 				string randomObstacles = obstacles[rnd.Next(obstacles.Count)];
 				PackedScene obstacleScene = (PackedScene)GD.Load(Globals.obstaclesFolder + randomObstacles);
-				Godot.RigidBody2D obstacle = (Godot.RigidBody2D)obstacleScene.Instance();
+				Enemies obstacle = (Enemies)obstacleScene.Instance();
 
 				int spawnPosX = rnd.Next((int)-Globals.levelSize.x, (int)Globals.levelSize.x);
 				int spawnPosY = rnd.Next((int)-Globals.levelSize.y, (int)Globals.levelSize.y);
 				Vector2 spawnPosition = new Vector2(spawnPosX, spawnPosY) + levelCenter;
 				obstacle.GlobalPosition = spawnPosition;
 
-				Enemies obstacleScript = (Enemies)obstacle;
-				obstacleScript.player = player;
+				obstacle.player = player;
 
 				this.AddChild(obstacle);
 
@@ -119,16 +117,15 @@ public class Main : Levels
 			for (int i = 0; i < noOfEnemies; i++) {
 				string chosenEnemyScene = enemies[rnd.Next(enemies.Count)];
 				PackedScene enemyScene = (PackedScene)GD.Load(Globals.enemyFolder + chosenEnemyScene);
-				RigidBody2D enemy = (RigidBody2D)enemyScene.Instance();
+				Enemies enemy = (Enemies)enemyScene.Instance();
 
 				int spawnPosX = rnd.Next((int)-Globals.levelSize.x, (int)Globals.levelSize.x);
 				int spawnPosY = rnd.Next((int)-Globals.levelSize.y, (int)Globals.levelSize.y);
 				Vector2 spawnPosition = new Vector2(spawnPosX, spawnPosY) + levelCenter;
 				enemy.GlobalPosition = spawnPosition;
 
-				Enemies enemyScript = (Enemies)enemy;
-				enemyScript.player = player;
-				enemyScript.colour = ColourController.enemyColour;
+				enemy.player = player;
+				enemy.colour = ColourController.enemyColour;
 
 				this.AddChild(enemy);
 
