@@ -1,15 +1,23 @@
 using Godot;
+using System.Reflection;
 using System.Collections.Generic;
 
 public static class SettingsController
 {
     private static string settingsFileName = "user://bb_stn_config.ini";
     private static string settingsSection = "bb_settings";
+    private static FileSave file = new FileSave();
 
     public static void SetValue(string key, object value) {
-        Godot.ConfigFile config = new ConfigFile();
-        config.SetValue(settingsSection, key, value);
-        config.Save(settingsFileName);  
+        SettingObj setting = GetSettingObj();
+        PropertyInfo settingProp = setting.GetType().GetProperty(key, BindingFlags.Public | BindingFlags.Instance);
+
+        if(null != settingProp && settingProp.CanWrite)
+        {
+            settingProp.SetValue(setting, value, null);
+        }
+
+        file.SaveObj(setting, settingsFileName);
     }
 
     public static object GetValue(string key, object defaultVal) {
@@ -39,5 +47,10 @@ public static class SettingsController
         }
 
         return settingsList;
+    }
+
+    private static SettingObj GetSettingObj() {
+        object retrievedObj = file.RetrieveObj(settingsFileName);
+        return (retrievedObj != null) ? (SettingObj)file.RetrieveObj(settingsFileName) : new SettingObj();
     }
 }
