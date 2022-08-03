@@ -52,7 +52,7 @@ public class BulletController : Area2D
 	}
 
 	private void Glow() {
-		//values about 1 glow
+		//values above 1 glow
 		Godot.Color specialColor = new Godot.Color(1.2f, 0.8f, 0.8f, 1f); 
 		this.Modulate = specialColor;
 		strength = strength * 2;

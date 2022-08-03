@@ -4,7 +4,7 @@ using static Enums;
 
 public class LeaderboardMenu : MenuController
 {
-	public override void _OnButtonPress(MenuButtons button) {
+	internal override void _OnButtonPress(MenuButtons button) {
 		switch (button.action)
 		{
 			case MenuButtonActions.Continue:

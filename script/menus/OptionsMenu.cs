@@ -4,9 +4,9 @@ using static Enums;
 
 public class OptionsMenu : MenuController
 {
-    [Signal] public delegate void _set_count_down(MenuButtons button);
+    [Signal] internal delegate void _set_count_down(MenuButtons button);
 
-	public override void _OnButtonPress(MenuButtons button) {
+	internal override void _OnButtonPress(MenuButtons button) {
 		switch (button.action)
 		{
 			case MenuButtonActions.Continue:

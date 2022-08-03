@@ -7,8 +7,7 @@ public class GunController
 	Random rnd = new Random();
 
 	private PackedScene bulletScene;
-	private RigidBody2D ownerNode;
-	private Entities stats;
+	private Entities ownerNode;
 
     private int timeLastShot = 0;
 
@@ -21,10 +20,9 @@ public class GunController
 	///		Requires: 
 	///			Child Sprite Node,
 	///</summary>
-	public GunController(RigidBody2D ownerNode) {
+	public GunController(Entities ownerNode) {
 		this.bulletScene = (PackedScene)GD.Load("res://scenes/misc/Bullet.tscn");
 		this.ownerNode = ownerNode;
-		this.stats = (Entities)ownerNode;
 	}
 
 	public void Shoot(bool isBursting = false, bool specialShot = false) {
@@ -34,21 +32,21 @@ public class GunController
 		Godot.Node2D gameController = ownerNode.GetParent<Godot.Node2D>();
 
 		//Loop for shotgun effect
-		for (int i = 0; i < stats.noOfBullets; i++) {
+		for (int i = 0; i < ownerNode.noOfBullets; i++) {
 			SpawnBullet(ownerSprite, gameController, specialShot);
 		}
 
 		currentBulletInBurst++;
-		if(currentBulletInBurst > stats.bulletBurstAmount) currentBulletInBurst = 0;
+		if(currentBulletInBurst > ownerNode.bulletBurstAmount) currentBulletInBurst = 0;
 	}
 
 	//Checks if the threshold amount of time has passed since the last shot
 	//isBursting = true lowers the nextShotThreshold
 	private bool CanShoot(bool isBursting = false) {
 		//Make sure the burst is always faster than normal shots
-		betweenBurstDelay = (stats.shotDelay < betweenBurstDelay) ? stats.shotDelay/2f : 0.2f;
+		betweenBurstDelay = (ownerNode.shotDelay < betweenBurstDelay) ? ownerNode.shotDelay/2f : 0.2f;
 
-		int shotDelayMs = (int)( (!isBursting ? stats.shotDelay : betweenBurstDelay) * 1000 );
+		int shotDelayMs = (int)( (!isBursting ? ownerNode.shotDelay : betweenBurstDelay) * 1000 );
 		int nextShotThreshold = timeLastShot + shotDelayMs;
 		
 		int currentTime = (int)OS.GetTicksMsec();
@@ -60,22 +58,21 @@ public class GunController
 	}
 
 	private void SpawnBullet(Godot.Sprite ownerSprite, Godot.Node2D gameController, bool specialShot) {
-		Area2D bullet = (Area2D)bulletScene.Instance();
-		BulletController bulletCon = (BulletController)bullet;
-		float randomAccuracyDeviation = (float)((rnd.NextDouble() * stats.bulletAccuracy) - (rnd.NextDouble() * stats.bulletAccuracy));
+		BulletController bullet = (BulletController)bulletScene.Instance();
+		float randomAccuracyDeviation = (float)((rnd.NextDouble() * ownerNode.bulletAccuracy) - (rnd.NextDouble() * ownerNode.bulletAccuracy));
 
 		// Access bullet properties
 		bullet.Position = ownerNode.Position;
 		bullet.Rotation = ownerSprite.GlobalRotation + randomAccuracyDeviation;
-		bullet.Scale = new Vector2(stats.bulletSize, stats.bulletSize);
+		bullet.Scale = new Vector2(ownerNode.bulletSize, ownerNode.bulletSize);
 
 		// Access bullet script 
-		bulletCon.bOwner = stats.entityType;
+		bullet.bOwner = ownerNode.entityType;
 		// bulletCon.openMotion = ownerNode.LinearVelocity/2f;
-		bulletCon.strength = stats.bulletStrength;
-		bulletCon.movementForce = stats.bulletForce;
-		bulletCon.timeAlive = stats.bulletTimeAlive;
-		bulletCon.special = specialShot;
+		bullet.strength = ownerNode.bulletStrength;
+		bullet.movementForce = ownerNode.bulletForce;
+		bullet.timeAlive = ownerNode.bulletTimeAlive;
+		bullet.special = specialShot;
 
 		// Shoot bullet + start cooldown 
 		gameController.AddChild(bullet);
