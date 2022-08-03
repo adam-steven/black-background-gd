@@ -8,7 +8,6 @@ public class Main : Levels
 {
 	private static Random rnd = new Random();
 
-	private UiController ui;
 	private Score scoreControl;
 
 	private Godot.Node2D levelNode;
@@ -32,10 +31,8 @@ public class Main : Levels
 		//Reset the background color
 		ColourController.UpdateBackgroundColour(10000);
 
-		Godot.Control uiNode = this.GetNode<Godot.Control>("UI");
-		ui = (UiController)uiNode; 
-
-		scoreControl = new Score(ui);
+		UiController uiNode = this.GetNode<UiController>("UI");
+		scoreControl = new Score(uiNode);
 
 		levelNode = this.GetNode<Godot.Node2D>("Level");
 		levelCenter = levelNode.GlobalPosition;
@@ -159,7 +156,8 @@ public class Main : Levels
 
 		private void PlayGame(string animName = "") {
 			//count down
-			isStartingCountDown = (bool)SettingsController.GetValue(MenuButtonActions.StartCountDown.ToString(), false);
+			SettingsController settings = new SettingsController();
+			isStartingCountDown = (bool)settings.GetValue(MenuButtonActions.StartCountDown.ToString(), false);
 			if(isStartingCountDown && animName != "SectionTextCountDown") {
 				DisplaySectionTextCountDown("PlayGame");
 				return;

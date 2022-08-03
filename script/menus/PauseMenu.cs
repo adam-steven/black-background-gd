@@ -28,7 +28,7 @@ public class PauseMenu : MenuController
 
 	#endregion
 	
-	public override void _OnButtonPress(MenuButtons button) {
+	internal override void _OnButtonPress(MenuButtons button) {
 		TogglePause(false);
 
 		switch (button.action)

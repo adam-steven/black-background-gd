@@ -6,10 +6,10 @@ namespace Godot
 {
     public class MenuController : Control
     {
-        [Signal] public delegate void _play_game(); //starts or restarts the game
-        [Signal] public delegate void _options();
-        [Signal] public delegate void _leaderboard();
-        [Signal] public delegate void _main_menu();
+        [Signal] internal delegate void _play_game(); //starts or restarts the game
+        [Signal] internal delegate void _options();
+        [Signal] internal delegate void _leaderboard();
+        [Signal] internal delegate void _main_menu();
 
         public override void _Ready() {
             Godot.VBoxContainer buttonContainer = this.GetNode<Godot.VBoxContainer>("Buttons");
@@ -26,7 +26,7 @@ namespace Godot
             _MenuReady();
         }
 
-        public virtual void _MenuReady() {}
-        public virtual void _OnButtonPress(MenuButtons button) {}
+        internal virtual void _MenuReady() {}
+        internal virtual void _OnButtonPress(MenuButtons button) {}
     }
 }

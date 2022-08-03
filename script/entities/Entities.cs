@@ -30,12 +30,12 @@ namespace Godot
         
         #region Signals
 
-            [Signal] public delegate void _destroy_all_bullets();
-            [Signal] public delegate void _section_text(string text, bool inverted);
-            [Signal] public delegate void _shake_screen(int shakeForce, float shakeDuration);
+            [Signal] internal delegate void _destroy_all_bullets();
+            [Signal] internal delegate void _section_text(string text, bool inverted);
+            [Signal] internal delegate void _shake_screen(int shakeForce, float shakeDuration);
             
-            [Signal] public delegate void _update_score(int points);
-            [Signal] public delegate void _break_score_update();
+            [Signal] internal delegate void _update_score(int points);
+            [Signal] internal delegate void _break_score_update();
 
         #endregion       
 

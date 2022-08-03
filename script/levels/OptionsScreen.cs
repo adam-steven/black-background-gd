@@ -1,11 +1,11 @@
 using Godot;
 using System;
-using System.Linq;
-using System.Collections.Generic;
 
 public class OptionsScreen : Levels
 {
-	OptionsObj optionsData;
+	private OptionsObj optionsData;
+
+	private SettingsController settings = new SettingsController();
 
 	public override void _Ready() {
 		Godot.Control control = this.GetNode<Godot.Control>("Control");
@@ -17,8 +17,8 @@ public class OptionsScreen : Levels
 
 	//Get the saved settings to load in
 	private void LoadSavedOptions(Godot.Control control) {
-		List<KeyValuePair<string, object>> savedSettings = SettingsController.GetAllValues();
-		if(savedSettings == null) { return; }
+		SaveObj savedSettings = settings.GetAllValues();
+		if(savedSettings == new SaveObj()) { return; }
 
 		Godot.VBoxContainer buttonContainer = control.GetNode<Godot.VBoxContainer>("Buttons");
 		Godot.Collections.Array buttons = buttonContainer.GetChildren();
@@ -30,14 +30,13 @@ public class OptionsScreen : Levels
 			MenuButtons button = (MenuButtons)buttons[i];
 			
 			string action = button.action.ToString();
-			KeyValuePair<string, object> savedSettingPair = savedSettings.SingleOrDefault(kvp => kvp.Key == action);
+			if(!savedSettings.ContainsKey(action)) { return; }
 
-			if(savedSettingPair.Value == null) { return; }
-
-			switch (Type.GetTypeCode(savedSettingPair.Value.GetType()))
+			object settingVal = savedSettings[action];
+			switch (Type.GetTypeCode(settingVal.GetType()))
 			{
 				case TypeCode.Boolean:
-					button.Pressed = (bool)savedSettingPair.Value;
+					button.Pressed = (bool)settingVal;
 				break;
 			}
 		}
@@ -53,7 +52,7 @@ public class OptionsScreen : Levels
 	}
 
 	private void SaveStartCountDown(MenuButtons button) {
-		SettingsController.SetValue(button.action.ToString(), button.Pressed);
+		settings.SetValue(button.action.ToString(), button.Pressed);
 	}
 
 }

@@ -15,12 +15,16 @@ public class FileSave : Godot.Reference
 
     public object RetrieveObj(string path) 
     {
-        string savedText = (File.Exists(path)) ? File.ReadAllText(path) : null;
+        if(File.Exists(path)) {
+            string savedText = File.ReadAllText(path);
 
-        var settings = new JsonSerializerSettings();
-        settings.TypeNameHandling = TypeNameHandling.Objects;
-        System.Object deserializedData = JsonConvert.DeserializeObject<System.Object>(savedText, settings);
+            var settings = new JsonSerializerSettings();
+            settings.TypeNameHandling = TypeNameHandling.Objects;
+            System.Object deserializedData = JsonConvert.DeserializeObject<System.Object>(savedText, settings);
 
-        return deserializedData;
+            return deserializedData;
+        }
+
+        return null;
     }
 }
