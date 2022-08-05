@@ -18,8 +18,7 @@ public class UiController : Control
 	#region GetElements
 
 		private void GetScoreUi() {
-			Godot.BoxContainer HBox = this.GetNode<Godot.BoxContainer>("HBoxContainer");
-			Godot.BoxContainer VBoxLeft = HBox.GetNode<Godot.BoxContainer>("VBoxContainer");
+			Godot.BoxContainer VBoxLeft = this.GetNode<Godot.BoxContainer>("HBoxContainer/VBoxContainer");
 
 			pointIndicatorUi = VBoxLeft.GetNode<Godot.Label>("PointsIndicator");
 			pointIndicatorAnim = pointIndicatorUi.GetNode<AnimationPlayer>("AnimationPlayer");

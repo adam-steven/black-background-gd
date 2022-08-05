@@ -271,9 +271,7 @@ public class Main : Levels
 		}
 
 		private void DisplaySectionTextCountDown(string callFunction) {
-			Position2D sectionText = this.GetNode<Position2D>("SectionText");
-			Godot.Label label = sectionText.GetNode<Godot.Label>("Label");
-			AnimationPlayer anim  = sectionText.GetNode<AnimationPlayer>("AnimationPlayer");
+			AnimationPlayer anim  = this.GetNode<AnimationPlayer>("SectionText/AnimationPlayer");
 			
 			anim.Connect("animation_finished", this, callFunction, null, (uint)Godot.Object.ConnectFlags.Oneshot);
 			anim.Play("SectionTextCountDown");
@@ -281,8 +279,7 @@ public class Main : Levels
 
 		//Spins the level boarders + changes the level colour
 		private void LevelSpin() {
-			Position2D room = levelNode.GetNode<Position2D>("Room");
-			AnimationPlayer anim = room.GetNode<AnimationPlayer>("AnimationPlayer");
+			AnimationPlayer anim = levelNode.GetNode<AnimationPlayer>("Room/AnimationPlayer");
 			anim.Play("RoomSpin");
 			ColourController.UpdateGameColours(levelNode, player);
 		}
