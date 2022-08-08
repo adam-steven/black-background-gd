@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://script/ui/UiController.cs" type="Script" id=1]
 [ext_resource path="res://fonts/Teko-SemiBold-60.tres" type="DynamicFont" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://scenes/Level.tscn" type="PackedScene" id=4]
 [ext_resource path="res://images/base_block.png" type="Texture" id=5]
 [ext_resource path="res://images/bar_brake.png" type="Texture" id=6]
+[ext_resource path="res://shaders/WaveSegmentShader.gdshader" type="Shader" id=7]
 
 [sub_resource type="Animation" id=2]
 resource_name = "PointsIndicatorAppear"
@@ -136,6 +137,12 @@ tracks/2/keys = {
 
 [sub_resource type="StyleBoxEmpty" id=6]
 
+[sub_resource type="ShaderMaterial" id=9]
+shader = ExtResource( 7 )
+shader_param/Segments = 3
+shader_param/BarHeight = 46.386
+shader_param/Texture = ExtResource( 6 )
+
 [sub_resource type="StyleBoxEmpty" id=7]
 
 [node name="UI" type="Control"]
@@ -233,19 +240,17 @@ margin_bottom = 1016.0
 rect_min_size = Vector2( 20, 0 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
-value = 100.0
+value = 75.0
 texture_progress = ExtResource( 5 )
 fill_mode = 3
 nine_patch_stretch = true
 
-[node name="TextureRect" type="TextureRect" parent="HBoxContainer/HBoxContainer/VBoxContainer/TextureProgress"]
-margin_right = 20.0
-margin_bottom = 952.0
-rect_min_size = Vector2( 20, 0 )
-size_flags_horizontal = 3
-size_flags_vertical = 3
-texture = ExtResource( 6 )
-stretch_mode = 2
+[node name="Sprite" type="Sprite" parent="HBoxContainer/HBoxContainer/VBoxContainer/TextureProgress"]
+material = SubResource( 9 )
+texture = ExtResource( 5 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 0, 0, 20, 952 )
 
 [node name="VSeparator2" type="HSeparator" parent="HBoxContainer/HBoxContainer/VBoxContainer"]
 margin_top = 1020.0
