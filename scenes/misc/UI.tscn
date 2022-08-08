@@ -1,10 +1,11 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://script/ui/UiController.cs" type="Script" id=1]
 [ext_resource path="res://fonts/Teko-SemiBold-60.tres" type="DynamicFont" id=2]
 [ext_resource path="res://fonts/Teko-SemiBold-75.tres" type="DynamicFont" id=3]
 [ext_resource path="res://scenes/Level.tscn" type="PackedScene" id=4]
 [ext_resource path="res://images/base_block.png" type="Texture" id=5]
+[ext_resource path="res://images/bar_brake.png" type="Texture" id=6]
 
 [sub_resource type="Animation" id=2]
 resource_name = "PointsIndicatorAppear"
@@ -236,6 +237,15 @@ value = 100.0
 texture_progress = ExtResource( 5 )
 fill_mode = 3
 nine_patch_stretch = true
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer/HBoxContainer/VBoxContainer/TextureProgress"]
+margin_right = 20.0
+margin_bottom = 952.0
+rect_min_size = Vector2( 20, 0 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource( 6 )
+stretch_mode = 2
 
 [node name="VSeparator2" type="HSeparator" parent="HBoxContainer/HBoxContainer/VBoxContainer"]
 margin_top = 1020.0
