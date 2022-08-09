@@ -245,6 +245,7 @@ fill_mode = 3
 nine_patch_stretch = true
 
 [node name="Sprite" type="Sprite" parent="HBoxContainer/HBoxContainer/VBoxContainer/TextureProgress"]
+modulate = Color( 0, 0, 0, 1 )
 material = SubResource( 9 )
 texture = ExtResource( 5 )
 centered = false

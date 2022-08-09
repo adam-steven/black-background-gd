@@ -27,6 +27,7 @@ window/stretch/aspect="keep"
 [global]
 
 vsync=false
+backgroud=false
 
 [input]
 
@@ -93,6 +94,5 @@ common/enable_pause_aware_picking=true
 
 [rendering]
 
-environment/default_clear_color=Color( 0, 0, 0, 1 )
 environment/default_environment="res://default_env.tres"
 quality/dynamic_fonts/use_oversampling=false
