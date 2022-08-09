@@ -3,8 +3,8 @@
 [ext_resource path="res://script/ui/UiController.cs" type="Script" id=1]
 [ext_resource path="res://fonts/Teko-SemiBold-60.tres" type="DynamicFont" id=2]
 [ext_resource path="res://fonts/Teko-SemiBold-75.tres" type="DynamicFont" id=3]
+[ext_resource path="res://images/bar_brake_long.png" type="Texture" id=4]
 [ext_resource path="res://images/base_block.png" type="Texture" id=5]
-[ext_resource path="res://images/bar_brake.png" type="Texture" id=6]
 [ext_resource path="res://shaders/WaveSegmentShader.gdshader" type="Shader" id=7]
 
 [sub_resource type="Animation" id=2]
@@ -136,11 +136,11 @@ tracks/2/keys = {
 
 [sub_resource type="StyleBoxEmpty" id=6]
 
-[sub_resource type="ShaderMaterial" id=9]
+[sub_resource type="ShaderMaterial" id=10]
 shader = ExtResource( 7 )
 shader_param/Segments = 3
-shader_param/BarHeight = 47.6
-shader_param/Texture = ExtResource( 6 )
+shader_param/BarHeight = 1.0
+shader_param/Texture = ExtResource( 4 )
 
 [sub_resource type="StyleBoxEmpty" id=7]
 
@@ -233,6 +233,7 @@ custom_constants/separation = 60
 custom_styles/separator = SubResource( 6 )
 
 [node name="TextureProgress" type="TextureProgress" parent="HBoxContainer/HBoxContainer/VBoxContainer"]
+material = SubResource( 10 )
 margin_top = 64.0
 margin_right = 20.0
 margin_bottom = 1016.0
@@ -243,14 +244,6 @@ value = 100.0
 texture_progress = ExtResource( 5 )
 fill_mode = 3
 nine_patch_stretch = true
-
-[node name="Sprite" type="Sprite" parent="HBoxContainer/HBoxContainer/VBoxContainer/TextureProgress"]
-modulate = Color( 0, 0, 0, 1 )
-material = SubResource( 9 )
-texture = ExtResource( 5 )
-centered = false
-region_enabled = true
-region_rect = Rect2( 0, 0, 20, 952 )
 
 [node name="VSeparator2" type="HSeparator" parent="HBoxContainer/HBoxContainer/VBoxContainer"]
 margin_top = 1020.0
