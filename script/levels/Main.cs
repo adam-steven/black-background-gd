@@ -10,13 +10,12 @@ public class Main : Levels
 
 	private Score scoreControl;
 
+	private Stage stageControl;
+
 	private Godot.Node2D levelNode;
 	private Vector2 levelCenter;
 	
-	private int level = 0;
-	private int numberOfWaves = -1;
-
-	private int enemySpawnMin = 0;
+	private int enemySpawnMin = 1;
 	private int enemySpawnMax = 2;
 	private int noOfEnemies = 0;
 
@@ -33,6 +32,7 @@ public class Main : Levels
 
 		UiController uiNode = this.GetNode<UiController>("UI");
 		scoreControl = new Score(uiNode);
+		stageControl = new Stage(uiNode);
 
 		levelNode = this.GetNode<Godot.Node2D>("Level");
 		levelCenter = levelNode.GlobalPosition;
@@ -90,6 +90,8 @@ public class Main : Levels
 		}
 
 		private void SpawnObstacles() {
+			GD.Print("Response SpawnObstacles\n");
+
 			noOfEnemies = rnd.Next(enemySpawnMin, enemySpawnMax + 2);
 			for (int i = 0; i < noOfEnemies; i++) {
 				string randomObstacles = obstacles[rnd.Next(obstacles.Count)];
@@ -110,6 +112,8 @@ public class Main : Levels
 		}
 
 		private void SpawnEnemies() {
+			GD.Print("Response SpawnEnemies\n");
+
 			noOfEnemies = rnd.Next(enemySpawnMin, enemySpawnMax + 1);
 			for (int i = 0; i < noOfEnemies; i++) {
 				string chosenEnemyScene = enemies[rnd.Next(enemies.Count)];
@@ -132,11 +136,13 @@ public class Main : Levels
 		}
 
 		private void SpawnBoss() {
-			GD.Print("Boss");
+			GD.Print("Response SpawnBoss\n");
 			SpawnEnemies();
 		}
 
 		private void SpawnUpgrades() {
+			GD.Print("Response SpawnUpgrades\n");
+
 			PackedScene upgradeMenuScene = (PackedScene)GD.Load("res://scenes/menus/UpgradeMenu.tscn");
 			UpgradeMenu upgradeMenu = (UpgradeMenu)upgradeMenuScene.Instance();
 
@@ -192,8 +198,7 @@ public class Main : Levels
 		}
 
 		private void GoToOptions() {
-			bool inGame = level > 0;
-			OptionsObj optionsObj = new OptionsObj(inGame);
+			OptionsObj optionsObj = new OptionsObj(stageControl.inGame);
 			EmitChangeScene("res://scenes/menus/OptionsScreen.tscn", 5f, optionsObj);
 		}
 
@@ -219,40 +224,38 @@ public class Main : Levels
 			noOfEnemies--;
 			if(noOfEnemies > 0) return;
 
-			//Waves > level + 2 obstacles 
-			//Waves >0 basic enemies
-			//Wave 0 bosses
-			//Waves <0 Upgrades
-			numberOfWaves--;
-			if(numberOfWaves < -1) {
-				level++;
-				numberOfWaves = (level + 2) * 2;
+			bool newStage = stageControl.NextWave();
+			GameStages currentStage = stageControl.GetStage();
 
-				//Slowly increase the number of enemies each wave
-				if(level%2 == 0) { enemySpawnMax++; } 
-				else { enemySpawnMin++; }
-			}
+			GD.Print("\nnewStage " + newStage);
+			GD.Print("currentStage " + currentStage);
 
-			GD.Print("Level: " + level + " Wave: " + numberOfWaves);
+			if(newStage) { DisplaySectionText(currentStage.ToString().ToUpper()); }
 
-			if (numberOfWaves > level + 2) {
-
-				if(numberOfWaves ==  (level + 2) * 2) { DisplaySectionText("DODGE"); }
-				SpawnObstacles(); 
-			}
-			else if (numberOfWaves > 0) { 
-
-				if(numberOfWaves == level + 2) { DisplaySectionText("FIGHT"); }
-				SpawnEnemies(); 
-			}
-			else if (numberOfWaves == 0) { 
-				DisplaySectionText("BOSS"); 
-				SpawnBoss(); 
-			} 
-			else { 
-				LevelSpin();
-				scoreControl.ResetMultiplier();
-				SpawnUpgrades();
+			switch (currentStage)
+			{
+				case GameStages.Dodge:
+					GD.Print("Call SpawnObstacles");
+					SpawnObstacles(); 
+					break;
+				case GameStages.Fight:
+					GD.Print("Call SpawnEnemies");
+					SpawnEnemies(); 
+					break;
+				case GameStages.Boss:
+					GD.Print("Call SpawnBoss");
+					SpawnBoss(); 
+					break;
+				case GameStages.Event:
+					//Event
+					break;
+				default: 
+					GD.Print("Call SpawnUpgrades");
+					LevelSpin();
+					IncreaseEnemySpawn();
+					scoreControl.ResetMultiplier();
+					SpawnUpgrades();
+				break;
 			} 
 		}
 
@@ -282,6 +285,12 @@ public class Main : Levels
 			AnimationPlayer anim = levelNode.GetNode<AnimationPlayer>("Room/AnimationPlayer");
 			anim.Play("RoomSpin");
 			ColourController.UpdateGameColours(levelNode, player);
+		}
+
+		//Slowly increase the number of enemies each wave
+		private void IncreaseEnemySpawn() {
+			if(stageControl.level%2 == 0) { enemySpawnMax++; } 
+			else { enemySpawnMin++; }
 		}
 
 		//Destroys all bullets on the screen
