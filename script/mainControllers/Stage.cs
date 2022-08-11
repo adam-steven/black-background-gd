@@ -23,6 +23,11 @@ public class Stage : Godot.Object
         ui.SetWaveSegments(stageWaveValues[stageCounter]);
     }
 
+    public void _StageProcess(float delta) {
+        if(currentWaveCounter >= stageWaveValues[stageCounter] - 1) { return; }
+        
+    }
+
     public GameStages GetStage() {
         switch (stageCounter)
         {

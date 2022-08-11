@@ -39,6 +39,8 @@ public class Main : Levels
 
 		obstacles = FileManager.GetScenes(Globals.obstaclesFolder);
 		enemies = FileManager.GetScenes(Globals.enemyFolder);
+
+		this.SetProcess(false);
 	}
 
 	public override void LoadLevelParameters(System.Object sceneData) {
@@ -59,6 +61,7 @@ public class Main : Levels
 
 	public override void _Process(float delta) {
 		scoreControl._ScoreProcess(delta);
+		stageControl._StageProcess(delta);
 	}
 
 	#region Spawn Functions
@@ -169,6 +172,7 @@ public class Main : Levels
 				return;
 			}
 			
+			this.SetProcess(true);
 			this.LevelSpin();
 			this.CheckIfEnemies();
 
