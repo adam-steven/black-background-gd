@@ -17,7 +17,7 @@ public class Stage : Godot.Object
     private int stageCounter = 0;
     private int[] stageWaveValues = {3, 4, 1, 1};
 
-    private int currentWaveCounter = -1;
+    private bool newWaveFirstCall = false; 
 
     public Stage(UiController ui) {
         this.ui = ui;
@@ -41,26 +41,33 @@ public class Stage : Godot.Object
 
     ///<returns>new stage</returns>
     public bool NextWave() {
-        currentWaveCounter++;
+        bool newStage = false; 
+        stageWaveValues[stageCounter]--;
 
-        if(currentWaveCounter >= stageWaveValues[stageCounter]) { 
-            currentWaveCounter = 0;
+        //for the first call to return true 
+        if(!newWaveFirstCall) {
+            newStage = true;
+            stageWaveValues[stageCounter]++;
+            newWaveFirstCall = true;
+        }
+
+        if(stageWaveValues[stageCounter] <= 0) { 
             stageCounter++;
+            newStage = true;
+
+            if(stageCounter > stageWaveValues.Length - 1) {
+                stageCounter = 0;
+                NextLevel();
+            }
         }
 
-        if(stageCounter > stageWaveValues.Length - 1) {
-            stageCounter = 0;
-            NextLevel();
-        }
-
-        return (currentWaveCounter == 0);
+        return newStage;
     }
 
     private void NextLevel() {
         level++;
 
         //Increase dodge and fight
-        stageWaveValues[0]++;
-        stageWaveValues[1]++;
+        stageWaveValues = new int[] {(3 + level), (4 + level), 1, 1};
     }
 }
