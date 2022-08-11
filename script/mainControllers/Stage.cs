@@ -16,11 +16,11 @@ public class Stage : Godot.Object
 
     private int stageCounter = 0;
     private int[] stageWaveValues = {3, 4, 1, 1};
-
-    private bool newWaveFirstCall = false; 
+    private float currentWaveCounter = -1; 
 
     public Stage(UiController ui) {
         this.ui = ui;
+        ui.SetWaveSegments(stageWaveValues[stageCounter]);
     }
 
     public GameStages GetStage() {
@@ -41,27 +41,24 @@ public class Stage : Godot.Object
 
     ///<returns>new stage</returns>
     public bool NextWave() {
-        bool newStage = false; 
-        stageWaveValues[stageCounter]--;
+        currentWaveCounter++;
+        double progression = (1 - (currentWaveCounter / stageWaveValues[stageCounter])) * 100;
+        ui.SetWaveProgress(progression);
 
-        //for the first call to return true 
-        if(!newWaveFirstCall) {
-            newStage = true;
-            stageWaveValues[stageCounter]++;
-            newWaveFirstCall = true;
-        }
-
-        if(stageWaveValues[stageCounter] <= 0) { 
+        if(currentWaveCounter >= stageWaveValues[stageCounter]) { 
+            currentWaveCounter = 0;
             stageCounter++;
-            newStage = true;
 
             if(stageCounter > stageWaveValues.Length - 1) {
                 stageCounter = 0;
                 NextLevel();
             }
+
+            ui.SetWaveSegments(stageWaveValues[stageCounter]);
+            ui.SetWaveProgress(100);
         }
 
-        return newStage;
+        return (currentWaveCounter == 0);
     }
 
     private void NextLevel() {
