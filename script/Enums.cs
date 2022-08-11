@@ -10,7 +10,7 @@ public static class Enums
 		Dodge,
 		Fight,
 		Boss,
-		Upgrade,
+		Shop,
 		Event,
 	}
 

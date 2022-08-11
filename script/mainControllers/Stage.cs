@@ -38,7 +38,7 @@ public class Stage : Godot.Object
             case 2:
                 return GameStages.Boss;
             case 3:
-                return GameStages.Upgrade; 
+                return GameStages.Shop; 
             default:
                 return GameStages.Event;
         }
