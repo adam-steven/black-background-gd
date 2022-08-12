@@ -10,7 +10,7 @@ public class Stage : Godot.Object
 
     public bool inGame {
         get {
-            return level > 0;
+            return level + currentWaveCounter >= 0;
         }
     }
 

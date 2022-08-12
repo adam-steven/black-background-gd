@@ -15,15 +15,8 @@ void fragment()
 		textureSum += texture(Texture, UV + vec2(0.0, (0.5 - yPos)));
 	}
 	
-	//If transparent pixel set it to barColour
-	if(textureSum.a == 0.0) {
-		textureSum = MODULATE;
-	}
-	
-	//If black pixel set it to transparent
-	if(textureSum.r == 0.0 && textureSum.g == 0.0 && textureSum.b == 0.0) {
-		textureSum.a = 0.0;
-	}
+	textureSum.rgb = MODULATE.rgb;
+	textureSum.a = 1.0 - textureSum.a;
 	
 	COLOR = textureSum;
 }
