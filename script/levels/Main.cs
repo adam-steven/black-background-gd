@@ -9,7 +9,6 @@ public class Main : Levels
 	private static Random rnd = new Random();
 
 	private Score scoreControl;
-
 	private Stage stageControl;
 
 	private Godot.Node2D levelNode;
@@ -32,7 +31,9 @@ public class Main : Levels
 
 		UiController uiNode = this.GetNode<UiController>("UI");
 		scoreControl = new Score(uiNode);
+
 		stageControl = new Stage(uiNode);
+		stageControl.Connect("_next_stage", this, "NextStage");
 
 		levelNode = this.GetNode<Godot.Node2D>("Level");
 		levelCenter = levelNode.GlobalPosition;
@@ -95,8 +96,9 @@ public class Main : Levels
 		private void SpawnObstacles() {
 			GD.Print("Response SpawnObstacles\n");
 
-			noOfEnemies = rnd.Next(enemySpawnMin, enemySpawnMax + 2);
-			for (int i = 0; i < noOfEnemies; i++) {
+			int noToSpawn = rnd.Next(enemySpawnMin, enemySpawnMax + 2);
+			noOfEnemies += noToSpawn;
+			for (int i = 0; i < noToSpawn; i++) {
 				string randomObstacles = obstacles[rnd.Next(obstacles.Count)];
 				PackedScene obstacleScene = (PackedScene)GD.Load(Globals.obstaclesFolder + randomObstacles);
 				Enemies obstacle = (Enemies)obstacleScene.Instance();
@@ -117,8 +119,9 @@ public class Main : Levels
 		private void SpawnEnemies() {
 			GD.Print("Response SpawnEnemies\n");
 
-			noOfEnemies = rnd.Next(enemySpawnMin, enemySpawnMax + 1);
-			for (int i = 0; i < noOfEnemies; i++) {
+			int noToSpawn = rnd.Next(enemySpawnMin, enemySpawnMax + 1);
+			noOfEnemies += noToSpawn;
+			for (int i = 0; i < noToSpawn; i++) {
 				string chosenEnemyScene = enemies[rnd.Next(enemies.Count)];
 				PackedScene enemyScene = (PackedScene)GD.Load(Globals.enemyFolder + chosenEnemyScene);
 				Enemies enemy = (Enemies)enemyScene.Instance();
@@ -228,6 +231,13 @@ public class Main : Levels
 			noOfEnemies--;
 			if(noOfEnemies > 0) return;
 
+			noOfEnemies = 0;
+			NextStage();
+		}
+
+		//Spawn next stage;
+		private void NextStage()
+		{
 			bool newStage = stageControl.NextWave();
 			GameStages currentStage = stageControl.GetStage();
 
