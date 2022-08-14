@@ -9,14 +9,12 @@ public class Main : Levels
 	private static Random rnd = new Random();
 
 	private Score scoreControl;
+	private Stage stageControl;
 
 	private Godot.Node2D levelNode;
 	private Vector2 levelCenter;
 	
-	private int level = 0;
-	private int numberOfWaves = -1;
-
-	private int enemySpawnMin = 0;
+	private int enemySpawnMin = 1;
 	private int enemySpawnMax = 2;
 	private int noOfEnemies = 0;
 
@@ -34,11 +32,16 @@ public class Main : Levels
 		UiController uiNode = this.GetNode<UiController>("UI");
 		scoreControl = new Score(uiNode);
 
+		stageControl = new Stage(uiNode);
+		stageControl.Connect("_next_stage", this, "NextStage");
+
 		levelNode = this.GetNode<Godot.Node2D>("Level");
 		levelCenter = levelNode.GlobalPosition;
 
 		obstacles = FileManager.GetScenes(Globals.obstaclesFolder);
 		enemies = FileManager.GetScenes(Globals.enemyFolder);
+
+		this.SetProcess(false);
 	}
 
 	public override void LoadLevelParameters(System.Object sceneData) {
@@ -59,6 +62,7 @@ public class Main : Levels
 
 	public override void _Process(float delta) {
 		scoreControl._ScoreProcess(delta);
+		stageControl._StageProcess(delta);
 	}
 
 	#region Spawn Functions
@@ -90,8 +94,11 @@ public class Main : Levels
 		}
 
 		private void SpawnObstacles() {
-			noOfEnemies = rnd.Next(enemySpawnMin, enemySpawnMax + 2);
-			for (int i = 0; i < noOfEnemies; i++) {
+			GD.Print("Response SpawnObstacles\n");
+
+			int noToSpawn = rnd.Next(enemySpawnMin, enemySpawnMax + 2);
+			noOfEnemies += noToSpawn;
+			for (int i = 0; i < noToSpawn; i++) {
 				string randomObstacles = obstacles[rnd.Next(obstacles.Count)];
 				PackedScene obstacleScene = (PackedScene)GD.Load(Globals.obstaclesFolder + randomObstacles);
 				Enemies obstacle = (Enemies)obstacleScene.Instance();
@@ -110,8 +117,11 @@ public class Main : Levels
 		}
 
 		private void SpawnEnemies() {
-			noOfEnemies = rnd.Next(enemySpawnMin, enemySpawnMax + 1);
-			for (int i = 0; i < noOfEnemies; i++) {
+			GD.Print("Response SpawnEnemies\n");
+
+			int noToSpawn = rnd.Next(enemySpawnMin, enemySpawnMax + 1);
+			noOfEnemies += noToSpawn;
+			for (int i = 0; i < noToSpawn; i++) {
 				string chosenEnemyScene = enemies[rnd.Next(enemies.Count)];
 				PackedScene enemyScene = (PackedScene)GD.Load(Globals.enemyFolder + chosenEnemyScene);
 				Enemies enemy = (Enemies)enemyScene.Instance();
@@ -132,11 +142,13 @@ public class Main : Levels
 		}
 
 		private void SpawnBoss() {
-			GD.Print("Boss");
+			GD.Print("Response SpawnBoss\n");
 			SpawnEnemies();
 		}
 
 		private void SpawnUpgrades() {
+			GD.Print("Response SpawnUpgrades\n");
+
 			PackedScene upgradeMenuScene = (PackedScene)GD.Load("res://scenes/menus/UpgradeMenu.tscn");
 			UpgradeMenu upgradeMenu = (UpgradeMenu)upgradeMenuScene.Instance();
 
@@ -163,6 +175,7 @@ public class Main : Levels
 				return;
 			}
 			
+			this.SetProcess(true);
 			this.LevelSpin();
 			this.CheckIfEnemies();
 
@@ -192,8 +205,7 @@ public class Main : Levels
 		}
 
 		private void GoToOptions() {
-			bool inGame = level > 0;
-			OptionsObj optionsObj = new OptionsObj(inGame);
+			OptionsObj optionsObj = new OptionsObj(stageControl.inGame);
 			EmitChangeScene("res://scenes/menus/OptionsScreen.tscn", 5f, optionsObj);
 		}
 
@@ -219,40 +231,45 @@ public class Main : Levels
 			noOfEnemies--;
 			if(noOfEnemies > 0) return;
 
-			//Waves > level + 2 obstacles 
-			//Waves >0 basic enemies
-			//Wave 0 bosses
-			//Waves <0 Upgrades
-			numberOfWaves--;
-			if(numberOfWaves < -1) {
-				level++;
-				numberOfWaves = (level + 2) * 2;
+			noOfEnemies = 0;
+			NextStage();
+		}
 
-				//Slowly increase the number of enemies each wave
-				if(level%2 == 0) { enemySpawnMax++; } 
-				else { enemySpawnMin++; }
-			}
+		//Spawn next stage;
+		private void NextStage()
+		{
+			bool newStage = stageControl.NextWave();
+			GameStages currentStage = stageControl.GetStage();
 
-			GD.Print("Level: " + level + " Wave: " + numberOfWaves);
+			GD.Print("\nnewStage " + newStage);
+			GD.Print("currentStage " + currentStage);
 
-			if (numberOfWaves > level + 2) {
+			if(newStage) { DisplaySectionText(currentStage.ToString().ToUpper()); }
 
-				if(numberOfWaves ==  (level + 2) * 2) { DisplaySectionText("DODGE"); }
-				SpawnObstacles(); 
-			}
-			else if (numberOfWaves > 0) { 
-
-				if(numberOfWaves == level + 2) { DisplaySectionText("FIGHT"); }
-				SpawnEnemies(); 
-			}
-			else if (numberOfWaves == 0) { 
-				DisplaySectionText("BOSS"); 
-				SpawnBoss(); 
-			} 
-			else { 
-				LevelSpin();
-				scoreControl.ResetMultiplier();
-				SpawnUpgrades();
+			switch (currentStage)
+			{
+				case GameStages.Dodge:
+					GD.Print("Call SpawnObstacles");
+					SpawnObstacles(); 
+					break;
+				case GameStages.Fight:
+					GD.Print("Call SpawnEnemies");
+					SpawnEnemies(); 
+					break;
+				case GameStages.Boss:
+					GD.Print("Call SpawnBoss");
+					SpawnBoss(); 
+					break;
+				case GameStages.Event:
+					//Event
+					break;
+				default: 
+					GD.Print("Call SpawnUpgrades");
+					LevelSpin();
+					IncreaseEnemySpawn();
+					scoreControl.ResetMultiplier();
+					SpawnUpgrades();
+				break;
 			} 
 		}
 
@@ -271,9 +288,7 @@ public class Main : Levels
 		}
 
 		private void DisplaySectionTextCountDown(string callFunction) {
-			Position2D sectionText = this.GetNode<Position2D>("SectionText");
-			Godot.Label label = sectionText.GetNode<Godot.Label>("Label");
-			AnimationPlayer anim  = sectionText.GetNode<AnimationPlayer>("AnimationPlayer");
+			AnimationPlayer anim  = this.GetNode<AnimationPlayer>("SectionText/AnimationPlayer");
 			
 			anim.Connect("animation_finished", this, callFunction, null, (uint)Godot.Object.ConnectFlags.Oneshot);
 			anim.Play("SectionTextCountDown");
@@ -281,10 +296,15 @@ public class Main : Levels
 
 		//Spins the level boarders + changes the level colour
 		private void LevelSpin() {
-			Position2D room = levelNode.GetNode<Position2D>("Room");
-			AnimationPlayer anim = room.GetNode<AnimationPlayer>("AnimationPlayer");
+			AnimationPlayer anim = levelNode.GetNode<AnimationPlayer>("Room/AnimationPlayer");
 			anim.Play("RoomSpin");
 			ColourController.UpdateGameColours(levelNode, player);
+		}
+
+		//Slowly increase the number of enemies each wave
+		private void IncreaseEnemySpawn() {
+			if(stageControl.level%2 == 0) { enemySpawnMax++; } 
+			else { enemySpawnMin++; }
 		}
 
 		//Destroys all bullets on the screen

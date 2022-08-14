@@ -1,6 +1,5 @@
 using System;
 using Godot;
-using static Enums;
 
 public class GunController
 {
@@ -27,7 +26,7 @@ public class GunController
 
 	public void Shoot(bool isBursting = false, bool specialShot = false) {
 		if(!CanShoot(isBursting)) return;
-		
+
 		Godot.Sprite ownerSprite = ownerNode.GetNode<Godot.Sprite>("Sprite");
 		Godot.Node2D gameController = ownerNode.GetParent<Godot.Node2D>();
 

@@ -17,10 +17,7 @@ public class DeathScreen : Levels
 
 	public override void _Ready() {
 		Godot.Control control = this.GetNode<Godot.Control>("Control");
-
-		//Labels 
-		Godot.VBoxContainer labelContainer = control.GetNode<Godot.VBoxContainer>("Labels");
-		scoreUi = labelContainer.GetNode<Godot.Label>("Score");
+		scoreUi = control.GetNode<Godot.Label>("Labels/Score");
 
 		//Connect the menu
 		control.Connect("_play_game", this, "Replay");

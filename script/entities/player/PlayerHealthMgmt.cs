@@ -34,6 +34,8 @@ public partial class PlayerController
 
 		//Kill player if health is 0
 		if(health <= 0) {
+			SetPhysicsProcess(false);
+
 			anim.Play("PlayerDeath");
 
 			//Go to gameover screen

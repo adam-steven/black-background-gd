@@ -27,6 +27,7 @@ window/stretch/aspect="keep"
 [global]
 
 vsync=false
+backgroud=false
 
 [input]
 

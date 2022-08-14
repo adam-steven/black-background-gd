@@ -6,6 +6,14 @@ public static class Enums
 		EnemyController,
 	};
 
+	public enum GameStages {
+		Dodge,
+		Fight,
+		Boss,
+		Shop,
+		Event,
+	}
+
 	/// <summary> Buttons for Menu GUI </summary>
 	public enum MenuButtonActions {
 		MainMenu,

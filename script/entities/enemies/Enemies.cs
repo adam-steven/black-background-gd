@@ -38,6 +38,8 @@ namespace Godot
                 anim.Play("EnemyHit");
 
                 if(health <= 0) {
+                    SetPhysicsProcess(false);
+
                     //Give score
                     this.EmitSignal("_update_score", pointsOnKill);
 
@@ -58,7 +60,6 @@ namespace Godot
 
         #region Delayed start
 
-            public bool start = false;
             private Godot.Position2D loadingSpinner;
             private Godot.CollisionShape2D collider;
             private Godot.Sprite sprite;
@@ -67,11 +68,13 @@ namespace Godot
                 loadingSpinner.QueueFree();
                 collider.Disabled = false;
                 sprite.Visible = true;
-                start = true;
+                SetPhysicsProcess(true);
             }
 
-            public void InitDelayedStart() {
-                loadingSpinner = this.GetNode<Godot.Position2D>("LoadingSpinner");
+            public void InitDelayedStart(string nodeName) {
+                SetPhysicsProcess(false);
+
+                loadingSpinner = this.GetNode<Godot.Position2D>(nodeName);
                 AnimationPlayer loadingAnim  = loadingSpinner.GetNode<AnimationPlayer>("AnimationPlayer");
                 loadingAnim.Connect("animation_finished", this, "Start");
 

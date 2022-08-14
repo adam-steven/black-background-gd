@@ -8,7 +8,7 @@ public class Chaser : Enemies
 
 	public override void _Ready() 
 	{
-		InitDelayedStart();
+		InitDelayedStart("LoadingSpinner");
 
 		Godot.Sprite thisSprite = this.GetNode<Godot.Sprite>("Sprite");
 		thisSprite.SelfModulate = colour;
@@ -18,8 +18,6 @@ public class Chaser : Enemies
 
 	public override void _PhysicsProcess(float delta) 
 	{
-		if(!start) return;
-
 		FacePlayer();
 		MoveInDirection(Vector2.Right);
 
