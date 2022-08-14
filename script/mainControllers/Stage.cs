@@ -35,7 +35,6 @@ public class Stage : Godot.Object
             currentWaveCounter = Math.Floor(currentWaveCounter);
             this.EmitSignal("_next_stage");
         }
-
     }
 
     public GameStages GetStage() {

@@ -86,9 +86,7 @@ public class Main : Levels
 			Godot.Control mainMenu = (Godot.Control)mainMenuScene.Instance();
 			this.AddChild(mainMenu);
 
-			//PlayGame() requires a string to be passed in
-			//as this is not needed in the _play_game signal a surrogate  param is added
-			mainMenu.Connect("_play_game", this, "PlayGame", new Godot.Collections.Array(new string[1]));
+			mainMenu.Connect("_play_game", this, "PlayGame");
 			mainMenu.Connect("_options", this, "GoToOptions");
 			mainMenu.Connect("_leaderboard", this, "GoToLeaderboard");
 		}
@@ -137,7 +135,7 @@ public class Main : Levels
 				this.AddChild(enemy);
 
 				enemy.Connect("_on_death", this, "CheckIfEnemies");
-				enemy.Connect("_update_score", scoreControl, "UpdateScore");
+				enemy.Connect("_update_score", scoreControl, "UpdateScore", new Godot.Collections.Array(stageControl.level));
 			}
 		}
 
@@ -158,13 +156,18 @@ public class Main : Levels
 			this.AddChild(upgradeMenu);
 
 			//if the upgrading is finished call CheckIfEnemies to continue game
-			upgradeMenu.Connect("_upgrading_finished", this, "UpgradingFinished", new Godot.Collections.Array(new string[1]));
+			upgradeMenu.Connect("_upgrading_finished", this, "UpgradingFinished");
 			upgradeMenu.Connect("_decrease_multiplier", scoreControl, "DecrementMultiplier");
 		}
 
 	#endregion 
 
  	#region Navigation Functions
+
+		//play game for events without anim name info
+		private void PlayGame() {
+			PlayGame(string.Empty);
+		}
 
 		private void PlayGame(string animName = "") {
 			//count down
@@ -211,6 +214,11 @@ public class Main : Levels
 
 		private void GoToLeaderboard() {
 			EmitChangeScene("res://scenes/menus/LeaderboardScreen.tscn", 5f);
+		}
+
+		//upgrading finished for events without anim name info
+		private void UpgradingFinished() {
+			UpgradingFinished(string.Empty);
 		}
 
 		private void UpgradingFinished(string animName = "") {
