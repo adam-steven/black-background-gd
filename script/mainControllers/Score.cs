@@ -28,13 +28,20 @@ public class Score : Godot.Object
         }
     }
 
+    //update score for events without level info
     private void UpdateScore(int points) {
-        int calcPoints = points * scoreMultiplier;
+        UpdateScore(points, 0);
+    }
+
+    private void UpdateScore(int points, int level) {
+        float levelMultiplier = 1 + (level * 0.1f);
+        int calcPoints = (int)Math.Round(points * scoreMultiplier * levelMultiplier);
 
         ui.FlashPoints(calcPoints);
 
         tempScore += calcPoints;
         tempScore = Math.Min(tempScore, 99999999999999);
+        tempScore = Math.Max(tempScore, -9999999999999);
     }
 
     private void BreakScoreUpdate() {

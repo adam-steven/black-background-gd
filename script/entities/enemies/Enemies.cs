@@ -32,7 +32,6 @@ namespace Godot
                 if(health <= 0) return;
                 
                 health -= strikingBullet.strength;
-                GD.Print("Enemy: " + health);
 
                 AnimationPlayer anim  = this.GetNode<AnimationPlayer>("AnimationPlayer");
                 anim.Play("EnemyHit");
