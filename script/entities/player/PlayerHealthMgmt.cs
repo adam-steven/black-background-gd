@@ -1,5 +1,6 @@
 //Stat and stat management 
 using Godot;
+using static Enums;
 
 public partial class PlayerController
 {
@@ -52,7 +53,7 @@ public partial class PlayerController
 		this.EmitSignal("_update_score", pointsOnBlock);
 
 		//Flash text
-		if(strikingBullet.special) { 
+		if(strikingBullet.type == BulletVariations.NormalStrong) { 
 			this.EmitSignal("_section_text", "NICE", true);
 			this.EmitSignal("_destroy_all_bullets");  
 		}

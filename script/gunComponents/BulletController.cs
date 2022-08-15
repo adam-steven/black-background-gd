@@ -1,17 +1,27 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 using System.Reflection;
 using static Enums;
 
 public class BulletController : Area2D
 {
+	#region Bullet Colours
+
+	[Export] private Godot.Color normalColour;
+	[Export] private Godot.Color normalStrongColour;
+	[Export] private Godot.Color specialColour;
+	[Export] private Godot.Color specialStrongColour;
+
+	#endregion
+
 	public float movementForce = 3000;
 	public BulletOwner bOwner;
 	private Vector2 closedMotion; //The movement that the bullet has in a closed loop
 	public Vector2 openMotion = Vector2.Zero; //The movement that the bullet gets from the players actions
 	public int strength = 5;
 	public float timeAlive = 0; //The range the bullet can go before destroying itself
-	public bool special = false;
+	public BulletVariations type = BulletVariations.Normal;
 
 	public override void _Ready() {
 		float angle = this.Rotation;
@@ -19,7 +29,12 @@ public class BulletController : Area2D
 
 		if(timeAlive <= 0) { timeAlive = 0.05f; }
 
-		if(special) { Glow(); }
+		switch (type)
+		{
+			case BulletVariations.NormalStrong:
+				Glow();
+				break;
+		}
 		
 		Timer deathTimer = this.GetNode<Timer>("Timer");
 		deathTimer.WaitTime = timeAlive;

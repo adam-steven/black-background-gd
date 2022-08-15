@@ -22,7 +22,7 @@ public class Chaser : Enemies
 		MoveInDirection(Vector2.Right);
 
 		int shootSpecialChance = rnd.Next(20);
-		gun.Shoot(false, (shootSpecialChance > 15));
+		gun.Shoot(false, (shootSpecialChance > 15) ? BulletVariations.NormalStrong : BulletVariations.Normal);
 		gun.UpdateBurst();
 	}
 }
