@@ -8,6 +8,8 @@ public class BulletController : Area2D
 {
 	#region Bullet Colours
 
+	[Export] private Dictionary<BulletVariations, Color> test = new Dictionary<BulletVariations, Color>() {{ BulletVariations.Normal, new Godot.Color(1.2f, 0.8f, 0.8f, 1f) }};
+
 	[Export] private Godot.Color normalColour;
 	[Export] private Godot.Color normalStrongColour;
 	[Export] private Godot.Color specialColour;
