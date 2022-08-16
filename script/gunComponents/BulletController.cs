@@ -6,16 +6,12 @@ using static Enums;
 
 public class BulletController : Area2D
 {
-	#region Bullet Colours
-
-	[Export] private Dictionary<BulletVariations, Color> test = new Dictionary<BulletVariations, Color>() {{ BulletVariations.Normal, new Godot.Color(1.2f, 0.8f, 0.8f, 1f) }};
-
-	[Export] private Godot.Color normalColour;
-	[Export] private Godot.Color normalStrongColour;
-	[Export] private Godot.Color specialColour;
-	[Export] private Godot.Color specialStrongColour;
-
-	#endregion
+	[Export] private Dictionary<String, Color> bulletColours = new Dictionary<String, Color>() {
+															{ BulletVariations.Normal.ToString(), new Godot.Color(1f, 0f, 0f, 1f) },
+															{ BulletVariations.NormalStrong.ToString(), new Godot.Color(1.2f, 0f, 0f, 1f) },
+															{ BulletVariations.Spectral.ToString(), new Godot.Color(0f, 1f, 1f, 1f) },
+															{ BulletVariations.SpectralStrong.ToString(), new Godot.Color(0f, 1.2f, 1.2f, 1f) },
+														};
 
 	public float movementForce = 3000;
 	public BulletOwner bOwner;
