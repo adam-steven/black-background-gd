@@ -7,6 +7,7 @@
 extents = Vector2( 9.9635, 5 )
 
 [node name="Bullet" type="Area2D"]
+modulate = Color( 0.5, 1, 1, 1 )
 collision_layer = 8
 collision_mask = 7
 script = ExtResource( 2 )

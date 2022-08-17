@@ -12,12 +12,30 @@ public partial class PlayerController
 
 	//Called by the bullet script to take damage / die
 	public override void TakeDamage(BulletController strikingBullet) {
-		//Indicate that no damage was taken (+ health gained) by playing all movement effects
+		//Indicate that no damage was taken + health gained 
 		if(invincible) {
-			GainHealth(strikingBullet);
-			return;
+			switch (strikingBullet.type)
+			{
+				case BulletVariations.Normal:
+					GainHealth(strikingBullet, ColourController.enemyColour);
+					return;
+
+				case BulletVariations.NormalStrong:
+					GainHealth(strikingBullet, ColourController.enemyColour, "NICE");
+					this.EmitSignal("_destroy_all_bullets");  
+					return;
+					
+				case BulletVariations.Spectral:
+					strikingBullet.strength = 0;
+					GainHealth(strikingBullet, Color.ColorN("black"));
+					return;
+			}
 		}
 
+		DeductHealth(strikingBullet);
+	}
+
+	private void DeductHealth(BulletController strikingBullet) {
 		if(health <= 0) return;
 
 		//Decrease health
@@ -41,25 +59,23 @@ public partial class PlayerController
 
 			//Go to gameover screen
 			this.EmitSignal("_end_game");
-		}	
+		}
 	}
 
-	private void GainHealth(BulletController strikingBullet) {
-		string[] effectPos = {"Right", "Left", "Bottom", "Top"};
-		for (int i = 0; i < effectPos.Length; i++)
-			PlayEffect(effectPos[i]);
-
+	private void GainHealth(BulletController strikingBullet, Color backgroundColour, string flashText = null) {
 		health += strikingBullet.strength/2;
 		this.EmitSignal("_update_score", pointsOnBlock);
 
+		//Show effect
+		blockEffect(backgroundColour, flashText); 
+	}
+
+	private void blockEffect(Color backgroundColour, string flashText = null) {
 		//Flash text
-		if(strikingBullet.type == BulletVariations.NormalStrong) { 
-			this.EmitSignal("_section_text", "NICE", true);
-			this.EmitSignal("_destroy_all_bullets");  
-		}
+		if(flashText != null) { this.EmitSignal("_section_text", flashText, true); } 
 
 		//Flash colour + freeze frame
-		var darkenedColour = ColourController.enemyColour.LinearInterpolate(Color.ColorN("black"), 0.5f);
+		var darkenedColour = backgroundColour.LinearInterpolate(Color.ColorN("black"), 0.5f);
 		ColourController.FlashBackgroundColour(darkenedColour, GetTree(), health);
 	}
 }

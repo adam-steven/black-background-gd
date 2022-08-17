@@ -8,6 +8,7 @@ public static class Enums
 
 	/// <summary> The types of bullets </summary>
 	public enum BulletVariations {
+		Player,
 		Normal,
 		NormalStrong,
 		Spectral,

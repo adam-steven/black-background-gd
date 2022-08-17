@@ -25,7 +25,7 @@ public class GunController
 		this.ownerNode = ownerNode;
 	}
 
-	public void Shoot(bool isBursting = false, BulletVariations bulletType = BulletVariations.Normal) {
+	public void Shoot(BulletVariations bulletType, bool isBursting = false) {
 		if(!CanShoot(isBursting)) return;
 
 		Godot.Sprite ownerSprite = ownerNode.GetNode<Godot.Sprite>("Sprite");
@@ -79,9 +79,9 @@ public class GunController
 	}
 
 	//Call in _PhysicsProcess so that the gun can continue a burst fire without Shoot() being called
-	public void UpdateBurst() {
+	public void UpdateBurst(BulletVariations bulletType) {
 		if(currentBulletInBurst != 0) {
-			Shoot(true);
+			Shoot(bulletType, true);
 		}
 	}
 }

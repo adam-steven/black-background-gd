@@ -1,4 +1,5 @@
 using Godot;
+using static Enums;
 
 //Player movement and firing
 //Player acts as a bullet, movement done via impulse forces
@@ -16,10 +17,10 @@ public partial class PlayerController : Entities
 
 		WASDMovement();
 		MouseRotation();
-		gun.UpdateBurst();
+		gun.UpdateBurst(BulletVariations.Player);
 
 		if (Input.IsActionPressed("ui_fire1"))
-			gun.Shoot();
+			gun.Shoot(BulletVariations.Player);
 	}
 }
 

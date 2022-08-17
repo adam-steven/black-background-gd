@@ -6,13 +6,6 @@ using static Enums;
 
 public class BulletController : Area2D
 {
-	[Export] private Dictionary<String, Color> bulletColours = new Dictionary<String, Color>() {
-															{ BulletVariations.Normal.ToString(), new Godot.Color(1f, 0f, 0f, 1f) },
-															{ BulletVariations.NormalStrong.ToString(), new Godot.Color(1.2f, 0f, 0f, 1f) },
-															{ BulletVariations.Spectral.ToString(), new Godot.Color(0f, 1f, 1f, 1f) },
-															{ BulletVariations.SpectralStrong.ToString(), new Godot.Color(0f, 1.2f, 1.2f, 1f) },
-														};
-
 	public float movementForce = 3000;
 	public BulletOwner bOwner;
 	private Vector2 closedMotion; //The movement that the bullet has in a closed loop
@@ -27,13 +20,8 @@ public class BulletController : Area2D
 
 		if(timeAlive <= 0) { timeAlive = 0.05f; }
 
-		switch (type)
-		{
-			case BulletVariations.NormalStrong:
-				Glow();
-				break;
-		}
-		
+		SetBulletType();
+
 		Timer deathTimer = this.GetNode<Timer>("Timer");
 		deathTimer.WaitTime = timeAlive;
 		deathTimer.Connect("timeout", this, "DestroyBullet");
@@ -64,11 +52,29 @@ public class BulletController : Area2D
 		this.QueueFree(); 
 	}
 
-	private void Glow() {
-		//values above 1 glow
-		Godot.Color specialColor = new Godot.Color(1.2f, 0.8f, 0.8f, 1f); 
-		this.Modulate = specialColor;
-		strength = strength * 2;
+	private void SetBulletType() {
+		//Colour
+		Dictionary<BulletVariations, Color> bulletColours = 
+		new Dictionary<BulletVariations, Color>() {
+			{ BulletVariations.Player, new Godot.Color(1f, 1f, 1f, 1f) },
+			{ BulletVariations.Normal, new Godot.Color(1f, 0.5f, 0.5f, 1f) },
+			{ BulletVariations.NormalStrong, new Godot.Color(1.2f, 0.5f, 0.5f, 1f) },
+			{ BulletVariations.Spectral, new Godot.Color(0.5f, 1f, 1f, 1f) },
+			{ BulletVariations.SpectralStrong, new Godot.Color(0.5f, 1.2f, 1.2f, 1f) },
+		};
+
+		this.Modulate = bulletColours[type];
+
+		//Damage
+		switch (type)
+		{
+			case BulletVariations.NormalStrong:
+				strength *= 2;
+				break;
+			case BulletVariations.SpectralStrong:
+				strength /= 2;
+				break;
+		}
 	}
 }
 
