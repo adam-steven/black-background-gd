@@ -6,6 +6,16 @@ public static class Enums
 		EnemyController,
 	};
 
+	/// <summary> The types of bullets </summary>
+	public enum BulletVariations {
+		Player,
+		Normal,
+		NormalStrong,
+		Spectral,
+		SpectralStrong,
+	}
+
+	/// <summary> The staves that can occur in a level </summary>
 	public enum GameStages {
 		Dodge,
 		Fight,

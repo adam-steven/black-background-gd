@@ -1,5 +1,6 @@
 using System;
 using Godot;
+using static Enums;
 
 public class GunController
 {
@@ -24,7 +25,7 @@ public class GunController
 		this.ownerNode = ownerNode;
 	}
 
-	public void Shoot(bool isBursting = false, bool specialShot = false) {
+	public void Shoot(BulletVariations bulletType, bool isBursting = false) {
 		if(!CanShoot(isBursting)) return;
 
 		Godot.Sprite ownerSprite = ownerNode.GetNode<Godot.Sprite>("Sprite");
@@ -32,7 +33,7 @@ public class GunController
 
 		//Loop for shotgun effect
 		for (int i = 0; i < ownerNode.noOfBullets; i++) {
-			SpawnBullet(ownerSprite, gameController, specialShot);
+			SpawnBullet(ownerSprite, gameController, bulletType);
 		}
 
 		currentBulletInBurst++;
@@ -56,7 +57,7 @@ public class GunController
     	return canShoot;
 	}
 
-	private void SpawnBullet(Godot.Sprite ownerSprite, Godot.Node2D gameController, bool specialShot) {
+	private void SpawnBullet(Godot.Sprite ownerSprite, Godot.Node2D gameController, BulletVariations bulletType) {
 		BulletController bullet = (BulletController)bulletScene.Instance();
 		float randomAccuracyDeviation = (float)((rnd.NextDouble() * ownerNode.bulletAccuracy) - (rnd.NextDouble() * ownerNode.bulletAccuracy));
 
@@ -71,16 +72,16 @@ public class GunController
 		bullet.strength = ownerNode.bulletStrength;
 		bullet.movementForce = ownerNode.bulletForce;
 		bullet.timeAlive = ownerNode.bulletTimeAlive;
-		bullet.special = specialShot;
+		bullet.type = bulletType;
 
 		// Shoot bullet + start cooldown 
 		gameController.AddChild(bullet);
 	}
 
 	//Call in _PhysicsProcess so that the gun can continue a burst fire without Shoot() being called
-	public void UpdateBurst() {
+	public void UpdateBurst(BulletVariations bulletType) {
 		if(currentBulletInBurst != 0) {
-			Shoot(true);
+			Shoot(bulletType, true);
 		}
 	}
 }

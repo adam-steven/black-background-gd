@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 using System.Reflection;
 using static Enums;
 
@@ -11,7 +12,7 @@ public class BulletController : Area2D
 	public Vector2 openMotion = Vector2.Zero; //The movement that the bullet gets from the players actions
 	public int strength = 5;
 	public float timeAlive = 0; //The range the bullet can go before destroying itself
-	public bool special = false;
+	public BulletVariations type = BulletVariations.Normal;
 
 	public override void _Ready() {
 		float angle = this.Rotation;
@@ -19,8 +20,8 @@ public class BulletController : Area2D
 
 		if(timeAlive <= 0) { timeAlive = 0.05f; }
 
-		if(special) { Glow(); }
-		
+		SetBulletType();
+
 		Timer deathTimer = this.GetNode<Timer>("Timer");
 		deathTimer.WaitTime = timeAlive;
 		deathTimer.Connect("timeout", this, "DestroyBullet");
@@ -51,11 +52,29 @@ public class BulletController : Area2D
 		this.QueueFree(); 
 	}
 
-	private void Glow() {
-		//values above 1 glow
-		Godot.Color specialColor = new Godot.Color(1.2f, 0.8f, 0.8f, 1f); 
-		this.Modulate = specialColor;
-		strength = strength * 2;
+	private void SetBulletType() {
+		//Colour
+		Dictionary<BulletVariations, Color> bulletColours = 
+		new Dictionary<BulletVariations, Color>() {
+			{ BulletVariations.Player, new Godot.Color(1f, 1f, 1f, 1f) },
+			{ BulletVariations.Normal, new Godot.Color(1f, 0.5f, 0.5f, 1f) },
+			{ BulletVariations.NormalStrong, new Godot.Color(1.2f, 0.5f, 0.5f, 1f) },
+			{ BulletVariations.Spectral, new Godot.Color(0.5f, 1f, 1f, 1f) },
+			{ BulletVariations.SpectralStrong, new Godot.Color(0.5f, 1.2f, 1.2f, 1f) },
+		};
+
+		this.Modulate = bulletColours[type];
+
+		//Damage
+		switch (type)
+		{
+			case BulletVariations.NormalStrong:
+				strength *= 2;
+				break;
+			case BulletVariations.SpectralStrong:
+				strength /= 2;
+				break;
+		}
 	}
 }
 
