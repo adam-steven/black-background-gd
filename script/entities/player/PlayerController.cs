@@ -17,8 +17,7 @@ public partial class PlayerController : Entities
 
 		WASDMovement();
 		MouseRotation();
-		gun.UpdateBurst(BulletVariations.Player);
-
+		
 		if (Input.IsActionPressed("ui_fire1"))
 			gun.Shoot(BulletVariations.Player);
 	}

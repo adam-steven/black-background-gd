@@ -20,7 +20,7 @@ public static class ColourController
 		tree.Paused = true;
 
 		//Freeze frame always with colour flash to minimise seizure risk
-		await Task.Delay(200);
+		await Task.Delay(300);
 
 		tree.Paused = false;
 		UpdateBackgroundColour(playerHealth);
