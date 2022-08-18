@@ -23,6 +23,5 @@ public class Chaser : Enemies
 
 		int shootSpecialChance = rnd.Next(20);
 		gun.Shoot(BulletVariations.Normal);
-		gun.UpdateBurst(BulletVariations.Normal);
 	}
 }

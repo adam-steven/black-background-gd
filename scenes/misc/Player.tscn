@@ -709,7 +709,6 @@ tracks/1/keys = {
 }
 
 [node name="Player" type="RigidBody2D"]
-visible = false
 position = Vector2( 960, 540 )
 collision_layer = 2
 mode = 2
