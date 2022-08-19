@@ -39,6 +39,22 @@ namespace Godot
 
         #endregion       
 
-        public virtual void TakeDamage(BulletController strikingBullet) {}
+        #region Public Methods 
+
+
+            public virtual void TakeDamage(BulletController strikingBullet) {}
+
+            public void UpdateStats() {
+
+            }
+
+            public void UpdateHealth(int addend) {
+                health += addend;
+
+                //Cap health
+                health = Math.Min(health, 100);
+            }
+
+        #endregion
     }
 }
