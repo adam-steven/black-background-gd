@@ -1,5 +1,6 @@
 //Stat and stat management 
 using Godot;
+using System;
 using static Enums;
 
 public partial class PlayerController
@@ -39,8 +40,7 @@ public partial class PlayerController
 		if(health <= 0) return;
 
 		//Decrease health
-		health -= strikingBullet.strength;
-		GD.Print("Player: " + health);
+		UpdateHealth(-strikingBullet.strength);
 
 		//Damage indication
 		AnimationPlayer anim  = this.GetNode<AnimationPlayer>("AnimationPlayer");
@@ -48,22 +48,19 @@ public partial class PlayerController
 		this.EmitSignal("_shake_screen", 12, 0.2f);
 		this.EmitSignal("_break_score_update");
 
-		//Update background colour based on health
-		ColourController.UpdateBackgroundColour(health);
-
 		//Kill player if health is 0
 		if(health <= 0) {
 			SetPhysicsProcess(false);
 
 			anim.Play("PlayerDeath");
 
-			//Go to gameover screen
+			//Go to game-over screen
 			this.EmitSignal("_end_game");
 		}
 	}
 
 	private void GainHealth(BulletController strikingBullet, Color backgroundColour, string flashText = null) {
-		health += strikingBullet.strength/2;
+		UpdateHealth(strikingBullet.strength/2);
 		this.EmitSignal("_update_score", pointsOnBlock);
 
 		//Show effect
@@ -77,5 +74,11 @@ public partial class PlayerController
 		//Flash colour + freeze frame
 		var darkenedColour = backgroundColour.LinearInterpolate(Color.ColorN("black"), 0.5f);
 		ColourController.FlashBackgroundColour(darkenedColour, GetTree(), health);
+	}
+
+	public override void UpdateHealth(int addend) {
+		health = Mathc.Limit(0, health + addend, 100);	
+		ColourController.UpdateBackgroundColour(health);
+		GD.Print("Player: " + health);
 	}
 }

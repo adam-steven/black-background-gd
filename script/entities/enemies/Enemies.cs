@@ -1,5 +1,4 @@
 using System;
-using Newtonsoft.Json; 
 
 namespace Godot
 {
@@ -31,7 +30,7 @@ namespace Godot
             public override void TakeDamage(BulletController strikingBullet) {
                 if(health <= 0) return;
                 
-                health -= strikingBullet.strength;
+                UpdateHealth(-strikingBullet.strength);
 
                 AnimationPlayer anim  = this.GetNode<AnimationPlayer>("AnimationPlayer");
                 anim.Play("EnemyHit");
@@ -53,6 +52,10 @@ namespace Godot
             public void EmitDeathSignal(string animName = "") {
                 this.EmitSignal("_on_death");
                 this.QueueFree();
+            }
+
+            public override void UpdateHealth(int addend) {
+                health = Math.Max(0, health + addend);
             }
 
         #endregion
