@@ -40,7 +40,7 @@ public partial class PlayerController
 		if(health <= 0) return;
 
 		//Decrease health
-		UpdateHealth(-strikingBullet.strength);
+		//UpdateHealth(-strikingBullet.strength);
 
 		//Damage indication
 		AnimationPlayer anim  = this.GetNode<AnimationPlayer>("AnimationPlayer");
