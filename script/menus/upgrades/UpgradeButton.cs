@@ -29,19 +29,7 @@ public class UpgradeButton : Area2D
 		if (Input.IsActionJustPressed("ui_select") && objectSelected){
 
 			if(IsInstanceValid(player)) {
-				player.health += health;
-				player.movementForce += movementForce;
-				player.shotDelay += shotDelay; 
-				player.noOfBullets += noOfBullets;
-				player.bulletForce += bulletForce; 
-				player.bulletStrength += bulletStrength; 
-				player.bulletAccuracy += bulletAccuracy; 
-				player.bulletBurstAmount += bulletBurstAmount; 
-				player.bulletTimeAlive += bulletTimeAlive;
-				player.bulletSize += bulletSize;
-
-				//Update the background colour just incase its no longer in the red
-				ColourController.UpdateBackgroundColour(player.health);
+				player.UpdateStats(health, movementForce, shotDelay, noOfBullets, bulletForce, bulletStrength, bulletAccuracy, bulletBurstAmount, bulletTimeAlive, bulletSize);
 			}
 
 			_OnButtonPress();

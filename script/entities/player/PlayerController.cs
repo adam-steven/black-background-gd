@@ -13,8 +13,6 @@ public partial class PlayerController : Entities
 	}
 
 	public override void _PhysicsProcess(float delta) {
-		if(health <= 0) return;
-
 		WASDMovement();
 		MouseRotation();
 		

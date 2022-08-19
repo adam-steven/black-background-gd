@@ -39,6 +39,29 @@ namespace Godot
 
         #endregion       
 
-        public virtual void TakeDamage(BulletController strikingBullet) {}
+        #region Public Methods 
+
+
+            public virtual void TakeDamage(BulletController strikingBullet) {}
+
+            public virtual void UpdateHealth(int addend) {}
+
+            public void UpdateStats(int addHealth, float addMovementForce, float addShotDelay, int addNoOfBullets, float addBulletForce, int addBulletStrength, float addBulletAccuracy, int addBulletBurstAmount, float addBulletTimeAlive, float addBulletSize) {
+	            health = Mathc.Limit(0, health + addHealth, 100);
+				movementForce = Mathc.Limit(100f, movementForce + addMovementForce, 5000f);
+				shotDelay = Mathc.Limit(0.1f, shotDelay + addShotDelay, 10f); 
+				noOfBullets = Mathc.Limit(1, noOfBullets + addNoOfBullets, 30); 
+				bulletForce = Mathc.Limit(100f, bulletForce + addBulletForce, 5000f);  
+				bulletStrength = Mathc.Limit(1, bulletStrength + addBulletStrength, 100); 
+				bulletAccuracy = Mathc.Limit(0f, bulletAccuracy + addBulletAccuracy, 360f);  
+				bulletBurstAmount = Mathc.Limit(1, bulletBurstAmount + addBulletBurstAmount, 15);  
+				bulletTimeAlive = Mathc.Limit(0.05f, bulletTimeAlive + addBulletTimeAlive, 10f);  
+				bulletSize = Mathc.Limit(0.5f, bulletSize + addBulletSize, 15f);  
+
+                //Update background colour based on health for player
+                if(entityType == BulletOwner.PlayerController) { ColourController.UpdateBackgroundColour(health); }
+            }
+
+        #endregion
     }
 }

@@ -44,7 +44,7 @@ public class GunController
 	//Loop spawn bullets with delay for burst effect
 	private async void BurstBullets(BulletVariations bulletType) {
 		//Make sure the burst is always faster than normal shots
-		float betweenBurstDelay = (ownerNode.shotDelay < 0.3f) ? ownerNode.shotDelay/2f : 0.2f;
+		float betweenBurstDelay = (ownerNode.shotDelay < 0.2f) ? ownerNode.shotDelay/2f : 0.1f;
 		betweenBurstDelay *= 1000; //convert to ms
 
 		SpawnBullets(bulletType); //shoot before delay

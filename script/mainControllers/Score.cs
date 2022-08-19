@@ -40,8 +40,7 @@ public class Score : Godot.Object
         ui.FlashPoints(calcPoints);
 
         tempScore += calcPoints;
-        tempScore = Math.Min(tempScore, 99999999999999);
-        tempScore = Math.Max(tempScore, -9999999999999);
+        tempScore = Mathc.Limit(-9999999999999, tempScore, 99999999999999);
     }
 
     private void BreakScoreUpdate() {
