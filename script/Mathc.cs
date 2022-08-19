@@ -10,218 +10,226 @@ namespace System
     //     type, see the Reference Source.
     public static class Mathc
     {
- 
-        [ReliabilityContract(Consistency.WillNotCorruptState, Cer.Success)]
-        public static short Limit(short valMin, short val, short valMax) {
-            return Math.Max(valMin, Math.Min(val, valMax));
-        }
-        
-
-        [ReliabilityContract(Consistency.WillNotCorruptState, Cer.Success)]
-        public static ushort Limit(ushort valMin, ushort val, ushort valMax) {
-            return Math.Max(valMin, Math.Min(val, valMax));
-        }
-
-
         //
         // Summary:
-        //     Returns the smaller of two 32-bit signed integers.
+        //     Limits a given 32-bit signed integer between to values.
         //
         // Parameters:
-        //   val1:
-        //     The first of two 32-bit signed integers to compare.
+        //   valMin:
+        //     The limit minimum.
         //
-        //   val2:
-        //     The second of two 32-bit signed integers to compare.
+        //   val:
+        //     The number to compare/crop.
+        // 
+        //   valMax:
+        //     The limit Maximum.
         //
         // Returns:
-        //     Parameter val1 or val2, whichever is smaller.
-        [NonVersionableAttribute]
+        //     Parameter val unchanged or val cropped to never exceed valMin or valMax.
         [ReliabilityContract(Consistency.WillNotCorruptState, Cer.Success)]
-        public static int Limit(short valMin, short val, short valMax){
+        public static int Limit(int valMin, int val, int valMax){
             return Math.Max(valMin, Math.Min(val, valMax));
         }
         //
         // Summary:
-        //     Returns the smaller of two decimal numbers.
+        //     Limits a given decimal between to values.
         //
         // Parameters:
-        //   val1:
-        //     The first of two decimal numbers to compare.
+        //   valMin:
+        //     The limit minimum.
         //
-        //   val2:
-        //     The second of two decimal numbers to compare.
+        //   val:
+        //     The number to compare/crop.
+        // 
+        //   valMax:
+        //     The limit Maximum.
         //
         // Returns:
-        //     Parameter val1 or val2, whichever is smaller.
+        //     Parameter val unchanged or val cropped to never exceed valMin or valMax.
         [ReliabilityContract(Consistency.WillNotCorruptState, Cer.Success)]
-        public static decimal Limit(decimal val1, decimal val2){
+        public static decimal Limit(decimal valMin, decimal val, decimal valMax){
             return Math.Max(valMin, Math.Min(val, valMax));
         }
         //
         // Summary:
-        //     Returns the smaller of two double-precision floating-point numbers.
+        //     Limits a given double-precision floating-point between to values.
         //
         // Parameters:
-        //   val1:
-        //     The first of two double-precision floating-point numbers to compare.
+        //   valMin:
+        //     The limit minimum.
         //
-        //   val2:
-        //     The second of two double-precision floating-point numbers to compare.
+        //   val:
+        //     The number to compare/crop.
+        // 
+        //   valMax:
+        //     The limit Maximum.
         //
         // Returns:
-        //     Parameter val1 or val2, whichever is smaller. If val1, val2, or both val1 and
-        //     val2 are equal to System.Double.NaN, System.Double.NaN is returned.
+        //     Parameter val unchanged or val cropped to never exceed valMin or valMax. If valMin, val, and/or valMax,
+        //     are equal to System.Double.NaN, System.Double.NaN is returned.
         [ReliabilityContract(Consistency.WillNotCorruptState, Cer.Success)]
-        public static double Limit(double val1, double val2){
+        public static double Limit(double valMin, double val, double valMax){
             return Math.Max(valMin, Math.Min(val, valMax));
         }
         //
         // Summary:
-        //     Returns the smaller of two single-precision floating-point numbers.
+        //     Limits a given single-precision floating-point between to values.
         //
         // Parameters:
-        //   val1:
-        //     The first of two single-precision floating-point numbers to compare.
+        //   valMin:
+        //     The limit minimum.
         //
-        //   val2:
-        //     The second of two single-precision floating-point numbers to compare.
+        //   val:
+        //     The number to compare/crop.
+        // 
+        //   valMax:
+        //     The limit Maximum.
         //
         // Returns:
-        //     Parameter val1 or val2, whichever is smaller. If val1, val2, or both val1 and
-        //     val2 are equal to System.Single.NaN, System.Single.NaN is returned.
+        //     Parameter val unchanged or val cropped to never exceed valMin or valMax. If valMin, val, and/or valMax,
+        //     are equal to System.Single.NaN, System.Single.NaN is returned.
         [ReliabilityContract(Consistency.WillNotCorruptState, Cer.Success)]
-        public static float Limit(float val1, float val2){
+        public static float Limit(float valMin, float val, float valMax){
             return Math.Max(valMin, Math.Min(val, valMax));
         }
         //
         // Summary:
-        //     Returns the smaller of two 64-bit unsigned integers.
+        //     Limits a given 64-bit unsigned integer between to values.
         //
         // Parameters:
-        //   val1:
-        //     The first of two 64-bit unsigned integers to compare.
+        //   valMin:
+        //     The limit minimum.
         //
-        //   val2:
-        //     The second of two 64-bit unsigned integers to compare.
+        //   val:
+        //     The number to compare/crop.
+        // 
+        //   valMax:
+        //     The limit Maximum.
         //
         // Returns:
-        //     Parameter val1 or val2, whichever is smaller.
-        [CLSCompliant(false)]
-        [NonVersionableAttribute]
+        //     Parameter val unchanged or val cropped to never exceed valMin or valMax.
         [ReliabilityContract(Consistency.WillNotCorruptState, Cer.Success)]
-        public static ulong Limit(ulong val1, ulong val2){
+        public static ulong Limit(ulong valMin, ulong val, ulong valMax){
             return Math.Max(valMin, Math.Min(val, valMax));
         }
         //
         // Summary:
-        //     Returns the smaller of two 64-bit signed integers.
+        //     Limits a given 64-bit signed integer between to values.
         //
         // Parameters:
-        //   val1:
-        //     The first of two 64-bit signed integers to compare.
+        //   valMin:
+        //     The limit minimum.
         //
-        //   val2:
-        //     The second of two 64-bit signed integers to compare.
+        //   val:
+        //     The number to compare/crop.
+        // 
+        //   valMax:
+        //     The limit Maximum.
         //
         // Returns:
-        //     Parameter val1 or val2, whichever is smaller.
-        [NonVersionableAttribute]
+        //     Parameter val unchanged or val cropped to never exceed valMin or valMax.
         [ReliabilityContract(Consistency.WillNotCorruptState, Cer.Success)]
-        public static long Limit(long val1, long val2){
+        public static long Limit(long valMin, long val, long valMax){
             return Math.Max(valMin, Math.Min(val, valMax));
         }
         //
         // Summary:
-        //     Returns the smaller of two 32-bit unsigned integers.
+        //     Limits a given 32-bit unsigned integer between to values.
         //
         // Parameters:
-        //   val1:
-        //     The first of two 32-bit unsigned integers to compare.
+        //   valMin:
+        //     The limit minimum.
         //
-        //   val2:
-        //     The second of two 32-bit unsigned integers to compare.
+        //   val:
+        //     The number to compare/crop.
+        // 
+        //   valMax:
+        //     The limit Maximum.
         //
         // Returns:
-        //     Parameter val1 or val2, whichever is smaller.
-        [CLSCompliant(false)]
-        [NonVersionableAttribute]
+        //     Parameter val unchanged or val cropped to never exceed valMin or valMax.
         [ReliabilityContract(Consistency.WillNotCorruptState, Cer.Success)]
-        public static uint Limit(uint val1, uint val2){
+        public static uint Limit(uint valMin, uint val, uint valMax){
             return Math.Max(valMin, Math.Min(val, valMax));
         }
         //
         // Summary:
-        //     Returns the smaller of two 16-bit unsigned integers.
+        //     Limits a given 16-bit unsigned integer between to values.
         //
         // Parameters:
-        //   val1:
-        //     The first of two 16-bit unsigned integers to compare.
+        //   valMin:
+        //     The limit minimum.
         //
-        //   val2:
-        //     The second of two 16-bit unsigned integers to compare.
+        //   val:
+        //     The number to compare/crop.
+        // 
+        //   valMax:
+        //     The limit Maximum.
         //
         // Returns:
-        //     Parameter val1 or val2, whichever is smaller.
-        [CLSCompliant(false)]
-        [NonVersionableAttribute]
+        //     Parameter val unchanged or val cropped to never exceed valMin or valMax.
         [ReliabilityContract(Consistency.WillNotCorruptState, Cer.Success)]
-        public static ushort Limit(ushort val1, ushort val2){
+        public static ushort Limit(ushort valMin, ushort val, ushort valMax){
             return Math.Max(valMin, Math.Min(val, valMax));
         }
         //
         // Summary:
-        //     Returns the smaller of two 16-bit signed integers.
+        //     Limits a given 16-bit signed integer between to values.
         //
         // Parameters:
-        //   val1:
-        //     The first of two 16-bit signed integers to compare.
+        //   valMin:
+        //     The limit minimum.
         //
-        //   val2:
-        //     The second of two 16-bit signed integers to compare.
+        //   val:
+        //     The number to compare/crop.
+        // 
+        //   valMax:
+        //     The limit Maximum.
         //
         // Returns:
-        //     Parameter val1 or val2, whichever is smaller.
-        [NonVersionableAttribute]
+        //     Parameter val unchanged or val cropped to never exceed valMin or valMax.
         [ReliabilityContract(Consistency.WillNotCorruptState, Cer.Success)]
-        public static short Limit(short val1, short val2){
+        public static short Limit(short valMin, short val, short valMax){
             return Math.Max(valMin, Math.Min(val, valMax));
         }
         //
         // Summary:
-        //     Returns the smaller of two 8-bit signed integers.
+        //     Limits a given 8-bit signed integer between to values.
         //
         // Parameters:
-        //   val1:
-        //     The first of two 8-bit signed integers to compare.
+        //   valMin:
+        //     The limit minimum.
         //
-        //   val2:
-        //     The second of two 8-bit signed integers to compare.
+        //   val:
+        //     The number to compare/crop.
+        // 
+        //   valMax:
+        //     The limit Maximum.
         //
         // Returns:
-        //     Parameter val1 or val2, whichever is smaller.
-        [CLSCompliant(false)]
-        [NonVersionableAttribute]
+        //     Parameter val unchanged or val cropped to never exceed valMin or valMax.
         [ReliabilityContract(Consistency.WillNotCorruptState, Cer.Success)]
-        public static sbyte Limit(sbyte val1, sbyte val2){
+        public static sbyte Limit(sbyte valMin, sbyte val, sbyte valMax){
             return Math.Max(valMin, Math.Min(val, valMax));
         }
         //
         // Summary:
-        //     Returns the smaller of two 8-bit unsigned integers.
+        //     Limits a given 8-bit unsigned integer between to values.
         //
         // Parameters:
-        //   val1:
-        //     The first of two 8-bit unsigned integers to compare.
+        //   valMin:
+        //     The limit minimum.
         //
-        //   val2:
-        //     The second of two 8-bit unsigned integers to compare.
+        //   val:
+        //     The number to compare/crop.
+        // 
+        //   valMax:
+        //     The limit Maximum.
         //
         // Returns:
-        //     Parameter val1 or val2, whichever is smaller.
-        [NonVersionableAttribute]
+        //     Parameter val unchanged or val cropped to never exceed valMin or valMax.
         [ReliabilityContract(Consistency.WillNotCorruptState, Cer.Success)]
-        public static byte Limit(byte val1, byte val2){
+        public static byte Limit(byte valMin, byte val, byte valMax){
             return Math.Max(valMin, Math.Min(val, valMax));
         }
     }
