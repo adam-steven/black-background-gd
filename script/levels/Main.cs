@@ -79,6 +79,7 @@ public class Main : Levels
 			player.Connect("_destroy_all_bullets", this, "DestroyBullets");
 			player.Connect("_update_score", scoreControl, "UpdateScore");
 			player.Connect("_break_score_update", scoreControl, "BreakScoreUpdate");
+			player.Connect("_player_left_camera", this, "ReframePlayer");
 		}
 
 		private void SpawnMainMenu() {
@@ -322,6 +323,14 @@ public class Main : Levels
 			foreach (var child in children)
 				if(child.GetType() == typeof(BulletController))
 					((BulletController)child).QueueFree(); 
+		}
+
+		private void ReframePlayer() {
+			//If camera locked, move player to center
+			Vector2 cameraCenter = mainCamera.GetCameraScreenCenter();
+			player.Position = cameraCenter;
+
+			//If camera free, move camera to player
 		}
 
 	#endregion 
