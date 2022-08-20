@@ -9,6 +9,9 @@ public partial class PlayerController : Entities
 		gun = new GunController(this);
 		this.Connect("body_entered", this, "_OnPlayerBodyEntered");
 
+		VisibilityNotifier2D vis = this.GetNode<VisibilityNotifier2D>("VisibilityNotifier2D");
+		vis.Connect("screen_exited", this, "_OnScreenExited");
+
 		connectAnimEndSignal("Stop", "StopIFramesEnd"); 
 	}
 
@@ -18,6 +21,10 @@ public partial class PlayerController : Entities
 		
 		if (Input.IsActionPressed("ui_fire1"))
 			gun.Shoot(BulletVariations.Player);
+	}
+
+	private void _OnScreenExited() {
+		this.EmitSignal("_player_left_camera");  
 	}
 }
 

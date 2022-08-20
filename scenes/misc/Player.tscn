@@ -716,6 +716,7 @@ gravity_scale = 0.0
 contacts_reported = 10
 contact_monitor = true
 script = ExtResource( 2 )
+movementForce = 10000.0
 shotDelay = 0.1
 
 [node name="Sprite" type="Sprite" parent="."]
@@ -829,3 +830,5 @@ texture = ExtResource( 3 )
 autoplay = "PlayerMoveStopInit"
 anims/PlayerMoveStopInit = SubResource( 13 )
 anims/Trigger = SubResource( 14 )
+
+[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
