@@ -2,20 +2,9 @@ using Godot;
 using System;
 using static Enums;
 
-public class Stage : Godot.Object
+public partial class Main
 {
-    private UiController ui;
-
-    public int level {get; private set;}
-    
-    private int stageCounter = 0;
-    private int[] stageWaveValues = {3, 4, 1, 1};
-    private double currentWaveCounter = -1; 
-
-    [Signal] internal delegate void _next_stage();
-
-    public Stage(UiController ui) {
-        this.ui = ui;
+    public void _StageReady() {
         ui.SetWaveSegments(stageWaveValues[stageCounter]);
     }
 
@@ -31,21 +20,7 @@ public class Stage : Godot.Object
         }
     }
 
-    public GameStages GetStage() {
-        switch (stageCounter)
-        {
-            case 0:
-                return GameStages.Dodge;
-            case 1:
-                return GameStages.Fight;
-            case 2:
-                return GameStages.Boss;
-            case 3:
-                return GameStages.Shop; 
-            default:
-                return GameStages.Event;
-        }
-    }
+
 
     ///<returns>new stage</returns>
     public bool NextWave() {

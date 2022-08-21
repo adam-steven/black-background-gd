@@ -9,8 +9,8 @@ public class Score : Godot.Object
 	public int scoreMultiplier { private set; get; }
 
     //tick up delay
-    public float delay = 60;
-    public float delayCounter = 0;
+    private float delay = 60;
+    private float delayCounter = 0;
 
     public Score(UiController ui) {
         this.ui = ui;

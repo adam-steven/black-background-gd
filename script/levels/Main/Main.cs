@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using static Enums;
 
 //Main.tscn 
-public class Main : Levels
+public partial class Main : Levels
 {
 	MainGameObj mainData = new MainGameObj(false);
 
@@ -27,11 +27,13 @@ public class Main : Levels
 
 	private bool isStartingCountDown;
 
+	private UiController uiNode;
+
 	public override void _Ready() {
 		//Reset the background color
 		ColourController.UpdateBackgroundColour(10000);
 
-		UiController uiNode = this.GetNode<UiController>("UI");
+		uiNode = this.GetNode<UiController>("UI");
 		scoreControl = new Score(uiNode);
 
 		stageControl = new Stage(uiNode);
@@ -251,7 +253,7 @@ public class Main : Levels
 		private void NextStage()
 		{
 			bool newStage = stageControl.NextWave();
-			GameStages currentStage = stageControl.GetStage();
+			GameStages currentStage = mainData.stage.currentStage;
 
 			GD.Print("\nnewStage " + newStage);
 			GD.Print("currentStage " + currentStage);

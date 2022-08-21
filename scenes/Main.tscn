@@ -2,7 +2,7 @@
 
 [ext_resource path="res://scenes/Level.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/misc/SectionText.tscn" type="PackedScene" id=2]
-[ext_resource path="res://script/levels/Main.cs" type="Script" id=3]
+[ext_resource path="res://script/levels/Main/Main.cs" type="Script" id=3]
 [ext_resource path="res://scenes/misc/UI.tscn" type="PackedScene" id=4]
 
 [sub_resource type="Environment" id=1]
