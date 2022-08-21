@@ -3,14 +3,13 @@ using static Enums;
 
 public class StageObj {
 
-    protected int level {get; set;}
+    public int level {get; private set;}
     
     protected int stageCounter = 0;
     protected int[] stageWaveValues = {3, 4, 1, 1};
     protected double currentWaveCounter = -1; 
 
     public GameStages currentStage { 
-
         get {
             switch (stageCounter)
             {
@@ -26,6 +25,11 @@ public class StageObj {
                     return GameStages.Event;
             }
         }
+    }
+
+    public void SetNextLevel() {
+        level++;
+        stageWaveValues = new int[] {(3 + level), (4 + level), 1, 1}; //Increase dodge and fight
     }
 
     public StageObj() {}

@@ -17,7 +17,7 @@ public partial class Main
 
         if(delayCounter >= 1) {
             score++;
-            ui.UpdateScoreUi(score);
+            uiNode.UpdateScoreUi(score);
             delayCounter = 0;
         }
     }
@@ -29,25 +29,24 @@ public partial class Main
 
     private void UpdateScore(int points, int level) {
         float levelMultiplier = 1 + (level * 0.1f);
-        int calcPoints = (int)Math.Round(points * scoreMultiplier * levelMultiplier);
+        int calcPoints = (int)Math.Round(points * mainData.score.scoreMultiplier * levelMultiplier);
 
-        ui.FlashPoints(calcPoints);
+        uiNode.FlashPoints(calcPoints);
 
-        tempScore += calcPoints;
-        tempScore = Mathc.Limit(-9999999999999, tempScore, 99999999999999);
+        mainData.score.SetRollingScore(calcPoints);
     }
 
     private void BreakScoreUpdate() {
-        tempScore = score;
+        mainData.score.SetRollingScore(mainData.score.score);
     }
 
     public void DecrementMultiplier () { 
         scoreMultiplier--;
-        ui.UpdateMultiplierUi(scoreMultiplier);
+        uiNode.UpdateMultiplierUi(scoreMultiplier);
     }
 
     public void ResetMultiplier() { 
         scoreMultiplier = 4; 
-        ui.UpdateMultiplierUi(scoreMultiplier);
+        uiNode.UpdateMultiplierUi(scoreMultiplier);
     }
 }

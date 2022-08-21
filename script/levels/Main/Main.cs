@@ -10,9 +10,6 @@ public partial class Main : Levels
 
 	private static Random rnd = new Random();
 
-	private Score scoreControl;
-	private Stage stageControl;
-
 	private Godot.Node2D levelNode;
 	private Vector2 levelCenter;
 	
@@ -34,10 +31,8 @@ public partial class Main : Levels
 		ColourController.UpdateBackgroundColour(10000);
 
 		uiNode = this.GetNode<UiController>("UI");
-		scoreControl = new Score(uiNode);
-
-		stageControl = new Stage(uiNode);
-		stageControl.Connect("_next_stage", this, "NextStage");
+		_ScoreReady();
+		_StageReady();
 
 		levelNode = this.GetNode<Godot.Node2D>("Level");
 		levelCenter = levelNode.GlobalPosition;
@@ -65,8 +60,8 @@ public partial class Main : Levels
 	}
 
 	public override void _Process(float delta) {
-		scoreControl._ScoreProcess(delta);
-		stageControl._StageProcess(delta);
+		_ScoreProcess(delta);
+		_StageProcess(delta);
 	}
 
 	#region Spawn Functions
@@ -81,8 +76,8 @@ public partial class Main : Levels
 			player.Connect("_shake_screen", (CameraController)mainCamera, "StartShakeScreen");
 			player.Connect("_section_text", this, "DisplaySectionText");
 			player.Connect("_destroy_all_bullets", this, "DestroyBullets");
-			player.Connect("_update_score", scoreControl, "UpdateScore");
-			player.Connect("_break_score_update", scoreControl, "BreakScoreUpdate");
+			player.Connect("_update_score", this, "UpdateScore");
+			player.Connect("_break_score_update", this, "BreakScoreUpdate");
 			player.Connect("_player_left_camera", this, "ReframePlayer");
 		}
 
@@ -140,7 +135,7 @@ public partial class Main : Levels
 				this.AddChild(enemy);
 
 				enemy.Connect("_on_death", this, "CheckIfEnemies");
-				enemy.Connect("_update_score", scoreControl, "UpdateScore", new Godot.Collections.Array(stageControl.level));
+				enemy.Connect("_update_score", this, "UpdateScore", new Godot.Collections.Array(mainData.stage.level));
 			}
 		}
 
@@ -162,7 +157,7 @@ public partial class Main : Levels
 
 			//if the upgrading is finished call CheckIfEnemies to continue game
 			upgradeMenu.Connect("_upgrading_finished", this, "UpgradingFinished");
-			upgradeMenu.Connect("_decrease_multiplier", scoreControl, "DecrementMultiplier");
+			upgradeMenu.Connect("_decrease_multiplier", this, "DecrementMultiplier");
 		}
 
 	#endregion 
@@ -204,7 +199,7 @@ public partial class Main : Levels
 		}
 
 		private void EndGame() {
-			GameOverObj deathObj = new GameOverObj(scoreControl.score, 0);
+			GameOverObj deathObj = new GameOverObj(mainData.score.score, 0);
 			EmitChangeScene("res://scenes/menus/DeathScreen.tscn", 1f, deathObj);
 		}
 
@@ -252,7 +247,7 @@ public partial class Main : Levels
 		//Spawn next stage;
 		private void NextStage()
 		{
-			bool newStage = stageControl.NextWave();
+			bool newStage = NextWave();
 			GameStages currentStage = mainData.stage.currentStage;
 
 			GD.Print("\nnewStage " + newStage);
@@ -281,7 +276,7 @@ public partial class Main : Levels
 					GD.Print("Call SpawnUpgrades");
 					LevelSpin();
 					IncreaseEnemySpawn();
-					scoreControl.ResetMultiplier();
+					ResetMultiplier();
 					SpawnUpgrades();
 				break;
 			} 
@@ -317,7 +312,7 @@ public partial class Main : Levels
 
 		//Slowly increase the number of enemies each wave
 		private void IncreaseEnemySpawn() {
-			if(stageControl.level%2 == 0) { enemySpawnMax++; } 
+			if(mainData.stage.level%2 == 0) { enemySpawnMax++; } 
 			else { enemySpawnMin++; }
 		}
 
