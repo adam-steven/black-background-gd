@@ -12,12 +12,11 @@ public partial class Main
     }
 
     public void _ScoreProcess(float delta) {
-        if(score >= tempScore) { return; }
         delayCounter += delay * delta;
 
         if(delayCounter >= 1) {
-            score++;
-            uiNode.UpdateScoreUi(score);
+            long? score = mainData.score.ProcessRollingScore();  
+            if(score != null) { uiNode.UpdateScoreUi(score.GetValueOrDefault()); } 
             delayCounter = 0;
         }
     }
@@ -28,19 +27,15 @@ public partial class Main
     }
 
     private void UpdateScore(int points, int level) {
-        float levelMultiplier = 1 + (level * 0.1f);
-        int calcPoints = (int)Math.Round(points * mainData.score.scoreMultiplier * levelMultiplier);
-
+        int calcPoints = mainData.score.SetRollingScore(points, level);
         uiNode.FlashPoints(calcPoints);
-
-        mainData.score.SetRollingScore(calcPoints);
     }
 
     private void BreakScoreUpdate() {
-        mainData.score.SetRollingScore(mainData.score.score);
+        mainData.score.BreakRollingScore();
     }
 
-    public void UpdateMultiplier(bool reset) {
+    private void UpdateMultiplier(bool reset) {
         mainData.score.UpdateMultiplier(reset);
         uiNode.UpdateMultiplierUi(mainData.score.scoreMultiplier);
     }

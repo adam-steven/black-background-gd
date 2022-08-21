@@ -5,7 +5,7 @@ using static Enums;
 public partial class Main
 {
     public void _StageReady() {
-        uiNode.SetWaveSegments(stageWaveValues[stageCounter]);
+        uiNode.SetWaveSegments(mainData.stage.noOfWaves);
     }
 
     public void _StageProcess(float delta) {
@@ -31,10 +31,10 @@ public partial class Main
 
             if(stageCounter > stageWaveValues.Length - 1) {
                 stageCounter = 0;
-                mainData.stage.SetNextLevel();
+                mainData.stage.NextLevel();
             }
 
-            uiNode.SetWaveSegments(stageWaveValues[stageCounter]);
+            uiNode.SetWaveSegments(mainData.stage.noOfWaves);
             uiNode.SetWaveProgress(100);
         }
 
@@ -42,7 +42,6 @@ public partial class Main
     }
 
     private void DisplayProgression() {
-        double progression = (1 - (currentWaveCounter / stageWaveValues[stageCounter])) * 100;
-        uiNode.SetWaveProgress(progression);
+        uiNode.SetWaveProgress(mainData.stage.stageProgression);
     }
 }
