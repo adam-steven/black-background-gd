@@ -716,7 +716,6 @@ gravity_scale = 0.0
 contacts_reported = 10
 contact_monitor = true
 script = ExtResource( 2 )
-movementForce = 10000.0
 shotDelay = 0.1
 
 [node name="Sprite" type="Sprite" parent="."]

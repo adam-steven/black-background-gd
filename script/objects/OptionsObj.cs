@@ -2,9 +2,13 @@
 
 public class OptionsObj {
 
-    public bool inGame { get; set; } //true: return to game, false: return to main menu
+    public MainGameObj gameObj { get; set; } //true: return to game, false: return to main menu
 
-    public OptionsObj(bool inGame) {
-        this.inGame = inGame;
+    public OptionsObj() {
+        this.gameObj = new MainGameObj(false);
+    }
+
+    public OptionsObj(MainGameObj gameObj) {
+        this.gameObj = gameObj;
     }
 }

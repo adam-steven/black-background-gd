@@ -7,13 +7,7 @@ public class Stage : Godot.Object
     private UiController ui;
 
     public int level {get; private set;}
-
-    public bool inGame {
-        get {
-            return level + currentWaveCounter >= 0;
-        }
-    }
-
+    
     private int stageCounter = 0;
     private int[] stageWaveValues = {3, 4, 1, 1};
     private double currentWaveCounter = -1; 

@@ -6,6 +6,8 @@ using static Enums;
 //Main.tscn 
 public class Main : Levels
 {
+	MainGameObj mainData = new MainGameObj(false);
+
 	private static Random rnd = new Random();
 
 	private Score scoreControl;
@@ -45,11 +47,11 @@ public class Main : Levels
 	}
 
 	public override void LoadLevelParameters(System.Object sceneData) {
-		MainGameObj mainData = (sceneData != null) 
-			? (MainGameObj)sceneData 
-			: new MainGameObj(false);
+		if(sceneData != null) {
+			mainData = (MainGameObj)sceneData;
+		}
 
-		if(mainData.isQuickReset) {
+		if(mainData.inGame) {
 			Vector2 playerPos = new Vector2(960, 540);
 			SpawnPlayer(playerPos);
 			PlayGame();
@@ -167,6 +169,7 @@ public class Main : Levels
 
 		//play game for events without anim name info
 		private void PlayGame() {
+			mainData.inGame = true;
 			PlayGame(string.Empty);
 		}
 
@@ -209,7 +212,7 @@ public class Main : Levels
 		}
 
 		private void GoToOptions() {
-			OptionsObj optionsObj = new OptionsObj(stageControl.inGame);
+			OptionsObj optionsObj = new OptionsObj(mainData);
 			EmitChangeScene("res://scenes/menus/OptionsScreen.tscn", 5f, optionsObj);
 		}
 
