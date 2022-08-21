@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class UpgradeMenu : Control
 {
-	[Signal] public delegate void _decrease_multiplier();
+	[Signal] public delegate void _decrease_multiplier(int reset);
 	[Signal] public delegate void _upgrading_finished();
 
 
@@ -61,7 +61,7 @@ public class UpgradeMenu : Control
 
 	//Emit signal to decrement score multiplier
 	public void decreaseMultiplier() {
-		this.EmitSignal("_decrease_multiplier");
+		this.EmitSignal("_decrease_multiplier", false);
 	}
 
 	//Emit signal to delete any existing upgrades

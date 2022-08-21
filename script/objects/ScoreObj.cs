@@ -11,5 +11,9 @@ public class ScoreObj {
         tempScore = Mathc.Limit(-9999999999999, tempScore, 99999999999999);
     }
 
+    public void UpdateMultiplier(bool reset) {
+        scoreMultiplier = (reset) ? 4 : scoreMultiplier - 1;
+    }
+
     public ScoreObj() {}
 }

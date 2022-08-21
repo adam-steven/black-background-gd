@@ -46,6 +46,8 @@ public partial class Main : Levels
 	public override void LoadLevelParameters(System.Object sceneData) {
 		if(sceneData != null) {
 			mainData = (MainGameObj)sceneData;
+			_ScoreReady();
+			_StageReady();
 		}
 
 		if(mainData.inGame) {
@@ -157,7 +159,7 @@ public partial class Main : Levels
 
 			//if the upgrading is finished call CheckIfEnemies to continue game
 			upgradeMenu.Connect("_upgrading_finished", this, "UpgradingFinished");
-			upgradeMenu.Connect("_decrease_multiplier", this, "DecrementMultiplier");
+			upgradeMenu.Connect("_decrease_multiplier", this, "UpdateMultiplier");
 		}
 
 	#endregion 
@@ -276,7 +278,7 @@ public partial class Main : Levels
 					GD.Print("Call SpawnUpgrades");
 					LevelSpin();
 					IncreaseEnemySpawn();
-					ResetMultiplier();
+					UpdateMultiplier(true);
 					SpawnUpgrades();
 				break;
 			} 

@@ -8,7 +8,7 @@ public partial class Main
     private float delayCounter = 0;
 
     public void _ScoreReady() {
-        ResetMultiplier();
+        uiNode.UpdateMultiplierUi(mainData.score.scoreMultiplier);
     }
 
     public void _ScoreProcess(float delta) {
@@ -40,13 +40,8 @@ public partial class Main
         mainData.score.SetRollingScore(mainData.score.score);
     }
 
-    public void DecrementMultiplier () { 
-        scoreMultiplier--;
-        uiNode.UpdateMultiplierUi(scoreMultiplier);
-    }
-
-    public void ResetMultiplier() { 
-        scoreMultiplier = 4; 
-        uiNode.UpdateMultiplierUi(scoreMultiplier);
+    public void UpdateMultiplier(bool reset) {
+        mainData.score.UpdateMultiplier(reset);
+        uiNode.UpdateMultiplierUi(mainData.score.scoreMultiplier);
     }
 }
