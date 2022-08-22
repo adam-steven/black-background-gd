@@ -4,12 +4,11 @@ using System.Collections.Generic;
 using static Enums;
 
 //Main.tscn 
-public class Main : Levels
+public partial class Main : Levels
 {
-	private static Random rnd = new Random();
+	MainGameObj mainData = new MainGameObj(false);
 
-	private Score scoreControl;
-	private Stage stageControl;
+	private static Random rnd = new Random();
 
 	private Godot.Node2D levelNode;
 	private Vector2 levelCenter;
@@ -25,15 +24,13 @@ public class Main : Levels
 
 	private bool isStartingCountDown;
 
+	private UiController uiNode;
+
 	public override void _Ready() {
 		//Reset the background color
 		ColourController.UpdateBackgroundColour(10000);
 
-		UiController uiNode = this.GetNode<UiController>("UI");
-		scoreControl = new Score(uiNode);
-
-		stageControl = new Stage(uiNode);
-		stageControl.Connect("_next_stage", this, "NextStage");
+		uiNode = this.GetNode<UiController>("UI");
 
 		levelNode = this.GetNode<Godot.Node2D>("Level");
 		levelCenter = levelNode.GlobalPosition;
@@ -45,11 +42,11 @@ public class Main : Levels
 	}
 
 	public override void LoadLevelParameters(System.Object sceneData) {
-		MainGameObj mainData = (sceneData != null) 
-			? (MainGameObj)sceneData 
-			: new MainGameObj(false);
+		if(sceneData != null) {
+			mainData = (MainGameObj)sceneData;
+		}
 
-		if(mainData.isQuickReset) {
+		if(mainData.inGame) {
 			Vector2 playerPos = new Vector2(960, 540);
 			SpawnPlayer(playerPos);
 			PlayGame();
@@ -61,8 +58,8 @@ public class Main : Levels
 	}
 
 	public override void _Process(float delta) {
-		scoreControl._ScoreProcess(delta);
-		stageControl._StageProcess(delta);
+		_ScoreProcess(delta);
+		_StageProcess(delta);
 	}
 
 	#region Spawn Functions
@@ -77,8 +74,8 @@ public class Main : Levels
 			player.Connect("_shake_screen", (CameraController)mainCamera, "StartShakeScreen");
 			player.Connect("_section_text", this, "DisplaySectionText");
 			player.Connect("_destroy_all_bullets", this, "DestroyBullets");
-			player.Connect("_update_score", scoreControl, "UpdateScore");
-			player.Connect("_break_score_update", scoreControl, "BreakScoreUpdate");
+			player.Connect("_update_score", this, "UpdateScore");
+			player.Connect("_break_score_update", this, "BreakScoreUpdate");
 			player.Connect("_player_left_camera", this, "ReframePlayer");
 		}
 
@@ -136,7 +133,7 @@ public class Main : Levels
 				this.AddChild(enemy);
 
 				enemy.Connect("_on_death", this, "CheckIfEnemies");
-				enemy.Connect("_update_score", scoreControl, "UpdateScore", new Godot.Collections.Array(stageControl.level));
+				enemy.Connect("_update_score", this, "UpdateScore", new Godot.Collections.Array(mainData.stage.level));
 			}
 		}
 
@@ -158,7 +155,7 @@ public class Main : Levels
 
 			//if the upgrading is finished call CheckIfEnemies to continue game
 			upgradeMenu.Connect("_upgrading_finished", this, "UpgradingFinished");
-			upgradeMenu.Connect("_decrease_multiplier", scoreControl, "DecrementMultiplier");
+			upgradeMenu.Connect("_decrease_multiplier", this, "UpdateMultiplier");
 		}
 
 	#endregion 
@@ -167,6 +164,10 @@ public class Main : Levels
 
 		//play game for events without anim name info
 		private void PlayGame() {
+			mainData.inGame = true;
+			_ScoreReady();
+			_StageReady();
+
 			PlayGame(string.Empty);
 		}
 
@@ -181,7 +182,7 @@ public class Main : Levels
 			
 			this.SetProcess(true);
 			this.LevelSpin();
-			this.CheckIfEnemies();
+			this.NextStage(true);
 
 			PackedScene pauseMenuScene = (PackedScene)GD.Load("res://scenes/menus/PauseMenu.tscn");
 			Godot.Control pauseMenu = (Godot.Control)pauseMenuScene.Instance();
@@ -199,7 +200,7 @@ public class Main : Levels
 		}
 
 		private void EndGame() {
-			GameOverObj deathObj = new GameOverObj(scoreControl.score, 0);
+			GameOverObj deathObj = new GameOverObj(mainData.score.score, 0);
 			EmitChangeScene("res://scenes/menus/DeathScreen.tscn", 1f, deathObj);
 		}
 
@@ -209,7 +210,7 @@ public class Main : Levels
 		}
 
 		private void GoToOptions() {
-			OptionsObj optionsObj = new OptionsObj(stageControl.inGame);
+			OptionsObj optionsObj = new OptionsObj(mainData);
 			EmitChangeScene("res://scenes/menus/OptionsScreen.tscn", 5f, optionsObj);
 		}
 
@@ -245,10 +246,10 @@ public class Main : Levels
 		}
 
 		//Spawn next stage;
-		private void NextStage()
+		private void NextStage(bool gameStart = false)
 		{
-			bool newStage = stageControl.NextWave();
-			GameStages currentStage = stageControl.GetStage();
+			bool newStage = NextWave(gameStart);
+			GameStages currentStage = mainData.stage.currentStage;
 
 			GD.Print("\nnewStage " + newStage);
 			GD.Print("currentStage " + currentStage);
@@ -276,7 +277,7 @@ public class Main : Levels
 					GD.Print("Call SpawnUpgrades");
 					LevelSpin();
 					IncreaseEnemySpawn();
-					scoreControl.ResetMultiplier();
+					UpdateMultiplier(true);
 					SpawnUpgrades();
 				break;
 			} 
@@ -312,7 +313,7 @@ public class Main : Levels
 
 		//Slowly increase the number of enemies each wave
 		private void IncreaseEnemySpawn() {
-			if(stageControl.level%2 == 0) { enemySpawnMax++; } 
+			if(mainData.stage.level%2 == 0) { enemySpawnMax++; } 
 			else { enemySpawnMin++; }
 		}
 

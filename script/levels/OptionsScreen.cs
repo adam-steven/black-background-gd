@@ -1,9 +1,10 @@
 using Godot;
 using System;
+using Newtonsoft.Json; 
 
 public class OptionsScreen : Levels
 {
-	private OptionsObj optionsData;
+	private OptionsObj optionsData = new OptionsObj();
 
 	private SettingsController settings = new SettingsController();
 
@@ -43,12 +44,17 @@ public class OptionsScreen : Levels
 	}
 
 	public override void LoadLevelParameters(System.Object sceneData) {
-		optionsData = (sceneData != null) ? (OptionsObj)sceneData : new OptionsObj(false);
+		if(sceneData != null) {
+			optionsData = (OptionsObj)sceneData;
+			string jsonData  = JsonConvert.SerializeObject(optionsData);
+			GD.Print(jsonData);
+		}
 	}
 
 	private void Return() {
-		MainGameObj restartObj = new MainGameObj(optionsData.inGame);
-		EmitChangeScene("res://scenes/Main.tscn", 5f, restartObj);
+		string jsonData  = JsonConvert.SerializeObject(optionsData.gameObj);
+		GD.Print(jsonData);
+		EmitChangeScene("res://scenes/Main.tscn", 5f, optionsData.gameObj);
 	}
 
 	private void SaveStartCountDown(MenuButtons button) {
