@@ -8,6 +8,7 @@ public partial class Main
     private float delayCounter = 0;
 
     public void _ScoreReady() {
+        uiNode.UpdateScoreUi(mainData.score.score);
         uiNode.UpdateMultiplierUi(mainData.score.scoreMultiplier);
     }
 

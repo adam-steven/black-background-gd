@@ -182,7 +182,7 @@ public partial class Main : Levels
 			
 			this.SetProcess(true);
 			this.LevelSpin();
-			this.CheckIfEnemies();
+			this.NextStage(true);
 
 			PackedScene pauseMenuScene = (PackedScene)GD.Load("res://scenes/menus/PauseMenu.tscn");
 			Godot.Control pauseMenu = (Godot.Control)pauseMenuScene.Instance();
@@ -246,9 +246,9 @@ public partial class Main : Levels
 		}
 
 		//Spawn next stage;
-		private void NextStage()
+		private void NextStage(bool gameStart = false)
 		{
-			bool newStage = NextWave();
+			bool newStage = NextWave(gameStart);
 			GameStages currentStage = mainData.stage.currentStage;
 
 			GD.Print("\nnewStage " + newStage);

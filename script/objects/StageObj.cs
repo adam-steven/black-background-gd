@@ -53,7 +53,9 @@ public class StageObj {
         }
     }
 
-    public double NextWave() {
+    public double NextWave(bool gameStart = false) {
+        if(gameStart) { return currentWaveCounter; }
+
         currentWaveCounter = Math.Floor(currentWaveCounter) + 1;
 
         if(currentWaveCounter >= stageWaveValues[stageCounter]) { 
@@ -81,7 +83,7 @@ public class StageObj {
 
     public StageObj() {
         stageCounter = 0;
-        currentWaveCounter = -1;
+        currentWaveCounter = 0;
         UpdateStageLengths();
     }
 }

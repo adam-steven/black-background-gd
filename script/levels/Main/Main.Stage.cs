@@ -5,6 +5,7 @@ using static Enums;
 public partial class Main
 {
     public void _StageReady() {
+        DisplayProgression();
         uiNode.SetWaveSegments(mainData.stage.noOfWaves);
     }
 
@@ -16,8 +17,8 @@ public partial class Main
     }
 
     ///<returns>new stage</returns>
-    public bool NextWave() {
-        double currentWaveCounter = mainData.stage.NextWave();
+    public bool NextWave(bool gameStart = false) {
+        double currentWaveCounter = mainData.stage.NextWave(gameStart);
 
         DisplayProgression();
         if(currentWaveCounter == 0) { 
