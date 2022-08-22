@@ -1,14 +1,14 @@
 
 using System;
 using static Enums;
+using Newtonsoft.Json;
 
 public class StageObj {
 
-    public int level {get; private set;}
-    
-    protected int stageCounter = 0;
-    private int[] stageWaveValues = {3, 4, 1, 1};
-    protected double currentWaveCounter = -1; 
+    [JsonProperty] public int level {get; private set;}
+    [JsonProperty] public int stageCounter { get; private set; }
+    [JsonProperty] public int[] stageWaveValues { get; private set; }
+    [JsonProperty] public double currentWaveCounter { get; private set; }
 
     public GameStages currentStage { 
         get {
@@ -40,9 +40,21 @@ public class StageObj {
         }
     }
 
-    public void NextWave() {
+    ///<returns>timer ended</returns>
+    public Nullable<bool> ProcessStageCountDown(float delta) {
+        if(currentWaveCounter >= stageWaveValues[stageCounter] - 1) { return null; }
+
+        if(Math.Round(currentWaveCounter * 10) % 10 != 9) {
+            currentWaveCounter += 0.05f * delta;
+            return false;
+        } else {
+            currentWaveCounter = Math.Floor(currentWaveCounter);
+            return true;
+        }
+    }
+
+    public double NextWave() {
         currentWaveCounter = Math.Floor(currentWaveCounter) + 1;
-        DisplayProgression();
 
         if(currentWaveCounter >= stageWaveValues[stageCounter]) { 
             currentWaveCounter = 0;
@@ -50,20 +62,26 @@ public class StageObj {
 
             if(stageCounter > stageWaveValues.Length - 1) {
                 stageCounter = 0;
-                mainData.stage.NextLevel();
+                NextLevel();
             }
-
-            uiNode.SetWaveSegments(mainData.stage.noOfWaves);
-            uiNode.SetWaveProgress(100);
         }
 
-        return (currentWaveCounter == 0);
+        return currentWaveCounter;
     }
 
-    public void NextLevel() {
+    private void NextLevel() {
         level++;
-        stageWaveValues = new int[] {(3 + level), (4 + level), 1, 1}; //Increase dodge and fight
+        UpdateStageLengths();
     }
 
-    public StageObj() {}
+    //Increase dodge and fight
+    private void UpdateStageLengths() {
+        stageWaveValues = new int[] {(3 + level), (4 + level), 1, 1}; 
+    }
+
+    public StageObj() {
+        stageCounter = 0;
+        currentWaveCounter = -1;
+        UpdateStageLengths();
+    }
 }

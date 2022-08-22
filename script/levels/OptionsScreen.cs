@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using Newtonsoft.Json; 
 
 public class OptionsScreen : Levels
 {
@@ -45,10 +46,14 @@ public class OptionsScreen : Levels
 	public override void LoadLevelParameters(System.Object sceneData) {
 		if(sceneData != null) {
 			optionsData = (OptionsObj)sceneData;
+			string jsonData  = JsonConvert.SerializeObject(optionsData);
+			GD.Print(jsonData);
 		}
 	}
 
 	private void Return() {
+		string jsonData  = JsonConvert.SerializeObject(optionsData.gameObj);
+		GD.Print(jsonData);
 		EmitChangeScene("res://scenes/Main.tscn", 5f, optionsData.gameObj);
 	}
 

@@ -77,7 +77,7 @@ public partial class PlayerController
 	}
 
 	public override void UpdateHealth(int addend) {
-		health = Mathc.Limit(0, health + addend, 100);	
+		//health = Mathc.Limit(0, health + addend, 100);	
 		ColourController.UpdateBackgroundColour(health);
 		GD.Print("Player: " + health);
 	}

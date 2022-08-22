@@ -31,8 +31,6 @@ public partial class Main : Levels
 		ColourController.UpdateBackgroundColour(10000);
 
 		uiNode = this.GetNode<UiController>("UI");
-		_ScoreReady();
-		_StageReady();
 
 		levelNode = this.GetNode<Godot.Node2D>("Level");
 		levelCenter = levelNode.GlobalPosition;
@@ -46,8 +44,6 @@ public partial class Main : Levels
 	public override void LoadLevelParameters(System.Object sceneData) {
 		if(sceneData != null) {
 			mainData = (MainGameObj)sceneData;
-			_ScoreReady();
-			_StageReady();
 		}
 
 		if(mainData.inGame) {
@@ -169,6 +165,9 @@ public partial class Main : Levels
 		//play game for events without anim name info
 		private void PlayGame() {
 			mainData.inGame = true;
+			_ScoreReady();
+			_StageReady();
+
 			PlayGame(string.Empty);
 		}
 

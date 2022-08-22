@@ -138,7 +138,7 @@ tracks/2/keys = {
 
 [sub_resource type="ShaderMaterial" id=10]
 shader = ExtResource( 7 )
-shader_param/Segments = 3
+shader_param/Segments = 0
 shader_param/BarHeight = 1.0
 shader_param/Texture = ExtResource( 4 )
 
