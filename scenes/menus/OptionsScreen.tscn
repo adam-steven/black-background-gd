@@ -63,6 +63,7 @@ script = ExtResource( 3 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 7 )
+tabContainers = PoolStringArray( "TabContainer/General", "TabContainer/Controls" )
 
 [node name="ColorRect" type="ColorRect" parent="Control"]
 margin_right = 40.0
@@ -79,29 +80,44 @@ custom_constants/separation = 46
 alignment = 1
 
 [node name="Label" type="Label" parent="Control/Buttons"]
-margin_top = 233.0
+margin_top = 215.0
 margin_right = 840.0
-margin_bottom = 355.0
+margin_bottom = 337.0
 rect_min_size = Vector2( 840, 0 )
 custom_fonts/font = ExtResource( 5 )
 text = "Options"
 align = 1
 
-[node name="CountDown" type="CheckButton" parent="Control/Buttons"]
-margin_top = 401.0
+[node name="TabContainer" type="TabContainer" parent="Control/Buttons"]
+margin_top = 383.0
 margin_right = 840.0
-margin_bottom = 521.0
+margin_bottom = 539.0
+grow_horizontal = 2
+grow_vertical = 2
+tab_align = 0
+
+[node name="General" type="VBoxContainer" parent="Control/Buttons/TabContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+
+[node name="CountDown" type="CheckButton" parent="Control/Buttons/TabContainer/General"]
+margin_right = 832.0
+margin_bottom = 120.0
 rect_min_size = Vector2( 0, 120 )
 custom_icons/off = ExtResource( 4 )
 custom_icons/on = ExtResource( 6 )
 script = ExtResource( 2 )
 action = 6
 
-[node name="Position2D" type="Position2D" parent="Control/Buttons/CountDown"]
+[node name="Position2D" type="Position2D" parent="Control/Buttons/TabContainer/General/CountDown"]
 position = Vector2( 350, 65 )
 scale = Vector2( 1.2, 1.2 )
 
-[node name="Label" type="Label" parent="Control/Buttons/CountDown/Position2D"]
+[node name="Label" type="Label" parent="Control/Buttons/TabContainer/General/CountDown/Position2D"]
 margin_left = -420.0
 margin_top = -65.0
 margin_right = 420.0
@@ -111,16 +127,22 @@ custom_fonts/font = ExtResource( 1 )
 text = "Start Countdown"
 align = 1
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Control/Buttons/CountDown"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Control/Buttons/TabContainer/General/CountDown"]
 autoplay = "MenuBtnInit"
 anims/MenuBtnDeselected = SubResource( 1 )
 anims/MenuBtnInit = SubResource( 2 )
 anims/MenuBtnSelected = SubResource( 3 )
 
+[node name="Controls" type="VBoxContainer" parent="Control/Buttons/TabContainer"]
+visible = false
+margin_top = 24.0
+margin_right = 40.0
+margin_bottom = 40.0
+
 [node name="Return" type="Button" parent="Control/Buttons"]
-margin_top = 567.0
+margin_top = 585.0
 margin_right = 840.0
-margin_bottom = 687.0
+margin_bottom = 705.0
 rect_min_size = Vector2( 200, 120 )
 flat = true
 script = ExtResource( 2 )

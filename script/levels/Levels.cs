@@ -16,7 +16,6 @@ namespace Godot
             var settings = new JsonSerializerSettings();
             settings.TypeNameHandling = TypeNameHandling.Objects;
             string jsonData  = JsonConvert.SerializeObject(passThroughData, settings);
-            GD.Print(jsonData);
             this.EmitSignal("change_scene", scenePath, animSpeed, jsonData);
         }
     }
