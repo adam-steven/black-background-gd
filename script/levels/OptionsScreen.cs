@@ -38,7 +38,7 @@ public class OptionsScreen : Levels
 			MenuButtons button = (MenuButtons)buttons[i];
 			
 			string action = button.action.ToString();
-			if(!savedSettings.ContainsKey(action)) { return; }
+			if(!savedSettings.ContainsKey(action)) { continue; }
 
 			object settingVal = savedSettings[action];
 			switch (Type.GetTypeCode(settingVal.GetType()))
