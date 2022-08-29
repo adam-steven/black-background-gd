@@ -20,6 +20,9 @@ public class MainMenu : MenuController
 			case MenuButtonActions.Quit:
 				Quit();
 				break;	
+			default:
+				GD.Print($"Warning: unused btn action: {button.action}");
+			break;
 		}
 
 		this.QueueFree();

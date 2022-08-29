@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public class CameraController : Camera2D
+public class Camera : Camera2D
 {
     Random rnd = new Random();
 

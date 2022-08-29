@@ -18,11 +18,11 @@ public partial class PlayerController
 			switch (strikingBullet.type)
 			{
 				case BulletVariations.Normal:
-					GainHealth(strikingBullet, ColourController.enemyColour);
+					GainHealth(strikingBullet, Colour.enemyColour);
 					return;
 
 				case BulletVariations.NormalStrong:
-					GainHealth(strikingBullet, ColourController.enemyColour, "NICE");
+					GainHealth(strikingBullet, Colour.enemyColour, "NICE");
 					this.EmitSignal("_destroy_all_bullets");  
 					return;
 					
@@ -40,7 +40,7 @@ public partial class PlayerController
 		if(health <= 0) return;
 
 		//Decrease health
-		//UpdateHealth(-strikingBullet.strength);
+		UpdateHealth(-strikingBullet.strength);
 
 		//Damage indication
 		AnimationPlayer anim  = this.GetNode<AnimationPlayer>("AnimationPlayer");
@@ -73,12 +73,12 @@ public partial class PlayerController
 
 		//Flash colour + freeze frame
 		var darkenedColour = backgroundColour.LinearInterpolate(Color.ColorN("black"), 0.5f);
-		ColourController.FlashBackgroundColour(darkenedColour, GetTree(), health);
+		Colour.FlashBackgroundColour(darkenedColour, GetTree(), health);
 	}
 
 	public override void UpdateHealth(int addend) {
-		//health = Mathc.Limit(0, health + addend, 100);	
-		ColourController.UpdateBackgroundColour(health);
+		health = Mathc.Limit(0, health + addend, 100);	
+		Colour.UpdateBackgroundColour(health);
 		GD.Print("Player: " + health);
 	}
 }

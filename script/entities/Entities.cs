@@ -60,7 +60,7 @@ namespace Godot
 				bulletSize = Mathc.Limit(0.5f, bulletSize + addBulletSize, 15f);  
 
                 //Update background colour based on health for player
-                if(entityType == BulletOwner.PlayerController) { ColourController.UpdateBackgroundColour(health); }
+                if(entityType == BulletOwner.PlayerController) { Colour.UpdateBackgroundColour(health); }
             }
 
         #endregion

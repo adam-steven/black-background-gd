@@ -9,8 +9,12 @@ public class OptionsScreen : Levels
 
 	public override void _Ready() {
 		OptionsMenu control = this.GetNode<OptionsMenu>("Control");
+
 		control.Connect("_main_menu", this, "Return");
-		control.Connect("_set_count_down", this, "SaveStartCountDown");
+		control.Connect("_toggle_key_pick_overlay", this, "ToggleKeyPickOverlay");
+
+		control.Connect("_set_bool_setting", this, "SaveSettingBool");
+		control.Connect("_set_string_setting", this, "SaveSettingString");
 
 		LoadSavedOptions(control);
 	}
@@ -24,11 +28,11 @@ public class OptionsScreen : Levels
 		Godot.Collections.Array buttons = buttonContainer.GetChildren();
 
 		//Add the children in the tab
-		for (int i = 0; i < control.tabContainers.Length; i++)
+		for (int i = 0; i < control.uniqueContainers.Length; i++)
 		{
-			string tabContainer = control.tabContainers[i];
-			Godot.VBoxContainer tabButtonContainer = buttonContainer.GetNode<Godot.VBoxContainer>(tabContainer);
-			buttons += tabButtonContainer.GetChildren();
+			string containerPath = control.uniqueContainers[i];
+			Godot.Container uniqueButtonContainer = control.GetNode<Godot.Container>(containerPath);
+			buttons += uniqueButtonContainer.GetChildren();
 		}
 		
 		for (int i = 0; i < buttons.Count; i++)
@@ -41,10 +45,16 @@ public class OptionsScreen : Levels
 			if(!savedSettings.ContainsKey(action)) { continue; }
 
 			object settingVal = savedSettings[action];
-			switch (Type.GetTypeCode(settingVal.GetType()))
+			switch (settingVal)
 			{
-				case TypeCode.Boolean:
+				case Boolean boolean:
 					button.Pressed = (bool)settingVal;
+				break;
+				case String str:
+					button.SetValueLabel((string)settingVal);
+				break;
+				default:
+					GD.Print($"{action} is a {settingVal.GetType()}");
 				break;
 			}
 		}
@@ -60,9 +70,21 @@ public class OptionsScreen : Levels
 		EmitChangeScene("res://scenes/Main.tscn", 5f, optionsData.gameObj);
 	}
 
-	private void SaveStartCountDown(MenuButtons button) {
-		GD.Print("Test");
-		settings.SetValue(button.action.ToString(), button.Pressed);
+	private void ToggleKeyPickOverlay(bool visiable) {
+		Godot.Control keyPickOverlay =  this.GetNode<Godot.Control>("BlockingOverlay");
+		keyPickOverlay.Visible = visiable;
 	}
+
+	private void SaveSettingBool(MenuButtons button, bool value) {
+		GD.Print($"bool {button.action.ToString()} {value}");
+		settings.SetValue(button.action.ToString(), value);
+	}
+
+	private void SaveSettingString(MenuButtons button, string value) {
+		GD.Print($"string {button.action.ToString()} {value}");
+		settings.SetValue(button.action.ToString(), value);
+	}
+
+
 
 }

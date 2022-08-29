@@ -5,20 +5,21 @@ public partial class PlayerController
 {
 	// Handels detection of WASD inputs to apply character force 
 	private void WASDMovement() {
-		if (Input.IsActionJustPressed("ui_left")) {
-			PushPlayer(Vector2.Left, "Right");
-		}
-		if (Input.IsActionJustPressed("ui_right")) {
-			PushPlayer(Vector2.Right, "Left");
-		}
-		if (Input.IsActionJustPressed("ui_up")) {
+		if (Input.IsActionJustPressed("Up")) {
 			PushPlayer(Vector2.Up, "Bottom");
 		}
-		if (Input.IsActionJustPressed("ui_down")) {
+		if (Input.IsActionJustPressed("Down")) {
 			PushPlayer(Vector2.Down, "Top");
 		}
+		if (Input.IsActionJustPressed("Left")) {
+			PushPlayer(Vector2.Left, "Right");
+		}
+		if (Input.IsActionJustPressed("Right")) {
+			PushPlayer(Vector2.Right, "Left");
+		}
+
 		
-		if (Input.IsActionJustPressed("ui_fire2")) {
+		if (Input.IsActionJustPressed("Block")) {
 			StopPlayer();
 		}
 	}

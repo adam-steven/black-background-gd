@@ -10,6 +10,9 @@ public class LeaderboardMenu : MenuController
 			case MenuButtonActions.Continue:
 				Return(button);
 				break;
+			default:
+				GD.Print($"Warning: unused btn action: {button.action}");
+			break;
 		}
 	}
 

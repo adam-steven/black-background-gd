@@ -19,7 +19,7 @@ public partial class PlayerController : Entities
 		WASDMovement();
 		MouseRotation();
 		
-		if (Input.IsActionPressed("ui_fire1"))
+		if (Input.IsActionPressed("Shoot"))
 			gun.Shoot(BulletVariations.Player);
 	}
 
