@@ -16,6 +16,9 @@ public class DeathMenu : MenuController
 			case MenuButtonActions.Leaderboard:
 				Leaderboard(button);
 				break;
+			default:
+				GD.Print($"Warning: unused btn action: {button.action}");
+			break;
 		}
 	}
 

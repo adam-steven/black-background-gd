@@ -7,11 +7,9 @@ public class PauseMenu : MenuController
 
 	#region Handel Pause
 
-		public override void _UnhandledInput(InputEvent @event) {
-			if (@event is InputEventKey eventKey) {
-				if (eventKey.Pressed && eventKey.Scancode == (int)KeyList.Escape) {
-					TogglePause();
-				}
+		public override void _Input(InputEvent inputEvent) {
+			if (inputEvent.IsActionPressed("Pause")) {
+				TogglePause();
 			}
 		}
 
@@ -44,7 +42,10 @@ public class PauseMenu : MenuController
 				break;
 			case MenuButtonActions.Options:
 				Options(button);
-				break;	
+				break;
+			default:
+				GD.Print($"Warning: unused btn action: {button.action}");
+			break;	
 		}
 	}
 

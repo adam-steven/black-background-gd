@@ -33,6 +33,13 @@ public static class Enums
 		Quit,
 		Continue,
 		StartCountDown,
+		Up,
+		Down,
+		Left,
+		Right,
+		Shoot,
+		Block,
+		Pause
 	};
 
 	/// <summary> List of Godot's integrated colour </summary>

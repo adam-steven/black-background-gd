@@ -5,17 +5,13 @@ public class MenuButtons : Button
 {
 	[Export] public MenuButtonActions action;
 
+	[Export] public string valueLabelPath = null;
+	[Export] public int labelTruncate = 4;
+
 	public override void _Ready()
 	{
-		this.Connect("pressed", this, "_OnButtonPress");
 		this.Connect("mouse_entered", this, "_OnMouseEntered");
 		this.Connect("mouse_exited", this, "_OnMouseExit");
-	}
-
-	[Signal]
-    public delegate void on_pressed(MenuButtons button);
-	private void _OnButtonPress() {
-		this.EmitSignal("on_pressed", this);
 	}
 
 	//Play expand anim
@@ -28,5 +24,13 @@ public class MenuButtons : Button
 	private void _OnMouseExit() {
 		AnimationPlayer anim  = this.GetNode<AnimationPlayer>("AnimationPlayer");
 		anim.Play("MenuBtnDeselected");
+	}
+
+	public void SetValueLabel(string value) {
+		if(string.IsNullOrEmpty(valueLabelPath)) { return; }
+		Godot.Label valueLabel = this.GetNode<Godot.Label>(valueLabelPath);
+
+		string truncatedVal = (value.Length < labelTruncate) ? value : value.Substring(0, labelTruncate); 
+		valueLabel.Text = truncatedVal;
 	}
 }

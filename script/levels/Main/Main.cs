@@ -28,7 +28,7 @@ public partial class Main : Levels
 
 	public override void _Ready() {
 		//Reset the background color
-		ColourController.UpdateBackgroundColour(10000);
+		Colour.UpdateBackgroundColour(10000);
 
 		uiNode = this.GetNode<UiController>("UI");
 
@@ -71,7 +71,7 @@ public partial class Main : Levels
 			this.AddChild(player);
 
 			player.Connect("_end_game", this, "EndGame");
-			player.Connect("_shake_screen", (CameraController)mainCamera, "StartShakeScreen");
+			player.Connect("_shake_screen", (Camera)mainCamera, "StartShakeScreen");
 			player.Connect("_section_text", this, "DisplaySectionText");
 			player.Connect("_destroy_all_bullets", this, "DestroyBullets");
 			player.Connect("_update_score", this, "UpdateScore");
@@ -128,7 +128,7 @@ public partial class Main : Levels
 				enemy.GlobalPosition = spawnPosition;
 
 				enemy.player = player;
-				enemy.colour = ColourController.enemyColour;
+				enemy.colour = Colour.enemyColour;
 
 				this.AddChild(enemy);
 
@@ -308,7 +308,7 @@ public partial class Main : Levels
 		private void LevelSpin() {
 			AnimationPlayer anim = levelNode.GetNode<AnimationPlayer>("Room/AnimationPlayer");
 			anim.Play("RoomSpin");
-			ColourController.UpdateGameColours(levelNode, player);
+			Colour.UpdateGameColours(levelNode, player);
 		}
 
 		//Slowly increase the number of enemies each wave

@@ -44,7 +44,7 @@ tracks/2/keys = {
 "times": PoolRealArray( 0, 0.2, 0.5, 0.7, 1, 1.2 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
 "update": 0,
-"values": [ Color( 1, 1, 1, 0.0196078 ), Color( 1, 1, 1, 0.117647 ), Color( 1, 1, 1, 0.0196078 ), Color( 1, 1, 1, 0.117647 ), Color( 1, 1, 1, 0.0196078 ), Color( 1, 1, 1, 0.117647 ) ]
+"values": [ Color( 1, 1, 1, 0.0196078 ), Color( 1, 1, 1, 0.235294 ), Color( 1, 1, 1, 0.0196078 ), Color( 1, 1, 1, 0.235294 ), Color( 1, 1, 1, 0.0196078 ), Color( 1, 1, 1, 0.235294 ) ]
 }
 tracks/3/type = "value"
 tracks/3/path = NodePath("Label:text")
@@ -99,7 +99,7 @@ tracks/2/keys = {
 "times": PoolRealArray( 0, 0.2 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Color( 1, 1, 1, 0.0196078 ), Color( 1, 1, 1, 0.117647 ) ]
+"values": [ Color( 1, 1, 1, 0.0196078 ), Color( 1, 1, 1, 0.235294 ) ]
 }
 
 [sub_resource type="Animation" id=3]
@@ -119,10 +119,11 @@ tracks/0/keys = {
 }
 
 [node name="SectionText" type="Position2D"]
+visible = false
 scale = Vector2( 0.8, 1.4 )
 
 [node name="Label" type="Label" parent="."]
-modulate = Color( 1, 1, 1, 0.117647 )
+modulate = Color( 1, 1, 1, 0.235294 )
 margin_left = -1200.0
 margin_top = -675.0
 margin_right = 1200.0
