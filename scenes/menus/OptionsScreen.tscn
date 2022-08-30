@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=2]
+[gd_scene load_steps=33 format=2]
 
 [ext_resource path="res://fonts/Teko-Bold-90.tres" type="DynamicFont" id=1]
 [ext_resource path="res://script/menus/MenuButtons.cs" type="Script" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://fonts/Teko-Bold-120.tres" type="DynamicFont" id=5]
 [ext_resource path="res://images/Checkbox_Checked.png" type="Texture" id=6]
 [ext_resource path="res://script/menus/OptionsMenu.cs" type="Script" id=7]
+[ext_resource path="res://fonts/Teko-SemiBold-75.tres" type="DynamicFont" id=8]
 
 [sub_resource type="Animation" id=1]
 resource_name = "MenuBtnDeselected"
@@ -104,7 +105,7 @@ tracks/0/keys = {
 "values": [ Vector2( 1, 1 ), Vector2( 1.2, 1.2 ) ]
 }
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=25]
 resource_name = "MenuBtnDeselected"
 length = 0.2
 tracks/0/type = "value"
@@ -120,7 +121,7 @@ tracks/0/keys = {
 "values": [ Vector2( 1.2, 1.2 ), Vector2( 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=26]
 resource_name = "MenuBtnInit"
 length = 0.1
 tracks/0/type = "value"
@@ -136,7 +137,7 @@ tracks/0/keys = {
 "values": [ Vector2( 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=27]
 resource_name = "MenuBtnSelected"
 length = 0.2
 tracks/0/type = "value"
@@ -152,7 +153,7 @@ tracks/0/keys = {
 "values": [ Vector2( 1, 1 ), Vector2( 1.2, 1.2 ) ]
 }
 
-[sub_resource type="Animation" id=10]
+[sub_resource type="Animation" id=28]
 resource_name = "MenuBtnDeselected"
 length = 0.2
 tracks/0/type = "value"
@@ -168,7 +169,7 @@ tracks/0/keys = {
 "values": [ Vector2( 1.2, 1.2 ), Vector2( 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=11]
+[sub_resource type="Animation" id=29]
 resource_name = "MenuBtnInit"
 length = 0.1
 tracks/0/type = "value"
@@ -184,7 +185,7 @@ tracks/0/keys = {
 "values": [ Vector2( 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=12]
+[sub_resource type="Animation" id=30]
 resource_name = "MenuBtnSelected"
 length = 0.2
 tracks/0/type = "value"
@@ -200,7 +201,7 @@ tracks/0/keys = {
 "values": [ Vector2( 1, 1 ), Vector2( 1.2, 1.2 ) ]
 }
 
-[sub_resource type="Animation" id=13]
+[sub_resource type="Animation" id=31]
 resource_name = "MenuBtnDeselected"
 length = 0.2
 tracks/0/type = "value"
@@ -216,7 +217,7 @@ tracks/0/keys = {
 "values": [ Vector2( 1.2, 1.2 ), Vector2( 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=14]
+[sub_resource type="Animation" id=32]
 resource_name = "MenuBtnInit"
 length = 0.1
 tracks/0/type = "value"
@@ -232,7 +233,7 @@ tracks/0/keys = {
 "values": [ Vector2( 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=15]
+[sub_resource type="Animation" id=33]
 resource_name = "MenuBtnSelected"
 length = 0.2
 tracks/0/type = "value"
@@ -248,7 +249,7 @@ tracks/0/keys = {
 "values": [ Vector2( 1, 1 ), Vector2( 1.2, 1.2 ) ]
 }
 
-[sub_resource type="Animation" id=16]
+[sub_resource type="Animation" id=34]
 resource_name = "MenuBtnDeselected"
 length = 0.2
 tracks/0/type = "value"
@@ -264,7 +265,7 @@ tracks/0/keys = {
 "values": [ Vector2( 1.2, 1.2 ), Vector2( 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=17]
+[sub_resource type="Animation" id=35]
 resource_name = "MenuBtnInit"
 length = 0.1
 tracks/0/type = "value"
@@ -280,7 +281,7 @@ tracks/0/keys = {
 "values": [ Vector2( 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=18]
+[sub_resource type="Animation" id=36]
 resource_name = "MenuBtnSelected"
 length = 0.2
 tracks/0/type = "value"
@@ -296,7 +297,7 @@ tracks/0/keys = {
 "values": [ Vector2( 1, 1 ), Vector2( 1.2, 1.2 ) ]
 }
 
-[sub_resource type="Animation" id=19]
+[sub_resource type="Animation" id=37]
 resource_name = "MenuBtnDeselected"
 length = 0.2
 tracks/0/type = "value"
@@ -312,7 +313,7 @@ tracks/0/keys = {
 "values": [ Vector2( 1.2, 1.2 ), Vector2( 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=20]
+[sub_resource type="Animation" id=38]
 resource_name = "MenuBtnInit"
 length = 0.1
 tracks/0/type = "value"
@@ -328,7 +329,7 @@ tracks/0/keys = {
 "values": [ Vector2( 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=21]
+[sub_resource type="Animation" id=39]
 resource_name = "MenuBtnSelected"
 length = 0.2
 tracks/0/type = "value"
@@ -344,7 +345,7 @@ tracks/0/keys = {
 "values": [ Vector2( 1, 1 ), Vector2( 1.2, 1.2 ) ]
 }
 
-[sub_resource type="Animation" id=22]
+[sub_resource type="Animation" id=40]
 resource_name = "MenuBtnDeselected"
 length = 0.2
 tracks/0/type = "value"
@@ -360,7 +361,7 @@ tracks/0/keys = {
 "values": [ Vector2( 1.2, 1.2 ), Vector2( 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=23]
+[sub_resource type="Animation" id=41]
 resource_name = "MenuBtnInit"
 length = 0.1
 tracks/0/type = "value"
@@ -376,7 +377,7 @@ tracks/0/keys = {
 "values": [ Vector2( 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=24]
+[sub_resource type="Animation" id=42]
 resource_name = "MenuBtnSelected"
 length = 0.2
 tracks/0/type = "value"
@@ -494,29 +495,38 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 action = 7
-valueLabelPath = "Position2D/Key"
+valueLabelPath = "Position2D/HBoxContainer/Key"
 
 [node name="Position2D" type="Position2D" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Up"]
 position = Vector2( 420, 65 )
-scale = Vector2( 1.2, 1.2 )
 
-[node name="Label" type="Label" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Up/Position2D"]
-margin_left = -300.0
-margin_top = -65.0
-margin_right = 140.0
-margin_bottom = 65.0
-rect_min_size = Vector2( 440, 0 )
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Up/Position2D"]
+margin_left = -420.0
+margin_top = -70.0
+margin_right = 400.0
+margin_bottom = 60.0
+grow_horizontal = 2
+grow_vertical = 2
+rect_min_size = Vector2( 820, 120 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 50
+alignment = 1
+
+[node name="Label" type="Label" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Up/Position2D/HBoxContainer"]
+margin_left = 300.0
+margin_right = 413.0
+margin_bottom = 130.0
 custom_fonts/font = ExtResource( 1 )
 text = "Up:"
 align = 1
 
-[node name="Key" type="Label" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Up/Position2D"]
-margin_left = -100.0
-margin_top = -65.0
-margin_right = 340.0
-margin_bottom = 65.0
-rect_min_size = Vector2( 440, 0 )
-custom_fonts/font = ExtResource( 1 )
+[node name="Key" type="Label" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Up/Position2D/HBoxContainer"]
+margin_left = 463.0
+margin_top = 36.0
+margin_right = 519.0
+margin_bottom = 94.0
+custom_fonts/font = ExtResource( 8 )
 text = "W"
 align = 1
 
@@ -533,41 +543,47 @@ margin_bottom = 244.0
 rect_min_size = Vector2( 200, 120 )
 flat = true
 script = ExtResource( 2 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 action = 8
-valueLabelPath = "Position2D/Key"
+valueLabelPath = "Position2D/HBoxContainer/Key"
 
 [node name="Position2D" type="Position2D" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Down"]
 position = Vector2( 420, 65 )
-scale = Vector2( 1.2, 1.2 )
 
-[node name="Label" type="Label" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Down/Position2D"]
-margin_left = -300.0
-margin_top = -65.0
-margin_right = 140.0
-margin_bottom = 65.0
-rect_min_size = Vector2( 440, 0 )
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Down/Position2D"]
+margin_left = -420.0
+margin_top = -70.0
+margin_right = 400.0
+margin_bottom = 60.0
+grow_horizontal = 2
+grow_vertical = 2
+rect_min_size = Vector2( 820, 120 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 50
+alignment = 1
+
+[node name="Label" type="Label" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Down/Position2D/HBoxContainer"]
+margin_left = 259.0
+margin_right = 478.0
+margin_bottom = 130.0
 custom_fonts/font = ExtResource( 1 )
 text = "Down:"
 align = 1
 
-[node name="Key" type="Label" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Down/Position2D"]
-margin_left = -100.0
-margin_top = -65.0
-margin_right = 340.0
-margin_bottom = 65.0
-rect_min_size = Vector2( 440, 0 )
-custom_fonts/font = ExtResource( 1 )
+[node name="Key" type="Label" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Down/Position2D/HBoxContainer"]
+margin_left = 528.0
+margin_top = 36.0
+margin_right = 561.0
+margin_bottom = 94.0
+custom_fonts/font = ExtResource( 8 )
 text = "S"
 align = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Down"]
 autoplay = "MenuBtnInit"
-anims/MenuBtnDeselected = SubResource( 7 )
-anims/MenuBtnInit = SubResource( 8 )
-anims/MenuBtnSelected = SubResource( 9 )
+anims/MenuBtnDeselected = SubResource( 25 )
+anims/MenuBtnInit = SubResource( 26 )
+anims/MenuBtnSelected = SubResource( 27 )
 
 [node name="Left" type="Button" parent="Control/Buttons/TabContainer/Controls/VBoxContainer"]
 margin_top = 248.0
@@ -576,41 +592,47 @@ margin_bottom = 368.0
 rect_min_size = Vector2( 200, 120 )
 flat = true
 script = ExtResource( 2 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 action = 9
-valueLabelPath = "Position2D/Key"
+valueLabelPath = "Position2D/HBoxContainer/Key"
 
 [node name="Position2D" type="Position2D" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Left"]
 position = Vector2( 420, 65 )
-scale = Vector2( 1.2, 1.2 )
 
-[node name="Label" type="Label" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Left/Position2D"]
-margin_left = -300.0
-margin_top = -65.0
-margin_right = 140.0
-margin_bottom = 65.0
-rect_min_size = Vector2( 440, 0 )
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Left/Position2D"]
+margin_left = -420.0
+margin_top = -70.0
+margin_right = 400.0
+margin_bottom = 60.0
+grow_horizontal = 2
+grow_vertical = 2
+rect_min_size = Vector2( 820, 120 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 50
+alignment = 1
+
+[node name="Label" type="Label" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Left/Position2D/HBoxContainer"]
+margin_left = 288.0
+margin_right = 445.0
+margin_bottom = 130.0
 custom_fonts/font = ExtResource( 1 )
 text = "Left:"
 align = 1
 
-[node name="Key" type="Label" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Left/Position2D"]
-margin_left = -100.0
-margin_top = -65.0
-margin_right = 340.0
-margin_bottom = 65.0
-rect_min_size = Vector2( 440, 0 )
-custom_fonts/font = ExtResource( 1 )
+[node name="Key" type="Label" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Left/Position2D/HBoxContainer"]
+margin_left = 495.0
+margin_top = 36.0
+margin_right = 531.0
+margin_bottom = 94.0
+custom_fonts/font = ExtResource( 8 )
 text = "A"
 align = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Left"]
 autoplay = "MenuBtnInit"
-anims/MenuBtnDeselected = SubResource( 10 )
-anims/MenuBtnInit = SubResource( 11 )
-anims/MenuBtnSelected = SubResource( 12 )
+anims/MenuBtnDeselected = SubResource( 28 )
+anims/MenuBtnInit = SubResource( 29 )
+anims/MenuBtnSelected = SubResource( 30 )
 
 [node name="Right" type="Button" parent="Control/Buttons/TabContainer/Controls/VBoxContainer"]
 margin_top = 372.0
@@ -619,41 +641,47 @@ margin_bottom = 492.0
 rect_min_size = Vector2( 200, 120 )
 flat = true
 script = ExtResource( 2 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 action = 10
-valueLabelPath = "Position2D/Key"
+valueLabelPath = "Position2D/HBoxContainer/Key"
 
 [node name="Position2D" type="Position2D" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Right"]
 position = Vector2( 420, 65 )
-scale = Vector2( 1.2, 1.2 )
 
-[node name="Label" type="Label" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Right/Position2D"]
-margin_left = -300.0
-margin_top = -65.0
-margin_right = 140.0
-margin_bottom = 65.0
-rect_min_size = Vector2( 440, 0 )
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Right/Position2D"]
+margin_left = -420.0
+margin_top = -70.0
+margin_right = 400.0
+margin_bottom = 60.0
+grow_horizontal = 2
+grow_vertical = 2
+rect_min_size = Vector2( 820, 120 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 50
+alignment = 1
+
+[node name="Label" type="Label" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Right/Position2D/HBoxContainer"]
+margin_left = 264.0
+margin_right = 470.0
+margin_bottom = 130.0
 custom_fonts/font = ExtResource( 1 )
 text = "Right:"
 align = 1
 
-[node name="Key" type="Label" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Right/Position2D"]
-margin_left = -100.0
-margin_top = -65.0
-margin_right = 340.0
-margin_bottom = 65.0
-rect_min_size = Vector2( 440, 0 )
-custom_fonts/font = ExtResource( 1 )
+[node name="Key" type="Label" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Right/Position2D/HBoxContainer"]
+margin_left = 520.0
+margin_top = 36.0
+margin_right = 556.0
+margin_bottom = 94.0
+custom_fonts/font = ExtResource( 8 )
 text = "D"
 align = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Right"]
 autoplay = "MenuBtnInit"
-anims/MenuBtnDeselected = SubResource( 13 )
-anims/MenuBtnInit = SubResource( 14 )
-anims/MenuBtnSelected = SubResource( 15 )
+anims/MenuBtnDeselected = SubResource( 31 )
+anims/MenuBtnInit = SubResource( 32 )
+anims/MenuBtnSelected = SubResource( 33 )
 
 [node name="Fire" type="Button" parent="Control/Buttons/TabContainer/Controls/VBoxContainer"]
 margin_top = 496.0
@@ -662,41 +690,47 @@ margin_bottom = 616.0
 rect_min_size = Vector2( 200, 120 )
 flat = true
 script = ExtResource( 2 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 action = 11
-valueLabelPath = "Position2D/Key"
+valueLabelPath = "Position2D/HBoxContainer/Key"
 
 [node name="Position2D" type="Position2D" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Fire"]
 position = Vector2( 420, 65 )
-scale = Vector2( 1.2, 1.2 )
 
-[node name="Label" type="Label" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Fire/Position2D"]
-margin_left = -300.0
-margin_top = -65.0
-margin_right = 140.0
-margin_bottom = 65.0
-rect_min_size = Vector2( 440, 0 )
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Fire/Position2D"]
+margin_left = -420.0
+margin_top = -70.0
+margin_right = 400.0
+margin_bottom = 60.0
+grow_horizontal = 2
+grow_vertical = 2
+rect_min_size = Vector2( 820, 120 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 50
+alignment = 1
+
+[node name="Label" type="Label" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Fire/Position2D/HBoxContainer"]
+margin_left = 272.0
+margin_right = 430.0
+margin_bottom = 130.0
 custom_fonts/font = ExtResource( 1 )
 text = "Fire:"
 align = 1
 
-[node name="Key" type="Label" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Fire/Position2D"]
-margin_left = -100.0
-margin_top = -65.0
-margin_right = 340.0
-margin_bottom = 65.0
-rect_min_size = Vector2( 440, 0 )
-custom_fonts/font = ExtResource( 1 )
+[node name="Key" type="Label" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Fire/Position2D/HBoxContainer"]
+margin_left = 480.0
+margin_top = 36.0
+margin_right = 548.0
+margin_bottom = 94.0
+custom_fonts/font = ExtResource( 8 )
 text = "M1"
 align = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Fire"]
 autoplay = "MenuBtnInit"
-anims/MenuBtnDeselected = SubResource( 16 )
-anims/MenuBtnInit = SubResource( 17 )
-anims/MenuBtnSelected = SubResource( 18 )
+anims/MenuBtnDeselected = SubResource( 34 )
+anims/MenuBtnInit = SubResource( 35 )
+anims/MenuBtnSelected = SubResource( 36 )
 
 [node name="Block" type="Button" parent="Control/Buttons/TabContainer/Controls/VBoxContainer"]
 margin_top = 620.0
@@ -705,41 +739,47 @@ margin_bottom = 740.0
 rect_min_size = Vector2( 200, 120 )
 flat = true
 script = ExtResource( 2 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 action = 12
-valueLabelPath = "Position2D/Key"
+valueLabelPath = "Position2D/HBoxContainer/Key"
 
 [node name="Position2D" type="Position2D" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Block"]
 position = Vector2( 420, 65 )
-scale = Vector2( 1.2, 1.2 )
 
-[node name="Label" type="Label" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Block/Position2D"]
-margin_left = -300.0
-margin_top = -65.0
-margin_right = 140.0
-margin_bottom = 65.0
-rect_min_size = Vector2( 440, 0 )
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Block/Position2D"]
+margin_left = -420.0
+margin_top = -70.0
+margin_right = 400.0
+margin_bottom = 60.0
+grow_horizontal = 2
+grow_vertical = 2
+rect_min_size = Vector2( 820, 120 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 50
+alignment = 1
+
+[node name="Label" type="Label" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Block/Position2D/HBoxContainer"]
+margin_left = 237.0
+margin_right = 456.0
+margin_bottom = 130.0
 custom_fonts/font = ExtResource( 1 )
 text = "Block:"
 align = 1
 
-[node name="Key" type="Label" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Block/Position2D"]
-margin_left = -100.0
-margin_top = -65.0
-margin_right = 340.0
-margin_bottom = 65.0
-rect_min_size = Vector2( 440, 0 )
-custom_fonts/font = ExtResource( 1 )
+[node name="Key" type="Label" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Block/Position2D/HBoxContainer"]
+margin_left = 506.0
+margin_top = 36.0
+margin_right = 583.0
+margin_bottom = 94.0
+custom_fonts/font = ExtResource( 8 )
 text = "M2"
 align = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Block"]
 autoplay = "MenuBtnInit"
-anims/MenuBtnDeselected = SubResource( 19 )
-anims/MenuBtnInit = SubResource( 20 )
-anims/MenuBtnSelected = SubResource( 21 )
+anims/MenuBtnDeselected = SubResource( 37 )
+anims/MenuBtnInit = SubResource( 38 )
+anims/MenuBtnSelected = SubResource( 39 )
 
 [node name="Pause" type="Button" parent="Control/Buttons/TabContainer/Controls/VBoxContainer"]
 margin_top = 744.0
@@ -748,41 +788,47 @@ margin_bottom = 864.0
 rect_min_size = Vector2( 200, 120 )
 flat = true
 script = ExtResource( 2 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 action = 13
-valueLabelPath = "Position2D/Key"
+valueLabelPath = "Position2D/HBoxContainer/Key"
 
 [node name="Position2D" type="Position2D" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Pause"]
 position = Vector2( 420, 65 )
-scale = Vector2( 1.2, 1.2 )
 
-[node name="Label" type="Label" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Pause/Position2D"]
-margin_left = -300.0
-margin_top = -65.0
-margin_right = 140.0
-margin_bottom = 65.0
-rect_min_size = Vector2( 440, 0 )
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Pause/Position2D"]
+margin_left = -420.0
+margin_top = -70.0
+margin_right = 400.0
+margin_bottom = 60.0
+grow_horizontal = 2
+grow_vertical = 2
+rect_min_size = Vector2( 820, 120 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 50
+alignment = 1
+
+[node name="Label" type="Label" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Pause/Position2D/HBoxContainer"]
+margin_left = 171.0
+margin_right = 408.0
+margin_bottom = 130.0
 custom_fonts/font = ExtResource( 1 )
 text = "Pause:"
 align = 1
 
-[node name="Key" type="Label" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Pause/Position2D"]
-margin_left = -100.0
-margin_top = -65.0
-margin_right = 340.0
-margin_bottom = 65.0
-rect_min_size = Vector2( 440, 0 )
-custom_fonts/font = ExtResource( 1 )
-text = "Esc"
+[node name="Key" type="Label" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Pause/Position2D/HBoxContainer"]
+margin_left = 458.0
+margin_top = 36.0
+margin_right = 648.0
+margin_bottom = 94.0
+custom_fonts/font = ExtResource( 8 )
+text = "Escape"
 align = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Pause"]
 autoplay = "MenuBtnInit"
-anims/MenuBtnDeselected = SubResource( 22 )
-anims/MenuBtnInit = SubResource( 23 )
-anims/MenuBtnSelected = SubResource( 24 )
+anims/MenuBtnDeselected = SubResource( 40 )
+anims/MenuBtnInit = SubResource( 41 )
+anims/MenuBtnSelected = SubResource( 42 )
 
 [node name="Return" type="Button" parent="Control/Buttons"]
 margin_top = 585.0

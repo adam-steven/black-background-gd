@@ -6,7 +6,7 @@ public class MenuButtons : Button
 	[Export] public MenuButtonActions action;
 
 	[Export] public string valueLabelPath = null;
-	[Export] public int labelTruncate = 4;
+	[Export] public int labelTruncate = 10;
 
 	public override void _Ready()
 	{
