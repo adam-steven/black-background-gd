@@ -85,6 +85,5 @@ public class OptionsMenu : MenuController
 		await Task.Delay(200);
 		this.EmitSignal("_toggle_key_pick_overlay", false);
 		waitingButton = null;
-		
 	}
 }

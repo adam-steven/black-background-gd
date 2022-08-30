@@ -51,7 +51,8 @@ public class OptionsScreen : Levels
 					button.Pressed = (bool)settingVal;
 				break;
 				case String str:
-					button.SetValueLabel((string)settingVal);
+					string decodedVal = DecodeString((string)settingVal);
+					button.SetValueLabel(decodedVal);
 				break;
 				default:
 					GD.Print($"{action} is a {settingVal.GetType()}");
@@ -66,6 +67,20 @@ public class OptionsScreen : Levels
 		}
 	}
 
+	private string DecodeString(string value) {
+		char inputType = value[0];
+
+		//Decode key binds 
+		if(inputType == 'K') {
+			bool codeParseSuccess = Int32.TryParse(value.Remove(0,1), out int code);
+			if(codeParseSuccess) { 
+				return ((KeyList)code).ToString();
+			}
+		}
+
+		return value;
+	}
+
 	private void Return() {
 		EmitChangeScene("res://scenes/Main.tscn", 5f, optionsData.gameObj);
 	}
@@ -76,15 +91,12 @@ public class OptionsScreen : Levels
 	}
 
 	private void SaveSettingBool(MenuButtons button, bool value) {
-		GD.Print($"bool {button.action.ToString()} {value}");
+		GD.Print($"bool: {button.action.ToString()} = {value}");
 		settings.SetValue(button.action.ToString(), value);
 	}
 
 	private void SaveSettingString(MenuButtons button, string value) {
-		GD.Print($"string {button.action.ToString()} {value}");
+		GD.Print($"string: {button.action.ToString()} = {value}");
 		settings.SetValue(button.action.ToString(), value);
 	}
-
-
-
 }

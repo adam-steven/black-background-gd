@@ -4,7 +4,9 @@ using static Enums;
 public class MenuButtons : Button
 {
 	[Export] public MenuButtonActions action;
+
 	[Export] public string valueLabelPath = null;
+	[Export] public int labelTruncate = 4;
 
 	public override void _Ready()
 	{
@@ -28,6 +30,7 @@ public class MenuButtons : Button
 		if(string.IsNullOrEmpty(valueLabelPath)) { return; }
 		Godot.Label valueLabel = this.GetNode<Godot.Label>(valueLabelPath);
 
-		valueLabel.Text = value;
+		string truncatedVal = (value.Length < labelTruncate) ? value : value.Substring(0, labelTruncate); 
+		valueLabel.Text = truncatedVal;
 	}
 }
