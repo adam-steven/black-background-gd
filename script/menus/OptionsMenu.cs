@@ -55,9 +55,17 @@ public class OptionsMenu : MenuController
 		this.EmitSignal("_set_bool_setting", button, button.Pressed);
 	}
 
+	//Displays a blocking overlay for allowing the user to select a key
 	private void HandelKeyChange(MenuButtons button) {
 		this.EmitSignal("_toggle_key_pick_overlay", true);
 		waitingButton = button;
+	}
+
+	//Hides the blocking overlay (with a delay to prevent accidental instant reopening )
+	private async void EndKeyChange() {
+		await Task.Delay(200);
+		this.EmitSignal("_toggle_key_pick_overlay", false);
+		waitingButton = null;
 	}
 
 	public override void _Input(InputEvent inputEvent) {
@@ -81,9 +89,5 @@ public class OptionsMenu : MenuController
 		EndKeyChange();
 	}
 
-	private async void EndKeyChange() {
-		await Task.Delay(200);
-		this.EmitSignal("_toggle_key_pick_overlay", false);
-		waitingButton = null;
-	}
+
 }

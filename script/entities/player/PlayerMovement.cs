@@ -3,27 +3,6 @@ using System;
 
 public partial class PlayerController
 {
-	// Handels detection of WASD inputs to apply character force 
-	private void WASDMovement() {
-		if (Input.IsActionJustPressed("Up")) {
-			PushPlayer(Vector2.Up, "Bottom");
-		}
-		if (Input.IsActionJustPressed("Down")) {
-			PushPlayer(Vector2.Down, "Top");
-		}
-		if (Input.IsActionJustPressed("Left")) {
-			PushPlayer(Vector2.Left, "Right");
-		}
-		if (Input.IsActionJustPressed("Right")) {
-			PushPlayer(Vector2.Right, "Left");
-		}
-
-		
-		if (Input.IsActionJustPressed("Block")) {
-			StopPlayer();
-		}
-	}
-
 	private void MouseRotation() {
 		Godot.Sprite playerSprite = this.GetNode<Godot.Sprite>("Sprite");
 		playerSprite.LookAt(GetGlobalMousePosition()); 
