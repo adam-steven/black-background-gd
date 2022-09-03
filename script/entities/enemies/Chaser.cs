@@ -8,6 +8,7 @@ public class Chaser : Enemies
 
 	public override void _Ready() 
 	{
+		FacePlayer();
 		InitDelayedStart("LoadingSpinner");
 
 		Godot.Sprite thisSprite = this.GetNode<Godot.Sprite>("Sprite");
@@ -18,7 +19,7 @@ public class Chaser : Enemies
 
 	public override void _PhysicsProcess(float delta) 
 	{
-		FacePlayer();
+		TurnToPlayer(delta);
 		MoveInDirection(Vector2.Right);
 
 		int shootSpecialChance = rnd.Next(20);

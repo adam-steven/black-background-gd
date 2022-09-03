@@ -4,22 +4,29 @@ namespace Godot
 {
     public class Enemies : Entities
     {
+        [Export] private float rotationSpeed = 3f;
         [Export] private int pointsOnKill = 100;
 
 	    public RigidBody2D player;
 
         public Enemies() {}
 
-        public void FacePlayer() {
+        internal void FacePlayer() {
             this.LookAt(player.GlobalPosition); 
         }
 
-        public void MoveInDirection(Vector2 _thrustDirection) {
+        internal void TurnToPlayer(float delta) {
+            Vector2 direction = (player.GlobalPosition - this.GlobalPosition);
+            Single angleTo = this.Transform.x.AngleTo(direction);
+            this.Rotate(Math.Sign(angleTo) * Math.Min(delta * rotationSpeed, Math.Abs(angleTo)));
+        }
+
+         internal void MoveInDirection(Vector2 _thrustDirection) {
             Vector2 _thrust = _thrustDirection * movementForce;
             SetAxisVelocity(_thrust.Rotated(Rotation));
         }
 
-        public void PushInDirection(Vector2 _thrustDirection) {
+         internal void PushInDirection(Vector2 _thrustDirection) {
             Vector2 _thrust = _thrustDirection * movementForce;
             ApplyCentralImpulse(_thrust);
         }
