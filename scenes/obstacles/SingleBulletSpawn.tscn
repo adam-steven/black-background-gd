@@ -28,6 +28,7 @@ health = 0
 movementForce = 0.0
 bulletAccuracy = 0.0
 bulletTimeAlive = 1.0
+rotationSpeed = 4.0
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 1 )

@@ -8,6 +8,7 @@ public class BulletSpawner : Enemies
 	
 	public override void _Ready()
 	{
+		FacePlayer();
 		float spawnSpeedModifier = shotDelay / rnd.Next(1, 3);
 
 		gun = new GunController(this); 
@@ -20,7 +21,7 @@ public class BulletSpawner : Enemies
 	public override void _Process(float delta)
 	{
 		if(!IsInstanceValid(player)) return;
-		FacePlayer();
+		TurnToPlayer(delta);
 	}
 
 	private void ShootBullet(string animName) { 
