@@ -18,7 +18,7 @@ public class UpgradeButton : Area2D
 
 	private bool objectSelected = false;
 
-	public Entities player;
+	public PlayerController player;
 
 	public override void _Ready() {
 		this.Connect("mouse_entered", this, "MouseEntered");
