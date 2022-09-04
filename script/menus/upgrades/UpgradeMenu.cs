@@ -33,12 +33,12 @@ public class UpgradeMenu : Control
 		for (int i = 0; i < spawnPoints.Length; i++) {
 			string randomUpgrade = upgrades[rnd.Next(upgrades.Count)];
 			PackedScene upgradeOptionScene = (PackedScene)GD.Load(Globals.upgradesFolder + randomUpgrade);
-			Godot.Node2D upgradeOption = (Godot.Node2D)upgradeOptionScene.Instance();
+			UpgradeButton upgradeOption = (UpgradeButton)upgradeOptionScene.Instance();
 
 			Vector2 spawnPosition = spawnPoints[i] + levelCenter;
 			upgradeOption.GlobalPosition = spawnPosition;
 
-			UpgradeButton upgradeOptionScript = (UpgradeButton)upgradeOption;
+			UpgradeButton upgradeOptionScript = upgradeOption;
 			upgradeOptionScript.player = player;
 
 			this.AddChild(upgradeOption);

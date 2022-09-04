@@ -253,7 +253,10 @@ public partial class Main : Levels
 			GD.Print("\nnewStage " + newStage);
 			GD.Print("currentStage " + currentStage);
 
-			if(newStage) { DisplaySectionText(currentStage.ToString().ToUpper()); }
+			if(newStage) { 
+				DisplaySectionText(currentStage.ToString().ToUpper());
+				LevelSpin(); 
+			}
 
 			switch (currentStage)
 			{
@@ -274,7 +277,6 @@ public partial class Main : Levels
 					break;
 				default: 
 					GD.Print("Call SpawnUpgrades");
-					LevelSpin();
 					IncreaseEnemySpawn();
 					UpdateMultiplier(true);
 					SpawnUpgrades();
@@ -342,10 +344,6 @@ public partial class Main : Levels
 	// 	Godot.Sprite tDot = (Godot.Sprite)testingDot.Instance();
 	// 	tDot.GlobalPosition = tDotPos;
 	// 	this.AddChild(tDot);
-	// }
-
-	// private void LogFrameRate() {
-	//   	GD.Print(Performance.GetMonitor(0));
 	// }
 
 	// private int currentColour = -1;

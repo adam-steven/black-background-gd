@@ -1,8 +1,12 @@
 using Godot;
 using System;
 
-public class UpgradeButton : Area2D
+public class UpgradeButton : Position2D
 {    
+	[Export] private Texture graphic;
+	[Export] private string name;
+	[Export] private string description;
+
 	[Export] private int health = 0;
 	[Export] private float movementForce = 0f;
 	[Export] private float shotDelay = 0;
@@ -21,20 +25,24 @@ public class UpgradeButton : Area2D
 	public PlayerController player;
 
 	public override void _Ready() {
-		this.Connect("mouse_entered", this, "MouseEntered");
-		this.Connect("mouse_exited", this, "MouseExited");
+		//Set sprite graphic and name label
+
+		Godot.Button btn = this.GetNode<Godot.Button>("Button");
+		btn.Connect("mouse_entered", this, "MouseEntered");
+		btn.Connect("mouse_exited", this, "MouseExited");
+		btn.Connect("pressed", this, "_");
 	}
 
 	public override void _Process(float delta) {
-		if (Input.IsActionJustPressed("ui_select") && objectSelected){
+		// if (Input.IsActionJustPressed("ui_select") && objectSelected){
 
-			if(IsInstanceValid(player)) {
-				player.UpdateStats(health, movementForce, shotDelay, noOfBullets, bulletForce, bulletStrength, bulletAccuracy, bulletBurstAmount, bulletTimeAlive, bulletSize);
-			}
+		// 	if(IsInstanceValid(player)) {
+		// 		player.UpdateStats(health, movementForce, shotDelay, noOfBullets, bulletForce, bulletStrength, bulletAccuracy, bulletBurstAmount, bulletTimeAlive, bulletSize);
+		// 	}
 
-			_OnButtonPress();
-			this.QueueFree();
-		}	
+		// 	_OnButtonPress();
+		// 	this.QueueFree();
+		// }	
 	}
 
 	private void MouseEntered() {
