@@ -7,7 +7,7 @@ public partial class PlayerController
 {
 	[Export] private int pointsOnBlock = 50;
 	
-	private bool invincible = false;
+	[Export] private bool invincible = false;
 
 	[Signal] public delegate void _end_game();
 
@@ -60,7 +60,7 @@ public partial class PlayerController
 	}
 
 	private void GainHealth(BulletController strikingBullet, Color backgroundColour, string flashText = null) {
-		UpdateHealth(strikingBullet.strength/2);
+		UpdateHealth((int)Math.Round(strikingBullet.strength/1.5f));
 		this.EmitSignal("_update_score", pointsOnBlock);
 
 		//Show effect

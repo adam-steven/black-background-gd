@@ -12,7 +12,6 @@ public static class Enums
 		Normal,
 		NormalStrong,
 		Spectral,
-		SpectralStrong,
 	}
 
 	/// <summary> The staves that can occur in a level </summary>

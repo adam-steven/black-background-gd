@@ -60,7 +60,6 @@ public class BulletController : Area2D
 			{ BulletVariations.Normal, new Godot.Color(1f, 0.5f, 0.5f, 1f) },
 			{ BulletVariations.NormalStrong, new Godot.Color(1.2f, 0.5f, 0.5f, 1f) },
 			{ BulletVariations.Spectral, new Godot.Color(0.5f, 1f, 1f, 1f) },
-			{ BulletVariations.SpectralStrong, new Godot.Color(0.5f, 1.2f, 1.2f, 1f) },
 		};
 
 		this.Modulate = bulletColours[type];
@@ -70,9 +69,6 @@ public class BulletController : Area2D
 		{
 			case BulletVariations.NormalStrong:
 				strength *= 2;
-				break;
-			case BulletVariations.SpectralStrong:
-				strength /= 2;
 				break;
 		}
 	}

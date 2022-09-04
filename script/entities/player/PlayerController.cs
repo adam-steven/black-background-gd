@@ -16,8 +16,6 @@ public partial class PlayerController : Entities
 		VisibilityNotifier2D vis = this.GetNode<VisibilityNotifier2D>("VisibilityNotifier2D");
 		vis.Connect("screen_exited", this, "_OnScreenExited");
 
-		connectAnimEndSignal("Stop", "StopIFramesEnd"); 
-
 		//Set the health UI and background colour
 		UpdateHealth(0);
 	}
