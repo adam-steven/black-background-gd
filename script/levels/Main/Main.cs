@@ -17,7 +17,7 @@ public partial class Main : Levels
 	private int enemySpawnMax = 2;
 	private int noOfEnemies = 0;
 
-	private Entities player;
+	private PlayerController player;
 
 	private List<string> enemies; //paths to enemy scenes
 	private List<string> obstacles; //paths to obstacle scenes (dodge section)
@@ -27,9 +27,6 @@ public partial class Main : Levels
 	private UiController uiNode;
 
 	public override void _Ready() {
-		//Reset the background color
-		Colour.UpdateBackgroundColour(10000);
-
 		uiNode = this.GetNode<UiController>("UI");
 
 		levelNode = this.GetNode<Godot.Node2D>("Level");
@@ -66,10 +63,9 @@ public partial class Main : Levels
 
 		private void SpawnPlayer(Vector2 location) {
 			PackedScene playerScene = (PackedScene)GD.Load("res://scenes/misc/Player.tscn");
-			player = (Entities)playerScene.Instance();
+			player = (PlayerController)playerScene.Instance();
 			player.GlobalPosition = location;
-			this.AddChild(player);
-
+			
 			player.Connect("_end_game", this, "EndGame");
 			player.Connect("_shake_screen", (Camera)mainCamera, "StartShakeScreen");
 			player.Connect("_section_text", this, "DisplaySectionText");
@@ -77,6 +73,9 @@ public partial class Main : Levels
 			player.Connect("_update_score", this, "UpdateScore");
 			player.Connect("_break_score_update", this, "BreakScoreUpdate");
 			player.Connect("_player_left_camera", this, "ReframePlayer");
+			player.Connect("_update_health_ui", uiNode, "UpdateHealthUi");
+
+			this.AddChild(player);
 		}
 
 		private void SpawnMainMenu() {

@@ -68,7 +68,7 @@ tracks/1/keys = {
 gravity_scale = 0.0
 script = ExtResource( 2 )
 entityType = 1
-health = 20
+health = 200
 movementForce = 20.0
 
 [node name="Sprite" type="Sprite" parent="."]

@@ -7,11 +7,9 @@ public class UpgradeMenu : Control
 	[Signal] public delegate void _decrease_multiplier(int reset);
 	[Signal] public delegate void _upgrading_finished();
 
-
     private Random rnd = new Random();
 	public Vector2 levelCenter;
-	public Entities player;
-
+	public PlayerController player;
 
     public override void _Ready()
     {
