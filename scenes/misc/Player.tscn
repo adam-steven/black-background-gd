@@ -681,7 +681,7 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Animation" id=14]
-length = 0.1
+length = 0.2
 step = 0.05
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:visible")
@@ -690,7 +690,7 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1 ),
+"times": PoolRealArray( 0, 0.2 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
 "values": [ true, false ]
@@ -702,10 +702,34 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.05, 0.1 ),
+"times": PoolRealArray( 0, 0.1, 0.2 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( 2, 2 ), Vector2( 2.2, 2.2 ), Vector2( 2, 2 ) ]
+"values": [ Vector2( 2, 2 ), Vector2( 2, 2 ), Vector2( 1.8, 1.8 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("../..:invincible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Sprite:self_modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
 
 [node name="Player" type="RigidBody2D"]
@@ -800,15 +824,15 @@ anims/Trigger = SubResource( 10 )
 [node name="Left" type="Node2D" parent="Effects"]
 
 [node name="Sprite" type="Sprite" parent="Effects/Left"]
-position = Vector2( -30, -12.4 )
-rotation = -0.785398
+modulate = Color( 1, 1, 1, 0.0705882 )
+position = Vector2( -23, -15 )
 scale = Vector2( 0.25, 1 )
 texture = ExtResource( 1 )
 offset = Vector2( -40, 0 )
 
 [node name="Sprite2" type="Sprite" parent="Effects/Left"]
-position = Vector2( -30, 12.4 )
-rotation = 0.785398
+modulate = Color( 1, 1, 1, 0.0705882 )
+position = Vector2( -23, 15 )
 scale = Vector2( 0.25, 1 )
 texture = ExtResource( 1 )
 offset = Vector2( -40, 0 )
