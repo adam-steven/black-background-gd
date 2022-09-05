@@ -24,41 +24,44 @@ public class UpgradeButton : Position2D
 
 	public PlayerController player;
 
-	public override void _Ready() {
-		//Set sprite graphic and name label
+	private Godot.Button btn;
 
-		Godot.Button btn = this.GetNode<Godot.Button>("Button");
+	public override void _Ready() {
+		btn = this.GetNode<Godot.Button>("Button");
 		btn.Connect("mouse_entered", this, "MouseEntered");
 		btn.Connect("mouse_exited", this, "MouseExited");
-		btn.Connect("pressed", this, "_");
-	}
+		btn.Connect("pressed", this, "_OnButtonPress");
 
-	public override void _Process(float delta) {
-		// if (Input.IsActionJustPressed("ui_select") && objectSelected){
+		Godot.Sprite sprite = btn.GetNode<Godot.Sprite>("Sprite");
+		sprite.Texture = graphic;
 
-		// 	if(IsInstanceValid(player)) {
-		// 		player.UpdateStats(health, movementForce, shotDelay, noOfBullets, bulletForce, bulletStrength, bulletAccuracy, bulletBurstAmount, bulletTimeAlive, bulletSize);
-		// 	}
-
-		// 	_OnButtonPress();
-		// 	this.QueueFree();
-		// }	
+		Godot.Label label = btn.GetNode<Godot.Label>("Label");
+		label.Text = name;
 	}
 
 	private void MouseEntered() {
 		AnimationPlayer anim  = this.GetNode<AnimationPlayer>("AnimationPlayer");
 		anim.Play("UpgradeSelected");
-		objectSelected = true;
+
+		Godot.Label label = btn.GetNode<Godot.Label>("Label");
+		label.Visible = true;
 	}
 
 	private void MouseExited() {
 		AnimationPlayer anim  = this.GetNode<AnimationPlayer>("AnimationPlayer");
 		anim.Play("UpgradeDeselected");
-		objectSelected = false;
+
+		Godot.Label label = btn.GetNode<Godot.Label>("Label");
+		label.Visible = false;
 	}
 
 	[Signal] public delegate void on_pressed(MenuButtons button);
 	private void _OnButtonPress() {
+		if(IsInstanceValid(player)) {
+			player.UpdateStats(health, movementForce, shotDelay, noOfBullets, bulletForce, bulletStrength, bulletAccuracy, bulletBurstAmount, bulletTimeAlive, bulletSize);
+		}
+
 		this.EmitSignal("on_pressed", this);
+		this.QueueFree();
 	}
 }
