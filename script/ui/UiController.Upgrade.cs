@@ -2,23 +2,23 @@ using Godot;
 
 public partial class UiController
 {
-    //private Godot.Label healthUi;
+    private Godot.Label upgradeDescUi;
 
     #region GetElements
 
-		// private void GetHealthUi() {
-		// 	Godot.BoxContainer rightPanel = this.GetNode<Godot.BoxContainer>("HBoxContainer/HBoxContainer/VBoxContainer2");
-		// 	healthUi = rightPanel.GetNode<Godot.Label>("Health"); 
-		// }
+		private void GetUpgradeDescUi() {
+			Godot.BoxContainer rightPanel = this.GetNode<Godot.BoxContainer>("HBoxContainer/HBoxContainer/VBoxContainer2");
+			upgradeDescUi = rightPanel.GetNode<Godot.Label>("UpgradeDescription"); 
+		}
 
 	#endregion
 
     #region UpdateElements
 
-		// public void UpdateHealthUi(int value) {
-		// 	if(healthUi == null) { return; }
-		// 	healthUi.Text = value.ToString("D4");
-		// }
+		public void UpdateUpgradeDescUi(string value) {
+			if(upgradeDescUi == null) { return; }
+			upgradeDescUi.Text = value;
+		}
 
 	#endregion
 }

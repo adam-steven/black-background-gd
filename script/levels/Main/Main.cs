@@ -81,11 +81,12 @@ public partial class Main : Levels
 		private void SpawnMainMenu() {
 			PackedScene mainMenuScene = (PackedScene)GD.Load("res://scenes/menus/MainMenu.tscn");
 			Godot.Control mainMenu = (Godot.Control)mainMenuScene.Instance();
-			this.AddChild(mainMenu);
-
+			
 			mainMenu.Connect("_play_game", this, "PlayGame");
 			mainMenu.Connect("_options", this, "GoToOptions");
 			mainMenu.Connect("_leaderboard", this, "GoToLeaderboard");
+
+			this.AddChild(mainMenu);
 		}
 
 		private void SpawnObstacles() {
@@ -105,9 +106,9 @@ public partial class Main : Levels
 
 				obstacle.player = player;
 
-				this.AddChild(obstacle);
-
 				obstacle.Connect("_on_death", this, "CheckIfEnemies");
+
+				this.AddChild(obstacle);
 			}
 		}
 
@@ -129,10 +130,10 @@ public partial class Main : Levels
 				enemy.player = player;
 				enemy.colour = Colour.enemyColour;
 
-				this.AddChild(enemy);
-
 				enemy.Connect("_on_death", this, "CheckIfEnemies");
 				enemy.Connect("_update_score", this, "UpdateScore", new Godot.Collections.Array(mainData.stage.level));
+
+				this.AddChild(enemy);
 			}
 		}
 
@@ -150,11 +151,11 @@ public partial class Main : Levels
 			upgradeMenu.levelCenter = levelCenter;
 			upgradeMenu.player = player;
 
-			this.AddChild(upgradeMenu);
-
-			//if the upgrading is finished call CheckIfEnemies to continue game
 			upgradeMenu.Connect("_upgrading_finished", this, "UpgradingFinished");
 			upgradeMenu.Connect("_decrease_multiplier", this, "UpdateMultiplier");
+			upgradeMenu.Connect("_update_upgrade_ui", uiNode, "UpdateUpgradeDescUi");
+
+			this.AddChild(upgradeMenu);
 		}
 
 	#endregion 

@@ -6,6 +6,7 @@ public class UpgradeMenu : Control
 {
 	[Signal] public delegate void _decrease_multiplier(int reset);
 	[Signal] public delegate void _upgrading_finished();
+	[Signal] public delegate void _update_upgrade_ui(string value);
 
     private Random rnd = new Random();
 	public Vector2 levelCenter;
@@ -15,7 +16,8 @@ public class UpgradeMenu : Control
     {
 		//Connect exit listener
 		Godot.Area2D exitBtn = this.GetNode<Godot.Area2D>("Exit");
-		exitBtn.Connect("on_pressed", this, "_OnButtonPress");
+		exitBtn.Connect("_on_pressed", this, "_OnButtonPress");
+		exitBtn.Connect("_update_upgrade_ui", this, "_UpdateUpgradeDesc");
 
 		//Spawn upgrades
 		Vector2[] spawnPoints = {
@@ -24,10 +26,10 @@ public class UpgradeMenu : Control
 			new Vector2(-Globals.levelSize.x/2,Globals.levelSize.y/2),
 		};
 
-		spawnUpgrades(spawnPoints);
+		SpawnUpgrades(spawnPoints);
     }
 
-	private void spawnUpgrades(Vector2[] spawnPoints) {
+	private void SpawnUpgrades(Vector2[] spawnPoints) {
         List<string> upgrades = FileManager.GetScenes(Globals.upgradesFolder);
 
 		for (int i = 0; i < spawnPoints.Length; i++) {
@@ -48,7 +50,7 @@ public class UpgradeMenu : Control
 	}
 
 	private void _OnButtonPress(UpgradeButton button) {
-		if(!button.endUpgrading) { decreaseMultiplier(); }
+		if(!button.endUpgrading) { DecreaseMultiplier(); }
 
 		//If the button has endUpgrading set or only the exit button is left
 		Godot.Collections.Array buttons = this.GetChildren();
@@ -57,8 +59,12 @@ public class UpgradeMenu : Control
 		}
 	}
 
+	private void _UpdateUpgradeDesc(string value) {
+		this.EmitSignal("_update_upgrade_ui", value);
+	}
+
 	//Emit signal to decrement score multiplier
-	public void decreaseMultiplier() {
+	public void DecreaseMultiplier() {
 		this.EmitSignal("_decrease_multiplier", false);
 	}
 

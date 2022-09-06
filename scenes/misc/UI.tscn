@@ -1,10 +1,11 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://script/ui/UiController.cs" type="Script" id=1]
 [ext_resource path="res://fonts/Teko-SemiBold-60.tres" type="DynamicFont" id=2]
 [ext_resource path="res://fonts/Teko-SemiBold-75.tres" type="DynamicFont" id=3]
 [ext_resource path="res://images/bar_brake_long.png" type="Texture" id=4]
 [ext_resource path="res://images/base_block.png" type="Texture" id=5]
+[ext_resource path="res://fonts/Teko-SemiBold-40.tres" type="DynamicFont" id=6]
 [ext_resource path="res://shaders/WaveSegmentShader.gdshader" type="Shader" id=7]
 
 [sub_resource type="StyleBoxEmpty" id=11]
@@ -146,6 +147,8 @@ shader_param/Texture = ExtResource( 4 )
 
 [sub_resource type="StyleBoxEmpty" id=7]
 
+[sub_resource type="StyleBoxEmpty" id=14]
+
 [sub_resource type="StyleBoxEmpty" id=12]
 
 [sub_resource type="StyleBoxEmpty" id=13]
@@ -258,21 +261,28 @@ margin_bottom = 1080.0
 custom_constants/separation = 60
 custom_styles/separator = SubResource( 7 )
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer/HBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="HBoxContainer/HBoxContainer"]
 margin_left = 24.0
-margin_right = 376.0
+margin_right = 34.0
+margin_bottom = 1080.0
+rect_min_size = Vector2( 10, 0 )
+custom_styles/separator = SubResource( 14 )
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer/HBoxContainer"]
+margin_left = 38.0
+margin_right = 366.0
 margin_bottom = 1080.0
 size_flags_horizontal = 3
 
 [node name="VSeparator" type="VSeparator" parent="HBoxContainer/HBoxContainer/VBoxContainer2"]
-margin_right = 352.0
+margin_right = 328.0
 margin_bottom = 146.0
 rect_min_size = Vector2( 0, 146 )
 custom_styles/separator = SubResource( 12 )
 
 [node name="Health" type="Label" parent="HBoxContainer/HBoxContainer/VBoxContainer2"]
 margin_top = 150.0
-margin_right = 352.0
+margin_right = 328.0
 margin_bottom = 207.0
 custom_fonts/font = ExtResource( 2 )
 text = "0000"
@@ -280,9 +290,21 @@ align = 1
 valign = 1
 clip_text = true
 
-[node name="HSeparator" type="HSeparator" parent="HBoxContainer/HBoxContainer"]
-margin_left = 380.0
+[node name="UpgradeDescription" type="Label" parent="HBoxContainer/HBoxContainer/VBoxContainer2"]
+margin_top = 211.0
+margin_right = 328.0
+margin_bottom = 1080.0
+size_flags_vertical = 3
+custom_constants/line_spacing = 6
+custom_fonts/font = ExtResource( 6 )
+text = "grtgrgrgrgtgrgrgrltkgjnrgjhrgrjgrjkhgrtjgkrhgkjrhgrjkhgrghrkghrtgkjhrtgjkrhgrkj"
+align = 1
+valign = 1
+autowrap = true
+
+[node name="HSeparator2" type="HSeparator" parent="HBoxContainer/HBoxContainer"]
+margin_left = 370.0
 margin_right = 400.0
 margin_bottom = 1080.0
-rect_min_size = Vector2( 20, 0 )
+rect_min_size = Vector2( 30, 0 )
 custom_styles/separator = SubResource( 13 )

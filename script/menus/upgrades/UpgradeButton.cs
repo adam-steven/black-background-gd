@@ -20,6 +20,9 @@ public class UpgradeButton : Position2D
 
 	[Export] public bool endUpgrading = false;
 
+	[Signal] public delegate void _on_pressed(MenuButtons button);
+	[Signal] public delegate void _update_upgrade_ui(string value);
+
 	private bool objectSelected = false;
 
 	public PlayerController player;
@@ -43,8 +46,11 @@ public class UpgradeButton : Position2D
 		AnimationPlayer anim  = this.GetNode<AnimationPlayer>("AnimationPlayer");
 		anim.Play("UpgradeSelected");
 
+		//CHECK IF USER ACCESSIBILITY SETTINGS ARE ENABLED
 		Godot.Label label = btn.GetNode<Godot.Label>("Label");
 		label.Visible = true;
+
+		this.EmitSignal("_update_upgrade_ui", description);
 	}
 
 	private void MouseExited() {
@@ -53,15 +59,16 @@ public class UpgradeButton : Position2D
 
 		Godot.Label label = btn.GetNode<Godot.Label>("Label");
 		label.Visible = false;
+
+		this.EmitSignal("_update_upgrade_ui", "");
 	}
 
-	[Signal] public delegate void on_pressed(MenuButtons button);
 	private void _OnButtonPress() {
 		if(IsInstanceValid(player)) {
 			player.UpdateStats(health, movementForce, shotDelay, noOfBullets, bulletForce, bulletStrength, bulletAccuracy, bulletBurstAmount, bulletTimeAlive, bulletSize);
 		}
 
-		this.EmitSignal("on_pressed", this);
+		this.EmitSignal("_on_pressed", this);
 		this.QueueFree();
 	}
 }
