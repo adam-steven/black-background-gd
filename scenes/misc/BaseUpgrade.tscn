@@ -1,13 +1,57 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://script/menus/upgrades/UpgradeButton.cs" type="Script" id=1]
 [ext_resource path="res://fonts/Teko-SemiBold-40.tres" type="DynamicFont" id=2]
 [ext_resource path="res://images/icon.png" type="Texture" id=3]
 
-[node name="Position2D" type="Position2D"]
-script = ExtResource( 1 )
+[sub_resource type="Animation" id=1]
+resource_name = "Init"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
 
-[node name="Button" type="Button" parent="."]
+[sub_resource type="Animation" id=2]
+resource_name = "UpgradeDeselected"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1.2, 1.2 ), Vector2( 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "UpgradeSelected"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1.2, 1.2 ) ]
+}
+
+[node name="Button" type="Button"]
 margin_left = -100.0
 margin_top = -75.0
 margin_right = 100.0
@@ -16,11 +60,11 @@ grow_horizontal = 2
 grow_vertical = 2
 flat = true
 
-[node name="Sprite" type="Sprite" parent="Button"]
+[node name="Sprite" type="Sprite" parent="."]
 position = Vector2( 100, 50 )
 texture = ExtResource( 3 )
 
-[node name="Label" type="Label" parent="Button"]
+[node name="Label" type="Label" parent="."]
 margin_top = 85.0
 margin_right = 200.0
 margin_bottom = 128.0
@@ -29,3 +73,11 @@ custom_fonts/font = ExtResource( 2 )
 text = "UPGRADE"
 align = 1
 valign = 1
+uppercase = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../..")
+autoplay = "Init"
+anims/Init = SubResource( 1 )
+anims/UpgradeDeselected = SubResource( 2 )
+anims/UpgradeSelected = SubResource( 3 )

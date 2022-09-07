@@ -297,7 +297,6 @@ margin_bottom = 1080.0
 size_flags_vertical = 3
 custom_constants/line_spacing = 6
 custom_fonts/font = ExtResource( 6 )
-text = "grtgrgrgrgtgrgrgrltkgjnrgjhrgrjgrjkhgrtjgkrhgkjrhgrjkhgrghrkghrtgkjhrtgjkrhgrkj"
 align = 1
 valign = 1
 autowrap = true

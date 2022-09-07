@@ -8,5 +8,6 @@ public partial class UiController : Control
 		GetScoreUi();
 		GetWaveIndicatorUi();
 		GetHealthUi();
+		GetUpgradeDescUi();
 	}
 }

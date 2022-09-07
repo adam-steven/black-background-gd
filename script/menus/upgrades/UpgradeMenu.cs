@@ -15,7 +15,7 @@ public class UpgradeMenu : Control
     public override void _Ready()
     {
 		//Connect exit listener
-		Godot.Area2D exitBtn = this.GetNode<Godot.Area2D>("Exit");
+		UpgradeButton exitBtn = this.GetNode<UpgradeButton>("Exit");
 		exitBtn.Connect("_on_pressed", this, "_OnButtonPress");
 		exitBtn.Connect("_update_upgrade_ui", this, "_UpdateUpgradeDesc");
 
@@ -43,9 +43,10 @@ public class UpgradeMenu : Control
 			UpgradeButton upgradeOptionScript = upgradeOption;
 			upgradeOptionScript.player = player;
 
-			this.AddChild(upgradeOption);
+			upgradeOption.Connect("_on_pressed", this, "_OnButtonPress");
+			upgradeOption.Connect("_update_upgrade_ui", this, "_UpdateUpgradeDesc");
 
-			upgradeOption.Connect("on_pressed", this, "_OnButtonPress");
+			this.AddChild(upgradeOption);
 		}
 	}
 

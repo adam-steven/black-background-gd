@@ -82,7 +82,7 @@ public class StageObj {
     }
 
     public StageObj() {
-        stageCounter = 0;
+        stageCounter = 3;
         currentWaveCounter = 0;
         UpdateStageLengths();
     }

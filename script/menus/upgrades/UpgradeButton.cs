@@ -3,9 +3,7 @@ using System;
 
 public class UpgradeButton : Position2D
 {    
-	[Export] private Texture graphic;
-	[Export] private string name;
-	[Export] private string description;
+	[Export] private string description = "";
 
 	[Export] private int health = 0;
 	[Export] private float movementForce = 0f;
@@ -16,14 +14,12 @@ public class UpgradeButton : Position2D
 	[Export] private float bulletAccuracy = 0; //Bullet's accuracy (0 is perfect accuracy)
 	[Export] private int bulletBurstAmount = 0; //Number of bullets fired in quick succession (fixed delay interval)
 	[Export] private float bulletTimeAlive = 0; //Bullet Range (>0 = 0.05f)
-	[Export] public float bulletSize = 0; //Modifies the size of the bullet sprite
+	[Export] private float bulletSize = 0; //Modifies the size of the bullet sprite
 
 	[Export] public bool endUpgrading = false;
 
 	[Signal] public delegate void _on_pressed(MenuButtons button);
 	[Signal] public delegate void _update_upgrade_ui(string value);
-
-	private bool objectSelected = false;
 
 	public PlayerController player;
 
@@ -35,15 +31,12 @@ public class UpgradeButton : Position2D
 		btn.Connect("mouse_exited", this, "MouseExited");
 		btn.Connect("pressed", this, "_OnButtonPress");
 
-		Godot.Sprite sprite = btn.GetNode<Godot.Sprite>("Sprite");
-		sprite.Texture = graphic;
-
 		Godot.Label label = btn.GetNode<Godot.Label>("Label");
-		label.Text = name;
+		label.Visible = false;
 	}
 
 	private void MouseEntered() {
-		AnimationPlayer anim  = this.GetNode<AnimationPlayer>("AnimationPlayer");
+		AnimationPlayer anim  = btn.GetNode<AnimationPlayer>("AnimationPlayer");
 		anim.Play("UpgradeSelected");
 
 		//CHECK IF USER ACCESSIBILITY SETTINGS ARE ENABLED
@@ -54,7 +47,7 @@ public class UpgradeButton : Position2D
 	}
 
 	private void MouseExited() {
-		AnimationPlayer anim  = this.GetNode<AnimationPlayer>("AnimationPlayer");
+		AnimationPlayer anim  = btn.GetNode<AnimationPlayer>("AnimationPlayer");
 		anim.Play("UpgradeDeselected");
 
 		Godot.Label label = btn.GetNode<Godot.Label>("Label");
@@ -68,6 +61,7 @@ public class UpgradeButton : Position2D
 			player.UpdateStats(health, movementForce, shotDelay, noOfBullets, bulletForce, bulletStrength, bulletAccuracy, bulletBurstAmount, bulletTimeAlive, bulletSize);
 		}
 
+		this.EmitSignal("_update_upgrade_ui", "");
 		this.EmitSignal("_on_pressed", this);
 		this.QueueFree();
 	}
