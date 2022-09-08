@@ -17,32 +17,38 @@ public class OptionsMenu : MenuController
 				Return(button);
 				break;
 			case MenuButtonActions.StartCountDown:
-				SaveStartCountDown(button);
+				SaveToggle(button);
+				break;
+			case MenuButtonActions.UpgradeName: 
+				SaveToggle(button);
+				break;
+			case MenuButtonActions.UpgradeDesc: 
+				SaveToggle(button);
 				break;
 			case MenuButtonActions.Up:
 				HandelKeyChange(button);
 				break;
 			case MenuButtonActions.Down:
 				HandelKeyChange(button);
-			break;
+				break;
 			case MenuButtonActions.Left:
 				HandelKeyChange(button);
-			break;
+				break;
 			case MenuButtonActions.Right:
 				HandelKeyChange(button);
-			break;
+				break;
 			case MenuButtonActions.Shoot:
 				HandelKeyChange(button);
-			break;
+				break;
 			case MenuButtonActions.Block:
 				HandelKeyChange(button);
-			break;
+				break;
 			case MenuButtonActions.Pause:
 				HandelKeyChange(button);
-			break;
+				break;
 			default:
 				GD.Print($"Warning: unused btn action: {button.action}");
-			break;
+				break;
 		}
 	}
 
@@ -51,7 +57,7 @@ public class OptionsMenu : MenuController
 		button.Disabled = true;
 	}
 
-	private void SaveStartCountDown(MenuButtons button) {
+	private void SaveToggle(MenuButtons button) {
 		this.EmitSignal("_set_bool_setting", button, button.Pressed);
 	}
 

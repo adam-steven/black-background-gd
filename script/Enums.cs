@@ -38,7 +38,9 @@ public static class Enums
 		Right,
 		Shoot,
 		Block,
-		Pause
+		Pause,
+		UpgradeName,
+		UpgradeDesc,
 	};
 
 	/// <summary> List of Godot's integrated colour </summary>

@@ -1,11 +1,13 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using static Enums;
 
 public class UpgradeMenu : Control
 {
 	[Signal] public delegate void _decrease_multiplier(int reset);
 	[Signal] public delegate void _upgrading_finished();
+	[Signal] public delegate void _update_upgrade_ui(string value);
 
     private Random rnd = new Random();
 	public Vector2 levelCenter;
@@ -13,9 +15,16 @@ public class UpgradeMenu : Control
 
     public override void _Ready()
     {
+		SettingsController settings = new SettingsController();
+		bool showNames = (bool)settings.GetValue(MenuButtonActions.UpgradeName.ToString(), false);
+		bool showDesc = (bool)settings.GetValue(MenuButtonActions.UpgradeDesc.ToString(), false);
+
 		//Connect exit listener
-		Godot.Area2D exitBtn = this.GetNode<Godot.Area2D>("Exit");
-		exitBtn.Connect("on_pressed", this, "_OnButtonPress");
+		UpgradeButton exitBtn = this.GetNode<UpgradeButton>("Exit");
+		exitBtn.Connect("_on_pressed", this, "_OnButtonPress");
+		exitBtn.Connect("_update_upgrade_ui", this, "_UpdateUpgradeDesc");
+		exitBtn.showNames = showNames;
+		exitBtn.showDesc = showDesc;
 
 		//Spawn upgrades
 		Vector2[] spawnPoints = {
@@ -24,31 +33,34 @@ public class UpgradeMenu : Control
 			new Vector2(-Globals.levelSize.x/2,Globals.levelSize.y/2),
 		};
 
-		spawnUpgrades(spawnPoints);
+		SpawnUpgrades(spawnPoints, showNames, showDesc);
     }
 
-	private void spawnUpgrades(Vector2[] spawnPoints) {
+	private void SpawnUpgrades(Vector2[] spawnPoints, bool showNames, bool showDesc) {
         List<string> upgrades = FileManager.GetScenes(Globals.upgradesFolder);
 
 		for (int i = 0; i < spawnPoints.Length; i++) {
 			string randomUpgrade = upgrades[rnd.Next(upgrades.Count)];
 			PackedScene upgradeOptionScene = (PackedScene)GD.Load(Globals.upgradesFolder + randomUpgrade);
-			Godot.Node2D upgradeOption = (Godot.Node2D)upgradeOptionScene.Instance();
+			UpgradeButton upgradeOption = (UpgradeButton)upgradeOptionScene.Instance();
 
 			Vector2 spawnPosition = spawnPoints[i] + levelCenter;
 			upgradeOption.GlobalPosition = spawnPosition;
 
-			UpgradeButton upgradeOptionScript = (UpgradeButton)upgradeOption;
+			UpgradeButton upgradeOptionScript = upgradeOption;
 			upgradeOptionScript.player = player;
+			upgradeOptionScript.showNames = showNames;
+			upgradeOptionScript.showDesc = showDesc;
+
+			upgradeOption.Connect("_on_pressed", this, "_OnButtonPress");
+			upgradeOption.Connect("_update_upgrade_ui", this, "_UpdateUpgradeDesc");
 
 			this.AddChild(upgradeOption);
-
-			upgradeOption.Connect("on_pressed", this, "_OnButtonPress");
 		}
 	}
 
 	private void _OnButtonPress(UpgradeButton button) {
-		if(!button.endUpgrading) { decreaseMultiplier(); }
+		if(!button.endUpgrading) { DecreaseMultiplier(); }
 
 		//If the button has endUpgrading set or only the exit button is left
 		Godot.Collections.Array buttons = this.GetChildren();
@@ -57,8 +69,12 @@ public class UpgradeMenu : Control
 		}
 	}
 
+	private void _UpdateUpgradeDesc(string value) {
+		this.EmitSignal("_update_upgrade_ui", value);
+	}
+
 	//Emit signal to decrement score multiplier
-	public void decreaseMultiplier() {
+	public void DecreaseMultiplier() {
 		this.EmitSignal("_decrease_multiplier", false);
 	}
 

@@ -223,9 +223,6 @@ rect_min_size = Vector2( 840, 0 )
 custom_fonts/font = ExtResource( 3 )
 text = "Replay"
 align = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Control/Buttons/Replay"]
 autoplay = "MenuBtnInit"

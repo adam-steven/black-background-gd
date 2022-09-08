@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=2]
+[gd_scene load_steps=39 format=2]
 
 [ext_resource path="res://fonts/Teko-Bold-90.tres" type="DynamicFont" id=1]
 [ext_resource path="res://script/menus/MenuButtons.cs" type="Script" id=2]
@@ -42,6 +42,102 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Animation" id=3]
+resource_name = "MenuBtnSelected"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("Position2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1.2, 1.2 ) ]
+}
+
+[sub_resource type="Animation" id=43]
+resource_name = "MenuBtnDeselected"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("Position2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1.2, 1.2 ), Vector2( 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=44]
+resource_name = "MenuBtnInit"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Position2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=45]
+resource_name = "MenuBtnSelected"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("Position2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1.2, 1.2 ) ]
+}
+
+[sub_resource type="Animation" id=46]
+resource_name = "MenuBtnDeselected"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("Position2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1.2, 1.2 ), Vector2( 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=47]
+resource_name = "MenuBtnInit"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Position2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=48]
 resource_name = "MenuBtnSelected"
 length = 0.2
 tracks/0/type = "value"
@@ -417,18 +513,18 @@ custom_constants/separation = 46
 alignment = 1
 
 [node name="Label" type="Label" parent="Control/Buttons"]
-margin_top = 215.0
+margin_top = 91.0
 margin_right = 840.0
-margin_bottom = 337.0
+margin_bottom = 213.0
 rect_min_size = Vector2( 840, 0 )
 custom_fonts/font = ExtResource( 5 )
 text = "Options"
 align = 1
 
 [node name="TabContainer" type="TabContainer" parent="Control/Buttons"]
-margin_top = 383.0
+margin_top = 259.0
 margin_right = 840.0
-margin_bottom = 539.0
+margin_bottom = 663.0
 grow_horizontal = 2
 grow_vertical = 2
 tab_align = 0
@@ -469,6 +565,66 @@ autoplay = "MenuBtnInit"
 anims/MenuBtnDeselected = SubResource( 1 )
 anims/MenuBtnInit = SubResource( 2 )
 anims/MenuBtnSelected = SubResource( 3 )
+
+[node name="UpgradeName" type="CheckButton" parent="Control/Buttons/TabContainer/General"]
+margin_top = 124.0
+margin_right = 832.0
+margin_bottom = 244.0
+rect_min_size = Vector2( 0, 120 )
+custom_icons/off = ExtResource( 4 )
+custom_icons/on = ExtResource( 6 )
+script = ExtResource( 2 )
+action = 14
+
+[node name="Position2D" type="Position2D" parent="Control/Buttons/TabContainer/General/UpgradeName"]
+position = Vector2( 350, 65 )
+scale = Vector2( 1.2, 1.2 )
+
+[node name="Label" type="Label" parent="Control/Buttons/TabContainer/General/UpgradeName/Position2D"]
+margin_left = -420.0
+margin_top = -65.0
+margin_right = 420.0
+margin_bottom = 65.0
+rect_min_size = Vector2( 840, 0 )
+custom_fonts/font = ExtResource( 1 )
+text = "Upgrade Names"
+align = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Control/Buttons/TabContainer/General/UpgradeName"]
+autoplay = "MenuBtnInit"
+anims/MenuBtnDeselected = SubResource( 43 )
+anims/MenuBtnInit = SubResource( 44 )
+anims/MenuBtnSelected = SubResource( 45 )
+
+[node name="UpgradeDesc" type="CheckButton" parent="Control/Buttons/TabContainer/General"]
+margin_top = 248.0
+margin_right = 832.0
+margin_bottom = 368.0
+rect_min_size = Vector2( 0, 120 )
+custom_icons/off = ExtResource( 4 )
+custom_icons/on = ExtResource( 6 )
+script = ExtResource( 2 )
+action = 15
+
+[node name="Position2D" type="Position2D" parent="Control/Buttons/TabContainer/General/UpgradeDesc"]
+position = Vector2( 350, 65 )
+scale = Vector2( 1.2, 1.2 )
+
+[node name="Label" type="Label" parent="Control/Buttons/TabContainer/General/UpgradeDesc/Position2D"]
+margin_left = -420.0
+margin_top = -65.0
+margin_right = 420.0
+margin_bottom = 65.0
+rect_min_size = Vector2( 840, 0 )
+custom_fonts/font = ExtResource( 1 )
+text = "Upgrade Hints"
+align = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Control/Buttons/TabContainer/General/UpgradeDesc"]
+autoplay = "MenuBtnInit"
+anims/MenuBtnDeselected = SubResource( 46 )
+anims/MenuBtnInit = SubResource( 47 )
+anims/MenuBtnSelected = SubResource( 48 )
 
 [node name="Controls" type="ScrollContainer" parent="Control/Buttons/TabContainer"]
 visible = false
@@ -831,9 +987,9 @@ anims/MenuBtnInit = SubResource( 41 )
 anims/MenuBtnSelected = SubResource( 42 )
 
 [node name="Return" type="Button" parent="Control/Buttons"]
-margin_top = 585.0
+margin_top = 709.0
 margin_right = 840.0
-margin_bottom = 705.0
+margin_bottom = 829.0
 rect_min_size = Vector2( 200, 120 )
 flat = true
 script = ExtResource( 2 )

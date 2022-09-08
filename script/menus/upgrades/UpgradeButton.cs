@@ -1,8 +1,10 @@
 using Godot;
 using System;
 
-public class UpgradeButton : Area2D
+public class UpgradeButton : Position2D
 {    
+	[Export] private string description = "";
+
 	[Export] private int health = 0;
 	[Export] private float movementForce = 0f;
 	[Export] private float shotDelay = 0;
@@ -12,45 +14,62 @@ public class UpgradeButton : Area2D
 	[Export] private float bulletAccuracy = 0; //Bullet's accuracy (0 is perfect accuracy)
 	[Export] private int bulletBurstAmount = 0; //Number of bullets fired in quick succession (fixed delay interval)
 	[Export] private float bulletTimeAlive = 0; //Bullet Range (>0 = 0.05f)
-	[Export] public float bulletSize = 0; //Modifies the size of the bullet sprite
+	[Export] private float bulletSize = 0; //Modifies the size of the bullet sprite
 
 	[Export] public bool endUpgrading = false;
 
-	private bool objectSelected = false;
+	[Signal] public delegate void _on_pressed(MenuButtons button);
+	[Signal] public delegate void _update_upgrade_ui(string value);
 
 	public PlayerController player;
+	public bool showNames;
+	public bool showDesc;
+	private Godot.Button btn;
 
 	public override void _Ready() {
-		this.Connect("mouse_entered", this, "MouseEntered");
-		this.Connect("mouse_exited", this, "MouseExited");
-	}
+		btn = this.GetNode<Godot.Button>("Button");
+		btn.Connect("mouse_entered", this, "MouseEntered");
+		btn.Connect("mouse_exited", this, "MouseExited");
+		btn.Connect("pressed", this, "_OnButtonPress");
 
-	public override void _Process(float delta) {
-		if (Input.IsActionJustPressed("ui_select") && objectSelected){
-
-			if(IsInstanceValid(player)) {
-				player.UpdateStats(health, movementForce, shotDelay, noOfBullets, bulletForce, bulletStrength, bulletAccuracy, bulletBurstAmount, bulletTimeAlive, bulletSize);
-			}
-
-			_OnButtonPress();
-			this.QueueFree();
-		}	
+		Godot.Label label = btn.GetNode<Godot.Label>("Label");
+		label.Visible = false;
 	}
 
 	private void MouseEntered() {
-		AnimationPlayer anim  = this.GetNode<AnimationPlayer>("AnimationPlayer");
+		AnimationPlayer anim  = btn.GetNode<AnimationPlayer>("AnimationPlayer");
 		anim.Play("UpgradeSelected");
-		objectSelected = true;
+
+		ShowDescriptionUi(true);
+		ShowDescriptionUi(description);
 	}
 
 	private void MouseExited() {
-		AnimationPlayer anim  = this.GetNode<AnimationPlayer>("AnimationPlayer");
+		AnimationPlayer anim  = btn.GetNode<AnimationPlayer>("AnimationPlayer");
 		anim.Play("UpgradeDeselected");
-		objectSelected = false;
+
+		ShowDescriptionUi(false);
+		ShowDescriptionUi("");
 	}
 
-	[Signal] public delegate void on_pressed(MenuButtons button);
 	private void _OnButtonPress() {
-		this.EmitSignal("on_pressed", this);
+		if(IsInstanceValid(player)) {
+			player.UpdateStats(health, movementForce, shotDelay, noOfBullets, bulletForce, bulletStrength, bulletAccuracy, bulletBurstAmount, bulletTimeAlive, bulletSize);
+		}
+
+		ShowDescriptionUi("");
+		this.EmitSignal("_on_pressed", this);
+		this.QueueFree();
+	}
+
+	private void ShowDescriptionUi(bool visiable) {
+		if(!showNames) { return; }
+		Godot.Label label = btn.GetNode<Godot.Label>("Label");
+		label.Visible = visiable;
+	}
+
+	private void ShowDescriptionUi(string value) {
+		if(!showDesc) { return; }
+		this.EmitSignal("_update_upgrade_ui", value);
 	}
 }
