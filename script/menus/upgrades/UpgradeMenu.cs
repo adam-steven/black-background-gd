@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using static Enums;
 
 public class UpgradeMenu : Control
 {
@@ -14,10 +15,16 @@ public class UpgradeMenu : Control
 
     public override void _Ready()
     {
+		SettingsController settings = new SettingsController();
+		bool showNames = (bool)settings.GetValue(MenuButtonActions.UpgradeName.ToString(), false);
+		bool showDesc = (bool)settings.GetValue(MenuButtonActions.UpgradeDesc.ToString(), false);
+
 		//Connect exit listener
 		UpgradeButton exitBtn = this.GetNode<UpgradeButton>("Exit");
 		exitBtn.Connect("_on_pressed", this, "_OnButtonPress");
 		exitBtn.Connect("_update_upgrade_ui", this, "_UpdateUpgradeDesc");
+		exitBtn.showNames = showNames;
+		exitBtn.showDesc = showDesc;
 
 		//Spawn upgrades
 		Vector2[] spawnPoints = {
@@ -26,10 +33,10 @@ public class UpgradeMenu : Control
 			new Vector2(-Globals.levelSize.x/2,Globals.levelSize.y/2),
 		};
 
-		SpawnUpgrades(spawnPoints);
+		SpawnUpgrades(spawnPoints, showNames, showDesc);
     }
 
-	private void SpawnUpgrades(Vector2[] spawnPoints) {
+	private void SpawnUpgrades(Vector2[] spawnPoints, bool showNames, bool showDesc) {
         List<string> upgrades = FileManager.GetScenes(Globals.upgradesFolder);
 
 		for (int i = 0; i < spawnPoints.Length; i++) {
@@ -42,6 +49,8 @@ public class UpgradeMenu : Control
 
 			UpgradeButton upgradeOptionScript = upgradeOption;
 			upgradeOptionScript.player = player;
+			upgradeOptionScript.showNames = showNames;
+			upgradeOptionScript.showDesc = showDesc;
 
 			upgradeOption.Connect("_on_pressed", this, "_OnButtonPress");
 			upgradeOption.Connect("_update_upgrade_ui", this, "_UpdateUpgradeDesc");
