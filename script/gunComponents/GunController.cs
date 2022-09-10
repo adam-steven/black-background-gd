@@ -10,7 +10,7 @@ public class GunController
 	private PackedScene bulletScene;
 	private Entities ownerNode;
 
-    private int timeLastShot = 0;
+    private int timeLastShot = 0; 
 
 	///<summary> 
 	///		Allows nodes to shoot bullets form there body.
@@ -77,6 +77,7 @@ public class GunController
 		bullet.Position = ownerNode.Position;
 		bullet.Rotation = ownerSprite.GlobalRotation + randomAccuracyDeviation;
 		bullet.Scale = new Vector2(ownerNode.bulletSize, ownerNode.bulletSize);
+		bullet.Modulate = ownerNode.bulletColour;
 
 		// Access bullet script 
 		bullet.bOwner = ownerNode.entityType;

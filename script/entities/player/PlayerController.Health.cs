@@ -18,11 +18,11 @@ public partial class PlayerController
 			switch (strikingBullet.type)
 			{
 				case BulletVariations.Normal:
-					GainHealth(strikingBullet, Colour.enemyColour);
+					GainHealth(strikingBullet, Colour.levelColour);
 					return;
 
 				case BulletVariations.NormalStrong:
-					GainHealth(strikingBullet, Colour.enemyColour, "NICE");
+					GainHealth(strikingBullet, Colour.levelColour, "NICE");
 					this.EmitSignal("_destroy_all_bullets");  
 					return;
 					
@@ -72,8 +72,7 @@ public partial class PlayerController
 		if(flashText != null) { this.EmitSignal("_section_text", flashText, true); } 
 
 		//Flash colour + freeze frame
-		var darkenedColour = backgroundColour.LinearInterpolate(Color.ColorN("black"), 0.5f);
-		Colour.FlashBackgroundColour(darkenedColour, GetTree(), health);
+		Colour.FlashBackgroundColour(backgroundColour, GetTree(), health);
 	}
 
 	public override void UpdateHealth(int addend) {

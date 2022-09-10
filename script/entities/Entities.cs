@@ -9,11 +9,12 @@ namespace Godot
         [Export] public int health = 1000;
         [Export] public float movementForce = 1000f;
 
-        public Color colour;
+        public Color colour = Color.Color8(251, 255, 255);
         
         #region Gun
                 
             public GunController gun; 
+            public Color bulletColour = Color.Color8(251, 255, 255);
 
             [Export] public float shotDelay = 1;
             [Export] public int noOfBullets = 1; //Number of bullets fired at once (Shotgun effect)
