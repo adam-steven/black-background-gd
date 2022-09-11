@@ -25,14 +25,23 @@ public static class Colour
 
 	//Flash a colour on the Scene of a sec + freeze frame
 	public static async void FlashBackgroundColour(Color colourToFlash, SceneTree tree, int playerHealth) {
+		bool isFlashBlack = colourToFlash.IsEqualApprox(Color.ColorN("black"));
+		Node2D rootScene = (!isFlashBlack) ? (Node2D)tree.CurrentScene : new Node2D();
+
+		rootScene.Modulate = Color.ColorN("black");
 		VisualServer.SetDefaultClearColor(colourToFlash);
-		tree.Paused = true;
 
 		//Freeze frame always with colour flash to minimise seizure risk
-		await Task.Delay(300);
+		await FreezeFrame(tree);
 
-		tree.Paused = false;
+		rootScene.Modulate = Color.ColorN("white");
 		UpdateBackgroundColour(playerHealth);
+	}
+
+	private static async Task FreezeFrame(SceneTree tree) {
+		tree.Paused = true;
+		await Task.Delay(300);
+		tree.Paused = false;
 	}
 
 	//Updates the Games colour scheme to a new random colour
