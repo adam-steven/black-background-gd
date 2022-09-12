@@ -105,6 +105,8 @@ public partial class Main : Levels
 				obstacle.GlobalPosition = spawnPosition;
 
 				obstacle.player = player;
+				obstacle.colour = Colour.levelColour;
+				obstacle.bulletColour = Colour.harmonizingColour;
 
 				obstacle.Connect("_on_death", this, "CheckIfEnemies");
 
@@ -128,7 +130,8 @@ public partial class Main : Levels
 				enemy.GlobalPosition = spawnPosition;
 
 				enemy.player = player;
-				enemy.colour = Colour.enemyColour;
+				enemy.colour = Colour.levelColour;
+				enemy.bulletColour = Colour.harmonizingColour;
 
 				enemy.Connect("_on_death", this, "CheckIfEnemies");
 				enemy.Connect("_update_score", this, "UpdateScore", new Godot.Collections.Array(mainData.stage.level));

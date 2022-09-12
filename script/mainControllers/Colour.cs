@@ -4,8 +4,27 @@ using System.Threading.Tasks;
 
 public static class Colour
 {
-	public static Color playerColour { get; set; }
-	public static Color enemyColour { get; set; }
+	//https://lospec.com/palette-list/r-place-2022-day2
+	private static Color[] gameColors = {
+		new Godot.Color("#be0039"),
+		new Godot.Color("#ff4500"),
+		new Godot.Color("#ffa800"),
+		new Godot.Color("#ffd635"),
+		new Godot.Color("#00a368"),
+		new Godot.Color("#00cc78"),
+		new Godot.Color("#7eed56"),
+		new Godot.Color("#009eaa"),
+		new Godot.Color("#3690ea"),
+		new Godot.Color("#51e9f4"),
+		new Godot.Color("#6a5cff"),
+		new Godot.Color("#811e9f"),
+		new Godot.Color("#b44ac0"),
+		new Godot.Color("#ff3881"),
+		new Godot.Color("#ff99aa"),
+	};
+
+	public static Color levelColour { get; set; }
+	public static Color harmonizingColour { get; set; }
 
 	//Starts turning the background red if player health is less than 30
 	public static void UpdateBackgroundColour(int playerHealth) {
@@ -16,24 +35,42 @@ public static class Colour
 
 	//Flash a colour on the Scene of a sec + freeze frame
 	public static async void FlashBackgroundColour(Color colourToFlash, SceneTree tree, int playerHealth) {
+		bool isFlashBlack = colourToFlash.IsEqualApprox(Color.ColorN("black"));
+		Node2D rootScene = (!isFlashBlack) ? (Node2D)tree.CurrentScene : new Node2D();
+
+		rootScene.Modulate = Color.ColorN("black");
 		VisualServer.SetDefaultClearColor(colourToFlash);
-		tree.Paused = true;
 
 		//Freeze frame always with colour flash to minimise seizure risk
-		await Task.Delay(300);
+		await FreezeFrame(tree);
 
-		tree.Paused = false;
+		rootScene.Modulate = Color.ColorN("white");
 		UpdateBackgroundColour(playerHealth);
+	}
+
+	private static async Task FreezeFrame(SceneTree tree) {
+		tree.Paused = true;
+		await Task.Delay(300);
+		tree.Paused = false;
 	}
 
 	//Updates the Games colour scheme to a new random colour
 	public static void UpdateGameColours(Godot.Node2D levelNode, Entities player) {
 		Random rnd = new Random();
-		var values = Enum.GetValues(typeof(Enums.Colour));
-		String colourName = values.GetValue(rnd.Next(values.Length)).ToString();
-		enemyColour = Color.ColorN(colourName);
+		int chosenColour = rnd.Next(gameColors.Length);
+		Color newColour = gameColors[chosenColour];
 
-		levelNode.Modulate = enemyColour;
-		player.colour = playerColour;
+		if(newColour == levelColour) { 
+			chosenColour = incrementColour();
+			newColour = gameColors[chosenColour]; 
+		}
+
+		levelColour = newColour;
+		harmonizingColour = gameColors[incrementColour()];
+		levelNode.Modulate = newColour;
+
+		int incrementColour() {
+			return (chosenColour + 1 >= gameColors.Length) ? 0 : chosenColour + 1;
+		}
 	}
 }

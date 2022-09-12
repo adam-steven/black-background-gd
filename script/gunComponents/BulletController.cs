@@ -6,6 +6,9 @@ using static Enums;
 
 public class BulletController : Area2D
 {
+	[Export] bool  hasTrail = true;
+	private Line2D trail;
+
 	public float movementForce = 3000;
 	public BulletOwner bOwner;
 	private Vector2 closedMotion; //The movement that the bullet has in a closed loop
@@ -22,6 +25,11 @@ public class BulletController : Area2D
 
 		SetBulletType();
 
+		trail = this.GetNode<Line2D>("Line2D");
+		trail.SetAsToplevel(true);
+		trail.DefaultColor = this.Modulate;
+		trail.Width *= this.Scale.x;
+
 		Timer deathTimer = this.GetNode<Timer>("Timer");
 		deathTimer.WaitTime = timeAlive;
 		deathTimer.Connect("timeout", this, "DestroyBullet");
@@ -30,6 +38,13 @@ public class BulletController : Area2D
 
 	public override void _Process(float delta) {
   		this.Position += (closedMotion + openMotion) * delta;
+        ProcessTrail();
+	}
+
+	//Draw a bullet trail effect
+	private void ProcessTrail() {
+		if(!hasTrail) { return; }
+		trail.AddPoint(this.GlobalPosition);
 	}
 	
 	private void _On_Bullet_Body_Entered(object body) {
@@ -53,21 +68,15 @@ public class BulletController : Area2D
 	}
 
 	private void SetBulletType() {
-		//Colour
-		Dictionary<BulletVariations, Color> bulletColours = 
-		new Dictionary<BulletVariations, Color>() {
-			{ BulletVariations.Player, new Godot.Color(1f, 1f, 1f, 1f) },
-			{ BulletVariations.Normal, new Godot.Color(1f, 0.5f, 0.5f, 1f) },
-			{ BulletVariations.NormalStrong, new Godot.Color(1.2f, 0.5f, 0.5f, 1f) },
-			{ BulletVariations.Spectral, new Godot.Color(0.5f, 1f, 1f, 1f) },
-		};
-
-		this.Modulate = bulletColours[type];
-
 		//Damage
 		switch (type)
 		{
 			case BulletVariations.NormalStrong:
+				this.Modulate = this.Modulate + new Godot.Color(0f, 0f, 0f, 0.25f);
+				strength *= 2;
+				break;
+			case BulletVariations.Spectral:
+				this.Modulate = this.Modulate.LinearInterpolate(Color.ColorN("white"), 0.65f) + new Godot.Color(0f, 0f, 0f, 0.15f);
 				strength *= 2;
 				break;
 		}
