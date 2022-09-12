@@ -199,7 +199,7 @@ public partial class Main : Levels
 
 		private void RestartGame() {
 			MainGameObj restartObj = new MainGameObj(true);
-			EmitChangeScene("res://scenes/Main.tscn", 5f, restartObj);
+			EmitChangeScene("res://scenes/gameEnvironment/Main.tscn", 5f, restartObj);
 		}
 
 		private void EndGame() {
@@ -209,7 +209,7 @@ public partial class Main : Levels
 
 		private void ReturnToMenu() {
 			MainGameObj restartObj = new MainGameObj(false);
-			EmitChangeScene("res://scenes/Main.tscn", 5f, restartObj);
+			EmitChangeScene("res://scenes/gameEnvironment/Main.tscn", 5f, restartObj);
 		}
 
 		private void GoToOptions() {
@@ -305,7 +305,7 @@ public partial class Main : Levels
 		private void DisplaySectionTextCountDown(string callFunction) {
 			AnimationPlayer anim  = this.GetNode<AnimationPlayer>("SectionText/AnimationPlayer");
 			
-			anim.Connect("animation_finished", this, callFunction, null, (uint)Godot.Object.ConnectFlags.Oneshot);
+			anim.Connect("animation_finished", this, callFunction, null, (uint)ConnectFlags.Oneshot);
 			anim.Play("SectionTextCountDown");
 		}
 

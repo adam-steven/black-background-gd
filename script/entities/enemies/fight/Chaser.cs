@@ -4,8 +4,6 @@ using static Enums;
 
 public class Chaser : Enemies
 {
-	private Random rnd = new Random();
-
 	public override void _Ready() 
 	{
 		FacePlayer();
@@ -22,7 +20,6 @@ public class Chaser : Enemies
 		TurnToPlayer(delta);
 		MoveInDirection(Vector2.Right);
 
-		int shootSpecialChance = rnd.Next(20);
 		gun.Shoot(BulletVariations.Normal);
 	}
 }

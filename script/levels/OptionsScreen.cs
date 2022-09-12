@@ -82,7 +82,7 @@ public class OptionsScreen : Levels
 	}
 
 	private void Return() {
-		EmitChangeScene("res://scenes/Main.tscn", 5f, optionsData.gameObj);
+		EmitChangeScene("res://scenes/gameEnvironment/Main.tscn", 5f, optionsData.gameObj);
 	}
 
 	private void ToggleKeyPickOverlay(bool visiable) {

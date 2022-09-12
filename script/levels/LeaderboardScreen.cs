@@ -10,6 +10,6 @@ public class LeaderboardScreen : Levels
 
 	private void Return() {
 		MainGameObj restartObj = new MainGameObj(false);
-		EmitChangeScene("res://scenes/Main.tscn", 5f, restartObj);
+		EmitChangeScene("res://scenes/gameEnvironment/Main.tscn", 5f, restartObj);
 	}
 }
