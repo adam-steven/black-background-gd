@@ -4,13 +4,23 @@ using System.Threading.Tasks;
 
 public static class Colour
 {
+	//https://lospec.com/palette-list/r-place-2022-day2
 	private static Color[] gameColors = {
-		Color.Color8(255, 231, 0), //yellow
-		Color.Color8(255, 173, 0), //orange
-		Color.Color8(255, 49, 49), //red
-		Color.Color8(240, 0, 255), //pink
-		Color.Color8(77, 238, 234), //cyan
-		Color.Color8(204, 255, 0), //lime
+		new Godot.Color("#be0039"),
+		new Godot.Color("#ff4500"),
+		new Godot.Color("#ffa800"),
+		new Godot.Color("#ffd635"),
+		new Godot.Color("#00a368"),
+		new Godot.Color("#00cc78"),
+		new Godot.Color("#7eed56"),
+		new Godot.Color("#009eaa"),
+		new Godot.Color("#3690ea"),
+		new Godot.Color("#51e9f4"),
+		new Godot.Color("#6a5cff"),
+		new Godot.Color("#811e9f"),
+		new Godot.Color("#b44ac0"),
+		new Godot.Color("#ff3881"),
+		new Godot.Color("#ff99aa"),
 	};
 
 	public static Color levelColour { get; set; }
