@@ -1,7 +1,7 @@
 using System;
 using Newtonsoft.Json;
 
-public class ScoreObj {
+public class Score {
 
     [JsonProperty] public long score { get; private set; }
     [JsonProperty] public long tempScore { get; private set; } //Temporarily holds the full score value for a tick up effect
@@ -32,7 +32,7 @@ public class ScoreObj {
         scoreMultiplier = (reset) ? 4 : scoreMultiplier - 1;
     }
 
-    public ScoreObj() {
+    public Score() {
         scoreMultiplier = 4;
     }
 }

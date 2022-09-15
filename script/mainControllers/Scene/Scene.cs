@@ -11,12 +11,20 @@ public partial class Scene : Node2D
 	private Node2D newSceneInstance = null;
 	private Node2D currentScene;
 
+	private SectionedScenes enemiesSections; //Paths to enemy scenes
+	private SectionedScenes obstaclesSections; //Paths to obstacle scenes
+	private SectionedScenes upgradeSections; //Paths to upgrade scenes
+
 	public override void _Ready() {
 		LoadKeyBinds();
 
 		mainCamera = this.GetNode<Camera2D>("Camera2D");
 		anim = this.GetNode<AnimationPlayer>("AnimationPlayer");
 		anim.Connect("animation_finished", this, "_animation_finished");
+
+		obstaclesSections = FileManager.GetScenesViaFolders(Globals.obstaclesFolder);
+		enemiesSections = FileManager.GetScenesViaFolders(Globals.enemyFolder);
+		upgradeSections = FileManager.GetScenesViaFolders(Globals.upgradesFolder);
 
 		currentScene = this.GetNode<Node2D>("GameController");
 		HandelSceneDataPass(currentScene, null);
@@ -43,7 +51,12 @@ public partial class Scene : Node2D
 
 	private void HandelSceneDataPass(Node2D newScene, System.Object data = null) {
 		Levels newSceneLevel = (Levels)newScene;
+
 		newSceneLevel.mainCamera = mainCamera;
+		newSceneLevel.obstaclesSections = obstaclesSections;
+		newSceneLevel.enemiesSections = enemiesSections;
+		newSceneLevel.upgradeSections = upgradeSections;
+
 		newSceneLevel.LoadLevelParameters(data);
 		newSceneLevel.Connect("change_scene", this, "ChangeScene");
 	}

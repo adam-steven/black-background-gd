@@ -11,20 +11,20 @@ namespace Godot
         private static FileSave file = new FileSave();
 
         public void SetValue(string key, object value) {
-            SaveObj data = GetAllValues();
+            Settings data = GetAllValues();
             data[key] = value;
 
             file.SaveObj(data, fileName);
         }
 
         public object GetValue(string key, object defaultVal) {
-            SaveObj data = GetAllValues();
+            Settings data = GetAllValues();
             return (data.ContainsKey(key)) ? data[key] : defaultVal;
         }
 
-        public SaveObj GetAllValues() {
+        public Settings GetAllValues() {
             object retrievedObj = file.RetrieveObj(fileName);
-            return (retrievedObj != null) ? (SaveObj)file.RetrieveObj(fileName) : new SaveObj();
+            return (retrievedObj != null) ? (Settings)file.RetrieveObj(fileName) : new Settings();
         }
     }
 }

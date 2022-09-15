@@ -1,6 +1,5 @@
 using Godot;
 using System;
-using System.Collections.Generic;
 using static Enums;
 
 //Main.tscn 
@@ -19,9 +18,6 @@ public partial class Main : Levels
 
 	private PlayerController player;
 
-	private List<string> enemies; //paths to enemy scenes
-	private List<string> obstacles; //paths to obstacle scenes (dodge section)
-
 	private bool isStartingCountDown;
 
 	private UiController uiNode;
@@ -31,9 +27,6 @@ public partial class Main : Levels
 
 		levelNode = this.GetNode<Godot.Node2D>("Level");
 		levelCenter = levelNode.GlobalPosition;
-
-		obstacles = FileManager.GetScenes(Globals.obstaclesFolder);
-		enemies = FileManager.GetScenes(Globals.enemyFolder);
 
 		this.SetProcess(false);
 	}
@@ -95,21 +88,7 @@ public partial class Main : Levels
 			int noToSpawn = rnd.Next(enemySpawnMin, enemySpawnMax + 2);
 			noOfEnemies += noToSpawn;
 			for (int i = 0; i < noToSpawn; i++) {
-				string randomObstacles = obstacles[rnd.Next(obstacles.Count)];
-				PackedScene obstacleScene = (PackedScene)GD.Load(Globals.obstaclesFolder + randomObstacles);
-				Enemies obstacle = (Enemies)obstacleScene.Instance();
-
-				int spawnPosX = rnd.Next((int)-Globals.levelSize.x, (int)Globals.levelSize.x);
-				int spawnPosY = rnd.Next((int)-Globals.levelSize.y, (int)Globals.levelSize.y);
-				Vector2 spawnPosition = new Vector2(spawnPosX, spawnPosY) + levelCenter;
-				obstacle.GlobalPosition = spawnPosition;
-
-				obstacle.player = player;
-				obstacle.colour = Colour.levelColour;
-				obstacle.bulletColour = Colour.harmonizingColour;
-
-				obstacle.Connect("_on_death", this, "CheckIfEnemies");
-
+				Enemies obstacle = PickSpawnEntity(mainData.obstacles);
 				this.AddChild(obstacle);
 			}
 		}
@@ -120,24 +99,29 @@ public partial class Main : Levels
 			int noToSpawn = rnd.Next(enemySpawnMin, enemySpawnMax + 1);
 			noOfEnemies += noToSpawn;
 			for (int i = 0; i < noToSpawn; i++) {
-				string chosenEnemyScene = enemies[rnd.Next(enemies.Count)];
-				PackedScene enemyScene = (PackedScene)GD.Load(Globals.enemyFolder + chosenEnemyScene);
-				Enemies enemy = (Enemies)enemyScene.Instance();
-
-				int spawnPosX = rnd.Next((int)-Globals.levelSize.x, (int)Globals.levelSize.x);
-				int spawnPosY = rnd.Next((int)-Globals.levelSize.y, (int)Globals.levelSize.y);
-				Vector2 spawnPosition = new Vector2(spawnPosX, spawnPosY) + levelCenter;
-				enemy.GlobalPosition = spawnPosition;
-
-				enemy.player = player;
-				enemy.colour = Colour.levelColour;
-				enemy.bulletColour = Colour.harmonizingColour;
-
-				enemy.Connect("_on_death", this, "CheckIfEnemies");
+				Enemies enemy = PickSpawnEntity(mainData.enemies);
 				enemy.Connect("_update_score", this, "UpdateScore", new Godot.Collections.Array(mainData.stage.level));
-
 				this.AddChild(enemy);
 			}
+		}
+
+		private Enemies PickSpawnEntity(Scenes entityList) {
+			string chosenEntityScene = entityList[rnd.Next(entityList.Count)];
+			PackedScene entityScene = (PackedScene)GD.Load(chosenEntityScene);
+			Enemies entity = (Enemies)entityScene.Instance();
+
+			int spawnPosX = rnd.Next((int)-Globals.levelSize.x, (int)Globals.levelSize.x);
+			int spawnPosY = rnd.Next((int)-Globals.levelSize.y, (int)Globals.levelSize.y);
+			Vector2 spawnPosition = new Vector2(spawnPosX, spawnPosY) + levelCenter;
+			entity.GlobalPosition = spawnPosition;
+
+			entity.player = player;
+			entity.colour = Colour.levelColour;
+			entity.bulletColour = Colour.harmonizingColour;
+
+			entity.Connect("_on_death", this, "CheckIfEnemies");
+
+			return entity;
 		}
 
 		private void SpawnBoss() {
@@ -153,6 +137,7 @@ public partial class Main : Levels
 
 			upgradeMenu.levelCenter = levelCenter;
 			upgradeMenu.player = player;
+			upgradeMenu.upgrades = mainData.upgrades;
 
 			upgradeMenu.Connect("_upgrading_finished", this, "UpgradingFinished");
 			upgradeMenu.Connect("_decrease_multiplier", this, "UpdateMultiplier");
@@ -168,6 +153,10 @@ public partial class Main : Levels
 		//play game for events without anim name info
 		private void PlayGame() {
 			mainData.inGame = true;
+			mainData.obstacles = obstaclesSections[0];
+			mainData.enemies = enemiesSections[0];
+			mainData.upgrades = upgradeSections[0];
+
 			_ScoreReady();
 			_StageReady();
 

@@ -12,6 +12,7 @@ public class UpgradeMenu : Control
     private Random rnd = new Random();
 	public Vector2 levelCenter;
 	public PlayerController player;
+	public Scenes upgrades;
 
     public override void _Ready()
     {
@@ -37,11 +38,9 @@ public class UpgradeMenu : Control
     }
 
 	private void SpawnUpgrades(Vector2[] spawnPoints, bool showNames, bool showDesc) {
-        List<string> upgrades = FileManager.GetScenes(Globals.upgradesFolder);
-
 		for (int i = 0; i < spawnPoints.Length; i++) {
 			string randomUpgrade = upgrades[rnd.Next(upgrades.Count)];
-			PackedScene upgradeOptionScene = (PackedScene)GD.Load(Globals.upgradesFolder + randomUpgrade);
+			PackedScene upgradeOptionScene = (PackedScene)GD.Load(randomUpgrade);
 			UpgradeButton upgradeOption = (UpgradeButton)upgradeOptionScene.Instance();
 
 			Vector2 spawnPosition = spawnPoints[i] + levelCenter;
