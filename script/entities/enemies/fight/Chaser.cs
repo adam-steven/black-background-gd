@@ -32,7 +32,7 @@ public class Chaser : Enemies
 		int shotDelayMs = (int)(this.shotDelay * 1000) + 500; //+500 to account for anim time
 		await Task.Delay(shotDelayMs);
 
-		while(health > 0) {
+		while(IsActive()) {
 			shootAnim.Play("EnemyAttack");
 			await Task.Delay(shotDelayMs);
 		}

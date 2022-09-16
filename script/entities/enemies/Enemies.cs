@@ -21,14 +21,18 @@ namespace Godot
             this.Rotate(Math.Sign(angleTo) * Math.Min(delta * rotationSpeed, Math.Abs(angleTo)));
         }
 
-         internal void MoveInDirection(Vector2 _thrustDirection) {
+        internal void MoveInDirection(Vector2 _thrustDirection) {
             Vector2 _thrust = _thrustDirection * movementForce;
             SetAxisVelocity(_thrust.Rotated(Rotation));
         }
 
-         internal void PushInDirection(Vector2 _thrustDirection) {
+        internal void PushInDirection(Vector2 _thrustDirection) {
             Vector2 _thrust = _thrustDirection * movementForce;
             ApplyCentralImpulse(_thrust);
+        }
+
+        internal bool IsActive() {
+            return (IsInstanceValid(player) && health > 0);
         }
 
         #region Death handling

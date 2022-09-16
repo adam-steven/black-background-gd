@@ -1,7 +1,3 @@
-using Godot;
-using System;
-using static Enums;
-
 public partial class Main
 {
     public void _StageReady() {
