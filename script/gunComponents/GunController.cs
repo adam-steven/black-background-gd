@@ -9,17 +9,17 @@ public class GunController
 
 	private PackedScene bulletScene;
 	private Entities ownerNode;
+	private Node2D spawnPoint;
 
     private int timeLastShot = 0; 
 
 	///<summary> 
 	///		Allows nodes to shoot bullets form there body.
-	///		Requires: 
-	///			Child Sprite Node,
 	///</summary>
-	public GunController(Entities ownerNode) {
+	public GunController(Entities ownerNode, Node2D spawnPoint) {
 		this.bulletScene = (PackedScene)GD.Load("res://scenes/misc/Bullet.tscn");
 		this.ownerNode = ownerNode;
+		this.spawnPoint = spawnPoint;
 	}
 
 	public void Shoot(BulletVariations bulletType) {
@@ -56,7 +56,6 @@ public class GunController
 
 	//Loop spawn bullets for shotgun effect
 	private void SpawnBullets(BulletVariations bulletType) {
-		Godot.Sprite ownerSprite = ownerNode.GetNode<Godot.Sprite>("Sprite");
 		Godot.Node2D gameController = ownerNode.GetParent<Godot.Node2D>();
 
 		//Set can shoot timer here so thats the burst will never be slower than shoot rate
@@ -64,18 +63,18 @@ public class GunController
 
 		//Loop for shotgun effect
 		for (int i = 0; i < ownerNode.noOfBullets; i++) {
-			SpawnBullet(ownerSprite, gameController, bulletType);
+			SpawnBullet(gameController, bulletType);
 		}
 	}
 
 	//Spawn 1 bullet
-	private void SpawnBullet(Godot.Sprite ownerSprite, Godot.Node2D gameController, BulletVariations bulletType) {
+	private void SpawnBullet(Godot.Node2D gameController, BulletVariations bulletType) {
 		BulletController bullet = (BulletController)bulletScene.Instance();
 		float randomAccuracyDeviation = (float)((rnd.NextDouble() * ownerNode.bulletAccuracy) - (rnd.NextDouble() * ownerNode.bulletAccuracy));
 
 		// Access bullet properties
 		bullet.Position = ownerNode.Position;
-		bullet.Rotation = ownerSprite.GlobalRotation + randomAccuracyDeviation;
+		bullet.Rotation = spawnPoint.GlobalRotation + randomAccuracyDeviation;
 		bullet.Scale = new Vector2(ownerNode.bulletSize, ownerNode.bulletSize);
 		bullet.Modulate = ownerNode.bulletColour;
 

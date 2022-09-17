@@ -5,20 +5,11 @@ using static Enums;
 
 public class TurretLv1 : Enemies
 {
-	private AnimationPlayer shootAnim;
-
-	public override void _Ready() 
+	public override void _EnemyReady() 
 	{
-		FacePlayer();
 		InitDelayedStart("LoadingSpinner");
-
-		Godot.Sprite thisSprite = this.GetNode<Godot.Sprite>("Sprite");
-		thisSprite.SelfModulate = colour;
-
-		shootAnim = this.GetNode<AnimationPlayer>("AnimationPlayer");
-		shootAnim.Connect("animation_finished", this, "Attack");
-		gun = new GunController(this); 
-
+		
+		anim.Connect("animation_finished", this, "Attack");
 		StartAttackTimer();
 	}
 
@@ -32,7 +23,7 @@ public class TurretLv1 : Enemies
 		await Task.Delay(shotDelayMs);
 
 		while(IsActive()) {
-			shootAnim.Play("EnemyAttack");
+			anim.Play("EnemyAttack");
 			await Task.Delay(shotDelayMs);
 		}
 	}

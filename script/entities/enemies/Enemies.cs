@@ -8,8 +8,23 @@ namespace Godot
         [Export] private int pointsOnKill = 100;
 
 	    public RigidBody2D player;
+        internal AnimationPlayer anim;
 
-        public Enemies() {}
+        public override void _Ready() 
+        {
+            FacePlayer();
+
+            Godot.Sprite sprite = this.GetNodeOrNull<Godot.Sprite>("Sprite");
+            if(IsInstanceValid(sprite)) { sprite.SelfModulate = colour; }
+
+            anim  = this.GetNode<AnimationPlayer>("AnimationPlayer");
+            gun = new GunController(this, this); 
+
+            _EnemyReady();
+        }
+
+        //EnemyReady is for enemy specific function as Ready is used for generics
+        public virtual void _EnemyReady() {}
 
         internal void FacePlayer() {
             this.LookAt(player.GlobalPosition); 
@@ -43,7 +58,7 @@ namespace Godot
                 
                 UpdateHealth(-strikingBullet.strength);
 
-                AnimationPlayer anim  = this.GetNode<AnimationPlayer>("AnimationPlayer");
+                anim  = this.GetNode<AnimationPlayer>("AnimationPlayer");
                 anim.Play("EnemyHit");
 
                 if(health <= 0) {

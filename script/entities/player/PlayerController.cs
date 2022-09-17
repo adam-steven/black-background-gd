@@ -10,7 +10,9 @@ public partial class PlayerController : Entities
 	[Signal] internal delegate void _player_left_camera();
 
 	public override void _Ready() {
-		gun = new GunController(this);
+		Godot.Sprite sprite = this.GetNode<Godot.Sprite>("Sprite");
+		gun = new GunController(this, sprite);
+
 		this.Connect("body_entered", this, "_OnPlayerBodyEntered");
 
 		VisibilityNotifier2D vis = this.GetNode<VisibilityNotifier2D>("VisibilityNotifier2D");
