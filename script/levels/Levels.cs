@@ -8,6 +8,10 @@ namespace Godot
 
         internal Camera2D mainCamera;
 
+        internal SectionedScenes enemiesSections; //Paths to enemy scenes
+	    internal SectionedScenes obstaclesSections; //Paths to obstacle scenes
+        internal SectionedScenes upgradeSections; //Paths to upgrade scenes
+
         public virtual void LoadLevelParameters(System.Object sceneData) {}
 
         [Signal] internal delegate void change_scene(string scenePath, float animSpeed, string passThroughData);

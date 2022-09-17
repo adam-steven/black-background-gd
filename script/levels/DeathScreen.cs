@@ -51,12 +51,12 @@ public class DeathScreen : Levels
 
 	private void Replay() {
 		MainGameObj restartObj = new MainGameObj(true);
-		EmitChangeScene("res://scenes/Main.tscn", 5f, restartObj);
+		EmitChangeScene("res://scenes/gameEnvironment/Main.tscn", 5f, restartObj);
 	}
 
 	private void MainMenu() {
 		MainGameObj restartObj = new MainGameObj(false);
-		EmitChangeScene("res://scenes/Main.tscn", 5f, restartObj);
+		EmitChangeScene("res://scenes/gameEnvironment/Main.tscn", 5f, restartObj);
 	}
 
 	private void Leaderboard() {

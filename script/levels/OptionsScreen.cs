@@ -21,8 +21,8 @@ public class OptionsScreen : Levels
 
 	//Get the saved settings to load in
 	private void LoadSavedOptions(OptionsMenu control) {
-		SaveObj savedSettings = settings.GetAllValues();
-		if(savedSettings == new SaveObj()) { return; }
+		Settings savedSettings = settings.GetAllValues();
+		if(savedSettings == new Settings()) { return; }
 
 		Godot.VBoxContainer buttonContainer = control.GetNode<Godot.VBoxContainer>("Buttons");
 		Godot.Collections.Array buttons = buttonContainer.GetChildren();
@@ -82,7 +82,7 @@ public class OptionsScreen : Levels
 	}
 
 	private void Return() {
-		EmitChangeScene("res://scenes/Main.tscn", 5f, optionsData.gameObj);
+		EmitChangeScene("res://scenes/gameEnvironment/Main.tscn", 5f, optionsData.gameObj);
 	}
 
 	private void ToggleKeyPickOverlay(bool visiable) {

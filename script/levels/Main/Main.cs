@@ -1,6 +1,5 @@
 using Godot;
 using System;
-using System.Collections.Generic;
 using static Enums;
 
 //Main.tscn 
@@ -19,9 +18,6 @@ public partial class Main : Levels
 
 	private PlayerController player;
 
-	private List<string> enemies; //paths to enemy scenes
-	private List<string> obstacles; //paths to obstacle scenes (dodge section)
-
 	private bool isStartingCountDown;
 
 	private UiController uiNode;
@@ -31,9 +27,6 @@ public partial class Main : Levels
 
 		levelNode = this.GetNode<Godot.Node2D>("Level");
 		levelCenter = levelNode.GlobalPosition;
-
-		obstacles = FileManager.GetScenes(Globals.obstaclesFolder);
-		enemies = FileManager.GetScenes(Globals.enemyFolder);
 
 		this.SetProcess(false);
 	}
@@ -58,184 +51,6 @@ public partial class Main : Levels
 		_ScoreProcess(delta);
 		_StageProcess(delta);
 	}
-
-	#region Spawn Functions
-
-		private void SpawnPlayer(Vector2 location) {
-			PackedScene playerScene = (PackedScene)GD.Load("res://scenes/misc/Player.tscn");
-			player = (PlayerController)playerScene.Instance();
-			player.GlobalPosition = location;
-			
-			player.Connect("_end_game", this, "EndGame");
-			player.Connect("_shake_screen", (Camera)mainCamera, "StartShakeScreen");
-			player.Connect("_section_text", this, "DisplaySectionText");
-			player.Connect("_destroy_all_bullets", this, "DestroyBullets");
-			player.Connect("_update_score", this, "UpdateScore");
-			player.Connect("_break_score_update", this, "BreakScoreUpdate");
-			player.Connect("_player_left_camera", this, "ReframePlayer");
-			player.Connect("_update_health_ui", uiNode, "UpdateHealthUi");
-
-			this.AddChild(player);
-		}
-
-		private void SpawnMainMenu() {
-			PackedScene mainMenuScene = (PackedScene)GD.Load("res://scenes/menus/MainMenu.tscn");
-			Godot.Control mainMenu = (Godot.Control)mainMenuScene.Instance();
-			
-			mainMenu.Connect("_play_game", this, "PlayGame");
-			mainMenu.Connect("_options", this, "GoToOptions");
-			mainMenu.Connect("_leaderboard", this, "GoToLeaderboard");
-
-			this.AddChild(mainMenu);
-		}
-
-		private void SpawnObstacles() {
-			GD.Print("Response SpawnObstacles\n");
-
-			int noToSpawn = rnd.Next(enemySpawnMin, enemySpawnMax + 2);
-			noOfEnemies += noToSpawn;
-			for (int i = 0; i < noToSpawn; i++) {
-				string randomObstacles = obstacles[rnd.Next(obstacles.Count)];
-				PackedScene obstacleScene = (PackedScene)GD.Load(Globals.obstaclesFolder + randomObstacles);
-				Enemies obstacle = (Enemies)obstacleScene.Instance();
-
-				int spawnPosX = rnd.Next((int)-Globals.levelSize.x, (int)Globals.levelSize.x);
-				int spawnPosY = rnd.Next((int)-Globals.levelSize.y, (int)Globals.levelSize.y);
-				Vector2 spawnPosition = new Vector2(spawnPosX, spawnPosY) + levelCenter;
-				obstacle.GlobalPosition = spawnPosition;
-
-				obstacle.player = player;
-				obstacle.colour = Colour.levelColour;
-				obstacle.bulletColour = Colour.harmonizingColour;
-
-				obstacle.Connect("_on_death", this, "CheckIfEnemies");
-
-				this.AddChild(obstacle);
-			}
-		}
-
-		private void SpawnEnemies() {
-			GD.Print("Response SpawnEnemies\n");
-
-			int noToSpawn = rnd.Next(enemySpawnMin, enemySpawnMax + 1);
-			noOfEnemies += noToSpawn;
-			for (int i = 0; i < noToSpawn; i++) {
-				string chosenEnemyScene = enemies[rnd.Next(enemies.Count)];
-				PackedScene enemyScene = (PackedScene)GD.Load(Globals.enemyFolder + chosenEnemyScene);
-				Enemies enemy = (Enemies)enemyScene.Instance();
-
-				int spawnPosX = rnd.Next((int)-Globals.levelSize.x, (int)Globals.levelSize.x);
-				int spawnPosY = rnd.Next((int)-Globals.levelSize.y, (int)Globals.levelSize.y);
-				Vector2 spawnPosition = new Vector2(spawnPosX, spawnPosY) + levelCenter;
-				enemy.GlobalPosition = spawnPosition;
-
-				enemy.player = player;
-				enemy.colour = Colour.levelColour;
-				enemy.bulletColour = Colour.harmonizingColour;
-
-				enemy.Connect("_on_death", this, "CheckIfEnemies");
-				enemy.Connect("_update_score", this, "UpdateScore", new Godot.Collections.Array(mainData.stage.level));
-
-				this.AddChild(enemy);
-			}
-		}
-
-		private void SpawnBoss() {
-			GD.Print("Response SpawnBoss\n");
-			SpawnEnemies();
-		}
-
-		private void SpawnUpgrades() {
-			GD.Print("Response SpawnUpgrades\n");
-
-			PackedScene upgradeMenuScene = (PackedScene)GD.Load("res://scenes/menus/UpgradeMenu.tscn");
-			UpgradeMenu upgradeMenu = (UpgradeMenu)upgradeMenuScene.Instance();
-
-			upgradeMenu.levelCenter = levelCenter;
-			upgradeMenu.player = player;
-
-			upgradeMenu.Connect("_upgrading_finished", this, "UpgradingFinished");
-			upgradeMenu.Connect("_decrease_multiplier", this, "UpdateMultiplier");
-			upgradeMenu.Connect("_update_upgrade_ui", uiNode, "UpdateUpgradeDescUi");
-
-			this.AddChild(upgradeMenu);
-		}
-
-	#endregion 
-
- 	#region Navigation Functions
-
-		//play game for events without anim name info
-		private void PlayGame() {
-			mainData.inGame = true;
-			_ScoreReady();
-			_StageReady();
-
-			PlayGame(string.Empty);
-		}
-
-		private void PlayGame(string animName = "") {
-			//count down
-			SettingsController settings = new SettingsController();
-			isStartingCountDown = (bool)settings.GetValue(MenuButtonActions.StartCountDown.ToString(), false);
-			if(isStartingCountDown && animName != "SectionTextCountDown") {
-				DisplaySectionTextCountDown("PlayGame");
-				return;
-			}
-			
-			this.SetProcess(true);
-			this.LevelSpin();
-			this.NextStage(true);
-
-			PackedScene pauseMenuScene = (PackedScene)GD.Load("res://scenes/menus/PauseMenu.tscn");
-			Godot.Control pauseMenu = (Godot.Control)pauseMenuScene.Instance();
-			pauseMenu.Visible = false;
-			this.AddChild(pauseMenu);
-			
-			pauseMenu.Connect("_play_game", this, "RestartGame");
-			pauseMenu.Connect("_main_menu", this, "ReturnToMenu");
-			pauseMenu.Connect("_options", this, "GoToOptions");
-		}
-
-		private void RestartGame() {
-			MainGameObj restartObj = new MainGameObj(true);
-			EmitChangeScene("res://scenes/Main.tscn", 5f, restartObj);
-		}
-
-		private void EndGame() {
-			GameOverObj deathObj = new GameOverObj(mainData.score.score, 0);
-			EmitChangeScene("res://scenes/menus/DeathScreen.tscn", 1f, deathObj);
-		}
-
-		private void ReturnToMenu() {
-			MainGameObj restartObj = new MainGameObj(false);
-			EmitChangeScene("res://scenes/Main.tscn", 5f, restartObj);
-		}
-
-		private void GoToOptions() {
-			OptionsObj optionsObj = new OptionsObj(mainData);
-			EmitChangeScene("res://scenes/menus/OptionsScreen.tscn", 5f, optionsObj);
-		}
-
-		private void GoToLeaderboard() {
-			EmitChangeScene("res://scenes/menus/LeaderboardScreen.tscn", 5f);
-		}
-
-		//upgrading finished for events without anim name info
-		private void UpgradingFinished() {
-			UpgradingFinished(string.Empty);
-		}
-
-		private void UpgradingFinished(string animName = "") {
-			//count down
-			if(isStartingCountDown && animName != "SectionTextCountDown") {
-				DisplaySectionTextCountDown("UpgradingFinished");
-			} else {
-				this.CheckIfEnemies();
-			}
-		}	
-
-	#endregion
 
 	#region Misc Functions
 
@@ -281,8 +96,11 @@ public partial class Main : Levels
 					break;
 				default: 
 					GD.Print("Call SpawnUpgrades");
+
+					UpdateScenes(mainData.stage.level + 1);
 					IncreaseEnemySpawn();
 					UpdateMultiplier(true);
+
 					SpawnUpgrades();
 				break;
 			} 
@@ -305,7 +123,7 @@ public partial class Main : Levels
 		private void DisplaySectionTextCountDown(string callFunction) {
 			AnimationPlayer anim  = this.GetNode<AnimationPlayer>("SectionText/AnimationPlayer");
 			
-			anim.Connect("animation_finished", this, callFunction, null, (uint)Godot.Object.ConnectFlags.Oneshot);
+			anim.Connect("animation_finished", this, callFunction, null, (uint)ConnectFlags.Oneshot);
 			anim.Play("SectionTextCountDown");
 		}
 

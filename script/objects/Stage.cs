@@ -3,7 +3,7 @@ using System;
 using static Enums;
 using Newtonsoft.Json;
 
-public class StageObj {
+public class Stage {
 
     [JsonProperty] public int level {get; private set;}
     [JsonProperty] public int stageCounter { get; private set; }
@@ -81,7 +81,7 @@ public class StageObj {
         stageWaveValues = new int[] {(3 + level), (4 + level), 1, 1}; 
     }
 
-    public StageObj() {
+    public Stage() {
         stageCounter = 0;
         currentWaveCounter = 0;
         UpdateStageLengths();
