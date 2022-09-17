@@ -6,7 +6,8 @@ public partial class UiController
 
     #region GetElements
 
-		private void GetWaveIndicatorUi() {
+		private void GetWaveIndicatorUi() 
+		{
 			Godot.BoxContainer rightPanel = this.GetNode<Godot.BoxContainer>("HBoxContainer/HBoxContainer/VBoxContainer");
 			waveIndicatorUi = rightPanel.GetNode<TextureProgress>("TextureProgress"); 
 		}
@@ -15,13 +16,15 @@ public partial class UiController
 
     #region UpdateElements
 
-		public void SetWaveSegments(int noOfSegments) {
+		public void SetWaveSegments(int noOfSegments) 
+		{
 			if(waveIndicatorUi == null) { return; }
 			var waveMaterial = waveIndicatorUi.Material;
 			(waveMaterial as ShaderMaterial).SetShaderParam("Segments", (noOfSegments - 1 ));
 		}
 
-		public void SetWaveProgress(double value) {
+		public void SetWaveProgress(double value) 
+		{
 			if(waveIndicatorUi == null) { return; }
 			waveIndicatorUi.Value = value;
 		}

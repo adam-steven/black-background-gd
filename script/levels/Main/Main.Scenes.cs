@@ -1,12 +1,14 @@
 public partial class Main
 {
-    private void ResetScenes() {
+    private void ResetScenes() 
+    {
         mainData.obstacles = obstaclesSections[0];
 		mainData.enemies = enemiesSections[0];
 		mainData.upgrades = upgradeSections[0];
     }
 
-    private void UpdateScenes(int level) {
+    private void UpdateScenes(int level) 
+    {
         if(obstaclesSections.Count > level) {
             mainData.obstacles.AddRange(obstaclesSections[level]);
         }

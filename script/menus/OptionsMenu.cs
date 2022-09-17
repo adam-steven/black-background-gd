@@ -10,7 +10,8 @@ public class OptionsMenu : MenuController
 
 	private MenuButtons waitingButton = null;
 
-	internal override void _OnButtonPress(MenuButtons button) {
+	internal override void _OnButtonPress(MenuButtons button) 
+	{
 		switch (button.action)
 		{
 			case MenuButtonActions.Continue:
@@ -52,47 +53,50 @@ public class OptionsMenu : MenuController
 		}
 	}
 
-	private void Return(MenuButtons button) {
+	private void Return(MenuButtons button) 
+	{
 		this.EmitSignal("_main_menu");
 		button.Disabled = true;
 	}
 
-	private void SaveToggle(MenuButtons button) {
+	private void SaveToggle(MenuButtons button) 
+	{
 		this.EmitSignal("_set_bool_setting", button, button.Pressed);
 	}
 
 	//Displays a blocking overlay for allowing the user to select a key
-	private void HandelKeyChange(MenuButtons button) {
+	private void HandelKeyChange(MenuButtons button) 
+	{
 		this.EmitSignal("_toggle_key_pick_overlay", true);
 		waitingButton = button;
 	}
 
 	//Hides the blocking overlay (with a delay to prevent accidental instant reopening )
-	private async void EndKeyChange() {
+	private async void EndKeyChangeAsync() 
+	{
 		await Task.Delay(200);
 		this.EmitSignal("_toggle_key_pick_overlay", false);
 		waitingButton = null;
 	}
 
-	public override void _Input(InputEvent inputEvent) {
+	public override void _Input(InputEvent inputEvent) 
+	{
 		if(waitingButton == null) { return; }
 		if (!inputEvent.IsPressed()) { return; }
 
-		if (inputEvent is InputEventKey keyEvent)
-		{
+		if (inputEvent is InputEventKey keyEvent) {
 			var keyCode = keyEvent.PhysicalScancode;
 			waitingButton.SetValueLabel(((KeyList)keyCode).ToString());
 			this.EmitSignal("_set_string_setting", waitingButton, $"K{(int)keyCode}");
 		}
 
-		if (inputEvent is InputEventMouseButton mouseEvent)
-		{
+		if (inputEvent is InputEventMouseButton mouseEvent) {
 			var mouseButtonCode = mouseEvent.ButtonIndex;
 			waitingButton.SetValueLabel($"M{(int)mouseButtonCode}");
 			this.EmitSignal("_set_string_setting", waitingButton, $"M{(int)mouseButtonCode}");
 		}
 
-		EndKeyChange();
+		EndKeyChangeAsync();
 	}
 
 

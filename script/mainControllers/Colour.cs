@@ -27,14 +27,16 @@ public static class Colour
 	public static Color harmonizingColour { get; set; }
 
 	//Starts turning the background red if player health is less than 30
-	public static void UpdateBackgroundColour(int playerHealth) {
+	public static void UpdateBackgroundColour(int playerHealth) 
+	{
 		//make sure the number is never less than 0
 		int red = Math.Max(0, 30 - playerHealth) * 2;
 		VisualServer.SetDefaultClearColor(Color.Color8((byte)red,0,0));
 	}
 
 	//Flash a colour on the Scene of a sec + freeze frame
-	public static async void FlashBackgroundColour(Color colourToFlash, SceneTree tree, int playerHealth) {
+	public static async void FlashBackgroundColourAsync(Color colourToFlash, SceneTree tree, int playerHealth) 
+	{
 		bool isFlashBlack = colourToFlash.IsEqualApprox(Color.ColorN("black"));
 		Node2D rootScene = (!isFlashBlack) ? (Node2D)tree.CurrentScene : new Node2D();
 
@@ -42,20 +44,22 @@ public static class Colour
 		VisualServer.SetDefaultClearColor(colourToFlash);
 
 		//Freeze frame always with colour flash to minimise seizure risk
-		await FreezeFrame(tree);
+		await FreezeFrameAsync(tree);
 
 		rootScene.Modulate = Color.ColorN("white");
 		UpdateBackgroundColour(playerHealth);
 	}
 
-	private static async Task FreezeFrame(SceneTree tree) {
+	private static async Task FreezeFrameAsync(SceneTree tree) 
+	{
 		tree.Paused = true;
 		await Task.Delay(300);
 		tree.Paused = false;
 	}
 
 	//Updates the Games colour scheme to a new random colour
-	public static void UpdateGameColours(Godot.Node2D levelNode, Entities player) {
+	public static void UpdateGameColours(Godot.Node2D levelNode, Entities player) 
+	{
 		Random rnd = new Random();
 		int chosenColour = rnd.Next(gameColors.Length);
 		Color newColour = gameColors[chosenColour];

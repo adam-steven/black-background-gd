@@ -4,7 +4,8 @@ using Godot;
 public static class FileManager
 {
     //Gets the scenes in a given path
-    public static Scenes GetScenes(string path) {
+    public static Scenes GetScenes(string path) 
+	{
         Scenes files = new Scenes();
 		Directory dir = new Directory();
 		dir.Open(path);
@@ -24,7 +25,8 @@ public static class FileManager
     }
 
 	//Gets the scenes in a given path separated by the folders they are in
-    public static SectionedScenes GetScenesViaFolders(string path) {
+    public static SectionedScenes GetScenesViaFolders(string path) 
+	{
         SectionedScenes sectionedFiles = new SectionedScenes();
 		Directory dir = new Directory();
 		dir.Open(path);

@@ -4,11 +4,12 @@ namespace Godot
 {
     public class Entities : RigidBody2D
     {
-        [Export] public BulletOwner entityType;
+        public BulletOwner entityType;
 
         [Export] public int health = 1000;
         [Export] public float movementForce = 1000f;
 
+	    public RigidBody2D player;
         public Color colour = Color.Color8(251, 255, 255);
         
         #region Gun
@@ -35,6 +36,7 @@ namespace Godot
 
             [Signal] internal delegate void _update_score(int points);
             [Signal] internal delegate void _break_score_update();
+            [Signal] internal delegate void _on_death();
 
         #endregion       
 

@@ -1,8 +1,9 @@
 [gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://images/base_block.png" type="Texture" id=1]
-[ext_resource path="res://script/entities/enemies/fight/Chaser.cs" type="Script" id=2]
-[ext_resource path="res://scenes/misc/EnemySpawner.tscn" type="PackedScene" id=3]
+[ext_resource path="res://script/entities/enemies/types/Chaser.cs" type="Script" id=2]
+[ext_resource path="res://scenes/enemies/.EnemySpawner.tscn" type="PackedScene" id=3]
+
 
 [sub_resource type="RectangleShape2D" id=1]
 

@@ -3,23 +3,23 @@ using System;
 using System.Threading.Tasks;
 using static Enums;
 
-public class Chaser : Enemies
+public class TurretLv1 : Enemies
 {
-	public override void _EnemyReady() 
+	public override void _EntityReady() 
 	{
-		InitDelayedStart("LoadingSpinner");
-		
+		InitDelayedStart();
+
 		anim.Connect("animation_finished", this, "Attack");
-		StartAttackTimer();
+		StartAttackTimerAsync();
 	}
 
 	public override void _PhysicsProcess(float delta) 
 	{
 		TurnToPlayer(delta);
-		MoveInDirection(Vector2.Right);
 	}
 
-	private async void StartAttackTimer() {
+	private async void StartAttackTimerAsync() 
+	{
 		int shotDelayMs = (int)(this.shotDelay * 1000) + 500; //+500 to account for anim time
 		await Task.Delay(shotDelayMs);
 
@@ -29,7 +29,8 @@ public class Chaser : Enemies
 		}
 	}
 
-	private void Attack(string animName = "") {
+	private void Attack(string animName = "") 
+	{
 		if(animName == "EnemyAttack") {
 			gun.Shoot(BulletVariations.Normal);
 		}

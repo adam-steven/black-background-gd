@@ -6,7 +6,8 @@ public partial class UiController
 
     #region GetElements
 
-		private void GetHealthUi() {
+		private void GetHealthUi() 
+		{
 			Godot.BoxContainer rightPanel = this.GetNode<Godot.BoxContainer>("HBoxContainer/HBoxContainer/VBoxContainer2");
 			healthUi = rightPanel.GetNode<Godot.Label>("Health"); 
 		}
@@ -15,7 +16,8 @@ public partial class UiController
 
     #region UpdateElements
 
-		public void UpdateHealthUi(int value) {
+		public void UpdateHealthUi(int value) 
+		{
 			if(healthUi == null) { return; }
 			healthUi.Text = value.ToString("D4");
 		}

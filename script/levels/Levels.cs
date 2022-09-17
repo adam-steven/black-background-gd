@@ -16,7 +16,8 @@ namespace Godot
 
         [Signal] internal delegate void change_scene(string scenePath, float animSpeed, string passThroughData);
 
-        public void EmitChangeScene(string scenePath, float animSpeed = 1f, System.Object passThroughData = null) {
+        public void EmitChangeScene(string scenePath, float animSpeed = 1f, System.Object passThroughData = null) 
+        {
             var settings = new JsonSerializerSettings();
             settings.TypeNameHandling = TypeNameHandling.Objects;
             string jsonData  = JsonConvert.SerializeObject(passThroughData, settings);

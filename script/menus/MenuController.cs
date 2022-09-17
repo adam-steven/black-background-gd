@@ -14,20 +14,19 @@ namespace Godot
         [Signal] internal delegate void _leaderboard();
         [Signal] internal delegate void _main_menu();
 
-        public override void _Ready() {
+        public override void _Ready() 
+        {
             Godot.VBoxContainer buttonContainer = this.GetNode<Godot.VBoxContainer>("Buttons");
             Godot.Collections.Array buttons = buttonContainer.GetChildren();
 
             //Get buttons in the unique containers
-            for (int i = 0; i < uniqueContainers.Length; i++)
-            {
+            for (int i = 0; i < uniqueContainers.Length; i++) {
                 string containerPath = uniqueContainers[i];
                 Godot.Container uniqueButtonContainer = this.GetNode<Godot.Container>(containerPath);
                 buttons += uniqueButtonContainer.GetChildren();
             }
 
-            for (int i = 0; i < buttons.Count; i++)
-            {
+            for (int i = 0; i < buttons.Count; i++) {
                 if(!buttons[i].GetType().Equals(typeof(MenuButtons))) { continue; }
             
                 Godot.Button button = (Godot.Button)buttons[i];

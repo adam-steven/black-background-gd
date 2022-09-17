@@ -15,18 +15,21 @@ public class MenuButtons : Button
 	}
 
 	//Play expand anim
-	private void _OnMouseEntered() {
+	private void _OnMouseEntered() 
+	{
 		AnimationPlayer anim  = this.GetNode<AnimationPlayer>("AnimationPlayer");
 		anim.Play("MenuBtnSelected");
 	}
 
 	//Play collapse anim
-	private void _OnMouseExit() {
+	private void _OnMouseExit() 
+	{
 		AnimationPlayer anim  = this.GetNode<AnimationPlayer>("AnimationPlayer");
 		anim.Play("MenuBtnDeselected");
 	}
 
-	public void SetValueLabel(string value) {
+	public void SetValueLabel(string value) 
+	{
 		if(string.IsNullOrEmpty(valueLabelPath)) { return; }
 		Godot.Label valueLabel = this.GetNode<Godot.Label>(valueLabelPath);
 

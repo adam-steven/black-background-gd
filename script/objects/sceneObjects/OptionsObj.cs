@@ -1,10 +1,11 @@
 //Object for OptionsScreen.tscn data in 
 
-public class OptionsObj {
-
+public class OptionsObj
+{
     public MainGameObj gameObj { get; set; } //true: return to game, false: return to main menu
 
-    public OptionsObj() {
+    public OptionsObj() 
+    {
         this.gameObj = new MainGameObj(false);
     }
 

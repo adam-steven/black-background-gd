@@ -37,7 +37,8 @@ public class UpgradeMenu : Control
 		SpawnUpgrades(spawnPoints, showNames, showDesc);
     }
 
-	private void SpawnUpgrades(Vector2[] spawnPoints, bool showNames, bool showDesc) {
+	private void SpawnUpgrades(Vector2[] spawnPoints, bool showNames, bool showDesc) 
+	{
 		for (int i = 0; i < spawnPoints.Length; i++) {
 			string randomUpgrade = upgrades[rnd.Next(upgrades.Count)];
 			PackedScene upgradeOptionScene = (PackedScene)GD.Load(randomUpgrade);
@@ -58,7 +59,8 @@ public class UpgradeMenu : Control
 		}
 	}
 
-	private void _OnButtonPress(UpgradeButton button) {
+	private void _OnButtonPress(UpgradeButton button) 
+	{
 		if(!button.endUpgrading) { DecreaseMultiplier(); }
 
 		//If the button has endUpgrading set or only the exit button is left
@@ -68,17 +70,20 @@ public class UpgradeMenu : Control
 		}
 	}
 
-	private void _UpdateUpgradeDesc(string value) {
+	private void _UpdateUpgradeDesc(string value) 
+	{
 		this.EmitSignal("_update_upgrade_ui", value);
 	}
 
 	//Emit signal to decrement score multiplier
-	public void DecreaseMultiplier() {
+	public void DecreaseMultiplier() 
+	{
 		this.EmitSignal("_decrease_multiplier", false);
 	}
 
 	//Emit signal to delete any existing upgrades
-	public void FinishedUpgrading() {
+	public void FinishedUpgrading() 
+	{
 		this.EmitSignal("_upgrading_finished");
         this.QueueFree();
 	}

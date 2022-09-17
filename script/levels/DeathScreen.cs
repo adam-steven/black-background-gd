@@ -15,7 +15,8 @@ public class DeathScreen : Levels
     public float delay = 60;
     public float delayCounter = 0;
 
-	public override void _Ready() {
+	public override void _Ready() 
+	{
 		Godot.Control control = this.GetNode<Godot.Control>("Control");
 		scoreUi = control.GetNode<Godot.Label>("Labels/Score");
 
@@ -25,14 +26,16 @@ public class DeathScreen : Levels
 		control.Connect("_leaderboard", this, "Leaderboard");
 	}
 
-	public override void _Process(float delta) {
+	public override void _Process(float delta) 
+	{
 		if(deathData == null) { return; }
 		if(scoreUiVal >= deathData.score) { return; }
 		UpdateScoreUi(delta);
 	}
 
 	//Handel score
-	private void UpdateScoreUi(float delta) {
+	private void UpdateScoreUi(float delta) 
+	{
 		delayCounter += delay * delta;
 
         if(delayCounter >= 1) {
@@ -43,24 +46,27 @@ public class DeathScreen : Levels
         }
 	}
 
-	public override void LoadLevelParameters(System.Object sceneData) {
+	public override void LoadLevelParameters(System.Object sceneData) 
+	{
 		deathData = (sceneData != null) ? (GameOverObj)sceneData : new GameOverObj(0, 0);
 		tickAmount = Math.Max((deathData.score / scoreNoOfTicks), 1);
 		GD.Print("Time: " + deathData.time);
 	}
 
-	private void Replay() {
+	private void Replay() 
+	{
 		MainGameObj restartObj = new MainGameObj(true);
 		EmitChangeScene("res://scenes/gameEnvironment/Main.tscn", 5f, restartObj);
 	}
 
-	private void MainMenu() {
+	private void MainMenu() 
+	{
 		MainGameObj restartObj = new MainGameObj(false);
 		EmitChangeScene("res://scenes/gameEnvironment/Main.tscn", 5f, restartObj);
 	}
 
-	private void Leaderboard() {
+	private void Leaderboard() 
+	{
 		EmitChangeScene("res://scenes/menus/LeaderboardScreen.tscn", 5f);
 	}
-
 }

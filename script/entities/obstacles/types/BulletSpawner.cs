@@ -2,11 +2,11 @@ using System;
 using Godot;
 using static Enums;
 
-public class BulletSpawner : Enemies
+public class BulletSpawner : Obstacles
 {
 	Random rnd = new Random();
 	
-	public override void _EnemyReady()
+	public override void _EntityReady()
 	{
 		float spawnSpeedModifier = shotDelay / rnd.Next(1, 3);
 		anim.PlaybackSpeed = spawnSpeedModifier;

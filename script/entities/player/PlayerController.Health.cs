@@ -9,10 +9,9 @@ public partial class PlayerController
 	
 	[Export] private bool invincible = false;
 
-	[Signal] public delegate void _end_game();
-
 	//Called by the bullet script to take damage / die
-	public override void TakeDamage(BulletController strikingBullet) {
+	public override void TakeDamage(BulletController strikingBullet) 
+	{
 		//Indicate that no damage was taken + health gained 
 		if(invincible) {
 			switch (strikingBullet.type)
@@ -36,7 +35,8 @@ public partial class PlayerController
 		DeductHealth(strikingBullet);
 	}
 
-	private void DeductHealth(BulletController strikingBullet) {
+	private void DeductHealth(BulletController strikingBullet) 
+	{
 		if(health <= 0) return;
 
 		//Decrease health
@@ -55,27 +55,30 @@ public partial class PlayerController
 			anim.Play("PlayerDeath");
 
 			//Go to game-over screen
-			this.EmitSignal("_end_game");
+			this.EmitSignal("_on_death");
 		}
 	}
 
-	private void GainHealth(BulletController strikingBullet, Color backgroundColour, string flashText = null) {
+	private void GainHealth(BulletController strikingBullet, Color backgroundColour, string flashText = null) 
+	{
 		UpdateHealth((int)Math.Round(strikingBullet.strength/1.5f));
 		this.EmitSignal("_update_score", pointsOnBlock);
 
 		//Show effect
-		blockEffect(backgroundColour, flashText); 
+		BlockEffect(backgroundColour, flashText); 
 	}
 
-	private void blockEffect(Color backgroundColour, string flashText = null) {
+	private void BlockEffect(Color backgroundColour, string flashText = null) 
+	{
 		//Flash text
 		if(flashText != null) { this.EmitSignal("_section_text", flashText, true); } 
 
 		//Flash colour + freeze frame
-		Colour.FlashBackgroundColour(backgroundColour, GetTree(), health);
+		Colour.FlashBackgroundColourAsync(backgroundColour, GetTree(), health);
 	}
 
-	public override void UpdateHealth(int addend) {
+	public override void UpdateHealth(int addend) 
+	{
 		health = Mathc.Limit(0, health + addend, 1000);	
 		this.EmitSignal("_update_health_ui", health);
 		Colour.UpdateBackgroundColour(health);

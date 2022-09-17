@@ -16,21 +16,24 @@ public class GunController
 	///<summary> 
 	///		Allows nodes to shoot bullets form there body.
 	///</summary>
-	public GunController(Entities ownerNode, Node2D spawnPoint) {
+	public GunController(Entities ownerNode, Node2D spawnPoint) 
+	{
 		this.bulletScene = (PackedScene)GD.Load("res://scenes/misc/Bullet.tscn");
 		this.ownerNode = ownerNode;
 		this.spawnPoint = spawnPoint;
 	}
 
-	public void Shoot(BulletVariations bulletType) {
+	public void Shoot(BulletVariations bulletType) 
+	{
 		if(CanShoot()) {
-			BurstBullets(bulletType);
+			BurstBulletsAsync(bulletType);
 		}
 	}
 
 	//Checks if the threshold amount of time has passed since the last shot
 	//isBursting = true lowers the nextShotThreshold
-	private bool CanShoot() {
+	private bool CanShoot() 
+	{
 		int shotDelayMs = (int)(ownerNode.shotDelay * 1000);
 		int nextShotThreshold = timeLastShot + shotDelayMs;
 		
@@ -42,7 +45,8 @@ public class GunController
 	}
 
 	//Loop spawn bullets with delay for burst effect
-	private async void BurstBullets(BulletVariations bulletType) {
+	private async void BurstBulletsAsync(BulletVariations bulletType) 
+	{
 		//Make sure the burst is always faster than normal shots
 		float betweenBurstDelay = (ownerNode.shotDelay < 0.2f) ? ownerNode.shotDelay/2f : 0.1f;
 		betweenBurstDelay *= 1000; //convert to ms
@@ -55,7 +59,8 @@ public class GunController
 	}
 
 	//Loop spawn bullets for shotgun effect
-	private void SpawnBullets(BulletVariations bulletType) {
+	private void SpawnBullets(BulletVariations bulletType) 
+	{
 		Godot.Node2D gameController = ownerNode.GetParent<Godot.Node2D>();
 
 		//Set can shoot timer here so thats the burst will never be slower than shoot rate
@@ -68,7 +73,8 @@ public class GunController
 	}
 
 	//Spawn 1 bullet
-	private void SpawnBullet(Godot.Node2D gameController, BulletVariations bulletType) {
+	private void SpawnBullet(Godot.Node2D gameController, BulletVariations bulletType) 
+	{
 		BulletController bullet = (BulletController)bulletScene.Instance();
 		float randomAccuracyDeviation = (float)((rnd.NextDouble() * ownerNode.bulletAccuracy) - (rnd.NextDouble() * ownerNode.bulletAccuracy));
 

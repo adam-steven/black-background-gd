@@ -1,64 +1,67 @@
 using System;
+using static Enums;
 
 namespace Godot
 {
-    public class Enemies : Entities
+    public class Enemies : Obstacles
     {
         [Export] private float rotationSpeed = 3f;
         [Export] private int pointsOnKill = 100;
 
-	    public RigidBody2D player;
-        internal AnimationPlayer anim;
-
         public override void _Ready() 
         {
-            FacePlayer();
+            this.entityType = BulletOwner.EnemyController;
 
+            //Set the sprites colour to level colour
             Godot.Sprite sprite = this.GetNodeOrNull<Godot.Sprite>("Sprite");
             if(IsInstanceValid(sprite)) { sprite.SelfModulate = colour; }
 
+            //Configure weakpoint if one exists 
+            Godot.Node2D weakPoint = this.GetNodeOrNull<Godot.Node2D>("WeakPoint");
+            if(IsInstanceValid(weakPoint)) { 
+                Godot.Sprite weakPointSprite = weakPoint.GetNodeOrNull<Godot.Sprite>("Sprite");
+                sprite.Modulate = bulletColour;
+                weakPoint.Connect("_hit", this, "WeakPointHit"); 
+            }
+
+            //Init fixed components
             anim  = this.GetNode<AnimationPlayer>("AnimationPlayer");
             gun = new GunController(this, this); 
 
-            _EnemyReady();
+            FacePlayer();
+            _EntityReady();
         }
 
-        //EnemyReady is for enemy specific function as Ready is used for generics
-        public virtual void _EnemyReady() {}
+        #region Controls
 
-        internal void FacePlayer() {
-            this.LookAt(player.GlobalPosition); 
-        }
+            internal void MoveInDirection(Vector2 _thrustDirection) 
+            {
+                Vector2 _thrust = _thrustDirection * movementForce;
+                SetAxisVelocity(_thrust.Rotated(Rotation));
+            }
 
-        internal void TurnToPlayer(float delta) {
-            Vector2 direction = (player.GlobalPosition - this.GlobalPosition);
-            Single angleTo = this.Transform.x.AngleTo(direction);
-            this.Rotate(Math.Sign(angleTo) * Math.Min(delta * rotationSpeed, Math.Abs(angleTo)));
-        }
+            internal void PushInDirection(Vector2 _thrustDirection) 
+            {
+                Vector2 _thrust = _thrustDirection * movementForce;
+                ApplyCentralImpulse(_thrust);
+            }
 
-        internal void MoveInDirection(Vector2 _thrustDirection) {
-            Vector2 _thrust = _thrustDirection * movementForce;
-            SetAxisVelocity(_thrust.Rotated(Rotation));
-        }
+            internal override bool IsActive() {
+                return (IsInstanceValid(player) && health > 0);
+            }
 
-        internal void PushInDirection(Vector2 _thrustDirection) {
-            Vector2 _thrust = _thrustDirection * movementForce;
-            ApplyCentralImpulse(_thrust);
-        }
-
-        internal bool IsActive() {
-            return (IsInstanceValid(player) && health > 0);
-        }
+        #endregion
 
         #region Death handling
 
             //Called by the bullet script to take damage / die
-            public override void TakeDamage(BulletController strikingBullet) {
+            public override void TakeDamage(BulletController strikingBullet) 
+            {
                 if(health <= 0) return;
                 
                 UpdateHealth(-strikingBullet.strength);
 
-                anim  = this.GetNode<AnimationPlayer>("AnimationPlayer");
+                anim = this.GetNode<AnimationPlayer>("AnimationPlayer");
                 anim.Play("EnemyHit");
 
                 if(health <= 0) {
@@ -73,44 +76,54 @@ namespace Godot
                 }	
             }
 
-            //Emit signal on death
-            [Signal] public delegate void _on_death();
-            public void EmitDeathSignal(string animName = "") {
-                this.EmitSignal("_on_death");
-                this.QueueFree();
+            public override void UpdateHealth(int addend) 
+            {
+                health = Math.Max(0, health + addend);
             }
 
-            public override void UpdateHealth(int addend) {
-                health = Math.Max(0, health + addend);
+            private void WeakPointHit(BulletController strikingBullet)
+            {
+                GD.Print("Weak point hit");
+
+                strikingBullet.strength *= 2;
+                TakeDamage(strikingBullet);
+                //Strike Effect
+                //Zoom in Effect
             }
 
         #endregion
 
         #region Delayed start
 
-            private Godot.Position2D loadingSpinner;
-            private Godot.CollisionShape2D collider;
-            private Godot.Sprite sprite;
-
-            private void Start(string animName = "") {
-                loadingSpinner.QueueFree();
-                collider.Disabled = false;
-                sprite.Visible = true;
+            private void Start(string animName = "") 
+            {
+                ToggleLoadingVisuals(false);
                 SetPhysicsProcess(true);
             }
 
-            public void InitDelayedStart(string nodeName) {
+            public void InitDelayedStart() 
+            {
                 SetPhysicsProcess(false);
+                ToggleLoadingVisuals(true);
 
-                loadingSpinner = this.GetNode<Godot.Position2D>(nodeName);
+                Godot.Position2D loadingSpinner = this.GetNode<Godot.Position2D>("LoadingSpinner");
                 AnimationPlayer loadingAnim  = loadingSpinner.GetNode<AnimationPlayer>("AnimationPlayer");
                 loadingAnim.Connect("animation_finished", this, "Start");
+            }
 
-                collider = this.GetNode<Godot.CollisionShape2D>("CollisionShape2D");
-                collider.Disabled = true;
+            private void ToggleLoadingVisuals(bool loading) 
+            {
+                Godot.Position2D loadingSpinner = this.GetNode<Godot.Position2D>("LoadingSpinner");
+                Godot.CollisionShape2D collider = this.GetNode<Godot.CollisionShape2D>("CollisionShape2D");
+                Godot.Sprite sprite = this.GetNode<Godot.Sprite>("Sprite");
+                Godot.Node2D weakPoint = this.GetNodeOrNull<Godot.Node2D>("WeakPoint");
 
-                sprite = this.GetNode<Godot.Sprite>("Sprite");
-                sprite.Visible = false;
+                if(loading) { loadingSpinner.Visible = loading; }
+                else { loadingSpinner.QueueFree(); }
+
+                collider.Disabled = loading;
+                sprite.Visible = !loading;
+                if(IsInstanceValid(weakPoint)) { weakPoint.Visible = !loading;  }
             }
             
         #endregion

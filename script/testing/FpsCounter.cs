@@ -5,11 +5,12 @@ public class FpsCounter : Label
 {
     public override void _Ready()
     {
-        StartCounter();
+        StartCounterAsync();
     }
 
     //Loop spawn bullets with delay for burst effect
-	private async void StartCounter() {
+	private async void StartCounterAsync() 
+    {
         while (true)
         {
             float fpsCount = Engine.GetFramesPerSecond();

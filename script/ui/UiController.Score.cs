@@ -10,7 +10,8 @@ public partial class UiController
 
     #region GetElements
 
-		private void GetScoreUi() {
+		private void GetScoreUi() 
+		{
 			Godot.BoxContainer leftPanel = this.GetNode<Godot.BoxContainer>("HBoxContainer/VBoxContainer");
 
 			pointIndicatorUi = leftPanel.GetNode<Godot.Label>("PointsIndicator");
@@ -26,18 +27,21 @@ public partial class UiController
 
     #region UpdateElements
 
-		public void FlashPoints(int value) {
+		public void FlashPoints(int value) 
+		{
 			if(pointIndicatorUi == null) { return; }
 			pointIndicatorUi.Text = $"+{value}";
 			pointIndicatorAnim.Play("PointsIndicatorAppear");
 		}
 
-		public void UpdateScoreUi(long value) {
+		public void UpdateScoreUi(long value) 
+		{
 			if(scoreUi == null) { return; }
 			scoreUi.Text = value.ToString("D6");
 		}
 
-		public void UpdateMultiplierUi(int value) {
+		public void UpdateMultiplierUi(int value) 
+		{
 			if(multiplierUi == null) { return; }
 			multiplierAnim.Connect("animation_finished", this, "MultiplierUiIdleAnim", null, (uint)Godot.Object.ConnectFlags.Oneshot);
 			multiplierAnim.Play("multiplierChange");
@@ -45,7 +49,8 @@ public partial class UiController
 		}
 
 		//Go back to idle animation after change anim finishes
-		private void MultiplierUiIdleAnim(string animName = "") {
+		private void MultiplierUiIdleAnim(string animName = "") 
+		{
 			multiplierAnim.Play("multiplierIdle");
 		}
 

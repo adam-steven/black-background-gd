@@ -22,7 +22,8 @@ public partial class Main : Levels
 
 	private UiController uiNode;
 
-	public override void _Ready() {
+	public override void _Ready() 
+	{
 		uiNode = this.GetNode<UiController>("UI");
 
 		levelNode = this.GetNode<Godot.Node2D>("Level");
@@ -31,7 +32,8 @@ public partial class Main : Levels
 		this.SetProcess(false);
 	}
 
-	public override void LoadLevelParameters(System.Object sceneData) {
+	public override void LoadLevelParameters(System.Object sceneData) 
+	{
 		if(sceneData != null) {
 			mainData = (MainGameObj)sceneData;
 		}
@@ -47,7 +49,8 @@ public partial class Main : Levels
 		}
 	}
 
-	public override void _Process(float delta) {
+	public override void _Process(float delta) 
+	{
 		_ScoreProcess(delta);
 		_StageProcess(delta);
 	}
@@ -55,7 +58,8 @@ public partial class Main : Levels
 	#region Misc Functions
 
 		//If the last enemy is dying spawn next way
-		public void CheckIfEnemies() {
+		public void CheckIfEnemies() 
+		{
 			noOfEnemies--;
 			if(noOfEnemies > 0) return;
 
@@ -77,8 +81,7 @@ public partial class Main : Levels
 				LevelSpin(); 
 			}
 
-			switch (currentStage)
-			{
+			switch (currentStage) {
 				case GameStages.Dodge:
 					GD.Print("Call SpawnObstacles");
 					SpawnObstacles(); 
@@ -108,7 +111,8 @@ public partial class Main : Levels
 
 		//Displays big faint text in the background for a short amount of time
 		//Used to indicate the changes in gameplay sections 
-		private void DisplaySectionText(string text, bool inverted = false) {
+		private void DisplaySectionText(string text, bool inverted = false) 
+		{
 			Position2D sectionText = this.GetNode<Position2D>("SectionText");
 			Godot.Label label = sectionText.GetNode<Godot.Label>("Label");
 			AnimationPlayer anim  = sectionText.GetNode<AnimationPlayer>("AnimationPlayer");
@@ -120,7 +124,8 @@ public partial class Main : Levels
 			anim.Play("SectionTxtDisplay");
 		}
 
-		private void DisplaySectionTextCountDown(string callFunction) {
+		private void DisplaySectionTextCountDown(string callFunction) 
+		{
 			AnimationPlayer anim  = this.GetNode<AnimationPlayer>("SectionText/AnimationPlayer");
 			
 			anim.Connect("animation_finished", this, callFunction, null, (uint)ConnectFlags.Oneshot);
@@ -128,20 +133,23 @@ public partial class Main : Levels
 		}
 
 		//Spins the level boarders + changes the level colour
-		private void LevelSpin() {
+		private void LevelSpin() 
+		{
 			AnimationPlayer anim = levelNode.GetNode<AnimationPlayer>("Room/AnimationPlayer");
 			anim.Play("RoomSpin");
 			Colour.UpdateGameColours(levelNode, player);
 		}
 
 		//Slowly increase the number of enemies each wave
-		private void IncreaseEnemySpawn() {
+		private void IncreaseEnemySpawn() 
+		{
 			if(mainData.stage.level%2 == 0) { enemySpawnMax++; } 
 			else { enemySpawnMin++; }
 		}
 
 		//Destroys all bullets on the screen
-		private void DestroyBullets() {
+		private void DestroyBullets() 
+		{
 			var children = this.GetChildren();
 
 			foreach (var child in children)
@@ -149,7 +157,8 @@ public partial class Main : Levels
 					((BulletController)child).QueueFree(); 
 		}
 
-		private void ReframePlayer() {
+		private void ReframePlayer() 
+		{
 			//If camera locked, move player to center
 			Vector2 cameraCenter = mainCamera.GetCameraScreenCenter();
 			player.Position = cameraCenter;

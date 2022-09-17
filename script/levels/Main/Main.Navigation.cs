@@ -4,7 +4,8 @@ using static Enums;
 public partial class Main
 {
     //play game for events without anim name info
-		private void PlayGame() {
+		private void PlayGame() 
+		{
 			mainData.inGame = true;
 			ResetScenes();
 			_ScoreReady();
@@ -13,7 +14,8 @@ public partial class Main
 			PlayGame(string.Empty);
 		}
 
-		private void PlayGame(string animName = "") {
+		private void PlayGame(string animName = "") 
+		{
 			//count down
 			SettingsController settings = new SettingsController();
 			isStartingCountDown = (bool)settings.GetValue(MenuButtonActions.StartCountDown.ToString(), false);
@@ -36,36 +38,43 @@ public partial class Main
 			pauseMenu.Connect("_options", this, "GoToOptions");
 		}
 
-		private void RestartGame() {
+		private void RestartGame() 
+		{
 			MainGameObj restartObj = new MainGameObj(true);
 			EmitChangeScene("res://scenes/gameEnvironment/Main.tscn", 5f, restartObj);
 		}
 
-		private void EndGame() {
+		private void EndGame() 
+		{
 			GameOverObj deathObj = new GameOverObj(mainData.score.score, 0);
 			EmitChangeScene("res://scenes/menus/DeathScreen.tscn", 1f, deathObj);
 		}
 
-		private void ReturnToMenu() {
+		private void ReturnToMenu() 
+		{
 			MainGameObj restartObj = new MainGameObj(false);
 			EmitChangeScene("res://scenes/gameEnvironment/Main.tscn", 5f, restartObj);
 		}
 
-		private void GoToOptions() {
+		private void GoToOptions()
+		{
 			OptionsObj optionsObj = new OptionsObj(mainData);
 			EmitChangeScene("res://scenes/menus/OptionsScreen.tscn", 5f, optionsObj);
 		}
 
-		private void GoToLeaderboard() {
+		private void GoToLeaderboard() 
+		{
 			EmitChangeScene("res://scenes/menus/LeaderboardScreen.tscn", 5f);
 		}
 
 		//upgrading finished for events without anim name info
-		private void UpgradingFinished() {
+		private void UpgradingFinished() 
+		{
 			UpgradingFinished(string.Empty);
 		}
 
-		private void UpgradingFinished(string animName = "") {
+		private void UpgradingFinished(string animName = "") 
+		{
 			//count down
 			if(isStartingCountDown && animName != "SectionTextCountDown") {
 				DisplaySectionTextCountDown("UpgradingFinished");

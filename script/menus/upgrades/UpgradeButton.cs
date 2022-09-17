@@ -26,7 +26,8 @@ public class UpgradeButton : Position2D
 	public bool showDesc;
 	private Godot.Button btn;
 
-	public override void _Ready() {
+	public override void _Ready() 
+	{
 		btn = this.GetNode<Godot.Button>("Button");
 		btn.Connect("mouse_entered", this, "MouseEntered");
 		btn.Connect("mouse_exited", this, "MouseExited");
@@ -36,7 +37,8 @@ public class UpgradeButton : Position2D
 		label.Visible = false;
 	}
 
-	private void MouseEntered() {
+	private void MouseEntered() 
+	{
 		AnimationPlayer anim  = btn.GetNode<AnimationPlayer>("AnimationPlayer");
 		anim.Play("UpgradeSelected");
 
@@ -44,7 +46,8 @@ public class UpgradeButton : Position2D
 		ShowDescriptionUi(description);
 	}
 
-	private void MouseExited() {
+	private void MouseExited() 
+	{
 		AnimationPlayer anim  = btn.GetNode<AnimationPlayer>("AnimationPlayer");
 		anim.Play("UpgradeDeselected");
 
@@ -52,7 +55,8 @@ public class UpgradeButton : Position2D
 		ShowDescriptionUi("");
 	}
 
-	private void _OnButtonPress() {
+	private void _OnButtonPress() 
+	{
 		if(IsInstanceValid(player)) {
 			player.UpdateStats(health, movementForce, shotDelay, noOfBullets, bulletForce, bulletStrength, bulletAccuracy, bulletBurstAmount, bulletTimeAlive, bulletSize);
 		}
@@ -62,13 +66,15 @@ public class UpgradeButton : Position2D
 		this.QueueFree();
 	}
 
-	private void ShowDescriptionUi(bool visiable) {
+	private void ShowDescriptionUi(bool visiable) 
+	{
 		if(!showNames) { return; }
 		Godot.Label label = btn.GetNode<Godot.Label>("Label");
 		label.Visible = visiable;
 	}
 
-	private void ShowDescriptionUi(string value) {
+	private void ShowDescriptionUi(string value) 
+	{
 		if(!showDesc) { return; }
 		this.EmitSignal("_update_upgrade_ui", value);
 	}

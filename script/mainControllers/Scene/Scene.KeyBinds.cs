@@ -16,7 +16,8 @@ public partial class Scene
 			{MenuButtonActions.Pause, KeyList.Escape}
 			};
 
-    private void LoadKeyBinds() {
+    private void LoadKeyBinds() 
+	{
 		SettingsController settings = new SettingsController();
 
 		foreach (var action in actions)
@@ -35,7 +36,8 @@ public partial class Scene
 		}
 	}
 
-	private object DecodeStringBind(string keyBindCode) {
+	private object DecodeStringBind(string keyBindCode) 
+	{
 		char inputType = keyBindCode[0];
 		bool codeParseSuccess = Int32.TryParse(keyBindCode.Remove(0,1), out int code);
 
@@ -54,7 +56,8 @@ public partial class Scene
 		return null;
 	}
 
-	private InputEvent CreateInputEvent(object keyBind) {
+	private InputEvent CreateInputEvent(object keyBind) 
+	{
 		switch (keyBind)
 		{
 			case KeyList keyList:
