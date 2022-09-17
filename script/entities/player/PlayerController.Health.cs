@@ -14,8 +14,7 @@ public partial class PlayerController
 	{
 		//Indicate that no damage was taken + health gained 
 		if(invincible) {
-			switch (strikingBullet.type)
-			{
+			switch (strikingBullet.type) {
 				case BulletVariations.Normal:
 					GainHealth(strikingBullet, Colour.levelColour);
 					return;

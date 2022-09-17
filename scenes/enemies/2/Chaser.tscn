@@ -4,7 +4,6 @@
 [ext_resource path="res://script/entities/enemies/types/Chaser.cs" type="Script" id=2]
 [ext_resource path="res://scenes/enemies/.EnemySpawner.tscn" type="PackedScene" id=3]
 
-
 [sub_resource type="RectangleShape2D" id=1]
 
 [sub_resource type="Animation" id=2]
@@ -84,7 +83,6 @@ tracks/1/keys = {
 visible = false
 gravity_scale = 0.0
 script = ExtResource( 2 )
-entityType = 1
 health = 200
 movementForce = 20.0
 

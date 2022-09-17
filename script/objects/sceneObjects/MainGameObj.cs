@@ -16,5 +16,8 @@ public class MainGameObj
         this.inGame = inGame;
         this.score = new Score();
         this.stage = new Stage();
+        this.enemies = new Scenes();
+        this.obstacles = new Scenes();
+        this.upgrades = new Scenes();
     }
 }

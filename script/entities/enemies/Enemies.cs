@@ -5,7 +5,6 @@ namespace Godot
 {
     public class Enemies : Obstacles
     {
-        [Export] private float rotationSpeed = 3f;
         [Export] private int pointsOnKill = 100;
 
         public override void _Ready() 
@@ -123,7 +122,11 @@ namespace Godot
 
                 collider.Disabled = loading;
                 sprite.Visible = !loading;
-                if(IsInstanceValid(weakPoint)) { weakPoint.Visible = !loading;  }
+                if(IsInstanceValid(weakPoint)) { 
+                    Godot.CollisionShape2D weakPointCollider = weakPoint.GetNode<Godot.CollisionShape2D>("CollisionShape2D");
+                    weakPointCollider.Disabled = loading; 
+                    weakPoint.Visible = !loading; 
+                }
             }
             
         #endregion

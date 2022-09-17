@@ -2,9 +2,9 @@ public partial class Main
 {
     private void ResetScenes() 
     {
-        mainData.obstacles = obstaclesSections[0];
-		mainData.enemies = enemiesSections[0];
-		mainData.upgrades = upgradeSections[0];
+        mainData.obstacles.AddRange(obstaclesSections[0]);
+		mainData.enemies.AddRange(enemiesSections[0]);
+		mainData.upgrades.AddRange(upgradeSections[0]);
     }
 
     private void UpdateScenes(int level) 

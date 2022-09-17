@@ -6,8 +6,7 @@ public class LeaderboardMenu : MenuController
 {
 	internal override void _OnButtonPress(MenuButtons button) 
 	{
-		switch (button.action)
-		{
+		switch (button.action) {
 			case MenuButtonActions.Continue:
 				Return(button);
 				break;

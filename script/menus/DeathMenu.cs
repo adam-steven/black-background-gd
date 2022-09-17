@@ -6,8 +6,7 @@ public class DeathMenu : MenuController
 {
 	internal override void _OnButtonPress(MenuButtons button) 
 	{
-		switch (button.action)
-		{
+		switch (button.action) {
 			case MenuButtonActions.Play:
 				Replay(button);
 				break;

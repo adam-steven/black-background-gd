@@ -10,10 +10,10 @@ public class Stage {
     [JsonProperty] public int[] stageWaveValues { get; private set; }
     [JsonProperty] public double currentWaveCounter { get; private set; }
 
-    public GameStages currentStage { 
+    public GameStages currentStage 
+    { 
         get {
-            switch (stageCounter)
-            {
+            switch (stageCounter) {
                 case 0:
                     return GameStages.Dodge;
                 case 1:
@@ -28,20 +28,23 @@ public class Stage {
         }
     }
 
-    public int noOfWaves {
+    public int noOfWaves 
+    {
         get {
             return stageWaveValues[stageCounter];
         }
     }
 
-    public double stageProgression {
+    public double stageProgression 
+    {
         get {
             return (1 - (currentWaveCounter / stageWaveValues[stageCounter])) * 100;
         }
     }
 
     ///<returns>timer ended</returns>
-    public Nullable<bool> ProcessStageCountDown(float delta) {
+    public Nullable<bool> ProcessStageCountDown(float delta) 
+    {
         if(currentWaveCounter >= stageWaveValues[stageCounter] - 1) { return null; }
 
         if(Math.Round(currentWaveCounter * 10) % 10 != 9) {
@@ -53,7 +56,8 @@ public class Stage {
         }
     }
 
-    public double NextWave(bool gameStart = false) {
+    public double NextWave(bool gameStart = false) 
+    {
         if(gameStart) { return currentWaveCounter; }
 
         currentWaveCounter = Math.Floor(currentWaveCounter) + 1;
@@ -71,17 +75,20 @@ public class Stage {
         return currentWaveCounter;
     }
 
-    private void NextLevel() {
+    private void NextLevel() 
+    {
         level++;
         UpdateStageLengths();
     }
 
     //Increase dodge and fight
-    private void UpdateStageLengths() {
+    private void UpdateStageLengths() 
+    {
         stageWaveValues = new int[] {(3 + level), (4 + level), 1, 1}; 
     }
 
-    public Stage() {
+    public Stage() 
+    {
         stageCounter = 0;
         currentWaveCounter = 0;
         UpdateStageLengths();

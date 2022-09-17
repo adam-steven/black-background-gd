@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://scenes/enemies/.EnemySpawner.tscn" type="PackedScene" id=1]
 [ext_resource path="res://images/base_block.png" type="Texture" id=2]
 [ext_resource path="res://script/entities/enemies/types/TurretLv1.cs" type="Script" id=3]
+[ext_resource path="res://scenes/enemies/.WeekPoint.tscn" type="PackedScene" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -84,10 +85,14 @@ tracks/1/keys = {
 gravity_scale = 0.0
 script = ExtResource( 3 )
 health = 200
+rotationSpeed = 0.0
 
 [node name="Sprite" type="Sprite" parent="."]
 scale = Vector2( 1.5, 1.5 )
 texture = ExtResource( 2 )
+
+[node name="WeakPoint" parent="." instance=ExtResource( 4 )]
+position = Vector2( -30, 0.167 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 scale = Vector2( 2, 2 )
@@ -101,6 +106,7 @@ anims/EnemyHit = SubResource( 4 )
 anims/EnemyInit = SubResource( 5 )
 
 [node name="LoadingSpinner" parent="." instance=ExtResource( 1 )]
+visible = false
 
 [node name="Ring1" parent="LoadingSpinner" index="0"]
 rotation = 5.80322
