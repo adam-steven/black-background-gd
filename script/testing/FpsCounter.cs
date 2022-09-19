@@ -9,7 +9,7 @@ public class FpsCounter : Label
     }
 
     //Loop spawn bullets with delay for burst effect
-	private async void StartCounterAsync() 
+    private async void StartCounterAsync()
     {
         while (true)
         {
@@ -17,5 +17,5 @@ public class FpsCounter : Label
             this.Text = fpsCount.ToString();
             await Task.Delay(2000);
         }
-	}
+    }
 }

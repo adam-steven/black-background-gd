@@ -1,7 +1,7 @@
 using System;
 using Newtonsoft.Json;
 
-public class Score 
+public class Score
 {
     [JsonProperty] public long score { get; private set; }
     [JsonProperty] public long tempScore { get; private set; } //Temporarily holds the full score value for a tick up effect
@@ -18,24 +18,24 @@ public class Score
         return calcPoints;
     }
 
-    public void BreakRollingScore() 
+    public void BreakRollingScore()
     {
         tempScore = score;
     }
 
-    public Nullable<long> ProcessRollingScore() 
+    public Nullable<long> ProcessRollingScore()
     {
-        if(score >= tempScore) { return null; }
+        if (score >= tempScore) { return null; }
         score++;
         return score;
     }
 
-    public void UpdateMultiplier(bool reset) 
+    public void UpdateMultiplier(bool reset)
     {
         scoreMultiplier = (reset) ? 4 : scoreMultiplier - 1;
     }
 
-    public Score() 
+    public Score()
     {
         scoreMultiplier = 4;
     }

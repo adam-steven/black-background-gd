@@ -2,12 +2,12 @@ using Godot;
 
 public partial class Main
 {
-    private void SpawnPlayer(Vector2 location) 
+    private void SpawnPlayer(Vector2 location)
     {
         PackedScene playerScene = (PackedScene)GD.Load("res://scenes/misc/Player.tscn");
         player = (PlayerController)playerScene.Instance();
         player.GlobalPosition = location;
-        
+
         player.Connect("_on_death", this, "EndGame");
         player.Connect("_shake_screen", (Camera)mainCamera, "StartShakeScreen");
         player.Connect("_section_text", this, "DisplaySectionText");
@@ -20,11 +20,11 @@ public partial class Main
         this.AddChild(player);
     }
 
-    private void SpawnMainMenu() 
+    private void SpawnMainMenu()
     {
         PackedScene mainMenuScene = (PackedScene)GD.Load("res://scenes/menus/MainMenu.tscn");
         Godot.Control mainMenu = (Godot.Control)mainMenuScene.Instance();
-        
+
         mainMenu.Connect("_play_game", this, "PlayGame");
         mainMenu.Connect("_options", this, "GoToOptions");
         mainMenu.Connect("_leaderboard", this, "GoToLeaderboard");
@@ -32,38 +32,40 @@ public partial class Main
         this.AddChild(mainMenu);
     }
 
-    private void SpawnObstacles() 
+    private void SpawnObstacles()
     {
         GD.Print("Response SpawnObstacles\n");
 
         int noToSpawn = rnd.Next(enemySpawnMin, enemySpawnMax + 2);
         noOfEnemies += noToSpawn;
-        for (int i = 0; i < noToSpawn; i++) {
+        for (int i = 0; i < noToSpawn; i++)
+        {
             Entities obstacle = PickSpawnEntity(mainData.obstacles);
             this.AddChild(obstacle);
         }
     }
 
-    private void SpawnEnemies() 
+    private void SpawnEnemies()
     {
         GD.Print("Response SpawnEnemies\n");
 
         int noToSpawn = rnd.Next(enemySpawnMin, enemySpawnMax + 1);
         noOfEnemies += noToSpawn;
-        for (int i = 0; i < noToSpawn; i++) {
+        for (int i = 0; i < noToSpawn; i++)
+        {
             Entities enemy = PickSpawnEntity(mainData.enemies);
             enemy.Connect("_update_score", this, "UpdateScore", new Godot.Collections.Array(mainData.stage.level));
             this.AddChild(enemy);
         }
     }
 
-    private void SpawnBoss() 
+    private void SpawnBoss()
     {
         GD.Print("Response SpawnBoss\n");
         SpawnEnemies();
     }
 
-    private void SpawnUpgrades() 
+    private void SpawnUpgrades()
     {
         GD.Print("Response SpawnUpgrades\n");
 
@@ -83,25 +85,25 @@ public partial class Main
 
     #region Spawn Helpers 
 
-        private Entities PickSpawnEntity(Scenes entityList) 
-        {
-            string chosenEntityScene = entityList[rnd.Next(entityList.Count)];
-            PackedScene entityScene = (PackedScene)GD.Load(chosenEntityScene);
-            Entities entity = (Entities)entityScene.Instance();
+    private Entities PickSpawnEntity(Scenes entityList)
+    {
+        string chosenEntityScene = entityList[rnd.Next(entityList.Count)];
+        PackedScene entityScene = (PackedScene)GD.Load(chosenEntityScene);
+        Entities entity = (Entities)entityScene.Instance();
 
-            int spawnPosX = rnd.Next((int)-Globals.levelSize.x, (int)Globals.levelSize.x);
-            int spawnPosY = rnd.Next((int)-Globals.levelSize.y, (int)Globals.levelSize.y);
-            Vector2 spawnPosition = new Vector2(spawnPosX, spawnPosY) + levelCenter;
-            entity.GlobalPosition = spawnPosition;
+        int spawnPosX = rnd.Next((int)-Globals.levelSize.x, (int)Globals.levelSize.x);
+        int spawnPosY = rnd.Next((int)-Globals.levelSize.y, (int)Globals.levelSize.y);
+        Vector2 spawnPosition = new Vector2(spawnPosX, spawnPosY) + levelCenter;
+        entity.GlobalPosition = spawnPosition;
 
-            entity.player = player;
-            entity.colour = Colour.levelColour;
-            entity.bulletColour = Colour.harmonizingColour;
+        entity.player = player;
+        entity.colour = Colour.levelColour;
+        entity.bulletColour = Colour.harmonizingColour;
 
-            entity.Connect("_on_death", this, "CheckIfEnemies");
+        entity.Connect("_on_death", this, "CheckIfEnemies");
 
-            return entity;
-        }
+        return entity;
+    }
 
     #endregion
 }

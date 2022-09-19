@@ -3,17 +3,20 @@ using System;
 using static Enums;
 using Newtonsoft.Json;
 
-public class Stage {
+public class Stage
+{
 
-    [JsonProperty] public int level {get; private set;}
+    [JsonProperty] public int level { get; private set; }
     [JsonProperty] public int stageCounter { get; private set; }
     [JsonProperty] public int[] stageWaveValues { get; private set; }
     [JsonProperty] public double currentWaveCounter { get; private set; }
 
-    public GameStages currentStage 
-    { 
-        get {
-            switch (stageCounter) {
+    public GameStages currentStage
+    {
+        get
+        {
+            switch (stageCounter)
+            {
                 case 0:
                     return GameStages.Dodge;
                 case 1:
@@ -21,52 +24,59 @@ public class Stage {
                 case 2:
                     return GameStages.Boss;
                 case 3:
-                    return GameStages.Shop; 
+                    return GameStages.Shop;
                 default:
                     return GameStages.Event;
             }
         }
     }
 
-    public int noOfWaves 
+    public int noOfWaves
     {
-        get {
+        get
+        {
             return stageWaveValues[stageCounter];
         }
     }
 
-    public double stageProgression 
+    public double stageProgression
     {
-        get {
+        get
+        {
             return (1 - (currentWaveCounter / stageWaveValues[stageCounter])) * 100;
         }
     }
 
     ///<returns>timer ended</returns>
-    public Nullable<bool> ProcessStageCountDown(float delta) 
+    public Nullable<bool> ProcessStageCountDown(float delta)
     {
-        if(currentWaveCounter >= stageWaveValues[stageCounter] - 1) { return null; }
+        if (currentWaveCounter >= stageWaveValues[stageCounter] - 1) { return null; }
 
-        if(Math.Round(currentWaveCounter * 10) % 10 != 9) {
+        if (Math.Round(currentWaveCounter * 10) % 10 != 9)
+        {
             currentWaveCounter += 0.05f * delta;
             return false;
-        } else {
+        }
+        else
+        {
             currentWaveCounter = Math.Floor(currentWaveCounter);
             return true;
         }
     }
 
-    public double NextWave(bool gameStart = false) 
+    public double NextWave(bool gameStart = false)
     {
-        if(gameStart) { return currentWaveCounter; }
+        if (gameStart) { return currentWaveCounter; }
 
         currentWaveCounter = Math.Floor(currentWaveCounter) + 1;
 
-        if(currentWaveCounter >= stageWaveValues[stageCounter]) { 
+        if (currentWaveCounter >= stageWaveValues[stageCounter])
+        {
             currentWaveCounter = 0;
             stageCounter++;
 
-            if(stageCounter > stageWaveValues.Length - 1) {
+            if (stageCounter > stageWaveValues.Length - 1)
+            {
                 stageCounter = 0;
                 NextLevel();
             }
@@ -75,19 +85,19 @@ public class Stage {
         return currentWaveCounter;
     }
 
-    private void NextLevel() 
+    private void NextLevel()
     {
         level++;
         UpdateStageLengths();
     }
 
     //Increase dodge and fight
-    private void UpdateStageLengths() 
+    private void UpdateStageLengths()
     {
-        stageWaveValues = new int[] {(3 + level), (4 + level), 1, 1}; 
+        stageWaveValues = new int[] { (3 + level), (4 + level), 1, 1 };
     }
 
-    public Stage() 
+    public Stage()
     {
         stageCounter = 0;
         currentWaveCounter = 0;

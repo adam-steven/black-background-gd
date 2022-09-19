@@ -5,35 +5,37 @@ using static Enums;
 
 public class Chaser : Enemies
 {
-	public override void _EntityReady() 
-	{
-		InitDelayedStart();
-		
-		anim.Connect("animation_finished", this, "Attack");
-		StartAttackTimerAsync();
-	}
+    public override void _EntityReady()
+    {
+        InitDelayedStart();
 
-	public override void _PhysicsProcess(float delta) 
-	{
-		TurnToPlayer(delta);
-		MoveInDirection(Vector2.Right);
-	}
+        anim.Connect("animation_finished", this, "Attack");
+        StartAttackTimerAsync();
+    }
 
-	private async void StartAttackTimerAsync() 
-	{
-		int shotDelayMs = (int)(this.shotDelay * 1000) + 500; //+500 to account for anim time
-		await Task.Delay(shotDelayMs);
+    public override void _PhysicsProcess(float delta)
+    {
+        TurnToPlayer(delta);
+        MoveInDirection(Vector2.Right);
+    }
 
-		while(IsActive()) {
-			anim.Play("EnemyAttack");
-			await Task.Delay(shotDelayMs);
-		}
-	}
+    private async void StartAttackTimerAsync()
+    {
+        int shotDelayMs = (int)(this.shotDelay * 1000) + 500; //+500 to account for anim time
+        await Task.Delay(shotDelayMs);
 
-	private void Attack(string animName = "") 
-	{
-		if(animName == "EnemyAttack") {
-			gun.Shoot(BulletVariations.Normal);
-		}
-	}
+        while (IsActive())
+        {
+            anim.Play("EnemyAttack");
+            await Task.Delay(shotDelayMs);
+        }
+    }
+
+    private void Attack(string animName = "")
+    {
+        if (animName == "EnemyAttack")
+        {
+            gun.Shoot(BulletVariations.Normal);
+        }
+    }
 }

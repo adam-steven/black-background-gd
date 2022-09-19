@@ -5,192 +5,198 @@ using static Enums;
 //Main.tscn 
 public partial class Main : Levels
 {
-	MainGameObj mainData = new MainGameObj(false);
+    MainGameObj mainData = new MainGameObj(false);
 
-	private static Random rnd = new Random();
+    private static Random rnd = new Random();
 
-	private Godot.Node2D levelNode;
-	private Vector2 levelCenter;
-	
-	private int enemySpawnMin = 1;
-	private int enemySpawnMax = 2;
-	private int noOfEnemies = 0;
+    private Godot.Node2D levelNode;
+    private Vector2 levelCenter;
 
-	private PlayerController player;
+    private int enemySpawnMin = 1;
+    private int enemySpawnMax = 2;
+    private int noOfEnemies = 0;
 
-	private bool isStartingCountDown;
+    private PlayerController player;
 
-	private UiController uiNode;
+    private bool isStartingCountDown;
 
-	public override void _Ready() 
-	{
-		uiNode = this.GetNode<UiController>("UI");
+    private UiController uiNode;
 
-		levelNode = this.GetNode<Godot.Node2D>("Level");
-		levelCenter = levelNode.GlobalPosition;
+    public override void _Ready()
+    {
+        uiNode = this.GetNode<UiController>("UI");
 
-		this.SetProcess(false);
-	}
+        levelNode = this.GetNode<Godot.Node2D>("Level");
+        levelCenter = levelNode.GlobalPosition;
 
-	public override void LoadLevelParameters(System.Object sceneData) 
-	{
-		if(sceneData != null) {
-			mainData = (MainGameObj)sceneData;
-		}
+        this.SetProcess(false);
+    }
 
-		if(mainData.inGame) {
-			Vector2 playerPos = new Vector2(960, 540);
-			SpawnPlayer(playerPos);
-			PlayGame();
-		} else {
-			Vector2 playerPos = new Vector2(1200, 540);
-			SpawnPlayer(playerPos);
-			SpawnMainMenu();
-		}
-	}
+    public override void LoadLevelParameters(System.Object sceneData)
+    {
+        if (sceneData != null)
+        {
+            mainData = (MainGameObj)sceneData;
+        }
 
-	public override void _Process(float delta) 
-	{
-		_ScoreProcess(delta);
-		_StageProcess(delta);
-	}
+        if (mainData.inGame)
+        {
+            Vector2 playerPos = new Vector2(960, 540);
+            SpawnPlayer(playerPos);
+            PlayGame();
+        }
+        else
+        {
+            Vector2 playerPos = new Vector2(1200, 540);
+            SpawnPlayer(playerPos);
+            SpawnMainMenu();
+        }
+    }
 
-	#region Misc Functions
+    public override void _Process(float delta)
+    {
+        _ScoreProcess(delta);
+        _StageProcess(delta);
+    }
 
-		//If the last enemy is dying spawn next way
-		public void CheckIfEnemies() 
-		{
-			noOfEnemies--;
-			if(noOfEnemies > 0) return;
+    #region Misc Functions
 
-			noOfEnemies = 0;
-			NextStage();
-		}
+    //If the last enemy is dying spawn next way
+    public void CheckIfEnemies()
+    {
+        noOfEnemies--;
+        if (noOfEnemies > 0) return;
 
-		//Spawn next stage;
-		private void NextStage(bool gameStart = false)
-		{
-			bool newStage = NextWave(gameStart);
-			GameStages currentStage = mainData.stage.currentStage;
+        noOfEnemies = 0;
+        NextStage();
+    }
 
-			GD.Print("\nnewStage " + newStage);
-			GD.Print("currentStage " + currentStage);
+    //Spawn next stage;
+    private void NextStage(bool gameStart = false)
+    {
+        bool newStage = NextWave(gameStart);
+        GameStages currentStage = mainData.stage.currentStage;
 
-			if(newStage) { 
-				DisplaySectionText(currentStage.ToString().ToUpper());
-				LevelSpin(); 
-			}
+        GD.Print("\nnewStage " + newStage);
+        GD.Print("currentStage " + currentStage);
 
-			switch (currentStage) {
-				case GameStages.Dodge:
-					GD.Print("Call SpawnObstacles");
-					SpawnObstacles(); 
-					break;
-				case GameStages.Fight:
-					GD.Print("Call SpawnEnemies");
-					SpawnEnemies(); 
-					break;
-				case GameStages.Boss:
-					GD.Print("Call SpawnBoss");
-					SpawnBoss(); 
-					break;
-				case GameStages.Event:
-					//Event
-					break;
-				default: 
-					GD.Print("Call SpawnUpgrades");
+        if (newStage)
+        {
+            DisplaySectionText(currentStage.ToString().ToUpper());
+            LevelSpin();
+        }
 
-					UpdateScenes(mainData.stage.level + 1);
-					IncreaseEnemySpawn();
-					UpdateMultiplier(true);
+        switch (currentStage)
+        {
+            case GameStages.Dodge:
+                GD.Print("Call SpawnObstacles");
+                SpawnObstacles();
+                break;
+            case GameStages.Fight:
+                GD.Print("Call SpawnEnemies");
+                SpawnEnemies();
+                break;
+            case GameStages.Boss:
+                GD.Print("Call SpawnBoss");
+                SpawnBoss();
+                break;
+            case GameStages.Event:
+                //Event
+                break;
+            default:
+                GD.Print("Call SpawnUpgrades");
 
-					SpawnUpgrades();
-				break;
-			} 
-		}
+                UpdateScenes(mainData.stage.level + 1);
+                IncreaseEnemySpawn();
+                UpdateMultiplier(true);
 
-		//Displays big faint text in the background for a short amount of time
-		//Used to indicate the changes in gameplay sections 
-		private void DisplaySectionText(string text, bool inverted = false) 
-		{
-			Position2D sectionText = this.GetNode<Position2D>("SectionText");
-			Godot.Label label = sectionText.GetNode<Godot.Label>("Label");
-			AnimationPlayer anim  = sectionText.GetNode<AnimationPlayer>("AnimationPlayer");
+                SpawnUpgrades();
+                break;
+        }
+    }
 
-			string textColor = inverted ? "black" : "white";
-			sectionText.Modulate = Color.ColorN(textColor);
+    //Displays big faint text in the background for a short amount of time
+    //Used to indicate the changes in gameplay sections 
+    private void DisplaySectionText(string text, bool inverted = false)
+    {
+        Position2D sectionText = this.GetNode<Position2D>("SectionText");
+        Godot.Label label = sectionText.GetNode<Godot.Label>("Label");
+        AnimationPlayer anim = sectionText.GetNode<AnimationPlayer>("AnimationPlayer");
 
-			label.Text = text;
-			anim.Play("SectionTxtDisplay");
-		}
+        string textColor = inverted ? "black" : "white";
+        sectionText.Modulate = Color.ColorN(textColor);
 
-		private void DisplaySectionTextCountDown(string callFunction) 
-		{
-			AnimationPlayer anim  = this.GetNode<AnimationPlayer>("SectionText/AnimationPlayer");
-			
-			anim.Connect("animation_finished", this, callFunction, null, (uint)ConnectFlags.Oneshot);
-			anim.Play("SectionTextCountDown");
-		}
+        label.Text = text;
+        anim.Play("SectionTxtDisplay");
+    }
 
-		//Spins the level boarders + changes the level colour
-		private void LevelSpin() 
-		{
-			AnimationPlayer anim = levelNode.GetNode<AnimationPlayer>("Room/AnimationPlayer");
-			anim.Play("RoomSpin");
-			Colour.UpdateGameColours(levelNode, player);
-		}
+    private void DisplaySectionTextCountDown(string callFunction)
+    {
+        AnimationPlayer anim = this.GetNode<AnimationPlayer>("SectionText/AnimationPlayer");
 
-		//Slowly increase the number of enemies each wave
-		private void IncreaseEnemySpawn() 
-		{
-			if(mainData.stage.level%2 == 0) { enemySpawnMax++; } 
-			else { enemySpawnMin++; }
-		}
+        anim.Connect("animation_finished", this, callFunction, null, (uint)ConnectFlags.Oneshot);
+        anim.Play("SectionTextCountDown");
+    }
 
-		//Destroys all bullets on the screen
-		private void DestroyBullets() 
-		{
-			var children = this.GetChildren();
+    //Spins the level boarders + changes the level colour
+    private void LevelSpin()
+    {
+        AnimationPlayer anim = levelNode.GetNode<AnimationPlayer>("Room/AnimationPlayer");
+        anim.Play("RoomSpin");
+        Colour.UpdateGameColours(levelNode, player);
+    }
 
-			foreach (var child in children)
-				if(child.GetType() == typeof(BulletController))
-					((BulletController)child).QueueFree(); 
-		}
+    //Slowly increase the number of enemies each wave
+    private void IncreaseEnemySpawn()
+    {
+        if (mainData.stage.level % 2 == 0) { enemySpawnMax++; }
+        else { enemySpawnMin++; }
+    }
 
-		private void ReframePlayer() 
-		{
-			//If camera locked, move player to center
-			Vector2 cameraCenter = mainCamera.GetCameraScreenCenter();
-			player.Position = cameraCenter;
+    //Destroys all bullets on the screen
+    private void DestroyBullets()
+    {
+        var children = this.GetChildren();
 
-			//If camera free, move camera to player
-		}
+        foreach (var child in children)
+            if (child.GetType() == typeof(BulletController))
+                ((BulletController)child).QueueFree();
+    }
 
-	#endregion 
+    private void ReframePlayer()
+    {
+        //If camera locked, move player to center
+        Vector2 cameraCenter = mainCamera.GetCameraScreenCenter();
+        player.Position = cameraCenter;
 
-	#region Testing Functions
+        //If camera free, move camera to player
+    }
 
-	// private void PlaceTestingDot(Vector2 tDotPos) {
-	// 	PackedScene testingDot = (PackedScene)GD.Load("res://scenes/TestingDot.tscn");
-	// 	Godot.Sprite tDot = (Godot.Sprite)testingDot.Instance();
-	// 	tDot.GlobalPosition = tDotPos;
-	// 	this.AddChild(tDot);
-	// }
+    #endregion
 
-	// private int currentColour = -1;
-	// private string colourName;
-	// private void RunThoughColours() {
-	//     currentColour++;
+    #region Testing Functions
 
-	//     var values = Enum.GetValues(typeof(Enums.Colour));
-	//     colourName = values.GetValue(currentColour).ToString();
-		
-	//     enemyColour = Color.ColorN(colourName);
-	//     levelNode.Modulate = enemyColour;
+    // private void PlaceTestingDot(Vector2 tDotPos) {
+    // 	PackedScene testingDot = (PackedScene)GD.Load("res://scenes/TestingDot.tscn");
+    // 	Godot.Sprite tDot = (Godot.Sprite)testingDot.Instance();
+    // 	tDot.GlobalPosition = tDotPos;
+    // 	this.AddChild(tDot);
+    // }
 
-	// 	GD.Print(colourName);
-	// }
+    // private int currentColour = -1;
+    // private string colourName;
+    // private void RunThoughColours() {
+    //     currentColour++;
 
-	#endregion
+    //     var values = Enum.GetValues(typeof(Enums.Colour));
+    //     colourName = values.GetValue(currentColour).ToString();
+
+    //     enemyColour = Color.ColorN(colourName);
+    //     levelNode.Modulate = enemyColour;
+
+    // 	GD.Print(colourName);
+    // }
+
+    #endregion
 
 }
