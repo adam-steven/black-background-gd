@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using static Enums;
 
 namespace Godot
@@ -12,14 +13,14 @@ namespace Godot
             this.entityType = BulletOwner.EnemyController;
 
             //Set the sprites colour to level colour
-            Godot.Sprite sprite = this.GetNodeOrNull<Godot.Sprite>("Sprite");
-            if(IsInstanceValid(sprite)) { sprite.SelfModulate = colour; }
+            Godot.Sprite sprite = this.GetNode<Godot.Sprite>("Sprite");
+            sprite.SelfModulate = colour;
 
             //Configure weakpoint if one exists 
             Godot.Node2D weakPoint = this.GetNodeOrNull<Godot.Node2D>("WeakPoint");
             if(IsInstanceValid(weakPoint)) { 
-                Godot.Sprite weakPointSprite = weakPoint.GetNodeOrNull<Godot.Sprite>("Sprite");
-                sprite.Modulate = bulletColour;
+                Godot.Sprite weakPointSprite = weakPoint.GetNode<Godot.Sprite>("Sprite");
+                weakPointSprite.SelfModulate = bulletColour;
                 weakPoint.Connect("_hit", this, "WeakPointHit"); 
             }
 
@@ -86,8 +87,25 @@ namespace Godot
 
                 strikingBullet.strength *= 2;
                 TakeDamage(strikingBullet);
-                //Strike Effect
-                //Zoom in Effect
+                CritHitFlashAsync();
+                //Heal player
+            }
+
+            private async void CritHitFlashAsync() 
+            {
+                Godot.Sprite sprite = this.GetNodeOrNull<Godot.Sprite>("Sprite");
+                Godot.Sprite weakPointSprite = this.GetNodeOrNull<Godot.Sprite>("WeakPoint/Sprite");
+
+                SetPhysicsProcess(false); //0.3 second stun
+                sprite.SelfModulate = Color.Color8(251, 255, 255);
+                weakPointSprite.SelfModulate = Color.Color8(251, 255, 255);
+
+                await Task.Delay(300);
+
+                if(!IsInstanceValid(sprite)) return;
+                SetPhysicsProcess(true);
+                sprite.SelfModulate = colour;
+                weakPointSprite.SelfModulate = bulletColour;
             }
 
         #endregion
