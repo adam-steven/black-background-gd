@@ -23,7 +23,7 @@ public class TurretLv1 : Enemies
         int shotDelayMs = (int)(this.shotDelay * 1000) + 500; //+500 to account for anim time
         await Task.Delay(shotDelayMs);
 
-        while (IsActive())
+        while (_IsActive())
         {
             anim.Play("EnemyAttack");
             await Task.Delay(shotDelayMs);

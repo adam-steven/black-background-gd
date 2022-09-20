@@ -6,7 +6,7 @@ public partial class Main
     //play game for events without anim name info
     private void PlayGame()
     {
-        mainData.inGame = true;
+        mainData.InGame = true;
         ResetScenes();
         _ScoreReady();
         _StageReady();
@@ -47,7 +47,7 @@ public partial class Main
 
     private void EndGame()
     {
-        GameOverObj deathObj = new GameOverObj(mainData.score.score, 0);
+        GameOverObj deathObj = new GameOverObj(mainData.Score.Value, 0);
         EmitChangeScene("res://scenes/menus/DeathScreen.tscn", 1f, deathObj);
     }
 

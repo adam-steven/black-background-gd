@@ -7,6 +7,7 @@ namespace Godot
     public class Enemies : Obstacles
     {
         [Export] private int pointsOnKill = 100;
+        [Export] private int healthOnCrit = 20;
 
         public override void _Ready()
         {
@@ -47,7 +48,7 @@ namespace Godot
             ApplyCentralImpulse(_thrust);
         }
 
-        internal override bool IsActive()
+        internal override bool _IsActive()
         {
             return (IsInstanceValid(player) && health > 0);
         }
@@ -57,11 +58,11 @@ namespace Godot
         #region Death handling
 
         //Called by the bullet script to take damage / die
-        public override void TakeDamage(BulletController strikingBullet)
+        public override void _TakeDamage(BulletController strikingBullet)
         {
             if (health <= 0) return;
 
-            UpdateHealth(-strikingBullet.strength);
+            _UpdateHealth(-strikingBullet.strength);
 
             anim = this.GetNode<AnimationPlayer>("AnimationPlayer");
             anim.Play("EnemyHit");
@@ -79,7 +80,7 @@ namespace Godot
             }
         }
 
-        public override void UpdateHealth(int addend)
+        public override void _UpdateHealth(int addend)
         {
             health = Math.Max(0, health + addend);
         }
@@ -89,9 +90,9 @@ namespace Godot
             GD.Print("Weak point hit");
 
             strikingBullet.strength *= 2;
-            TakeDamage(strikingBullet);
+            _TakeDamage(strikingBullet);
             CritHitFlashAsync();
-            //Heal player
+            this.EmitSignal("_update_player_heath", healthOnCrit);
         }
 
         private async void CritHitFlashAsync()

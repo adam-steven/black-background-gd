@@ -10,7 +10,7 @@ public partial class PlayerController
     [Export] private bool invincible = false;
 
     //Called by the bullet script to take damage / die
-    public override void TakeDamage(BulletController strikingBullet)
+    public override void _TakeDamage(BulletController strikingBullet)
     {
         //Indicate that no damage was taken + health gained 
         if (invincible)
@@ -18,11 +18,11 @@ public partial class PlayerController
             switch (strikingBullet.type)
             {
                 case BulletVariations.Normal:
-                    GainHealth(strikingBullet, Colour.levelColour);
+                    GainHealth(strikingBullet, Colour.LevelColour);
                     return;
 
                 case BulletVariations.NormalStrong:
-                    GainHealth(strikingBullet, Colour.levelColour, "NICE");
+                    GainHealth(strikingBullet, Colour.LevelColour, "NICE");
                     this.EmitSignal("_destroy_all_bullets");
                     return;
 
@@ -41,7 +41,7 @@ public partial class PlayerController
         if (health <= 0) return;
 
         //Decrease health
-        UpdateHealth(-strikingBullet.strength);
+        _UpdateHealth(-strikingBullet.strength);
 
         //Damage indication
         AnimationPlayer anim = this.GetNode<AnimationPlayer>("AnimationPlayer");
@@ -63,7 +63,7 @@ public partial class PlayerController
 
     private void GainHealth(BulletController strikingBullet, Color backgroundColour, string flashText = null)
     {
-        UpdateHealth((int)Math.Round(strikingBullet.strength / 1.5f));
+        _UpdateHealth((int)Math.Round(strikingBullet.strength / 1.5f));
         this.EmitSignal("_update_score", pointsOnBlock);
 
         //Show effect
@@ -79,7 +79,7 @@ public partial class PlayerController
         Colour.FlashBackgroundColourAsync(backgroundColour, GetTree(), health);
     }
 
-    public override void UpdateHealth(int addend)
+    public override void _UpdateHealth(int addend)
     {
         health = Mathc.Limit(0, health + addend, 1000);
         this.EmitSignal("_update_health_ui", health);

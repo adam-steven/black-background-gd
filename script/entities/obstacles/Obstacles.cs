@@ -38,7 +38,7 @@ namespace Godot
             this.Rotate(Math.Sign(angleTo) * Math.Min(delta * rotationSpeed, Math.Abs(angleTo)));
         }
 
-        internal virtual bool IsActive()
+        internal virtual bool _IsActive()
         {
             return (IsInstanceValid(player));
         }

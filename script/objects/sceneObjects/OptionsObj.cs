@@ -2,15 +2,15 @@
 
 public class OptionsObj
 {
-    public MainGameObj gameObj { get; set; } //true: return to game, false: return to main menu
+    public MainGameObj GameObj { get; set; } //true: return to game, false: return to main menu
 
     public OptionsObj()
     {
-        this.gameObj = new MainGameObj(false);
+        this.GameObj = new MainGameObj(false);
     }
 
     public OptionsObj(MainGameObj gameObj)
     {
-        this.gameObj = gameObj;
+        this.GameObj = gameObj;
     }
 }

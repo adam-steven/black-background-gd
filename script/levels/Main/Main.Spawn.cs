@@ -40,7 +40,7 @@ public partial class Main
         noOfEnemies += noToSpawn;
         for (int i = 0; i < noToSpawn; i++)
         {
-            Entities obstacle = PickSpawnEntity(mainData.obstacles);
+            Entities obstacle = PickSpawnEntity(mainData.Obstacles);
             this.AddChild(obstacle);
         }
     }
@@ -53,8 +53,8 @@ public partial class Main
         noOfEnemies += noToSpawn;
         for (int i = 0; i < noToSpawn; i++)
         {
-            Entities enemy = PickSpawnEntity(mainData.enemies);
-            enemy.Connect("_update_score", this, "UpdateScore", new Godot.Collections.Array(mainData.stage.level));
+            Entities enemy = PickSpawnEntity(mainData.Enemies);
+            enemy.Connect("_update_score", this, "UpdateScore", new Godot.Collections.Array(mainData.Stage.Level));
             this.AddChild(enemy);
         }
     }
@@ -74,7 +74,7 @@ public partial class Main
 
         upgradeMenu.levelCenter = levelCenter;
         upgradeMenu.player = player;
-        upgradeMenu.upgrades = mainData.upgrades;
+        upgradeMenu.upgrades = mainData.Upgrades;
 
         upgradeMenu.Connect("_upgrading_finished", this, "UpgradingFinished");
         upgradeMenu.Connect("_decrease_multiplier", this, "UpdateMultiplier");
@@ -97,8 +97,8 @@ public partial class Main
         entity.GlobalPosition = spawnPosition;
 
         entity.player = player;
-        entity.colour = Colour.levelColour;
-        entity.bulletColour = Colour.harmonizingColour;
+        entity.colour = Colour.LevelColour;
+        entity.bulletColour = Colour.HarmonizingColour;
 
         entity.Connect("_on_death", this, "CheckIfEnemies");
 

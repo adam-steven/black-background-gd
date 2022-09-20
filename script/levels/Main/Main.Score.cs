@@ -6,8 +6,8 @@ public partial class Main
 
     public void _ScoreReady()
     {
-        uiNode.UpdateScoreUi(mainData.score.score);
-        uiNode.UpdateMultiplierUi(mainData.score.scoreMultiplier);
+        uiNode.UpdateScoreUi(mainData.Score.Value);
+        uiNode.UpdateMultiplierUi(mainData.Score.ScoreMultiplier);
     }
 
     public void _ScoreProcess(float delta)
@@ -16,7 +16,7 @@ public partial class Main
 
         if (delayCounter >= 1)
         {
-            long? score = mainData.score.ProcessRollingScore();
+            long? score = mainData.Score.ProcessRollingScore();
             if (score != null) { uiNode.UpdateScoreUi(score.GetValueOrDefault()); }
             delayCounter = 0;
         }
@@ -30,18 +30,18 @@ public partial class Main
 
     private void UpdateScore(int points, int level)
     {
-        int calcPoints = mainData.score.SetRollingScore(points, level);
+        int calcPoints = mainData.Score.SetRollingScore(points, level);
         uiNode.FlashPoints(calcPoints);
     }
 
     private void BreakScoreUpdate()
     {
-        mainData.score.BreakRollingScore();
+        mainData.Score.BreakRollingScore();
     }
 
     private void UpdateMultiplier(bool reset)
     {
-        mainData.score.UpdateMultiplier(reset);
-        uiNode.UpdateMultiplierUi(mainData.score.scoreMultiplier);
+        mainData.Score.UpdateMultiplier(reset);
+        uiNode.UpdateMultiplierUi(mainData.Score.ScoreMultiplier);
     }
 }

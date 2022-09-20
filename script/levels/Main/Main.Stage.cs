@@ -3,12 +3,12 @@ public partial class Main
     public void _StageReady()
     {
         DisplayProgression();
-        uiNode.SetWaveSegments(mainData.stage.noOfWaves);
+        uiNode.SetWaveSegments(mainData.Stage.NoOfWaves);
     }
 
     public void _StageProcess(float delta)
     {
-        bool? stageTimerEnd = mainData.stage.ProcessStageCountDown(delta);
+        bool? stageTimerEnd = mainData.Stage.ProcessStageCountDown(delta);
 
         if (stageTimerEnd == false) { DisplayProgression(); }
         else if (stageTimerEnd == true) { NextStage(); }
@@ -17,12 +17,12 @@ public partial class Main
     ///<returns>new stage</returns>
     public bool NextWave(bool gameStart = false)
     {
-        double currentWaveCounter = mainData.stage.NextWave(gameStart);
+        double currentWaveCounter = mainData.Stage.NextWave(gameStart);
 
         DisplayProgression();
         if (currentWaveCounter == 0)
         {
-            uiNode.SetWaveSegments(mainData.stage.noOfWaves);
+            uiNode.SetWaveSegments(mainData.Stage.NoOfWaves);
         }
 
         return (currentWaveCounter == 0);
@@ -30,6 +30,6 @@ public partial class Main
 
     private void DisplayProgression()
     {
-        uiNode.SetWaveProgress(mainData.stage.stageProgression);
+        uiNode.SetWaveProgress(mainData.Stage.StageProgression);
     }
 }

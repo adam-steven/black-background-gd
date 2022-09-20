@@ -35,6 +35,7 @@ namespace Godot
         [Signal] internal delegate void _shake_screen(int shakeForce, float shakeDuration);
 
         [Signal] internal delegate void _update_score(int points);
+        [Signal] internal delegate void _update_player_heath(int health);
         [Signal] internal delegate void _break_score_update();
         [Signal] internal delegate void _on_death();
 
@@ -42,9 +43,9 @@ namespace Godot
 
         #region Public Methods 
 
-        public virtual void TakeDamage(BulletController strikingBullet) { }
+        public virtual void _TakeDamage(BulletController strikingBullet) { }
 
-        public virtual void UpdateHealth(int addend) { }
+        public virtual void _UpdateHealth(int addend) { }
 
         #endregion
     }

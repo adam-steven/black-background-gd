@@ -10,7 +10,7 @@ public class WeakPoint : Entities
         this.entityType = BulletOwner.EnemyController;
     }
 
-    public override void TakeDamage(BulletController strikingBullet)
+    public override void _TakeDamage(BulletController strikingBullet)
     {
         this.EmitSignal("_hit", strikingBullet);
     }

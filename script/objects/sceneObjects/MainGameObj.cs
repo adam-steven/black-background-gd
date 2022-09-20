@@ -2,22 +2,22 @@
 
 public class MainGameObj
 {
-    public bool inGame { get; set; } //true: auto play game, false: show main menu
+    public bool InGame { get; set; } //true: auto play game, false: show main menu
 
-    public Scenes enemies { get; set; }
-    public Scenes obstacles { get; set; }
-    public Scenes upgrades { get; set; }
+    public Scenes Enemies { get; set; }
+    public Scenes Obstacles { get; set; }
+    public Scenes Upgrades { get; set; }
 
-    public Score score { get; set; }
-    public Stage stage { get; set; }
+    public Score Score { get; set; }
+    public Stage Stage { get; set; }
 
     public MainGameObj(bool inGame)
     {
-        this.inGame = inGame;
-        this.score = new Score();
-        this.stage = new Stage();
-        this.enemies = new Scenes();
-        this.obstacles = new Scenes();
-        this.upgrades = new Scenes();
+        this.InGame = inGame;
+        this.Score = new Score();
+        this.Stage = new Stage();
+        this.Enemies = new Scenes();
+        this.Obstacles = new Scenes();
+        this.Upgrades = new Scenes();
     }
 }

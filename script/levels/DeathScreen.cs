@@ -29,7 +29,7 @@ public class DeathScreen : Levels
     public override void _Process(float delta)
     {
         if (deathData == null) { return; }
-        if (scoreUiVal >= deathData.score) { return; }
+        if (scoreUiVal >= deathData.Score) { return; }
         UpdateScoreUi(delta);
     }
 
@@ -41,17 +41,17 @@ public class DeathScreen : Levels
         if (delayCounter >= 1)
         {
             scoreUiVal += tickAmount;
-            scoreUiVal = Math.Min(scoreUiVal, deathData.score);
+            scoreUiVal = Math.Min(scoreUiVal, deathData.Score);
             scoreUi.Text = scoreUiVal.ToString("D6");
             delayCounter = 0;
         }
     }
 
-    public override void LoadLevelParameters(System.Object sceneData)
+    public override void _LoadLevelParameters(System.Object sceneData)
     {
         deathData = (sceneData != null) ? (GameOverObj)sceneData : new GameOverObj(0, 0);
-        tickAmount = Math.Max((deathData.score / scoreNoOfTicks), 1);
-        GD.Print("Time: " + deathData.time);
+        tickAmount = Math.Max((deathData.Score / scoreNoOfTicks), 1);
+        GD.Print("Time: " + deathData.Time);
     }
 
     private void Replay()

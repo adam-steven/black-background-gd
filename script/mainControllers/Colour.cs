@@ -23,8 +23,8 @@ public static class Colour
         new Godot.Color("#ff99aa"),
     };
 
-    public static Color levelColour { get; set; }
-    public static Color harmonizingColour { get; set; }
+    public static Color LevelColour { get; set; }
+    public static Color HarmonizingColour { get; set; }
 
     //Starts turning the background red if player health is less than 30
     public static void UpdateBackgroundColour(int playerHealth)
@@ -64,14 +64,14 @@ public static class Colour
         int chosenColour = rnd.Next(gameColors.Length);
         Color newColour = gameColors[chosenColour];
 
-        if (newColour == levelColour)
+        if (newColour == LevelColour)
         {
             chosenColour = incrementColour();
             newColour = gameColors[chosenColour];
         }
 
-        levelColour = newColour;
-        harmonizingColour = gameColors[incrementColour()];
+        LevelColour = newColour;
+        HarmonizingColour = gameColors[incrementColour()];
         levelNode.Modulate = newColour;
 
         int incrementColour()
