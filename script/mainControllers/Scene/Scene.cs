@@ -21,7 +21,7 @@ public partial class Scene : Node2D
 
 		mainCamera = this.GetNode<Camera2D>("Camera2D");
 		anim = this.GetNode<AnimationPlayer>("AnimationPlayer");
-		anim.Connect("animation_finished", this, "_animation_finished");
+		anim.Connect("animation_finished", this, "AnimationFinished");
 
 		obstaclesSections = FileManager.GetScenesViaFolders(Globals.obstaclesFolder);
 		enemiesSections = FileManager.GetScenesViaFolders(Globals.enemyFolder);
@@ -64,7 +64,7 @@ public partial class Scene : Node2D
 		newSceneLevel.Connect("_change_scene", this, "ChangeScene");
 	}
 
-	private void _animation_finished(string animName)
+	private void AnimationFinished(string animName)
 	{
 		if (animName == "SceneTransition")
 		{
