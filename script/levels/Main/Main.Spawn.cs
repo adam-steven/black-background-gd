@@ -55,6 +55,7 @@ public partial class Main
         {
             Entities enemy = PickSpawnEntity(mainData.Enemies);
             enemy.Connect("_update_score", this, "UpdateScore", new Godot.Collections.Array(mainData.Stage.Level));
+            enemy.Connect("_update_player_heath", player, "_UpdateHealth");
             this.AddChild(enemy);
         }
     }
