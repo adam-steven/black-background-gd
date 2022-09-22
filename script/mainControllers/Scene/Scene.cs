@@ -1,6 +1,6 @@
 using Godot;
 using System;
-using Newtonsoft.Json; 
+using Newtonsoft.Json;
 
 
 public partial class Scene : Node2D
@@ -15,12 +15,13 @@ public partial class Scene : Node2D
 	private SectionedScenes obstaclesSections; //Paths to obstacle scenes
 	private SectionedScenes upgradeSections; //Paths to upgrade scenes
 
-	public override void _Ready() {
+	public override void _Ready()
+	{
 		LoadKeyBinds();
 
 		mainCamera = this.GetNode<Camera2D>("Camera2D");
 		anim = this.GetNode<AnimationPlayer>("AnimationPlayer");
-		anim.Connect("animation_finished", this, "_animation_finished");
+		anim.Connect("animation_finished", this, "AnimationFinished");
 
 		obstaclesSections = FileManager.GetScenesViaFolders(Globals.obstaclesFolder);
 		enemiesSections = FileManager.GetScenesViaFolders(Globals.enemyFolder);
@@ -30,8 +31,9 @@ public partial class Scene : Node2D
 		HandelSceneDataPass(currentScene, null);
 	}
 
-	public void ChangeScene(string scenePath, float animSpeed, string jsonData) {
-		if(String.IsNullOrEmpty(scenePath)) { return; }
+	public void ChangeScene(string scenePath, float animSpeed, string jsonData)
+	{
+		if (String.IsNullOrEmpty(scenePath)) { return; }
 
 		LoadKeyBinds();
 
@@ -39,7 +41,7 @@ public partial class Scene : Node2D
 		newSceneInstance = (Node2D)newScene.Instance();
 		newSceneInstance.Visible = false;
 		AddChild(newSceneInstance);
-		
+
 		var settings = new JsonSerializerSettings();
 		settings.TypeNameHandling = TypeNameHandling.Objects;
 		System.Object deserializedData = JsonConvert.DeserializeObject<System.Object>(jsonData, settings);
@@ -49,7 +51,8 @@ public partial class Scene : Node2D
 		anim.Play("SceneTransition");
 	}
 
-	private void HandelSceneDataPass(Node2D newScene, System.Object data = null) {
+	private void HandelSceneDataPass(Node2D newScene, System.Object data = null)
+	{
 		Levels newSceneLevel = (Levels)newScene;
 
 		newSceneLevel.mainCamera = mainCamera;
@@ -57,12 +60,14 @@ public partial class Scene : Node2D
 		newSceneLevel.enemiesSections = enemiesSections;
 		newSceneLevel.upgradeSections = upgradeSections;
 
-		newSceneLevel.LoadLevelParameters(data);
-		newSceneLevel.Connect("change_scene", this, "ChangeScene");
+		newSceneLevel._LoadLevelParameters(data);
+		newSceneLevel.Connect("_change_scene", this, "ChangeScene");
 	}
 
-	private void _animation_finished(string animName) {
-		if(animName == "SceneTransition") {
+	private void AnimationFinished(string animName)
+	{
+		if (animName == "SceneTransition")
+		{
 			currentScene.QueueFree();
 			currentScene = newSceneInstance;
 			currentScene.Visible = true;

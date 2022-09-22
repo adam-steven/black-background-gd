@@ -6,19 +6,21 @@ public partial class UiController
 
     #region GetElements
 
-		private void GetUpgradeDescUi() {
-			Godot.BoxContainer rightPanel = this.GetNode<Godot.BoxContainer>("HBoxContainer/HBoxContainer/VBoxContainer2");
-			upgradeDescUi = rightPanel.GetNode<Godot.Label>("UpgradeDescription"); 
-		}
+    private void GetUpgradeDescUi()
+    {
+        Godot.BoxContainer rightPanel = this.GetNode<Godot.BoxContainer>("HBoxContainer/HBoxContainer/VBoxContainer2");
+        upgradeDescUi = rightPanel.GetNode<Godot.Label>("UpgradeDescription");
+    }
 
-	#endregion
+    #endregion
 
     #region UpdateElements
 
-		public void UpdateUpgradeDescUi(string value) {
-			if(upgradeDescUi == null) { return; }
-			upgradeDescUi.Text = value;
-		}
+    public void UpdateUpgradeDescUi(string value)
+    {
+        if (upgradeDescUi == null) { return; }
+        upgradeDescUi.Text = value;
+    }
 
-	#endregion
+    #endregion
 }

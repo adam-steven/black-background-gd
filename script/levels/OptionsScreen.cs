@@ -7,7 +7,8 @@ public class OptionsScreen : Levels
 
 	private SettingsController settings = new SettingsController();
 
-	public override void _Ready() {
+	public override void _Ready()
+	{
 		OptionsMenu control = this.GetNode<OptionsMenu>("Control");
 
 		control.Connect("_main_menu", this, "Return");
@@ -20,9 +21,10 @@ public class OptionsScreen : Levels
 	}
 
 	//Get the saved settings to load in
-	private void LoadSavedOptions(OptionsMenu control) {
+	private void LoadSavedOptions(OptionsMenu control)
+	{
 		Settings savedSettings = settings.GetAllValues();
-		if(savedSettings == new Settings()) { return; }
+		if (savedSettings == new Settings()) { return; }
 
 		Godot.VBoxContainer buttonContainer = control.GetNode<Godot.VBoxContainer>("Buttons");
 		Godot.Collections.Array buttons = buttonContainer.GetChildren();
@@ -34,46 +36,51 @@ public class OptionsScreen : Levels
 			Godot.Container uniqueButtonContainer = control.GetNode<Godot.Container>(containerPath);
 			buttons += uniqueButtonContainer.GetChildren();
 		}
-		
+
 		for (int i = 0; i < buttons.Count; i++)
 		{
-			if(!buttons[i].GetType().Equals(typeof(MenuButtons))) { continue; }
-		
+			if (!buttons[i].GetType().Equals(typeof(MenuButtons))) { continue; }
+
 			MenuButtons button = (MenuButtons)buttons[i];
-			
+
 			string action = button.action.ToString();
-			if(!savedSettings.ContainsKey(action)) { continue; }
+			if (!savedSettings.ContainsKey(action)) { continue; }
 
 			object settingVal = savedSettings[action];
 			switch (settingVal)
 			{
 				case Boolean boolean:
 					button.Pressed = (bool)settingVal;
-				break;
+					break;
 				case String str:
 					string decodedVal = DecodeString((string)settingVal);
 					button.SetValueLabel(decodedVal);
-				break;
+					break;
 				default:
 					GD.Print($"{action} is a {settingVal.GetType()}");
-				break;
+					break;
 			}
 		}
 	}
 
-	public override void LoadLevelParameters(System.Object sceneData) {
-		if(sceneData != null) {
+	public override void _LoadLevelParameters(System.Object sceneData)
+	{
+		if (sceneData != null)
+		{
 			optionsData = (OptionsObj)sceneData;
 		}
 	}
 
-	private string DecodeString(string value) {
+	private string DecodeString(string value)
+	{
 		char inputType = value[0];
 
 		//Decode key binds 
-		if(inputType == 'K') {
-			bool codeParseSuccess = Int32.TryParse(value.Remove(0,1), out int code);
-			if(codeParseSuccess) { 
+		if (inputType == 'K')
+		{
+			bool codeParseSuccess = Int32.TryParse(value.Remove(0, 1), out int code);
+			if (codeParseSuccess)
+			{
 				return ((KeyList)code).ToString();
 			}
 		}
@@ -81,21 +88,25 @@ public class OptionsScreen : Levels
 		return value;
 	}
 
-	private void Return() {
-		EmitChangeScene("res://scenes/gameEnvironment/Main.tscn", 5f, optionsData.gameObj);
+	private void Return()
+	{
+		EmitChangeScene("res://scenes/gameEnvironment/Main.tscn", 5f, optionsData.GameObj);
 	}
 
-	private void ToggleKeyPickOverlay(bool visiable) {
-		Godot.Control keyPickOverlay =  this.GetNode<Godot.Control>("BlockingOverlay");
+	private void ToggleKeyPickOverlay(bool visiable)
+	{
+		Godot.Control keyPickOverlay = this.GetNode<Godot.Control>("BlockingOverlay");
 		keyPickOverlay.Visible = visiable;
 	}
 
-	private void SaveSettingBool(MenuButtons button, bool value) {
+	private void SaveSettingBool(MenuButtons button, bool value)
+	{
 		GD.Print($"bool: {button.action.ToString()} = {value}");
 		settings.SetValue(button.action.ToString(), value);
 	}
 
-	private void SaveSettingString(MenuButtons button, string value) {
+	private void SaveSettingString(MenuButtons button, string value)
+	{
 		GD.Print($"string: {button.action.ToString()} = {value}");
 		settings.SetValue(button.action.ToString(), value);
 	}

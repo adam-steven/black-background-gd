@@ -3,16 +3,19 @@ using System;
 using static Enums;
 using Newtonsoft.Json;
 
-public class Stage {
+public class Stage
+{
 
-    [JsonProperty] public int level {get; private set;}
-    [JsonProperty] public int stageCounter { get; private set; }
-    [JsonProperty] public int[] stageWaveValues { get; private set; }
-    [JsonProperty] public double currentWaveCounter { get; private set; }
+    [JsonProperty] public int Level { get; private set; }
+    [JsonProperty] public int StageCounter { get; private set; }
+    [JsonProperty] public int[] StageWaveValues { get; private set; }
+    [JsonProperty] public double CurrentWaveCounter { get; private set; }
 
-    public GameStages currentStage { 
-        get {
-            switch (stageCounter)
+    public GameStages CurrentStage
+    {
+        get
+        {
+            switch (StageCounter)
             {
                 case 0:
                     return GameStages.Dodge;
@@ -21,69 +24,83 @@ public class Stage {
                 case 2:
                     return GameStages.Boss;
                 case 3:
-                    return GameStages.Shop; 
+                    return GameStages.Shop;
                 default:
                     return GameStages.Event;
             }
         }
     }
 
-    public int noOfWaves {
-        get {
-            return stageWaveValues[stageCounter];
+    public int NoOfWaves
+    {
+        get
+        {
+            return StageWaveValues[StageCounter];
         }
     }
 
-    public double stageProgression {
-        get {
-            return (1 - (currentWaveCounter / stageWaveValues[stageCounter])) * 100;
+    public double StageProgression
+    {
+        get
+        {
+            return (1 - (CurrentWaveCounter / StageWaveValues[StageCounter])) * 100;
         }
     }
 
     ///<returns>timer ended</returns>
-    public Nullable<bool> ProcessStageCountDown(float delta) {
-        if(currentWaveCounter >= stageWaveValues[stageCounter] - 1) { return null; }
+    public Nullable<bool> ProcessStageCountDown(float delta)
+    {
+        if (CurrentWaveCounter >= StageWaveValues[StageCounter] - 1) { return null; }
 
-        if(Math.Round(currentWaveCounter * 10) % 10 != 9) {
-            currentWaveCounter += 0.05f * delta;
+        if (Math.Round(CurrentWaveCounter * 10) % 10 != 9)
+        {
+            CurrentWaveCounter += 0.05f * delta;
             return false;
-        } else {
-            currentWaveCounter = Math.Floor(currentWaveCounter);
+        }
+        else
+        {
+            CurrentWaveCounter = Math.Floor(CurrentWaveCounter);
             return true;
         }
     }
 
-    public double NextWave(bool gameStart = false) {
-        if(gameStart) { return currentWaveCounter; }
+    public double NextWave(bool gameStart = false)
+    {
+        if (gameStart) { return CurrentWaveCounter; }
 
-        currentWaveCounter = Math.Floor(currentWaveCounter) + 1;
+        CurrentWaveCounter = Math.Floor(CurrentWaveCounter) + 1;
 
-        if(currentWaveCounter >= stageWaveValues[stageCounter]) { 
-            currentWaveCounter = 0;
-            stageCounter++;
+        if (CurrentWaveCounter >= StageWaveValues[StageCounter])
+        {
+            CurrentWaveCounter = 0;
+            StageCounter++;
 
-            if(stageCounter > stageWaveValues.Length - 1) {
-                stageCounter = 0;
+            if (StageCounter > StageWaveValues.Length - 1)
+            {
+                StageCounter = 0;
                 NextLevel();
             }
         }
 
-        return currentWaveCounter;
+        return CurrentWaveCounter;
     }
 
-    private void NextLevel() {
-        level++;
+    private void NextLevel()
+    {
+        Level++;
         UpdateStageLengths();
     }
 
     //Increase dodge and fight
-    private void UpdateStageLengths() {
-        stageWaveValues = new int[] {(3 + level), (4 + level), 1, 1}; 
+    private void UpdateStageLengths()
+    {
+        StageWaveValues = new int[] { (3 + Level), (4 + Level), 1, 1 };
     }
 
-    public Stage() {
-        stageCounter = 0;
-        currentWaveCounter = 0;
+    public Stage()
+    {
+        StageCounter = 0;
+        CurrentWaveCounter = 0;
         UpdateStageLengths();
     }
 }

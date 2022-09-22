@@ -1,6 +1,6 @@
 using System;
 using static Enums;
-using Newtonsoft.Json; 
+using Newtonsoft.Json;
 
 namespace Godot
 {
@@ -14,7 +14,8 @@ namespace Godot
         [Signal] internal delegate void _leaderboard();
         [Signal] internal delegate void _main_menu();
 
-        public override void _Ready() {
+        public override void _Ready()
+        {
             Godot.VBoxContainer buttonContainer = this.GetNode<Godot.VBoxContainer>("Buttons");
             Godot.Collections.Array buttons = buttonContainer.GetChildren();
 
@@ -28,8 +29,8 @@ namespace Godot
 
             for (int i = 0; i < buttons.Count; i++)
             {
-                if(!buttons[i].GetType().Equals(typeof(MenuButtons))) { continue; }
-            
+                if (!buttons[i].GetType().Equals(typeof(MenuButtons))) { continue; }
+
                 Godot.Button button = (Godot.Button)buttons[i];
                 Godot.Collections.Array pressedBtn = new Godot.Collections.Array(button);
                 button.Connect("button_down", this, "_OnButtonDown", pressedBtn);
@@ -40,9 +41,9 @@ namespace Godot
             _MenuReady();
         }
 
-        internal virtual void _MenuReady() {}
-        internal virtual void _OnButtonDown(MenuButtons button) {}
-        internal virtual void _OnButtonUp(MenuButtons button) {}
-        internal virtual void _OnButtonPress(MenuButtons button) {}
+        internal virtual void _MenuReady() { }
+        internal virtual void _OnButtonDown(MenuButtons button) { }
+        internal virtual void _OnButtonUp(MenuButtons button) { }
+        internal virtual void _OnButtonPress(MenuButtons button) { }
     }
 }

@@ -1,8 +1,8 @@
 [gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://images/base_block.png" type="Texture" id=1]
-[ext_resource path="res://script/entities/enemies/fight/Chaser.cs" type="Script" id=2]
-[ext_resource path="res://scenes/misc/EnemySpawner.tscn" type="PackedScene" id=3]
+[ext_resource path="res://script/entities/enemies/types/Chaser.cs" type="Script" id=2]
+[ext_resource path="res://scenes/enemies/.EnemySpawner.tscn" type="PackedScene" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -81,9 +81,10 @@ tracks/1/keys = {
 
 [node name="Chaser" type="RigidBody2D"]
 visible = false
+collision_layer = 4
+collision_mask = 11
 gravity_scale = 0.0
 script = ExtResource( 2 )
-entityType = 1
 health = 200
 movementForce = 20.0
 

@@ -5,7 +5,8 @@ using static Enums;
 //MainMenu.tscn 
 public class MainMenu : MenuController
 {
-	internal override void _OnButtonPress(MenuButtons button) {
+	internal override void _OnButtonPress(MenuButtons button)
+	{
 		switch (button.action)
 		{
 			case MenuButtonActions.Play:
@@ -19,31 +20,35 @@ public class MainMenu : MenuController
 				break;
 			case MenuButtonActions.Quit:
 				Quit();
-				break;	
+				break;
 			default:
 				GD.Print($"Warning: unused btn action: {button.action}");
-			break;
+				break;
 		}
 
 		this.QueueFree();
 	}
 
-	private void Play(MenuButtons button) {
+	private void Play(MenuButtons button)
+	{
 		this.EmitSignal("_play_game");
 		button.Disabled = true;
 	}
 
-	private void Options(MenuButtons button) {
+	private void Options(MenuButtons button)
+	{
 		this.EmitSignal("_options");
 		button.Disabled = true;
 	}
 
-	private void Leaderboard(MenuButtons button) {
+	private void Leaderboard(MenuButtons button)
+	{
 		this.EmitSignal("_leaderboard");
 		button.Disabled = true;
 	}
 
-	private void Quit() {
+	private void Quit()
+	{
 		GetTree().Quit();
 	}
 }

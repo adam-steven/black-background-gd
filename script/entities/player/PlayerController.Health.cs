@@ -5,79 +5,84 @@ using static Enums;
 
 public partial class PlayerController
 {
-	[Export] private int pointsOnBlock = 50;
-	
-	[Export] private bool invincible = false;
+    [Export] private int pointsOnBlock = 50;
 
-	[Signal] public delegate void _end_game();
+    [Export] private bool invincible = false;
 
-	//Called by the bullet script to take damage / die
-	public override void TakeDamage(BulletController strikingBullet) {
-		//Indicate that no damage was taken + health gained 
-		if(invincible) {
-			switch (strikingBullet.type)
-			{
-				case BulletVariations.Normal:
-					GainHealth(strikingBullet, Colour.levelColour);
-					return;
+    //Called by the bullet script to take damage / die
+    public override void _TakeDamage(BulletController strikingBullet)
+    {
+        //Indicate that no damage was taken + health gained 
+        if (invincible)
+        {
+            switch (strikingBullet.type)
+            {
+                case BulletVariations.Normal:
+                    GainHealth(strikingBullet, Colour.LevelColour);
+                    return;
 
-				case BulletVariations.NormalStrong:
-					GainHealth(strikingBullet, Colour.levelColour, "NICE");
-					this.EmitSignal("_destroy_all_bullets");  
-					return;
-					
-				case BulletVariations.Spectral:
-					strikingBullet.strength = 0;
-					GainHealth(strikingBullet, Color.ColorN("black"));
-					return;
-			}
-		}
+                case BulletVariations.NormalStrong:
+                    GainHealth(strikingBullet, Colour.LevelColour, "NICE");
+                    this.EmitSignal("_destroy_all_bullets");
+                    return;
 
-		DeductHealth(strikingBullet);
-	}
+                case BulletVariations.Spectral:
+                    strikingBullet.strength = 0;
+                    GainHealth(strikingBullet, Color.ColorN("black"));
+                    return;
+            }
+        }
 
-	private void DeductHealth(BulletController strikingBullet) {
-		if(health <= 0) return;
+        DeductHealth(strikingBullet);
+    }
 
-		//Decrease health
-		UpdateHealth(-strikingBullet.strength);
+    private void DeductHealth(BulletController strikingBullet)
+    {
+        if (health <= 0) return;
 
-		//Damage indication
-		AnimationPlayer anim  = this.GetNode<AnimationPlayer>("AnimationPlayer");
-		anim.Play("PlayerHit");
-		this.EmitSignal("_shake_screen", 12, 0.2f);
-		this.EmitSignal("_break_score_update");
+        //Decrease health
+        _UpdateHealth(-strikingBullet.strength);
 
-		//Kill player if health is 0
-		if(health <= 0) {
-			SetPhysicsProcess(false);
+        //Damage indication
+        AnimationPlayer anim = this.GetNode<AnimationPlayer>("AnimationPlayer");
+        anim.Play("PlayerHit");
+        this.EmitSignal("_shake_screen", 12, 0.2f);
+        this.EmitSignal("_break_score_update");
 
-			anim.Play("PlayerDeath");
+        //Kill player if health is 0
+        if (health <= 0)
+        {
+            SetPhysicsProcess(false);
 
-			//Go to game-over screen
-			this.EmitSignal("_end_game");
-		}
-	}
+            anim.Play("PlayerDeath");
 
-	private void GainHealth(BulletController strikingBullet, Color backgroundColour, string flashText = null) {
-		UpdateHealth((int)Math.Round(strikingBullet.strength/1.5f));
-		this.EmitSignal("_update_score", pointsOnBlock);
+            //Go to game-over screen
+            this.EmitSignal("_on_death");
+        }
+    }
 
-		//Show effect
-		blockEffect(backgroundColour, flashText); 
-	}
+    private void GainHealth(BulletController strikingBullet, Color backgroundColour, string flashText = null)
+    {
+        _UpdateHealth((int)Math.Round(strikingBullet.strength / 1.5f));
+        this.EmitSignal("_update_score", pointsOnBlock);
 
-	private void blockEffect(Color backgroundColour, string flashText = null) {
-		//Flash text
-		if(flashText != null) { this.EmitSignal("_section_text", flashText, true); } 
+        //Show effect
+        BlockEffect(backgroundColour, flashText);
+    }
 
-		//Flash colour + freeze frame
-		Colour.FlashBackgroundColour(backgroundColour, GetTree(), health);
-	}
+    private void BlockEffect(Color backgroundColour, string flashText = null)
+    {
+        //Flash text
+        if (flashText != null) { this.EmitSignal("_section_text", flashText, true); }
 
-	public override void UpdateHealth(int addend) {
-		health = Mathc.Limit(0, health + addend, 1000);	
-		this.EmitSignal("_update_health_ui", health);
-		Colour.UpdateBackgroundColour(health);
-	}
+        //Flash colour + freeze frame
+        Colour.FlashBackgroundColourAsync(backgroundColour, GetTree(), health);
+    }
+
+    public override void _UpdateHealth(int addend)
+    {
+        health = Mathc.Limit(0, health + addend, 1000);
+        this.EmitSignal("_update_health_ui", health, (addend > 0));
+        Colour.UpdateBackgroundColour(health);
+    }
 }

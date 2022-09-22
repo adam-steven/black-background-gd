@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://fonts/Teko-SemiBold-60.tres" type="DynamicFont" id=1]
 [ext_resource path="res://fonts/Teko-SemiBold-40.tres" type="DynamicFont" id=2]
@@ -91,7 +91,7 @@ tracks/2/keys = {
 "times": PoolRealArray( 0, 0.1, 0.2 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( -88, 211 ), Vector2( -88, 211 ), Vector2( 0, 211 ) ]
+"values": [ Vector2( -80, 211 ), Vector2( -80, 211 ), Vector2( 0, 211 ) ]
 }
 
 [sub_resource type="Animation" id=1]
@@ -151,6 +151,62 @@ shader_param/Texture = ExtResource( 5 )
 
 [sub_resource type="StyleBoxEmpty" id=12]
 
+[sub_resource type="Animation" id=16]
+resource_name = "HealthUiIncrease"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( -60, 150 ), Vector2( -60, 150 ), Vector2( 0, 150 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rect_scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1.4, 1.4 ), Vector2( 1.4, 1.4 ), Vector2( 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=15]
+resource_name = "HealthUiInit"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rect_position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 150 ) ]
+}
+
 [sub_resource type="StyleBoxEmpty" id=13]
 
 [node name="UI" type="Control"]
@@ -177,9 +233,9 @@ custom_styles/separator = SubResource( 11 )
 
 [node name="PointsIndicator" type="Label" parent="HBoxContainer/VBoxContainer"]
 modulate = Color( 1, 1, 1, 0 )
-margin_top = 89.0
+margin_top = 150.0
 margin_right = 400.0
-margin_bottom = 146.0
+margin_bottom = 207.0
 custom_fonts/font = ExtResource( 1 )
 text = "+00000"
 align = 1
@@ -202,9 +258,11 @@ valign = 1
 clip_text = true
 
 [node name="ScoreMultiplier" type="Label" parent="HBoxContainer/VBoxContainer"]
+margin_left = -80.0
 margin_top = 211.0
-margin_right = 400.0
+margin_right = 320.0
 margin_bottom = 269.0
+rect_scale = Vector2( 1.4, 1.4 )
 rect_clip_content = true
 custom_fonts/font = ExtResource( 3 )
 text = "x4"
@@ -289,6 +347,11 @@ text = "0000"
 align = 1
 valign = 1
 clip_text = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="HBoxContainer/HBoxContainer/VBoxContainer2/Health"]
+autoplay = "HealthUiInit"
+anims/HealthUiIncrease = SubResource( 16 )
+anims/HealthUiInit = SubResource( 15 )
 
 [node name="UpgradeDescription" type="Label" parent="HBoxContainer/HBoxContainer/VBoxContainer2"]
 margin_top = 211.0

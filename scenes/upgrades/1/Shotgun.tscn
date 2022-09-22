@@ -1,7 +1,8 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://scenes/misc/BaseUpgrade.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/upgrades/.BaseUpgrade.tscn" type="PackedScene" id=1]
 [ext_resource path="res://script/menus/upgrades/UpgradeButton.cs" type="Script" id=2]
+
 
 [node name="Shotgun" type="Position2D"]
 scale = Vector2( 1.1, 1.1 )

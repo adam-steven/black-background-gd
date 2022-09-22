@@ -2,7 +2,8 @@ namespace Godot
 {
     public class SettingsController : DataSaving
     {
-        public SettingsController() {
+        public SettingsController()
+        {
             fileName = "bb_stn_config.ini";
         }
     }
