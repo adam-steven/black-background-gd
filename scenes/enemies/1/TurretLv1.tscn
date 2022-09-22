@@ -119,4 +119,5 @@ rotation = -3.14159
 [node name="Ring3" parent="LoadingSpinner" index="2"]
 rotation = 3.92699
 
+[editable path="WeakPoint"]
 [editable path="LoadingSpinner"]

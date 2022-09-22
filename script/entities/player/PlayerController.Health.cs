@@ -82,7 +82,7 @@ public partial class PlayerController
     public override void _UpdateHealth(int addend)
     {
         health = Mathc.Limit(0, health + addend, 1000);
-        this.EmitSignal("_update_health_ui", health);
+        this.EmitSignal("_update_health_ui", health, (addend > 0));
         Colour.UpdateBackgroundColour(health);
     }
 }

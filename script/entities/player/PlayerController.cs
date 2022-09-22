@@ -6,7 +6,7 @@ using static Enums;
 //Player acts as a bullet, movement done via impulse forces
 public partial class PlayerController : Entities
 {
-	[Signal] internal delegate void _update_health_ui(int health);
+	[Signal] internal delegate void _update_health_ui(int health, bool healthIncrease);
 	[Signal] internal delegate void _player_left_camera();
 
 	public override void _Ready()
@@ -83,7 +83,7 @@ public partial class PlayerController : Entities
 		bulletSize = Mathc.Limit(0.5f, bulletSize + addBulletSize, 15f);
 
 		//Update background colour and health UI
-		this.EmitSignal("_update_health_ui", health);
+		this.EmitSignal("_update_health_ui", health, (addHealth > 0));
 		Colour.UpdateBackgroundColour(health);
 	}
 }

@@ -60,12 +60,16 @@ namespace Godot
         //Called by the bullet script to take damage / die
         public override void _TakeDamage(BulletController strikingBullet)
         {
-            if (health <= 0) return;
-
+            if (!_IsActive()) { return; }
             _UpdateHealth(-strikingBullet.strength);
 
             anim = this.GetNode<AnimationPlayer>("AnimationPlayer");
             anim.Play("EnemyHit");
+        }
+
+        public override void _UpdateHealth(int addend)
+        {
+            health = Math.Max(0, health + addend);
 
             if (health <= 0)
             {
@@ -80,18 +84,13 @@ namespace Godot
             }
         }
 
-        public override void _UpdateHealth(int addend)
-        {
-            health = Math.Max(0, health + addend);
-        }
-
         private void WeakPointHit(BulletController strikingBullet)
         {
             GD.Print("Weak point hit");
-            if (!_IsActive()) { return; }
 
-            strikingBullet.strength *= 2;
-            _TakeDamage(strikingBullet);
+            if (!_IsActive()) { return; }
+            _UpdateHealth(-strikingBullet.strength * 2);
+
             CritHitFlashAsync();
             this.EmitSignal("_update_player_heath", healthOnCrit);
         }
@@ -100,12 +99,14 @@ namespace Godot
         {
             Godot.Sprite sprite = this.GetNodeOrNull<Godot.Sprite>("Sprite");
             Godot.Sprite weakPointSprite = this.GetNodeOrNull<Godot.Sprite>("WeakPoint/Sprite");
+            Godot.Particles2D weakPointParticles = this.GetNodeOrNull<Godot.Particles2D>("WeakPoint/Particles2D");
 
             SetPhysicsProcess(false); //0.3 second stun
             sprite.SelfModulate = Color.Color8(251, 255, 255);
             weakPointSprite.SelfModulate = Color.Color8(251, 255, 255);
+            weakPointParticles.Emitting = true;
 
-            await Task.Delay(300);
+            await Task.Delay(400);
 
             if (!IsInstanceValid(sprite)) return;
             SetPhysicsProcess(true);

@@ -5,7 +5,6 @@
 [ext_resource path="res://script/levels/Main/Main.cs" type="Script" id=3]
 [ext_resource path="res://scenes/gameEnvironment/UI.tscn" type="PackedScene" id=4]
 
-
 [node name="GameController" type="Node2D"]
 script = ExtResource( 3 )
 
