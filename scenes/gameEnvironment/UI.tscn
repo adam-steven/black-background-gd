@@ -233,9 +233,9 @@ custom_styles/separator = SubResource( 11 )
 
 [node name="PointsIndicator" type="Label" parent="HBoxContainer/VBoxContainer"]
 modulate = Color( 1, 1, 1, 0 )
-margin_top = 150.0
+margin_top = 89.0
 margin_right = 400.0
-margin_bottom = 207.0
+margin_bottom = 146.0
 custom_fonts/font = ExtResource( 1 )
 text = "+00000"
 align = 1
@@ -258,11 +258,9 @@ valign = 1
 clip_text = true
 
 [node name="ScoreMultiplier" type="Label" parent="HBoxContainer/VBoxContainer"]
-margin_left = -80.0
 margin_top = 211.0
-margin_right = 320.0
+margin_right = 400.0
 margin_bottom = 269.0
-rect_scale = Vector2( 1.4, 1.4 )
 rect_clip_content = true
 custom_fonts/font = ExtResource( 3 )
 text = "x4"
