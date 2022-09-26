@@ -47,6 +47,8 @@ namespace Godot
 
         public virtual void _UpdateHealth(int addend) { }
 
+        internal virtual bool _IsActive() { return true; }
+
         #endregion
     }
 }

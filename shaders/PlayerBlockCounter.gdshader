@@ -12,7 +12,7 @@ void fragment()
 	
 	for (int i = 0; i < Segments; i++) {
 		float xPos = (lowestSegment * float(i + 1));
-		textureSum += texture(Texture, UV + vec2((0.5 - xPos), 0.0));
+		textureSum += texture(Texture, UV + vec2((0.5 - xPos), -0.25));
 	}
 	
 	textureSum.rgb = MODULATE.rgb;

@@ -10,8 +10,7 @@ public partial class PlayerController
 
     private void MouseRotation()
     {
-        Godot.Sprite playerSprite = this.GetNode<Godot.Sprite>("Sprite");
-        playerSprite.LookAt(GetGlobalMousePosition());
+        sprite.LookAt(GetGlobalMousePosition());
     }
 
     //When player collides with *any rigi-body bounce
@@ -100,7 +99,7 @@ public partial class PlayerController
         inBlockReGen = true;
 
         await Task.Delay(reGenDelay);
-        while (blockCounter < maxBlockCounter) //Test if player exists
+        while (blockCounter < maxBlockCounter && _IsActive())
         {
             blockCounter++;
             UpdateBlockIndicator();
@@ -112,8 +111,7 @@ public partial class PlayerController
 
     private void UpdateBlockIndicator() 
     {
-        Godot.Sprite playerSprite = this.GetNode<Godot.Sprite>("Sprite");
-        var material = playerSprite.Material;
+        Material material = sprite.Material;
         (material as ShaderMaterial).SetShaderParam("Segments", blockCounter);
     }
 
