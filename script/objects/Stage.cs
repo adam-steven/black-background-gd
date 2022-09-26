@@ -99,7 +99,7 @@ public class Stage
 
     public Stage()
     {
-        StageCounter = 0;
+        StageCounter = 3;
         CurrentWaveCounter = 0;
         UpdateStageLengths();
     }

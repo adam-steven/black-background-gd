@@ -16,25 +16,27 @@ public class UpgradeMenu : Control
 
     public override void _Ready()
     {
-        SettingsController settings = new SettingsController();
-        bool showNames = (bool)settings.GetValue(MenuButtonActions.UpgradeName.ToString(), false);
-        bool showDesc = (bool)settings.GetValue(MenuButtonActions.UpgradeDesc.ToString(), false);
+        // SettingsController settings = new SettingsController();
+        // bool showNames = (bool)settings.GetValue(MenuButtonActions.UpgradeName.ToString(), false);
+        // bool showDesc = (bool)settings.GetValue(MenuButtonActions.UpgradeDesc.ToString(), false);
 
-        //Connect exit listener
-        UpgradeButton exitBtn = this.GetNode<UpgradeButton>("Exit");
-        exitBtn.Connect("_on_pressed", this, "_OnButtonPress");
-        exitBtn.Connect("_update_upgrade_ui", this, "_UpdateUpgradeDesc");
-        exitBtn.showNames = showNames;
-        exitBtn.showDesc = showDesc;
+        // //Connect exit listener
+        // UpgradeButton exitBtn = this.GetNode<UpgradeButton>("Exit");
+        // exitBtn.Connect("_on_pressed", this, "_OnButtonPress");
+        // exitBtn.Connect("_update_upgrade_ui", this, "_UpdateUpgradeDesc");
+        // exitBtn.showNames = showNames;
+        // exitBtn.showDesc = showDesc;
 
-        //Spawn upgrades
-        Vector2[] spawnPoints = {
-            new Vector2(0,-Globals.levelSize.y/2),
-            new Vector2(Globals.levelSize.x/2,Globals.levelSize.y/2),
-            new Vector2(-Globals.levelSize.x/2,Globals.levelSize.y/2),
-        };
+        // //Spawn upgrades
+        // Vector2[] spawnPoints = {
+        //     new Vector2(0,-Globals.levelSize.y/2),
+        //     new Vector2(Globals.levelSize.x/2,Globals.levelSize.y/2),
+        //     new Vector2(-Globals.levelSize.x/2,Globals.levelSize.y/2),
+        // };
 
-        SpawnUpgrades(spawnPoints, showNames, showDesc);
+        // SpawnUpgrades(spawnPoints, showNames, showDesc);
+
+        Test();
     }
 
     private void SpawnUpgrades(Vector2[] spawnPoints, bool showNames, bool showDesc)
@@ -89,4 +91,30 @@ public class UpgradeMenu : Control
         this.EmitSignal("_upgrading_finished");
         this.QueueFree();
     }
+
+
+    private void Test() {
+        var items = 5;
+        var x0 = 960;
+        var y0 = 540;
+        var r = 100;
+
+        PlaceTestingDot(new Vector2(x0, y0));
+
+        for(var i = 0; i < items; i++) {
+            var x = x0 + r * Math.Cos((2 * Math.PI * i / items) - (Math.PI/2)); 
+            var y = y0 + r * Math.Sin((2 * Math.PI * i / items) - (Math.PI/2));
+            var point = new Vector2((float)x, (float)y);
+            
+            GD.Print(point);
+            PlaceTestingDot(point);
+        }
+    }
+
+    private void PlaceTestingDot(Vector2 tDotPos) {
+		PackedScene testingDot = (PackedScene)GD.Load("res://scenes/testing/TestingDot.tscn");
+		Godot.Sprite tDot = (Godot.Sprite)testingDot.Instance();
+		tDot.GlobalPosition = tDotPos;
+		this.AddChild(tDot);
+	}
 }
