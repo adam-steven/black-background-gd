@@ -38,9 +38,9 @@ namespace Godot
             this.Rotate(Math.Sign(angleTo) * Math.Min(delta * rotationSpeed, Math.Abs(angleTo)));
         }
 
-        internal virtual bool _IsActive()
+        internal override bool _IsActive()
         {
-            return (IsInstanceValid(player));
+            return IsInstanceValid(player);
         }
 
         //Emit signal on death

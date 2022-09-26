@@ -1,18 +1,22 @@
 using Godot;
 using System;
+using System.Threading.Tasks;
 
 public partial class PlayerController
 {
+    [Export] private int maxBlockCounter = 3;
+    private int blockCounter = 3;
+    private bool inBlockReGen = false;
+
     private void MouseRotation()
     {
-        Godot.Sprite playerSprite = this.GetNode<Godot.Sprite>("Sprite");
-        playerSprite.LookAt(GetGlobalMousePosition());
+        sprite.LookAt(GetGlobalMousePosition());
     }
 
-    //When player collides with *any rigibody bounce
+    //When player collides with *any rigi-body bounce
     private void _OnPlayerBodyEntered(Node body)
     {
-        //Collided rigidbody stats  
+        //Collided rigid-body stats  
         Godot.Sprite hitBodySprint = body.GetNode<Godot.Sprite>("Sprite");
         Vector2 hitCenter = hitBodySprint.GlobalPosition;
         Vector2 hitScaleHalf = (hitBodySprint.GlobalScale / 2f) * 20f; //Sprite scale is x20 smaller than global position (might change)    
@@ -46,7 +50,7 @@ public partial class PlayerController
         return 0;
     }
 
-    //-- Movement Forces --
+    #region Movement Forces
 
     private void PushPlayer(Vector2 thrustDirection)
     {
@@ -63,6 +67,7 @@ public partial class PlayerController
 
     private void StopPlayer()
     {
+        if (blockCounter <= 0) { return; }
         this.LinearVelocity = Vector2.Zero;
 
         Godot.Node2D effectNode = this.GetNode<Godot.Node2D>("Effects");
@@ -72,10 +77,48 @@ public partial class PlayerController
         if (string.IsNullOrEmpty(anim.CurrentAnimation))
         {
             PlayEffect(anim);
+            DecreaseBlock();
         }
     }
 
-    //-- Movement effects --
+    #endregion
+
+    #region Block
+
+    private void DecreaseBlock()
+    {
+        blockCounter--;
+        UpdateBlockIndicator(); 
+        ReGenBlockAsync();
+    }
+
+    private async void ReGenBlockAsync()
+    {
+        if (inBlockReGen) { return; }
+        int reGenDelay = 1000;
+        inBlockReGen = true;
+
+        await Task.Delay(reGenDelay);
+        while (blockCounter < maxBlockCounter && _IsActive())
+        {
+            blockCounter++;
+            UpdateBlockIndicator();
+            await Task.Delay(reGenDelay);
+        }
+
+        inBlockReGen = false;
+    }
+
+    private void UpdateBlockIndicator() 
+    {
+        Material material = sprite.Material;
+        (material as ShaderMaterial).SetShaderParam("Segments", blockCounter);
+    }
+
+    #endregion
+
+    #region  Movement effects
+
     private void PlayEffect(string effectNodeName)
     {
         Godot.Node2D effectNode = this.GetNode<Godot.Node2D>("Effects");
@@ -89,4 +132,6 @@ public partial class PlayerController
     {
         anim.Play("Trigger");
     }
+
+    #endregion
 }

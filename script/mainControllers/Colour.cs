@@ -30,7 +30,8 @@ public static class Colour
     public static void UpdateBackgroundColour(int playerHealth)
     {
         //make sure the number is never less than 0
-        int red = Math.Max(0, 30 - playerHealth) * 2;
+        float healthPercent = Math.Max(0.0f, 0.5f - (playerHealth / 1000.0f));
+        int red = (int)Math.Floor(50 * healthPercent);
         VisualServer.SetDefaultClearColor(Color.Color8((byte)red, 0, 0));
     }
 

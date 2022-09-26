@@ -9,11 +9,13 @@ public partial class PlayerController : Entities
 	[Signal] internal delegate void _update_health_ui(int health, bool healthIncrease);
 	[Signal] internal delegate void _player_left_camera();
 
+	private Godot.Sprite sprite;
+
 	public override void _Ready()
 	{
 		this.entityType = BulletOwner.PlayerController;
 
-		Godot.Sprite sprite = this.GetNode<Godot.Sprite>("Sprite");
+		sprite = this.GetNode<Godot.Sprite>("Sprite");
 		gun = new GunController(this, sprite);
 
 		this.Connect("body_entered", this, "_OnPlayerBodyEntered");
@@ -21,8 +23,9 @@ public partial class PlayerController : Entities
 		VisibilityNotifier2D vis = this.GetNode<VisibilityNotifier2D>("VisibilityNotifier2D");
 		vis.Connect("screen_exited", this, "_OnScreenExited");
 
-		//Set the health UI and background colour
+		//ReSet the health UI, background colour, and block indicator
 		_UpdateHealth(0);
+		UpdateBlockIndicator();
 	}
 
 	public override void _PhysicsProcess(float delta)
@@ -30,38 +33,21 @@ public partial class PlayerController : Entities
 		MouseRotation();
 
 		//shoot need to be here for action hold
-		if (Input.IsActionPressed("Shoot"))
-		{
-			gun.Shoot(BulletVariations.Player);
-		}
+		if (Input.IsActionPressed("Shoot")) { gun.Shoot(BulletVariations.Player); }
 	}
 
 	public override void _Input(InputEvent inputEvent)
 	{
-		if (inputEvent.IsActionPressed("Up"))
-		{
-			PushPlayer(Vector2.Up, "Bottom");
-		}
+		if (inputEvent.IsActionPressed("Up")) { PushPlayer(Vector2.Up, "Bottom"); }
+		if (inputEvent.IsActionPressed("Down")) { PushPlayer(Vector2.Down, "Top"); }
+		if (inputEvent.IsActionPressed("Left")) { PushPlayer(Vector2.Left, "Right"); }
+		if (inputEvent.IsActionPressed("Right")) { PushPlayer(Vector2.Right, "Left"); }
+		if (inputEvent.IsActionPressed("Block")) { StopPlayer(); }
+	}
 
-		if (inputEvent.IsActionPressed("Down"))
-		{
-			PushPlayer(Vector2.Down, "Top");
-		}
-
-		if (inputEvent.IsActionPressed("Left"))
-		{
-			PushPlayer(Vector2.Left, "Right");
-		}
-
-		if (inputEvent.IsActionPressed("Right"))
-		{
-			PushPlayer(Vector2.Right, "Left");
-		}
-
-		if (inputEvent.IsActionPressed("Block"))
-		{
-			StopPlayer();
-		}
+	internal override bool _IsActive() 
+	{ 
+		return IsInstanceValid(sprite); 
 	}
 
 	private void _OnScreenExited()
