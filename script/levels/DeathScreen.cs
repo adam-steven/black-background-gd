@@ -9,6 +9,7 @@ public class DeathScreen : Levels
     private Godot.Label scoreUi;
     private long scoreUiVal = 0; //Slowly gains the full score value for a tick up effect
     private int scoreNoOfTicks = 100; //How many ticks until the scoreUiVal = score
+    private long scoreAbs; //the score fixed positive for limits
     private long tickAmount = 1;
 
     //tick up delay
@@ -29,7 +30,7 @@ public class DeathScreen : Levels
     public override void _Process(float delta)
     {
         if (deathData == null) { return; }
-        if (scoreUiVal >= deathData.Score) { return; }
+        if (scoreUiVal >= scoreAbs) { return; }
         UpdateScoreUi(delta);
     }
 
@@ -41,8 +42,8 @@ public class DeathScreen : Levels
         if (delayCounter >= 1)
         {
             scoreUiVal += tickAmount;
-            scoreUiVal = Math.Min(scoreUiVal, deathData.Score);
-            scoreUi.Text = scoreUiVal.ToString("D6");
+            scoreUiVal = Math.Min(scoreUiVal, scoreAbs);
+            scoreUi.Text = (deathData.Score >= 0) ? scoreUiVal.ToString("D6") : (scoreUiVal * -1).ToString("D6") ;
             delayCounter = 0;
         }
     }
@@ -50,7 +51,9 @@ public class DeathScreen : Levels
     public override void _LoadLevelParameters(System.Object sceneData)
     {
         deathData = (sceneData != null) ? (GameOverObj)sceneData : new GameOverObj(0, 0);
-        tickAmount = Math.Max((deathData.Score / scoreNoOfTicks), 1);
+        scoreAbs = Math.Abs(deathData.Score);
+        tickAmount = Math.Max((scoreAbs / scoreNoOfTicks), 1);
+        
         GD.Print("Time: " + deathData.Time);
     }
 

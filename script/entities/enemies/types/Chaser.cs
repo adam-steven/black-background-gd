@@ -26,7 +26,7 @@ public class Chaser : Enemies
 
         while (_IsActive())
         {
-            anim.Play("EnemyAttack");
+            if(!GetTree().Paused) { anim.Play("EnemyAttack"); }
             await Task.Delay(shotDelayMs);
         }
     }

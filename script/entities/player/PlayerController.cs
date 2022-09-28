@@ -16,7 +16,7 @@ public partial class PlayerController : Entities
 		this.entityType = BulletOwner.PlayerController;
 
 		sprite = this.GetNode<Godot.Sprite>("Sprite");
-		gun = new GunController(this, sprite);
+		gun = new GunController(this, sprite, GetTree());
 
 		this.Connect("body_entered", this, "_OnPlayerBodyEntered");
 

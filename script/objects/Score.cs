@@ -25,8 +25,10 @@ public class Score
 
     public Nullable<long> ProcessRollingScore()
     {
-        if (Value >= TempValue) { return null; }
-        Value++;
+        long difference = (TempValue - Value);
+
+        if (difference == 0) { return null; }
+        Value += difference / Math.Abs(difference);
         return Value;
     }
 
