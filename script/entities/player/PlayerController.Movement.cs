@@ -101,8 +101,11 @@ public partial class PlayerController
         await Task.Delay(reGenDelay);
         while (blockCounter < maxBlockCounter && _IsActive())
         {
-            blockCounter++;
-            UpdateBlockIndicator();
+            if(!GetTree().Paused) 
+            {  
+                blockCounter++;
+                UpdateBlockIndicator();
+            }
             await Task.Delay(reGenDelay);
         }
 

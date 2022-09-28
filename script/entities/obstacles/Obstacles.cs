@@ -15,7 +15,7 @@ namespace Godot
 
             //Init fixed components
             anim = this.GetNode<AnimationPlayer>("AnimationPlayer");
-            gun = new GunController(this, this);
+            gun = new GunController(this, this, GetTree());
 
             FacePlayer();
             _EntityReady();

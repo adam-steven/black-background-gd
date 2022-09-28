@@ -11,16 +11,19 @@ public class GunController
     private Entities ownerNode;
     private Node2D spawnPoint;
 
+    private SceneTree tree;
+
     private int timeLastShot = 0;
 
     ///<summary> 
     ///		Allows nodes to shoot bullets form there body.
     ///</summary>
-    public GunController(Entities ownerNode, Node2D spawnPoint)
+    public GunController(Entities ownerNode, Node2D spawnPoint, SceneTree tree)
     {
         this.bulletScene = (PackedScene)GD.Load("res://scenes/misc/Bullet.tscn");
         this.ownerNode = ownerNode;
         this.spawnPoint = spawnPoint;
+        this.tree = tree;
     }
 
     public void Shoot(BulletVariations bulletType)
@@ -52,11 +55,11 @@ public class GunController
         float betweenBurstDelay = (ownerNode.shotDelay < 0.2f) ? ownerNode.shotDelay / 2f : 0.1f;
         betweenBurstDelay *= 1000; //convert to ms
 
-        SpawnBullets(bulletType); //shoot before delay
-        for (int i = 0; i < ownerNode.bulletBurstAmount - 1; i++)
+        for (int i = 0; i < ownerNode.bulletBurstAmount; i++)
         {
-            await Task.Delay((int)betweenBurstDelay);
+            if(!Godot.Object.IsInstanceValid(ownerNode) || tree.Paused) { break; }
             SpawnBullets(bulletType);
+            await Task.Delay((int)betweenBurstDelay);
         }
     }
 
