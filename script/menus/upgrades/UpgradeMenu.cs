@@ -13,7 +13,7 @@ public class UpgradeMenu : Control
     public Vector2 levelCenter;
     public PlayerController player;
     public Scenes upgrades;
-    public int numOfItems = 7;
+    public int numOfItems = 3;
 
     public override void _Ready()
     {

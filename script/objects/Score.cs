@@ -15,6 +15,8 @@ public class Score
         TempValue += calcPoints;
         TempValue = Mathc.Limit(-9999999999999, TempValue, 99999999999999);
 
+        Console.WriteLine($"TempValue {TempValue}");
+
         return calcPoints;
     }
 
@@ -25,8 +27,10 @@ public class Score
 
     public Nullable<long> ProcessRollingScore()
     {
-        if (Value >= TempValue) { return null; }
-        Value++;
+        long difference = (TempValue - Value);
+
+        if (difference == 0) { return null; }
+        Value += difference / Math.Abs(difference);
         return Value;
     }
 
