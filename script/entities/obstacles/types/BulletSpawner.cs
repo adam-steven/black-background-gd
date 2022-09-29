@@ -6,7 +6,7 @@ public class BulletSpawner : Obstacles
 {
     Random rnd = new Random();
 
-    public override void _EntityReady()
+    internal override void _EntityReady()
     {
         float spawnSpeedModifier = shotDelay / rnd.Next(1, 3);
         anim.PlaybackSpeed = spawnSpeedModifier;

@@ -22,7 +22,17 @@ namespace Godot
         }
 
         //EntityReady is for entity specific function as Ready is used for generics
-        public virtual void _EntityReady() { }
+        internal virtual void _EntityReady() { }
+
+        public virtual void _RandomizeStats(int level) 
+        {
+            float levelMultiplier = 1 + (level * 0.1f);
+
+            health = (int)Math.Round(health * levelMultiplier);
+            movementForce = movementForce * levelMultiplier;
+            shotDelay = shotDelay / levelMultiplier;
+            bulletStrength = (int)Math.Round(bulletStrength * levelMultiplier);
+        }
 
         #region Controls
 
