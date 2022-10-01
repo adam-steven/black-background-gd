@@ -90,7 +90,7 @@ public partial class Main
     {
         string chosenEntityScene = entityList[rnd.Next(entityList.Count)];
         PackedScene entityScene = (PackedScene)GD.Load(chosenEntityScene);
-        Entities entity = (Obstacles)entityScene.Instance();
+        Entities entity = (Entities)entityScene.Instance();
 
         int spawnPosX = rnd.Next((int)-Globals.levelSize.x, (int)Globals.levelSize.x);
         int spawnPosY = rnd.Next((int)-Globals.levelSize.y, (int)Globals.levelSize.y);
