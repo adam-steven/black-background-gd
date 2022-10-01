@@ -11,7 +11,11 @@ public partial class Main
         bool? stageTimerEnd = mainData.Stage.ProcessStageCountDown(delta);
 
         if (stageTimerEnd == false) { DisplayProgression(); }
-        else if (stageTimerEnd == true) { NextStage(); }
+        else if (stageTimerEnd == true)
+        {
+            NextStage();
+            SavePlayerStats();
+        }
     }
 
     ///<returns>new stage</returns>

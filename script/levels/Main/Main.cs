@@ -42,7 +42,7 @@ public partial class Main : Levels
 		if (mainData.InGame)
 		{
 			Vector2 playerPos = new Vector2(960, 540);
-			SpawnPlayer(playerPos);
+			SpawnPlayer(playerPos, mainData.PlayerStats);
 			PlayGame();
 		}
 		else
@@ -69,6 +69,7 @@ public partial class Main : Levels
 
 		noOfEnemies = 0;
 		NextStage();
+		SavePlayerStats();
 	}
 
 	//Spawn next stage;
@@ -169,7 +170,12 @@ public partial class Main : Levels
 		Vector2 cameraCenter = mainCamera.GetCameraScreenCenter();
 		player.Position = cameraCenter;
 
-		//If camera free, move camera to player
+		//TODO: If camera free, move camera to player
+	}
+
+	private void SavePlayerStats() 
+	{
+		mainData.PlayerStats = player.GetStats();
 	}
 
 	#endregion

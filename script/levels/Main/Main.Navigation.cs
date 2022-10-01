@@ -28,6 +28,7 @@ public partial class Main
         this.SetProcess(true);
         this.LevelSpin();
         this.NextStage(true);
+        this.SavePlayerStats();
 
         PackedScene pauseMenuScene = (PackedScene)GD.Load("res://scenes/menus/PauseMenu.tscn");
         Godot.Control pauseMenu = (Godot.Control)pauseMenuScene.Instance();

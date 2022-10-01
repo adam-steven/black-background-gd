@@ -62,7 +62,7 @@ public partial class PlayerController : Entities
 		shotDelay = Mathc.Limit(0.1f, shotDelay + addShotDelay, 10f);
 		noOfBullets = Mathc.Limit(1, noOfBullets + addNoOfBullets, 30);
 		bulletForce = Mathc.Limit(100f, bulletForce + addBulletForce, 5000f);
-		bulletStrength = Mathc.Limit(1, bulletStrength + addBulletStrength, 100);
+		bulletStrength = Mathc.Limit(1, bulletStrength + addBulletStrength, 5000);
 		bulletAccuracy = Mathc.Limit(0f, bulletAccuracy + addBulletAccuracy, 360f);
 		bulletBurstAmount = Mathc.Limit(1, bulletBurstAmount + addBulletBurstAmount, 15);
 		bulletTimeAlive = Mathc.Limit(0.05f, bulletTimeAlive + addBulletTimeAlive, 10f);
@@ -71,6 +71,10 @@ public partial class PlayerController : Entities
 		//Update background colour and health UI
 		this.EmitSignal("_update_health_ui", health, (addHealth > 0));
 		Colour.UpdateBackgroundColour(health);
+	}
+
+	public EntityStats GetStats() {
+		return new EntityStats(health, movementForce, shotDelay, noOfBullets, bulletForce, bulletStrength, bulletAccuracy, bulletBurstAmount, bulletTimeAlive, bulletSize);
 	}
 }
 

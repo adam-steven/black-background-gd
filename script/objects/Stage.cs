@@ -1,4 +1,3 @@
-
 using System;
 using static Enums;
 using Newtonsoft.Json;

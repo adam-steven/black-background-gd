@@ -2,7 +2,7 @@ using Godot;
 
 public partial class Main
 {
-    private void SpawnPlayer(Vector2 location)
+    private void SpawnPlayer(Vector2 location, EntityStats storedStats = null)
     {
         PackedScene playerScene = (PackedScene)GD.Load("res://scenes/misc/Player.tscn");
         player = (PlayerController)playerScene.Instance();
@@ -16,6 +16,12 @@ public partial class Main
         player.Connect("_break_score_update", this, "BreakScoreUpdate");
         player.Connect("_player_left_camera", this, "ReframePlayer");
         player.Connect("_update_health_ui", uiNode, "UpdateHealthUi");
+
+        if (storedStats != null)
+        {
+            GD.Print(Newtonsoft.Json.JsonConvert.SerializeObject(storedStats));
+            uiNode.UpdateHealthUi(storedStats.Health, false);
+        }
 
         this.AddChild(player);
     }

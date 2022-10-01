@@ -11,6 +11,8 @@ public class MainGameObj
     public Score Score { get; set; }
     public Stage Stage { get; set; }
 
+    public EntityStats PlayerStats { get; set; }
+
     public MainGameObj(bool inGame)
     {
         this.InGame = inGame;
@@ -19,5 +21,6 @@ public class MainGameObj
         this.Enemies = new Scenes();
         this.Obstacles = new Scenes();
         this.Upgrades = new Scenes();
+        this.PlayerStats = new EntityStats();
     }
 }

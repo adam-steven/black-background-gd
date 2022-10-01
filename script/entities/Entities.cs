@@ -5,7 +5,7 @@ namespace Godot
     public class Entities : RigidBody2D
     {
         public BulletOwner entityType;
-
+        
         [Export] public int health = 1000;
         [Export] public float movementForce = 1000f;
 
