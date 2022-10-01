@@ -34,6 +34,14 @@ namespace Godot
             _EntityReady();
         }
 
+        public override void _RandomizeStats(int level) 
+        {
+            float levelMultiplier = 1 + (level * 0.1f);
+
+            movementForce = (float)GD.RandRange(movementForce, (movementForce * levelMultiplier));
+            bulletStrength = (int)GD.RandRange(bulletStrength, Math.Round(bulletStrength * levelMultiplier));
+        }
+
         #region Controls
 
         internal void MoveInDirection(Vector2 _thrustDirection)
