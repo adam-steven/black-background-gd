@@ -90,7 +90,7 @@ public partial class Main
     {
         string chosenEntityScene = entityList[rnd.Next(entityList.Count)];
         PackedScene entityScene = (PackedScene)GD.Load(chosenEntityScene);
-        Obstacles entity = (Obstacles)entityScene.Instance();
+        Entities entity = (Obstacles)entityScene.Instance();
 
         int spawnPosX = rnd.Next((int)-Globals.levelSize.x, (int)Globals.levelSize.x);
         int spawnPosY = rnd.Next((int)-Globals.levelSize.y, (int)Globals.levelSize.y);
@@ -101,7 +101,6 @@ public partial class Main
         entity.colour = Colour.LevelColour;
         entity.bulletColour = Colour.HarmonizingColour;
 
-        entity._RandomizeStats(mainData.Stage.Level);
         entity.Connect("_on_death", this, "CheckIfEnemies");
 
         return entity;

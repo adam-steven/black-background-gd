@@ -24,8 +24,6 @@ namespace Godot
         //EntityReady is for entity specific function as Ready is used for generics
         internal virtual void _EntityReady() { }
 
-        public virtual void _RandomizeStats(int level) { }
-
         #region Controls
 
         internal void FacePlayer()
