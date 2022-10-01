@@ -7,7 +7,7 @@ namespace Godot
     public class Enemies : Obstacles
     {
         [Export] private int pointsOnKill = 100;
-        [Export] private int healthOnCrit = 10;
+        [Export] private int healthOnCrit = 20;
 
         public override void _Ready()
         {

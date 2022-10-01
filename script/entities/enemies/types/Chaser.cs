@@ -5,7 +5,7 @@ using static Enums;
 
 public class Chaser : Enemies
 {
-    public override void _EntityReady()
+    internal override void _EntityReady()
     {
         InitDelayedStart();
 

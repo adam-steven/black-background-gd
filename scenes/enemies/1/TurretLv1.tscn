@@ -86,7 +86,7 @@ collision_layer = 4
 collision_mask = 11
 gravity_scale = 0.0
 script = ExtResource( 3 )
-health = 400
+health = 200
 rotationSpeed = 1.0
 
 [node name="Sprite" type="Sprite" parent="."]

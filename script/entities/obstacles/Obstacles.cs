@@ -22,7 +22,7 @@ namespace Godot
         }
 
         //EntityReady is for entity specific function as Ready is used for generics
-        public virtual void _EntityReady() { }
+        internal virtual void _EntityReady() { }
 
         #region Controls
 
