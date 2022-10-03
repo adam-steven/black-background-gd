@@ -13,6 +13,8 @@ public class MainGameObj
 
     public EntityStats PlayerStats { get; set; }
 
+    public Scenes StoredUpgrades  { get; set; }
+
     public MainGameObj(bool inGame)
     {
         this.InGame = inGame;
@@ -21,6 +23,7 @@ public class MainGameObj
         this.Enemies = new Scenes();
         this.Obstacles = new Scenes();
         this.Upgrades = new Scenes();
-        this.PlayerStats = new EntityStats();
+        this.PlayerStats = null;
+        this.StoredUpgrades = null;
     }
 }

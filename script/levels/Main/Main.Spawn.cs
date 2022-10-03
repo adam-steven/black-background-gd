@@ -81,11 +81,13 @@ public partial class Main
         upgradeMenu.levelCenter = levelCenter;
         upgradeMenu.player = player;
         upgradeMenu.upgrades = mainData.Upgrades;
+        upgradeMenu.storedUpgrades = mainData.StoredUpgrades;
 
+        upgradeMenu.Connect("_spawned_upgrades", this, "SaveSpawnedUpgrades");
         upgradeMenu.Connect("_upgrading_finished", this, "UpgradingFinished");
         upgradeMenu.Connect("_decrease_multiplier", this, "UpdateMultiplier");
         upgradeMenu.Connect("_update_upgrade_ui", uiNode, "UpdateUpgradeDescUi");
-
+   
         this.AddChild(upgradeMenu);
     }
 

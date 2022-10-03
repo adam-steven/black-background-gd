@@ -1,4 +1,5 @@
 using Godot;
+using Newtonsoft.Json;
 using System;
 using static Enums;
 
@@ -177,6 +178,15 @@ public partial class Main : Levels
 	{
 		mainData.PlayerStats = player.GetStats();
 	}
+
+	private void SaveSpawnedUpgrades(string spawnedUpgrades) 
+	{
+		var settings = new JsonSerializerSettings();
+		settings.TypeNameHandling = TypeNameHandling.Objects;
+		Scenes deserializedData = JsonConvert.DeserializeObject<Scenes>(spawnedUpgrades, settings);
+		mainData.StoredUpgrades = deserializedData;
+	}
+
 
 	#endregion
 

@@ -72,6 +72,7 @@ public partial class Main
     //upgrading finished for events without anim name info
     private void UpgradingFinished()
     {
+        mainData.StoredUpgrades = null;
         UpgradingFinished(string.Empty);
     }
 
