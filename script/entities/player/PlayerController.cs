@@ -54,28 +54,6 @@ public partial class PlayerController : Entities
 	{
 		this.EmitSignal("_player_left_camera");
 	}
-
-	public void UpdateStats(int addHealth, float addMovementForce, float addShotDelay, int addNoOfBullets, float addBulletForce, int addBulletStrength, float addBulletAccuracy, int addBulletBurstAmount, float addBulletTimeAlive, float addBulletSize)
-	{
-		health = Mathc.Limit(0, health + addHealth, 1000);
-		movementForce = Mathc.Limit(100f, movementForce + addMovementForce, 5000f);
-		shotDelay = Mathc.Limit(0.1f, shotDelay + addShotDelay, 10f);
-		noOfBullets = Mathc.Limit(1, noOfBullets + addNoOfBullets, 30);
-		bulletForce = Mathc.Limit(100f, bulletForce + addBulletForce, 5000f);
-		bulletStrength = Mathc.Limit(1, bulletStrength + addBulletStrength, 5000);
-		bulletAccuracy = Mathc.Limit(0f, bulletAccuracy + addBulletAccuracy, 360f);
-		bulletBurstAmount = Mathc.Limit(1, bulletBurstAmount + addBulletBurstAmount, 15);
-		bulletTimeAlive = Mathc.Limit(0.05f, bulletTimeAlive + addBulletTimeAlive, 10f);
-		bulletSize = Mathc.Limit(0.5f, bulletSize + addBulletSize, 15f);
-
-		//Update background colour and health UI
-		this.EmitSignal("_update_health_ui", health, (addHealth > 0));
-		Colour.UpdateBackgroundColour(health);
-	}
-
-	public EntityStats GetStats() {
-		return new EntityStats(health, movementForce, shotDelay, noOfBullets, bulletForce, bulletStrength, bulletAccuracy, bulletBurstAmount, bulletTimeAlive, bulletSize);
-	}
 }
 
 

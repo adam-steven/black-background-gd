@@ -19,8 +19,7 @@ public partial class Main
 
         if (storedStats != null)
         {
-            GD.Print(Newtonsoft.Json.JsonConvert.SerializeObject(storedStats));
-            uiNode.UpdateHealthUi(storedStats.Health, false);
+            player.SetStats(storedStats);
         }
 
         this.AddChild(player);
