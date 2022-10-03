@@ -1,10 +1,12 @@
 using Godot;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using static Enums;
 
 public class UpgradeMenu : Control
 {
+    [Signal] public delegate void _spawned_upgrades(string spawnedUpgrades);
     [Signal] public delegate void _decrease_multiplier(int reset);
     [Signal] public delegate void _upgrading_finished();
     [Signal] public delegate void _update_upgrade_ui(string value);
@@ -12,7 +14,10 @@ public class UpgradeMenu : Control
     private Random rnd = new Random();
     public Vector2 levelCenter;
     public PlayerController player;
+
+    public Scenes storedUpgrades = null;
     public Scenes upgrades;
+
     public int numOfItems = 3;
 
     public override void _Ready()
@@ -28,12 +33,15 @@ public class UpgradeMenu : Control
         exitBtn.showNames = showNames;
         exitBtn.showDesc = showDesc;
 
-        SpawnUpgrades(numOfItems, showNames, showDesc);
+        numOfItems = (storedUpgrades == null) ? numOfItems : storedUpgrades.Count;
+        SpawnUpgrades(numOfItems, showNames, showDesc); 
+        
     }
 
     //Spawns multiple upgrades in a circle
     private void SpawnUpgrades(int numOfItems, bool showNames, bool showDesc)
     {
+        Scenes spawnedUpgrades = new Scenes(); 
         int radius = 300;
         int yAxisOffSet = 20; //Push upgrades down to counter invisible names illusions
 
@@ -43,16 +51,19 @@ public class UpgradeMenu : Control
             double y = levelCenter.y + radius * Math.Sin((2 * Math.PI * i / numOfItems) - (Math.PI/2));
             Vector2 spawnPosition = new Vector2((float)x, (float)y + yAxisOffSet);
 
-            SpawnUpgrade(spawnPosition, showNames, showDesc);
+            string upgradePath = SpawnUpgrade(i, spawnPosition, showNames, showDesc);
+            spawnedUpgrades.Add(upgradePath);
         }
+
+        SaveSpawnedUpgrades(spawnedUpgrades);
     }
 
     //spawn 1 upgrade at a given location
-    private void SpawnUpgrade(Vector2 spawnPosition, bool showNames, bool showDesc) {
-        string randomUpgrade = upgrades[rnd.Next(upgrades.Count)];
-        PackedScene upgradeOptionScene = (PackedScene)GD.Load(randomUpgrade);
+    private string SpawnUpgrade(int index, Vector2 spawnPosition, bool showNames, bool showDesc) {
+        string upgradePath = (storedUpgrades != null) ? storedUpgrades[index] : upgrades[rnd.Next(upgrades.Count)];
+        PackedScene upgradeOptionScene = (PackedScene)GD.Load(upgradePath);
         UpgradeButton upgradeOption = (UpgradeButton)upgradeOptionScene.Instance();
-
+         
         upgradeOption.GlobalPosition = spawnPosition;
 
         UpgradeButton upgradeOptionScript = upgradeOption;
@@ -64,6 +75,7 @@ public class UpgradeMenu : Control
         upgradeOption.Connect("_update_upgrade_ui", this, "_UpdateUpgradeDesc");
 
         this.AddChild(upgradeOption);
+        return upgradePath;
     }
 
     private void _OnButtonPress(UpgradeButton button)
@@ -76,6 +88,13 @@ public class UpgradeMenu : Control
         {
             FinishedUpgrading();
         }
+    }
+
+    private void SaveSpawnedUpgrades(Scenes spawnedUpgrades) {
+         var settings = new JsonSerializerSettings();
+        settings.TypeNameHandling = TypeNameHandling.Objects;
+        string jsonData = JsonConvert.SerializeObject(spawnedUpgrades, settings);
+        this.EmitSignal("_spawned_upgrades", jsonData);
     }
 
     private void _UpdateUpgradeDesc(string value)
