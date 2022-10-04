@@ -41,7 +41,7 @@ public partial class Main
     {
         GD.Print("Response SpawnObstacles\n");
 
-        int noToSpawn = rnd.Next(enemySpawnMin, enemySpawnMax + 2);
+        int noToSpawn = rnd.Next(mainData.EnemySpawnMin, mainData.EnemySpawnMax + 2);
         noOfEnemies += noToSpawn;
         for (int i = 0; i < noToSpawn; i++)
         {
@@ -54,7 +54,7 @@ public partial class Main
     {
         GD.Print("Response SpawnEnemies\n");
 
-        int noToSpawn = rnd.Next(enemySpawnMin, enemySpawnMax + 1);
+        int noToSpawn = rnd.Next(mainData.EnemySpawnMin, mainData.EnemySpawnMax + 1);
         noOfEnemies += noToSpawn;
         for (int i = 0; i < noToSpawn; i++)
         {
@@ -63,6 +63,8 @@ public partial class Main
             enemy.Connect("_update_player_heath", player, "_UpdateHealth");
             this.AddChild(enemy);
         }
+
+        SaveSpawnedEnemies();
     }
 
     private void SpawnBoss()
@@ -112,6 +114,13 @@ public partial class Main
 
         return entity;
     }
+
+    //Slowly increase the number of enemies each wave
+	private void IncreaseEnemySpawn()
+	{
+		if (mainData.Stage.Level % 2 == 0) { mainData.EnemySpawnMax++; }
+		else { mainData.EnemySpawnMin++; }
+	}
 
     #endregion
 }

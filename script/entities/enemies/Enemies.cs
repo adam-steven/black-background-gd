@@ -86,8 +86,6 @@ namespace Godot
 
         private void WeakPointHit(BulletController strikingBullet)
         {
-            GD.Print("Weak point hit");
-
             if (!_IsActive()) { return; }
             _UpdateHealth(-strikingBullet.strength * 2);
 

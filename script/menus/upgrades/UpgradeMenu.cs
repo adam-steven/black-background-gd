@@ -35,7 +35,6 @@ public class UpgradeMenu : Control
 
         numOfItems = (storedUpgrades == null) ? numOfItems : storedUpgrades.Count;
         SpawnUpgrades(numOfItems, showNames, showDesc); 
-        
     }
 
     //Spawns multiple upgrades in a circle
@@ -122,7 +121,7 @@ public class UpgradeMenu : Control
     //     var items = 100;
     //     var x0 = 960;
     //     var y0 = 540;
-    //     var r = 250;
+    //     var r = 300;
 
     //     PlaceTestingDot(new Vector2(x0, y0));
 
