@@ -19,16 +19,17 @@ public partial class Main
 
 	private void SaveSpawnedEnemies() 
 	{
-        return;
-        GD.Print("SaveSpawnedEnemies");
         GdArray children = this.GetChildren();
+		Scenes spawnedEnemies = new Scenes();
 
 		foreach (var child in children)
         {
-            GD.Print($"{child.GetType()} {child.GetType() == typeof(Obstacles)}");
-			// if (child.GetType() == typeof(Obstacles))
-			// 	GD.Print(child);
+			if (!child.GetType().IsSubclassOf(typeof(Obstacles))) { continue; }
+			Obstacles enemy = (Obstacles)child;
+			spawnedEnemies.Add(enemy.Filename);
         }
+
+		mainData.StoredEnemies = spawnedEnemies;
 	}
 
 }
