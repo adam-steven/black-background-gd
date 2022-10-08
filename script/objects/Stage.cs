@@ -1,11 +1,10 @@
-
 using System;
 using static Enums;
 using Newtonsoft.Json;
 
 public class Stage
 {
-
+    [JsonProperty] public bool NewLevel { get; private set; }
     [JsonProperty] public int Level { get; private set; }
     [JsonProperty] public int StageCounter { get; private set; }
     [JsonProperty] public int[] StageWaveValues { get; private set; }
@@ -82,13 +81,21 @@ public class Stage
             }
         }
 
-        return CurrentWaveCounter;
+        return CurrentWaveCounter; //Return 0 if new stage
     }
 
     private void NextLevel()
     {
         Level++;
+        NewLevel = true;
         UpdateStageLengths();
+    }
+
+    public bool IsNewLevel() 
+    {
+        bool newLevelStat = NewLevel;
+        NewLevel = false;
+        return newLevelStat;
     }
 
     //Increase dodge and fight

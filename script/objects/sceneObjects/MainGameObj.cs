@@ -11,6 +11,14 @@ public class MainGameObj
     public Score Score { get; set; }
     public Stage Stage { get; set; }
 
+    public EntityStats PlayerStats { get; set; }
+
+    public Scenes StoredUpgrades { get; set; }
+    public Scenes StoredEnemies { get; set; }
+
+    public int EnemySpawnMin { get; set; }
+	public int EnemySpawnMax { get; set; }
+
     public MainGameObj(bool inGame)
     {
         this.InGame = inGame;
@@ -19,5 +27,10 @@ public class MainGameObj
         this.Enemies = new Scenes();
         this.Obstacles = new Scenes();
         this.Upgrades = new Scenes();
+        this.PlayerStats = null;
+        this.StoredUpgrades = null;
+        this.StoredEnemies = null;
+        this.EnemySpawnMin = 1;
+	    this.EnemySpawnMax = 2;
     }
 }

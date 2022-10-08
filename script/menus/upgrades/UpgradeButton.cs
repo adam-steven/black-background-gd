@@ -59,7 +59,8 @@ public class UpgradeButton : Position2D
     {
         if (IsInstanceValid(player))
         {
-            player.UpdateStats(health, movementForce, shotDelay, noOfBullets, bulletForce, bulletStrength, bulletAccuracy, bulletBurstAmount, bulletTimeAlive, bulletSize);
+            EntityStats addStats = new EntityStats(health, movementForce, shotDelay, noOfBullets, bulletForce, bulletStrength, bulletAccuracy, bulletBurstAmount, bulletTimeAlive, bulletSize);
+            player.UpdateStats(addStats);
         }
 
         ShowDescriptionUi("");

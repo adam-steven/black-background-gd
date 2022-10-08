@@ -2,7 +2,7 @@ using Godot;
 
 public partial class Main
 {
-    private void SpawnPlayer(Vector2 location)
+    private void SpawnPlayer(Vector2 location, EntityStats storedStats = null)
     {
         PackedScene playerScene = (PackedScene)GD.Load("res://scenes/misc/Player.tscn");
         player = (PlayerController)playerScene.Instance();
@@ -16,6 +16,11 @@ public partial class Main
         player.Connect("_break_score_update", this, "BreakScoreUpdate");
         player.Connect("_player_left_camera", this, "ReframePlayer");
         player.Connect("_update_health_ui", uiNode, "UpdateHealthUi");
+
+        if (storedStats != null)
+        {
+            player.SetStats(storedStats);
+        }
 
         this.AddChild(player);
     }
@@ -36,34 +41,42 @@ public partial class Main
     {
         GD.Print("Response SpawnObstacles\n");
 
-        int noToSpawn = rnd.Next(enemySpawnMin, enemySpawnMax + 2);
-        noOfEnemies += noToSpawn;
-        for (int i = 0; i < noToSpawn; i++)
+        Scenes pathsToSpawn = mainData.StoredEnemies ?? GenerateEntityPaths(mainData.Obstacles, 2);
+        noOfEnemies += pathsToSpawn.Count;
+
+        for (int i = 0; i < pathsToSpawn.Count; i++)
         {
-            Entities obstacle = PickSpawnEntity(mainData.Obstacles);
+            Entities obstacle = GetEntityData(pathsToSpawn[i]);
             this.AddChild(obstacle);
         }
+
+        SaveSpawnedEnemies();
     }
 
     private void SpawnEnemies()
     {
         GD.Print("Response SpawnEnemies\n");
 
-        int noToSpawn = rnd.Next(enemySpawnMin, enemySpawnMax + 1);
-        noOfEnemies += noToSpawn;
-        for (int i = 0; i < noToSpawn; i++)
+        Scenes pathsToSpawn = mainData.StoredEnemies ?? GenerateEntityPaths(mainData.Enemies, 1);
+        noOfEnemies += pathsToSpawn.Count;
+
+        for (int i = 0; i < pathsToSpawn.Count; i++)
         {
-            Entities enemy = PickSpawnEntity(mainData.Enemies);
+            Entities enemy = GetEntityData(pathsToSpawn[i]);
             enemy.Connect("_update_score", this, "UpdateScore", new Godot.Collections.Array(mainData.Stage.Level));
             enemy.Connect("_update_player_heath", player, "_UpdateHealth");
             this.AddChild(enemy);
         }
+
+        SaveSpawnedEnemies();
     }
 
     private void SpawnBoss()
     {
         GD.Print("Response SpawnBoss\n");
         SpawnEnemies();
+
+        SaveSpawnedEnemies();
     }
 
     private void SpawnUpgrades()
@@ -76,20 +89,35 @@ public partial class Main
         upgradeMenu.levelCenter = levelCenter;
         upgradeMenu.player = player;
         upgradeMenu.upgrades = mainData.Upgrades;
+        upgradeMenu.storedUpgrades = mainData.StoredUpgrades;
 
+        upgradeMenu.Connect("_spawned_upgrades", this, "SaveSpawnedUpgrades");
         upgradeMenu.Connect("_upgrading_finished", this, "UpgradingFinished");
         upgradeMenu.Connect("_decrease_multiplier", this, "UpdateMultiplier");
         upgradeMenu.Connect("_update_upgrade_ui", uiNode, "UpdateUpgradeDescUi");
-
+   
         this.AddChild(upgradeMenu);
     }
 
     #region Spawn Helpers 
 
-    private Entities PickSpawnEntity(Scenes entityList)
+    //Create a List of random length, containing random paths of entities to spawn
+    Scenes GenerateEntityPaths(Scenes entityList, int maxAddend) {
+        Scenes pathList = new Scenes();
+        int rndSpawnNum = rnd.Next(mainData.EnemySpawnMin, mainData.EnemySpawnMax + maxAddend);
+
+        for (int i = 0; i < rndSpawnNum; i++) 
+        { 
+            pathList.Add(entityList[rnd.Next(entityList.Count)]); 
+        }
+
+        return pathList;
+    }
+
+    //Creates an Entities Instance with the generic, needed data
+    private Entities GetEntityData(string entityPath) 
     {
-        string chosenEntityScene = entityList[rnd.Next(entityList.Count)];
-        PackedScene entityScene = (PackedScene)GD.Load(chosenEntityScene);
+        PackedScene entityScene = (PackedScene)GD.Load(entityPath);
         Entities entity = (Entities)entityScene.Instance();
 
         int spawnPosX = rnd.Next((int)-Globals.levelSize.x, (int)Globals.levelSize.x);
@@ -105,6 +133,13 @@ public partial class Main
 
         return entity;
     }
+
+    //Slowly increase the number of enemies each wave
+	private void IncreaseEnemySpawn()
+	{
+		if (mainData.Stage.Level % 2 == 0) { mainData.EnemySpawnMax++; }
+		else { mainData.EnemySpawnMin++; }
+	}
 
     #endregion
 }

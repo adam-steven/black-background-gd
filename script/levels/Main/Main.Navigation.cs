@@ -7,7 +7,7 @@ public partial class Main
     private void PlayGame()
     {
         mainData.InGame = true;
-        ResetScenes();
+        UpdateScenes(0);
         _ScoreReady();
         _StageReady();
 
@@ -18,7 +18,8 @@ public partial class Main
     {
         //count down
         SettingsController settings = new SettingsController();
-        isStartingCountDown = (bool)settings.GetValue(MenuButtonActions.StartCountDown.ToString(), false);
+        bool isStartingCountDown = (bool)settings.GetValue(MenuButtonActions.StartCountDown.ToString(), false);
+
         if (isStartingCountDown && animName != "SectionTextCountDown")
         {
             DisplaySectionTextCountDown("PlayGame");
@@ -27,7 +28,7 @@ public partial class Main
 
         this.SetProcess(true);
         this.LevelSpin();
-        this.NextStage(true);
+        this.ProgressGame(true);
 
         PackedScene pauseMenuScene = (PackedScene)GD.Load("res://scenes/menus/PauseMenu.tscn");
         Godot.Control pauseMenu = (Godot.Control)pauseMenuScene.Instance();
@@ -77,13 +78,16 @@ public partial class Main
     private void UpgradingFinished(string animName = "")
     {
         //count down
+        SettingsController settings = new SettingsController();
+        bool isStartingCountDown = (bool)settings.GetValue(MenuButtonActions.StartCountDown.ToString(), false);
+
         if (isStartingCountDown && animName != "SectionTextCountDown")
         {
             DisplaySectionTextCountDown("UpgradingFinished");
         }
         else
         {
-            this.CheckIfEnemies();
+            ProgressGame();
         }
     }
 }

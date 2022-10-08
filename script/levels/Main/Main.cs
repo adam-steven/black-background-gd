@@ -1,6 +1,8 @@
 using Godot;
+using GdArray = Godot.Collections.Array;
 using System;
 using static Enums;
+
 
 //Main.tscn 
 public partial class Main : Levels
@@ -12,13 +14,9 @@ public partial class Main : Levels
 	private Godot.Node2D levelNode;
 	private Vector2 levelCenter;
 
-	private int enemySpawnMin = 1;
-	private int enemySpawnMax = 2;
 	private int noOfEnemies = 0;
 
 	private PlayerController player;
-
-	private bool isStartingCountDown;
 
 	private UiController uiNode;
 
@@ -42,7 +40,7 @@ public partial class Main : Levels
 		if (mainData.InGame)
 		{
 			Vector2 playerPos = new Vector2(960, 540);
-			SpawnPlayer(playerPos);
+			SpawnPlayer(playerPos, mainData.PlayerStats);
 			PlayGame();
 		}
 		else
@@ -68,51 +66,7 @@ public partial class Main : Levels
 		if (noOfEnemies > 0) return;
 
 		noOfEnemies = 0;
-		NextStage();
-	}
-
-	//Spawn next stage;
-	private void NextStage(bool gameStart = false)
-	{
-		bool newStage = NextWave(gameStart);
-		GameStages currentStage = mainData.Stage.CurrentStage;
-
-		GD.Print("\nnewStage " + newStage);
-		GD.Print("currentStage " + currentStage);
-
-		if (newStage)
-		{
-			DisplaySectionText(currentStage.ToString().ToUpper());
-			LevelSpin();
-		}
-
-		switch (currentStage)
-		{
-			case GameStages.Dodge:
-				GD.Print("Call SpawnObstacles");
-				SpawnObstacles();
-				break;
-			case GameStages.Fight:
-				GD.Print("Call SpawnEnemies");
-				SpawnEnemies();
-				break;
-			case GameStages.Boss:
-				GD.Print("Call SpawnBoss");
-				SpawnBoss();
-				break;
-			case GameStages.Event:
-				//Event
-				break;
-			default:
-				GD.Print("Call SpawnUpgrades");
-
-				UpdateScenes(mainData.Stage.Level + 1);
-				IncreaseEnemySpawn();
-				UpdateMultiplier(true);
-
-				SpawnUpgrades();
-				break;
-		}
+		ProgressGame();
 	}
 
 	//Displays big faint text in the background for a short amount of time
@@ -146,17 +100,10 @@ public partial class Main : Levels
 		Colour.UpdateGameColours(levelNode, player);
 	}
 
-	//Slowly increase the number of enemies each wave
-	private void IncreaseEnemySpawn()
-	{
-		if (mainData.Stage.Level % 2 == 0) { enemySpawnMax++; }
-		else { enemySpawnMin++; }
-	}
-
 	//Destroys all bullets on the screen
 	private void DestroyBullets()
 	{
-		var children = this.GetChildren();
+		GdArray children = this.GetChildren();
 
 		foreach (var child in children)
 			if (child.GetType() == typeof(BulletController))
@@ -169,7 +116,7 @@ public partial class Main : Levels
 		Vector2 cameraCenter = mainCamera.GetCameraScreenCenter();
 		player.Position = cameraCenter;
 
-		//If camera free, move camera to player
+		//TODO: If camera free, move camera to player
 	}
 
 	#endregion

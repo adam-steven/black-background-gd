@@ -7,7 +7,7 @@ namespace Godot
     public class Enemies : Obstacles
     {
         [Export] private int pointsOnKill = 100;
-        [Export] private int healthOnCrit = 20;
+        [Export] private int healthOnCrit = 20; //Also handles points
 
         public override void _Ready()
         {
@@ -86,13 +86,12 @@ namespace Godot
 
         private void WeakPointHit(BulletController strikingBullet)
         {
-            GD.Print("Weak point hit");
-
             if (!_IsActive()) { return; }
             _UpdateHealth(-strikingBullet.strength * 2);
 
             CritHitFlashAsync();
             this.EmitSignal("_update_player_heath", healthOnCrit);
+            this.EmitSignal("_update_score", healthOnCrit);
         }
 
         private async void CritHitFlashAsync()
