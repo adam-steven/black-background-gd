@@ -17,6 +17,11 @@ public partial class Main
 		mainData.StoredUpgrades = deserializedData;
 	}
 
+	private void ClearSpawnedUpgrades() 
+	{
+		mainData.StoredUpgrades = null;
+	}
+
 	private void SaveSpawnedEnemies() 
 	{
         GdArray children = this.GetChildren();
@@ -26,10 +31,15 @@ public partial class Main
         {
 			if (!child.GetType().IsSubclassOf(typeof(Obstacles))) { continue; }
 			Obstacles enemy = (Obstacles)child;
-			spawnedEnemies.Add(enemy.Filename);
+			if(enemy.health > 0) { spawnedEnemies.Add(enemy.Filename); }
         }
 
 		mainData.StoredEnemies = spawnedEnemies;
+	}
+
+		private void ClearSpawnedEnemies() 
+	{
+		mainData.StoredEnemies = null;
 	}
 
 }

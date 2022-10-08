@@ -19,13 +19,20 @@ public partial class Main
         else if (stageTimerEnd == true)
         {
             ProgressGame();
-            SavePlayerStats();
         }
     }
 
     //Spawn next stage;
 	private void ProgressGame(bool gameStart = false)
 	{
+        //Set/Clear save values 
+        if(!gameStart) 
+        {
+            SavePlayerStats();
+            ClearSpawnedUpgrades(); 
+            ClearSpawnedEnemies();
+        }
+   
 		NextWave(gameStart);
 		GameStages currentStage = mainData.Stage.CurrentStage;
 
@@ -80,7 +87,7 @@ public partial class Main
     private void NextLevel() {
         GD.Print($"\nNew Level: {mainData.Stage.Level}");
 
-        UpdateScenes(mainData.Stage.Level + 1);
+        UpdateScenes(mainData.Stage.Level);
         IncreaseEnemySpawn();
         UpdateMultiplier(true);
     }

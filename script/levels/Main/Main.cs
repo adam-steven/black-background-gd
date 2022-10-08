@@ -67,7 +67,6 @@ public partial class Main : Levels
 
 		noOfEnemies = 0;
 		ProgressGame();
-		SavePlayerStats();
 	}
 
 	//Displays big faint text in the background for a short amount of time

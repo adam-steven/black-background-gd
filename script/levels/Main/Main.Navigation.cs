@@ -7,7 +7,7 @@ public partial class Main
     private void PlayGame()
     {
         mainData.InGame = true;
-        ResetScenes();
+        UpdateScenes(0);
         _ScoreReady();
         _StageReady();
 
@@ -29,7 +29,6 @@ public partial class Main
         this.SetProcess(true);
         this.LevelSpin();
         this.ProgressGame(true);
-        this.SavePlayerStats();
 
         PackedScene pauseMenuScene = (PackedScene)GD.Load("res://scenes/menus/PauseMenu.tscn");
         Godot.Control pauseMenu = (Godot.Control)pauseMenuScene.Instance();
@@ -73,7 +72,6 @@ public partial class Main
     //upgrading finished for events without anim name info
     private void UpgradingFinished()
     {
-        mainData.StoredUpgrades = null;
         UpgradingFinished(string.Empty);
     }
 
@@ -89,7 +87,7 @@ public partial class Main
         }
         else
         {
-            this.CheckIfEnemies();
+            ProgressGame();
         }
     }
 }

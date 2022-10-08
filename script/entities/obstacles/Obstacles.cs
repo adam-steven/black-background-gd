@@ -46,6 +46,9 @@ namespace Godot
         //Emit signal on death
         public void EmitDeathSignal(string animName = "")
         {
+            //Saving enemies checks health, this prevents the dying enemy from being saved 
+            this.health = 0; 
+
             this.EmitSignal("_on_death");
             this.QueueFree();
         }

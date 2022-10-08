@@ -23,7 +23,6 @@ tracks/0/keys = {
 [node name="SingleBulletSpawn" type="RigidBody2D"]
 gravity_scale = 0.0
 script = ExtResource( 2 )
-health = 0
 movementForce = 0.0
 shotDelay = 1.5
 bulletAccuracy = 0.0
