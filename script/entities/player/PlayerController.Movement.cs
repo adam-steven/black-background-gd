@@ -4,8 +4,8 @@ using System.Threading.Tasks;
 
 public partial class PlayerController
 {
-    [Export] private int maxBlockCounter = 3;
-    private int blockCounter = 3;
+    [Export] private int maxBlockCounter = 5;
+    private int blockCounter = 5;
     private bool inBlockReGen = false;
 
     private void MouseRotation()
