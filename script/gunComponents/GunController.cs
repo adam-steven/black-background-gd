@@ -81,7 +81,7 @@ public class GunController
     //Spawn 1 bullet
     private void SpawnBullet(Godot.Node2D gameController, BulletVariations bulletType)
     {
-        BulletController bullet = (BulletController)bulletScene.Instance();
+        Bullet bullet = (Bullet)bulletScene.Instance();
         float randomAccuracyDeviation = (float)((rnd.NextDouble() * ownerNode.bulletAccuracy) - (rnd.NextDouble() * ownerNode.bulletAccuracy));
 
         // Access bullet properties

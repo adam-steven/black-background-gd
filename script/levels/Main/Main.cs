@@ -106,8 +106,8 @@ public partial class Main : Levels
 		GdArray children = this.GetChildren();
 
 		foreach (var child in children)
-			if (child.GetType() == typeof(BulletController))
-				((BulletController)child).QueueFree();
+			if (child.GetType() == typeof(Bullet))
+				((Bullet)child).QueueFree();
 	}
 
 	private void ReframePlayer()

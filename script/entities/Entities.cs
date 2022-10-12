@@ -43,7 +43,7 @@ namespace Godot
 
         #region Public Methods 
 
-        public virtual void _TakeDamage(BulletController strikingBullet) { }
+        public virtual void _TakeDamage(Bullet strikingBullet) { }
 
         public virtual void _UpdateHealth(int addend) { }
 

@@ -2,7 +2,7 @@ using Godot;
 using System;
 using static Enums;
 
-public class BulletController : Area2D
+public class Bullet : Area2D
 {
 	[Export] bool hasTrail = true;
 	private Line2D trail;
@@ -17,6 +17,8 @@ public class BulletController : Area2D
 
 	public override void _Ready()
 	{
+		this.Connect("body_entered", this, "BodyEntered");
+
 		float angle = this.Rotation;
 		closedMotion = new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle)) * movementForce;
 
@@ -48,7 +50,7 @@ public class BulletController : Area2D
 		trail.AddPoint(this.GlobalPosition);
 	}
 
-	private void _On_Bullet_Body_Entered(object body)
+	private void BodyEntered(object body)
 	{
 		//Make sure i hit an entity
 		Type bodyType = body.GetType();
