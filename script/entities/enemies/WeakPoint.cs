@@ -15,7 +15,7 @@ public class WeakPoint : Entity
         particles.GlobalPosition = parent.GlobalPosition;
     }
 
-    public override void _TakeDamage(Bullet strikingBullet)
+    public override void _TakeDamage(Projectile strikingBullet)
     {
         this.EmitSignal("_hit", strikingBullet);
     }

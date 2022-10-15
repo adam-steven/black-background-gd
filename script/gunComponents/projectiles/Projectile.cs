@@ -53,6 +53,11 @@ namespace Godot
             trail.AddPoint(this.GlobalPosition);
         }
 
+        internal void DestroySelf() 
+        { 
+            DestroySelf("");
+        }
+
         internal void DestroySelf(string animName = "") 
         { 
             this.QueueFree(); 

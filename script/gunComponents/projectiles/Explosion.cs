@@ -28,7 +28,7 @@ public class Explosion : Projectile
 			//If collision is made by owner return
 			if (hitEntity.entityType == bOwner) return;
 
-			//hitEntity._TakeDamage(this);
+			hitEntity._TakeDamage(this);
 		}
 	}
 }

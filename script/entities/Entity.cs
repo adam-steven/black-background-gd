@@ -44,7 +44,7 @@ namespace Godot
 
         #region Public Methods 
 
-        public virtual void _TakeDamage(Bullet strikingBullet) { }
+        public virtual void _TakeDamage(Projectile strikingBullet) { }
 
         public virtual void _UpdateHealth(int addend) { }
 

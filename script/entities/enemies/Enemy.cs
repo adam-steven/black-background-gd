@@ -58,7 +58,7 @@ namespace Godot
         #region Death handling
 
         //Called by the bullet script to take damage / die
-        public override void _TakeDamage(Bullet strikingBullet)
+        public override void _TakeDamage(Projectile strikingBullet)
         {
             if (!_IsActive()) { return; }
             _UpdateHealth(-strikingBullet.strength);
@@ -84,7 +84,7 @@ namespace Godot
             }
         }
 
-        private void WeakPointHit(Bullet strikingBullet)
+        private void WeakPointHit(Projectile strikingBullet)
         {
             if (!_IsActive()) { return; }
             _UpdateHealth(-strikingBullet.strength * 2);
