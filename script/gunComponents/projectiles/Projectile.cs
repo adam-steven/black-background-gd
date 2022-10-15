@@ -36,6 +36,7 @@ namespace Godot
         internal virtual void _ProjectileReady() {}
         internal virtual void _RenderColour() {}
         internal virtual void _BodyEntered(object body) {}
+        internal virtual void _DestroySelf() { this.QueueFree(); }
 
         private void InitDeathTimer() 
         {
@@ -43,7 +44,7 @@ namespace Godot
             if(timeAlive <= 0 || !IsInstanceValid(timer)) { return; }
 
 		    timer.WaitTime = timeAlive;
-		    timer.Connect("timeout", this, "DestroySelf");
+		    timer.Connect("timeout", this, "_DestroySelf");
 		    timer.Start();
         }
 
@@ -53,14 +54,10 @@ namespace Godot
             trail.AddPoint(this.GlobalPosition);
         }
 
-        internal void DestroySelf() 
+        //Catch anim end _DestroySelf calls
+        internal void _DestroySelf(string animName = "") 
         { 
-            DestroySelf("");
-        }
-
-        internal void DestroySelf(string animName = "") 
-        { 
-            this.QueueFree(); 
+            _DestroySelf(); 
         }
     }
 }

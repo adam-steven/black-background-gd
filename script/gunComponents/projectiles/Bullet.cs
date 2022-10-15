@@ -47,12 +47,12 @@ public class Bullet : Projectile
 			Entity hitEntity = (Entity)body;
 
 			//If collision is made by owner return
-			if (hitEntity.entityType == bOwner) return;
+			if (hitEntity.entityType == bOwner) { return; }
 
 			hitEntity._TakeDamage(this);
 		}
 
-		DestroySelf();
+		_DestroySelf();
 	}
 }
 
