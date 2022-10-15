@@ -8,7 +8,7 @@ public partial class PlayerController
 		return new EntityStats(health, movementForce, shotDelay, noOfBullets, bulletForce, bulletStrength, bulletAccuracy, bulletBurstAmount, bulletTimeAlive, bulletSize);
 	}
 
-    public void SetStats(EntityStats stats) {
+    public void SetStats(EntityStats stats, bool healthUpgrade = false) {
 		health = Mathc.Limit(0, stats.Health, 1000);
 		movementForce = Mathc.Limit(100f, stats.MovementForce, 5000f);
 		shotDelay = Mathc.Limit(0.1f, stats.ShotDelay, 10f);
@@ -21,7 +21,7 @@ public partial class PlayerController
 		bulletSize = Mathc.Limit(0.5f, stats.BulletSize, 15f);
 
 		//Update background colour and health UI
-		this.EmitSignal("_update_health_ui", health, (stats.Health > 0));
+		this.EmitSignal("_update_health_ui", health, healthUpgrade);
 		Colour.UpdateBackgroundColour(health);
 	}
 
@@ -40,7 +40,7 @@ public partial class PlayerController
             bulletSize + addStats.BulletSize
         );
 		
-        SetStats(stats);
+        SetStats(stats, (addStats.Health > 0));
 	}
 
 

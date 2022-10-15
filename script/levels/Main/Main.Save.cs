@@ -29,8 +29,8 @@ public partial class Main
 
 		foreach (var child in children)
         {
-			if (!child.GetType().IsSubclassOf(typeof(Obstacles))) { continue; }
-			Obstacles enemy = (Obstacles)child;
+			if (!child.GetType().IsSubclassOf(typeof(Obstacle))) { continue; }
+			Obstacle enemy = (Obstacle)child;
 			if(enemy.health > 0) { spawnedEnemies.Add(enemy.Filename); }
         }
 

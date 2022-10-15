@@ -2,7 +2,7 @@ using System;
 using Godot;
 using static Enums;
 
-public class BulletSpawner : Obstacles
+public class BulletSpawner : Obstacle
 {
     Random rnd = new Random();
 

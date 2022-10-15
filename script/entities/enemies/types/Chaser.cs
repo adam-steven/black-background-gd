@@ -3,7 +3,7 @@ using System;
 using System.Threading.Tasks;
 using static Enums;
 
-public class Chaser : Enemies
+public class Chaser : Enemy
 {
     internal override void _EntityReady()
     {

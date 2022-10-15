@@ -1,7 +1,7 @@
 using Godot;
 using static Enums;
 
-public class WeakPoint : Entities
+public class WeakPoint : Entity
 {
     [Signal] internal delegate void _hit();
 

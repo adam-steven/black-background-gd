@@ -8,7 +8,7 @@ public class GunController
     Random rnd = new Random();
 
     private PackedScene bulletScene;
-    private Entities ownerNode;
+    private Entity ownerNode;
     private Node2D spawnPoint;
 
     private SceneTree tree;
@@ -18,9 +18,9 @@ public class GunController
     ///<summary> 
     ///		Allows nodes to shoot bullets form there body.
     ///</summary>
-    public GunController(Entities ownerNode, Node2D spawnPoint, SceneTree tree)
+    public GunController(Entity ownerNode, Node2D spawnPoint, SceneTree tree)
     {
-        this.bulletScene = (PackedScene)GD.Load("res://scenes/misc/Bullet.tscn");
+        this.bulletScene = (PackedScene)GD.Load(ownerNode.bulletPath);
         this.ownerNode = ownerNode;
         this.spawnPoint = spawnPoint;
         this.tree = tree;
@@ -81,24 +81,24 @@ public class GunController
     //Spawn 1 bullet
     private void SpawnBullet(Godot.Node2D gameController, BulletVariations bulletType)
     {
-        Bullet bullet = (Bullet)bulletScene.Instance();
+        Projectile projectile = (Projectile)bulletScene.Instance();
         float randomAccuracyDeviation = (float)((rnd.NextDouble() * ownerNode.bulletAccuracy) - (rnd.NextDouble() * ownerNode.bulletAccuracy));
 
         // Access bullet properties
-        bullet.Position = ownerNode.Position;
-        bullet.Rotation = spawnPoint.GlobalRotation + randomAccuracyDeviation;
-        bullet.Scale = new Vector2(ownerNode.bulletSize, ownerNode.bulletSize);
-        bullet.Modulate = ownerNode.bulletColour;
+        projectile.Position = ownerNode.Position;
+        projectile.Rotation = spawnPoint.GlobalRotation + randomAccuracyDeviation;
+        projectile.Scale = new Vector2(ownerNode.bulletSize, ownerNode.bulletSize);
+        projectile.colour = ownerNode.bulletColour;
 
         // Access bullet script 
-        bullet.bOwner = ownerNode.entityType;
+        projectile.bOwner = ownerNode.entityType;
         // bulletCon.openMotion = ownerNode.LinearVelocity/2f;
-        bullet.strength = ownerNode.bulletStrength;
-        bullet.movementForce = ownerNode.bulletForce;
-        bullet.timeAlive = ownerNode.bulletTimeAlive;
-        bullet.type = bulletType;
+        projectile.strength = ownerNode.bulletStrength;
+        projectile.movementForce = ownerNode.bulletForce;
+        projectile.timeAlive = ownerNode.bulletTimeAlive;
+        projectile.type = bulletType;
 
         // Shoot bullet + start cooldown 
-        gameController.AddChild(bullet);
+        gameController.AddChild(projectile);
     }
 }

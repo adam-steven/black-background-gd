@@ -3,7 +3,7 @@ using static Enums;
 
 namespace Godot
 {
-    public class Obstacles : Entities
+    public class Obstacle : Entity
     {
         [Export] private float rotationSpeed = 3f;
 

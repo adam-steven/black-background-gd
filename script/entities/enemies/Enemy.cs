@@ -4,7 +4,7 @@ using static Enums;
 
 namespace Godot
 {
-    public class Enemies : Obstacles
+    public class Enemy : Obstacle
     {
         [Export] private int pointsOnKill = 100;
         [Export] private int healthOnCrit = 20; //Also handles points

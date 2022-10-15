@@ -2,7 +2,7 @@ using static Enums;
 
 namespace Godot
 {
-    public class Entities : RigidBody2D
+    public class Entity : RigidBody2D
     {
         public BulletOwner entityType;
         
@@ -17,6 +17,7 @@ namespace Godot
         public GunController gun;
         public Color bulletColour = Color.Color8(251, 255, 255);
 
+        [Export] public string bulletPath = "res://scenes/misc/Bullet.tscn";
         [Export] public float shotDelay = 1;
         [Export] public int noOfBullets = 1; //Number of bullets fired at once (Shotgun effect)
         [Export] public float bulletForce = 3000; //Bullet's speed

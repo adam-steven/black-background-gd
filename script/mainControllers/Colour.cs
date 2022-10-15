@@ -59,7 +59,7 @@ public static class Colour
     }
 
     //Updates the Games colour scheme to a new random colour
-    public static void UpdateGameColours(Godot.Node2D levelNode, Entities player)
+    public static void UpdateGameColours(Godot.Node2D levelNode, Entity player)
     {
         Random rnd = new Random();
         int chosenColour = rnd.Next(gameColors.Length);

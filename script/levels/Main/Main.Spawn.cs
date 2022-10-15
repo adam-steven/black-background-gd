@@ -46,7 +46,7 @@ public partial class Main
 
         for (int i = 0; i < pathsToSpawn.Count; i++)
         {
-            Entities obstacle = GetEntityData(pathsToSpawn[i]);
+            Entity obstacle = GetEntityData(pathsToSpawn[i]);
             this.AddChild(obstacle);
         }
 
@@ -62,7 +62,7 @@ public partial class Main
 
         for (int i = 0; i < pathsToSpawn.Count; i++)
         {
-            Entities enemy = GetEntityData(pathsToSpawn[i]);
+            Entity enemy = GetEntityData(pathsToSpawn[i]);
             enemy.Connect("_update_score", this, "UpdateScore", new Godot.Collections.Array(mainData.Stage.Level));
             enemy.Connect("_update_player_heath", player, "_UpdateHealth");
             this.AddChild(enemy);
@@ -115,10 +115,10 @@ public partial class Main
     }
 
     //Creates an Entities Instance with the generic, needed data
-    private Entities GetEntityData(string entityPath) 
+    private Entity GetEntityData(string entityPath) 
     {
         PackedScene entityScene = (PackedScene)GD.Load(entityPath);
-        Entities entity = (Entities)entityScene.Instance();
+        Entity entity = (Entity)entityScene.Instance();
 
         int spawnPosX = rnd.Next((int)-Globals.levelSize.x, (int)Globals.levelSize.x);
         int spawnPosY = rnd.Next((int)-Globals.levelSize.y, (int)Globals.levelSize.y);
