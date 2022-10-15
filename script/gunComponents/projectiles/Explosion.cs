@@ -33,9 +33,6 @@ public class Explosion : Projectile
 		{
 			Entity hitEntity = (Entity)body;
 
-			//If collision is made by owner return
-			if (hitEntity.entityType == bOwner) { return; }
-
 			float distance = this.GlobalPosition.DistanceTo(hitEntity.GlobalPosition);
 			float percentToCenter = distance / maxLength;
 
