@@ -4,6 +4,7 @@ using static Enums;
 
 public class Explosion : Projectile
 {
+	[Export] private float pushForce = 2000;
 	private float maxLength;
 
     internal override void _ProjectileReady() 
@@ -33,12 +34,16 @@ public class Explosion : Projectile
 		{
 			Entity hitEntity = (Entity)body;
 
+			Vector2 direction = this.GlobalPosition.DirectionTo(hitEntity.GlobalPosition);
 			float distance = this.GlobalPosition.DistanceTo(hitEntity.GlobalPosition);
 			float percentToCenter = distance / maxLength;
 
 			int maxDamage = this.strength * 2;
 			int damage = maxDamage - (int)Math.Round(this.strength * percentToCenter);
 			this.strength = damage;
+
+			float impact = pushForce - ((pushForce/2) * percentToCenter);
+			hitEntity.ApplyCentralImpulse(direction * impact);
 
 			hitEntity._TakeDamage(this);
 		}
