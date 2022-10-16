@@ -26,6 +26,11 @@ public class GunController
         this.tree = tree;
     }
 
+    public void UpdateBullet(string bulletPath) 
+    {
+        this.bulletScene = (PackedScene)GD.Load(bulletPath);
+    }
+
     public void Shoot(BulletVariations bulletType)
     {
         if (CanShoot())

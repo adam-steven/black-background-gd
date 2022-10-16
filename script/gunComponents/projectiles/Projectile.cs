@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Godot;
 using static Enums;
 
@@ -19,6 +20,8 @@ namespace Godot
 
         internal Line2D trail;
 
+        public Scenes onDestroyScenes = new Scenes();
+
         public override void _Ready()
         {
             this.Connect("body_entered", this, "_BodyEntered");
@@ -36,7 +39,43 @@ namespace Godot
         internal virtual void _ProjectileReady() {}
         internal virtual void _RenderColour() {}
         internal virtual void _BodyEntered(object body) {}
-        internal virtual void _DestroySelf() { this.QueueFree(); }
+
+        internal virtual void _DestroySelf() 
+        {
+            _SpawnOnDestroy();
+            this.QueueFree(); 
+        }
+
+        internal virtual void _SpawnOnDestroy() 
+        {
+            if(onDestroyScenes.Count < 0) { return; }
+            Random rnd = new Random();
+            Godot.Node2D gameController = this.GetParent<Godot.Node2D>();
+
+            for (int i = 0; i < onDestroyScenes.Count; i++)
+            {
+                PackedScene bulletScene = (PackedScene)GD.Load(onDestroyScenes[i]);
+                Projectile projectile = (Projectile)bulletScene.Instance();
+                float randomAccuracyDeviation = (float)((rnd.NextDouble() * 360) - (rnd.NextDouble() * 360));
+
+                // Access bullet properties
+                projectile.Position = this.Position;
+                projectile.Rotation = this.GlobalRotation + randomAccuracyDeviation;
+                projectile.Scale = this.Scale;
+                projectile.colour = this.colour;
+
+                // Access bullet script 
+                projectile.bOwner = this.bOwner;
+                // bulletCon.openMotion = ownerNode.LinearVelocity/2f;
+                projectile.strength = this.strength;
+                projectile.movementForce = this.movementForce;
+                projectile.timeAlive = this.timeAlive;
+                projectile.type = this.type;
+
+                // Shoot bullet + start cooldown 
+                gameController.AddChild(projectile);
+            }
+        }
 
         private void InitDeathTimer() 
         {

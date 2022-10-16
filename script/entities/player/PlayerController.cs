@@ -18,10 +18,10 @@ public partial class PlayerController : Entity
 		sprite = this.GetNode<Godot.Sprite>("Sprite");
 		gun = new GunController(this, sprite, GetTree());
 
-		this.Connect("body_entered", this, "_OnPlayerBodyEntered");
+		this.Connect("body_entered", this, "BodyEntered");
 
 		VisibilityNotifier2D vis = this.GetNode<VisibilityNotifier2D>("VisibilityNotifier2D");
-		vis.Connect("screen_exited", this, "_OnScreenExited");
+		vis.Connect("screen_exited", this, "ScreenExited");
 
 		//ReSet the health UI, background colour, and block indicator
 		_UpdateHealth(0);
@@ -50,7 +50,7 @@ public partial class PlayerController : Entity
 		return IsInstanceValid(sprite); 
 	}
 
-	private void _OnScreenExited()
+	private void ScreenExited()
 	{
 		this.EmitSignal("_player_left_camera");
 	}
