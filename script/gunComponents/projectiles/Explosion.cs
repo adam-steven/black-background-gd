@@ -9,6 +9,7 @@ public class Explosion : Projectile
 
     internal override void _ProjectileReady() 
     {
+		this.type = BulletVariations.Spectral;
 		this.Scale *= 1.5f;
 
 		Position2D edgeNode = this.GetNode<Position2D>("ExplosionEdge");
