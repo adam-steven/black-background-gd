@@ -7,7 +7,7 @@ public class GunController
 {
     Random rnd = new Random();
 
-    private PackedScene bulletScene;
+    private PackedScene defaultBulletScene;
     private Entity ownerNode;
     private Node2D spawnPoint;
 
@@ -20,22 +20,34 @@ public class GunController
     ///</summary>
     public GunController(Entity ownerNode, Node2D spawnPoint, SceneTree tree)
     {
-        this.bulletScene = (PackedScene)GD.Load(ownerNode.bulletPath);
+        this.defaultBulletScene = (PackedScene)GD.Load(ownerNode.defaultBulletPath);
         this.ownerNode = ownerNode;
         this.spawnPoint = spawnPoint;
         this.tree = tree;
     }
 
-    public void UpdateBullet(string bulletPath) 
+    public void Shoot()
     {
-        this.bulletScene = (PackedScene)GD.Load(bulletPath);
+        Shoot(this.defaultBulletScene, BulletVariations.Normal);
+    }
+
+    public void Shoot(string bulletPath)
+    {
+        PackedScene bulletScene = (PackedScene)GD.Load(bulletPath);
+        Shoot(bulletScene, BulletVariations.Normal);
     }
 
     public void Shoot(BulletVariations bulletType)
     {
+        Shoot(this.defaultBulletScene, bulletType);
+    }
+
+    public void Shoot(PackedScene bulletScene, BulletVariations bulletType)
+    {
         if (CanShoot())
         {
-            BurstBulletsAsync(bulletType);
+            Godot.Node2D gameController = ownerNode.GetParent<Godot.Node2D>();
+            BurstBulletsAsync(gameController, bulletScene, bulletType);
         }
     }
 
@@ -54,7 +66,7 @@ public class GunController
     }
 
     //Loop spawn bullets with delay for burst effect
-    private async void BurstBulletsAsync(BulletVariations bulletType)
+    private async void BurstBulletsAsync(Godot.Node2D gameController, PackedScene bulletScene, BulletVariations bulletType)
     {
         //Make sure the burst is always faster than normal shots
         float betweenBurstDelay = (ownerNode.shotDelay < 0.2f) ? ownerNode.shotDelay / 2f : 0.1f;
@@ -63,15 +75,15 @@ public class GunController
         for (int i = 0; i < ownerNode.bulletBurstAmount; i++)
         {
             if(!Godot.Object.IsInstanceValid(ownerNode) || tree.Paused) { break; }
-            SpawnBullets(bulletType);
+            SpawnBullets(gameController, bulletScene, bulletType);
             await Task.Delay((int)betweenBurstDelay);
         }
     }
 
     //Loop spawn bullets for shotgun effect
-    private void SpawnBullets(BulletVariations bulletType)
+    private void SpawnBullets(Godot.Node2D gameController, PackedScene bulletScene, BulletVariations bulletType)
     {
-        Godot.Node2D gameController = ownerNode.GetParent<Godot.Node2D>();
+        
 
         //Set can shoot timer here so thats the burst will never be slower than shoot rate
         timeLastShot = (int)OS.GetTicksMsec();
@@ -79,12 +91,12 @@ public class GunController
         //Loop for shotgun effect
         for (int i = 0; i < ownerNode.noOfBullets; i++)
         {
-            SpawnBullet(gameController, bulletType);
+            SpawnBullet(gameController, bulletScene, bulletType);
         }
     }
 
     //Spawn 1 bullet
-    private void SpawnBullet(Godot.Node2D gameController, BulletVariations bulletType)
+    private void SpawnBullet(Godot.Node2D gameController, PackedScene bulletScene, BulletVariations bulletType)
     {
         Projectile projectile = (Projectile)bulletScene.Instance();
         float randomAccuracyDeviation = (float)((rnd.NextDouble() * ownerNode.bulletAccuracy) - (rnd.NextDouble() * ownerNode.bulletAccuracy));
@@ -102,6 +114,7 @@ public class GunController
         projectile.movementForce = ownerNode.bulletForce;
         projectile.timeAlive = ownerNode.bulletTimeAlive;
         projectile.type = bulletType;
+        projectile.onDestroyScenes = ownerNode.onBulletDestroyScenes;
 
         // Shoot bullet + start cooldown 
         gameController.AddChild(projectile);

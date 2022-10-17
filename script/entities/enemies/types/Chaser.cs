@@ -35,7 +35,7 @@ public class Chaser : Enemy
     {
         if (animName == "EnemyAttack")
         {
-            gun.Shoot(BulletVariations.Normal);
+            gun.Shoot();
         }
     }
 }

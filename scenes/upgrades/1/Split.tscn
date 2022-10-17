@@ -1,0 +1,71 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://script/menus/upgrades/UpgradeButton.cs" type="Script" id=1]
+[ext_resource path="res://scenes/upgrades/.BaseUpgrade.tscn" type="PackedScene" id=2]
+
+[sub_resource type="Animation" id=1]
+resource_name = "Init"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "UpgradeDeselected"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1.2, 1.2 ), Vector2( 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "UpgradeSelected"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1.2, 1.2 ) ]
+}
+
+[node name="Split" type="Position2D"]
+scale = Vector2( 1.2, 1.2 )
+script = ExtResource( 1 )
+description = "Splits your bullet on impact"
+bulletStrength = -30
+onBulletDestroyScenes = PoolStringArray( "res://scenes/misc/Bullet.tscn", "res://scenes/misc/Bullet.tscn" )
+
+[node name="Button" parent="." instance=ExtResource( 2 )]
+
+[node name="Label" parent="Button" index="1"]
+text = "Split"
+
+[node name="AnimationPlayer" parent="Button" index="2"]
+anims/Init = SubResource( 1 )
+anims/UpgradeDeselected = SubResource( 2 )
+anims/UpgradeSelected = SubResource( 3 )
+
+[editable path="Button"]

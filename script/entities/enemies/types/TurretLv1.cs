@@ -34,7 +34,7 @@ public class TurretLv1 : Enemy
 	{
 		if (animName == "EnemyAttack")
 		{
-			gun.Shoot(BulletVariations.Normal);
+			gun.Shoot();
 		}
 	}
 }

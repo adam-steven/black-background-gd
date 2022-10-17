@@ -21,7 +21,7 @@ public class BulletSpawner : Obstacle
 
     private void ShootBullet(string animName)
     {
-        gun.Shoot(BulletVariations.Normal);
+        gun.Shoot();
         EmitDeathSignal();
     }
 }

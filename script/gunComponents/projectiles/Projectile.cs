@@ -20,7 +20,7 @@ namespace Godot
 
         internal Line2D trail;
 
-        public Scenes onDestroyScenes = new Scenes();
+        public List<string> onDestroyScenes = new Scenes();
 
         public override void _Ready()
         {

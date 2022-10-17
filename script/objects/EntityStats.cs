@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Newtonsoft.Json;
 
 public class EntityStats
@@ -14,10 +15,11 @@ public class EntityStats
     [JsonProperty] public int BulletBurstAmount { get; private set; }
     [JsonProperty] public float BulletTimeAlive { get; private set; }
     [JsonProperty] public float BulletSize { get; private set; }
+    [JsonProperty] public List<string> OnBulletDestroyScenes { get; private set; }
 
     public EntityStats() {}
 
-    public EntityStats(int health, float movementForce, float shotDelay, int noOfBullets, float bulletForce, int bulletStrength, float bulletAccuracy, int bulletBurstAmount, float bulletTimeAlive, float bulletSize)
+    public EntityStats(int health, float movementForce, float shotDelay, int noOfBullets, float bulletForce, int bulletStrength, float bulletAccuracy, int bulletBurstAmount, float bulletTimeAlive, float bulletSize, List<string> onBulletDestroyScenes)
     {
         Health = health;
         MovementForce = movementForce;
@@ -29,5 +31,6 @@ public class EntityStats
         BulletBurstAmount = bulletBurstAmount;
         BulletTimeAlive = bulletTimeAlive;
         BulletSize = bulletSize;
+        OnBulletDestroyScenes = onBulletDestroyScenes ?? new List<string>();  
     }
 }

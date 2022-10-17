@@ -13,7 +13,7 @@ public class Bullet : Projectile
 	}
 
 	internal override void _RenderColour() 
-    {
+	{
 		//Damage
 		switch (type)
 		{
@@ -29,14 +29,14 @@ public class Bullet : Projectile
 				this.Modulate = colour;
 				break;
 		}
-      
+	  
 	  	if(IsInstanceValid(trail))
 		{ 
 			trail.SetAsToplevel(true);
 			trail.DefaultColor = this.Modulate;
 			trail.Width *= this.Scale.x;
 		}
-    }
+	}
 
 	internal override void _BodyEntered(object body)
 	{
