@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using static Enums;
 
 public partial class PlayerController
@@ -20,7 +21,7 @@ public partial class PlayerController
 		bulletBurstAmount = Mathc.Limit(1, stats.BulletBurstAmount, 15);
 		bulletTimeAlive = Mathc.Limit(0.05f, stats.BulletTimeAlive, 10f);
 		bulletSize = Mathc.Limit(0.5f, stats.BulletSize, 15f);
-		onBulletDestroyScenes = stats.OnBulletDestroyScenes;
+		onBulletDestroyScenes = new List<string> (stats.OnBulletDestroyScenes.Take(10));
 
 		//Update background colour and health UI
 		this.EmitSignal("_update_health_ui", health, healthUpgrade);
@@ -40,9 +41,8 @@ public partial class PlayerController
             bulletBurstAmount + addStats.BulletBurstAmount,
             bulletTimeAlive + addStats.BulletTimeAlive,
             bulletSize + addStats.BulletSize,
-			new List<string>()
+			new List<string> (onBulletDestroyScenes.Concat(addStats.OnBulletDestroyScenes))
 		);
-		stats.OnBulletDestroyScenes.AddRange(addStats.OnBulletDestroyScenes);
 		
         SetStats(stats, (addStats.Health > 0));
 	}
