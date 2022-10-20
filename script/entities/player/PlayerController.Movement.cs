@@ -4,8 +4,8 @@ using System.Threading.Tasks;
 
 public partial class PlayerController
 {
-    [Export] private int maxBlockCounter = 3;
-    private int blockCounter = 3;
+    [Export] private int maxBlockCounter = 5;
+    private int blockCounter = 5;
     private bool inBlockReGen = false;
 
     private void MouseRotation()
@@ -14,7 +14,7 @@ public partial class PlayerController
     }
 
     //When player collides with *any rigi-body bounce
-    private void _OnPlayerBodyEntered(Node body)
+    private void BodyEntered(Node2D body)
     {
         //Collided rigid-body stats  
         Godot.Sprite hitBodySprint = body.GetNode<Godot.Sprite>("Sprite");

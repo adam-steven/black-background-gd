@@ -1,8 +1,9 @@
+using System.Collections.Generic;
 using static Enums;
 
 namespace Godot
 {
-    public class Entities : RigidBody2D
+    public class Entity : RigidBody2D
     {
         public BulletOwner entityType;
         
@@ -17,6 +18,7 @@ namespace Godot
         public GunController gun;
         public Color bulletColour = Color.Color8(251, 255, 255);
 
+        [Export] public string defaultBulletPath = "res://scenes/misc/Bullet.tscn";
         [Export] public float shotDelay = 1;
         [Export] public int noOfBullets = 1; //Number of bullets fired at once (Shotgun effect)
         [Export] public float bulletForce = 3000; //Bullet's speed
@@ -25,7 +27,7 @@ namespace Godot
         [Export] public int bulletBurstAmount = 1; //Number of bullets fired in quick succession (fixed delay interval)
         [Export] public float bulletTimeAlive = 0.25f; //Bullet Range (>0 = 0.05f)
         [Export] public float bulletSize = 1.5f; //Modifies the size of the bullet sprite
-
+        [Export] public List<string> onBulletDestroyScenes = new List<string>(); //Scenes to spawn in a random direction after the bullet is destroyed 
         #endregion
 
         #region Signals
@@ -43,7 +45,7 @@ namespace Godot
 
         #region Public Methods 
 
-        public virtual void _TakeDamage(BulletController strikingBullet) { }
+        public virtual void _TakeDamage(Projectile strikingBullet) { }
 
         public virtual void _UpdateHealth(int addend) { }
 

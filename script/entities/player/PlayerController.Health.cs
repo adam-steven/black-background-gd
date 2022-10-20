@@ -10,7 +10,7 @@ public partial class PlayerController
     [Export] private bool invincible = false;
 
     //Called by the bullet script to take damage / die
-    public override void _TakeDamage(BulletController strikingBullet)
+    public override void _TakeDamage(Projectile strikingBullet)
     {
         //Indicate that no damage was taken + health gained 
         if (invincible)
@@ -36,7 +36,7 @@ public partial class PlayerController
         DeductHealth(strikingBullet);
     }
 
-    private void DeductHealth(BulletController strikingBullet)
+    private void DeductHealth(Projectile strikingBullet)
     {
         if (health <= 0) return;
 
@@ -61,7 +61,7 @@ public partial class PlayerController
         }
     }
 
-    private void GainHealth(BulletController strikingBullet, Color backgroundColour, string flashText = null)
+    private void GainHealth(Projectile strikingBullet, Color backgroundColour, string flashText = null)
     {
         _UpdateHealth((int)Math.Round(strikingBullet.strength / 1.5f));
         this.EmitSignal("_update_score", pointsOnBlock);

@@ -4,7 +4,7 @@ using static Enums;
 
 namespace Godot
 {
-    public class Enemies : Obstacles
+    public class Enemy : Obstacle
     {
         [Export] private int pointsOnKill = 100;
         [Export] private int healthOnCrit = 20; //Also handles points
@@ -58,7 +58,7 @@ namespace Godot
         #region Death handling
 
         //Called by the bullet script to take damage / die
-        public override void _TakeDamage(BulletController strikingBullet)
+        public override void _TakeDamage(Projectile strikingBullet)
         {
             if (!_IsActive()) { return; }
             _UpdateHealth(-strikingBullet.strength);
@@ -84,7 +84,7 @@ namespace Godot
             }
         }
 
-        private void WeakPointHit(BulletController strikingBullet)
+        private void WeakPointHit(Projectile strikingBullet)
         {
             if (!_IsActive()) { return; }
             _UpdateHealth(-strikingBullet.strength * 2);

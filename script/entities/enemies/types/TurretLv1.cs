@@ -3,7 +3,7 @@ using System;
 using System.Threading.Tasks;
 using static Enums;
 
-public class TurretLv1 : Enemies
+public class TurretLv1 : Enemy
 {
 	internal override void _EntityReady()
 	{
@@ -34,7 +34,7 @@ public class TurretLv1 : Enemies
 	{
 		if (animName == "EnemyAttack")
 		{
-			gun.Shoot(BulletVariations.Normal);
+			gun.Shoot();
 		}
 	}
 }

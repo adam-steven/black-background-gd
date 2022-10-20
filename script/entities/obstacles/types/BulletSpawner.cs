@@ -2,7 +2,7 @@ using System;
 using Godot;
 using static Enums;
 
-public class BulletSpawner : Obstacles
+public class BulletSpawner : Obstacle
 {
     Random rnd = new Random();
 
@@ -21,7 +21,7 @@ public class BulletSpawner : Obstacles
 
     private void ShootBullet(string animName)
     {
-        gun.Shoot(BulletVariations.Normal);
+        gun.Shoot();
         EmitDeathSignal();
     }
 }

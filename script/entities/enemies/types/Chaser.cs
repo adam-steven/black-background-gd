@@ -3,7 +3,7 @@ using System;
 using System.Threading.Tasks;
 using static Enums;
 
-public class Chaser : Enemies
+public class Chaser : Enemy
 {
     internal override void _EntityReady()
     {
@@ -35,7 +35,7 @@ public class Chaser : Enemies
     {
         if (animName == "EnemyAttack")
         {
-            gun.Shoot(BulletVariations.Normal);
+            gun.Shoot();
         }
     }
 }

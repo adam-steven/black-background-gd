@@ -4,7 +4,7 @@ using static Enums;
 
 //Player movement and firing
 //Player acts as a bullet, movement done via impulse forces
-public partial class PlayerController : Entities
+public partial class PlayerController : Entity
 {
 	[Signal] internal delegate void _update_health_ui(int health, bool healthIncrease);
 	[Signal] internal delegate void _player_left_camera();
@@ -18,10 +18,10 @@ public partial class PlayerController : Entities
 		sprite = this.GetNode<Godot.Sprite>("Sprite");
 		gun = new GunController(this, sprite, GetTree());
 
-		this.Connect("body_entered", this, "_OnPlayerBodyEntered");
+		this.Connect("body_entered", this, "BodyEntered");
 
 		VisibilityNotifier2D vis = this.GetNode<VisibilityNotifier2D>("VisibilityNotifier2D");
-		vis.Connect("screen_exited", this, "_OnScreenExited");
+		vis.Connect("screen_exited", this, "ScreenExited");
 
 		//ReSet the health UI, background colour, and block indicator
 		_UpdateHealth(0);
@@ -50,7 +50,7 @@ public partial class PlayerController : Entities
 		return IsInstanceValid(sprite); 
 	}
 
-	private void _OnScreenExited()
+	private void ScreenExited()
 	{
 		this.EmitSignal("_player_left_camera");
 	}

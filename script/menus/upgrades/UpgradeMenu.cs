@@ -1,7 +1,6 @@
 using Godot;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using static Enums;
 
 public class UpgradeMenu : Control
@@ -123,24 +122,16 @@ public class UpgradeMenu : Control
     //     var y0 = 540;
     //     var r = 300;
 
-    //     PlaceTestingDot(new Vector2(x0, y0));
+    //     TestingDots.PlaceCenterDot(GetTree());
 
     //     for(var i = 0; i < items; i++) {
     //         var x = x0 + r * Math.Cos((2 * Math.PI * i / items) - (Math.PI/2)); 
     //         var y = y0 + r * Math.Sin((2 * Math.PI * i / items) - (Math.PI/2));
     //         var point = new Vector2((float)x, (float)y);
             
-    //         GD.Print(point);
-    //         PlaceTestingDot(point);
+    //         TestingDots.PlaceTestingDot(GetTree(), point);
     //     }
     // }
-
-    // private void PlaceTestingDot(Vector2 tDotPos) {
-	// 	PackedScene testingDot = (PackedScene)GD.Load("res://scenes/testing/TestingDot.tscn");
-	// 	Godot.Sprite tDot = (Godot.Sprite)testingDot.Instance();
-	// 	tDot.GlobalPosition = tDotPos;
-	// 	this.AddChild(tDot);
-	// }
 
     #endregion
 }

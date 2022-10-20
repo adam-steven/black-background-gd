@@ -1,14 +1,16 @@
 using Godot;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using static Enums;
 
 public partial class PlayerController
 {
     public EntityStats GetStats() {
-		return new EntityStats(health, movementForce, shotDelay, noOfBullets, bulletForce, bulletStrength, bulletAccuracy, bulletBurstAmount, bulletTimeAlive, bulletSize);
+		return new EntityStats(health, movementForce, shotDelay, noOfBullets, bulletForce, bulletStrength, bulletAccuracy, bulletBurstAmount, bulletTimeAlive, bulletSize, onBulletDestroyScenes);
 	}
 
-    public void SetStats(EntityStats stats) {
+    public void SetStats(EntityStats stats, bool healthUpgrade = false) {
 		health = Mathc.Limit(0, stats.Health, 1000);
 		movementForce = Mathc.Limit(100f, stats.MovementForce, 5000f);
 		shotDelay = Mathc.Limit(0.1f, stats.ShotDelay, 10f);
@@ -19,9 +21,10 @@ public partial class PlayerController
 		bulletBurstAmount = Mathc.Limit(1, stats.BulletBurstAmount, 15);
 		bulletTimeAlive = Mathc.Limit(0.05f, stats.BulletTimeAlive, 10f);
 		bulletSize = Mathc.Limit(0.5f, stats.BulletSize, 15f);
+		onBulletDestroyScenes = new List<string> (stats.OnBulletDestroyScenes.Take(10));
 
 		//Update background colour and health UI
-		this.EmitSignal("_update_health_ui", health, (stats.Health > 0));
+		this.EmitSignal("_update_health_ui", health, healthUpgrade);
 		Colour.UpdateBackgroundColour(health);
 	}
 
@@ -37,10 +40,11 @@ public partial class PlayerController
             bulletAccuracy + addStats.BulletAccuracy,
             bulletBurstAmount + addStats.BulletBurstAmount,
             bulletTimeAlive + addStats.BulletTimeAlive,
-            bulletSize + addStats.BulletSize
-        );
+            bulletSize + addStats.BulletSize,
+			new List<string> (onBulletDestroyScenes.Concat(addStats.OnBulletDestroyScenes))
+		);
 		
-        SetStats(stats);
+        SetStats(stats, (addStats.Health > 0));
 	}
 
 

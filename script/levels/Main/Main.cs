@@ -106,8 +106,8 @@ public partial class Main : Levels
 		GdArray children = this.GetChildren();
 
 		foreach (var child in children)
-			if (child.GetType() == typeof(BulletController))
-				((BulletController)child).QueueFree();
+			if (child.GetType() == typeof(Bullet))
+				((Bullet)child).QueueFree();
 	}
 
 	private void ReframePlayer()
@@ -120,30 +120,4 @@ public partial class Main : Levels
 	}
 
 	#endregion
-
-	#region Testing Functions
-
-	// private void PlaceTestingDot(Vector2 tDotPos) {
-	// 	PackedScene testingDot = (PackedScene)GD.Load("res://scenes/TestingDot.tscn");
-	// 	Godot.Sprite tDot = (Godot.Sprite)testingDot.Instance();
-	// 	tDot.GlobalPosition = tDotPos;
-	// 	this.AddChild(tDot);
-	// }
-
-	// private int currentColour = -1;
-	// private string colourName;
-	// private void RunThoughColours() {
-	//     currentColour++;
-
-	//     var values = Enum.GetValues(typeof(Enums.Colour));
-	//     colourName = values.GetValue(currentColour).ToString();
-
-	//     enemyColour = Color.ColorN(colourName);
-	//     levelNode.Modulate = enemyColour;
-
-	// 	GD.Print(colourName);
-	// }
-
-	#endregion
-
 }

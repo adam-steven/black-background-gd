@@ -1,7 +1,7 @@
 using Godot;
 using static Enums;
 
-public class WeakPoint : Entities
+public class WeakPoint : Entity
 {
     [Signal] internal delegate void _hit();
 
@@ -15,7 +15,7 @@ public class WeakPoint : Entities
         particles.GlobalPosition = parent.GlobalPosition;
     }
 
-    public override void _TakeDamage(BulletController strikingBullet)
+    public override void _TakeDamage(Projectile strikingBullet)
     {
         this.EmitSignal("_hit", strikingBullet);
     }
