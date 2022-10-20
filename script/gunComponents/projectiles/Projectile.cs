@@ -42,7 +42,7 @@ namespace Godot
 
         internal virtual void _DestroySelf() 
         {
-            _SpawnOnDestroy();
+            this.CallDeferred("_SpawnOnDestroy");
             this.QueueFree(); 
         }
 
