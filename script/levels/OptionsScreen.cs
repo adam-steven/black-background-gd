@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public class OptionsScreen : Levels
+public class OptionsScreen : Level
 {
 	private OptionsObj optionsData = new OptionsObj();
 

@@ -53,7 +53,7 @@ public partial class Scene : Node2D
 
 	private void HandelSceneDataPass(Node2D newScene, System.Object data = null)
 	{
-		Levels newSceneLevel = (Levels)newScene;
+		Level newSceneLevel = (Level)newScene;
 
 		newSceneLevel.mainCamera = mainCamera;
 		newSceneLevel.obstaclesSections = obstaclesSections;
