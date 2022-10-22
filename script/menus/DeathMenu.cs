@@ -4,7 +4,7 @@ using static Enums;
 
 public class DeathMenu : MenuController
 {
-    internal override void _OnButtonPress(MenuButtons button)
+    internal override void _OnButtonPress(MenuBtn button)
     {
         switch (button.action)
         {
@@ -23,19 +23,19 @@ public class DeathMenu : MenuController
         }
     }
 
-    private void Replay(MenuButtons button)
+    private void Replay(MenuBtn button)
     {
         this.EmitSignal("_play_game");
         button.Disabled = true;
     }
 
-    private void MainMenu(MenuButtons button)
+    private void MainMenu(MenuBtn button)
     {
         this.EmitSignal("_main_menu");
         button.Disabled = true;
     }
 
-    private void Leaderboard(MenuButtons button)
+    private void Leaderboard(MenuBtn button)
     {
         this.EmitSignal("_leaderboard");
         button.Disabled = true;

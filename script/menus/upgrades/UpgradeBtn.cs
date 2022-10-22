@@ -2,7 +2,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-public class UpgradeButton : Position2D
+public class UpgradeBtn : Position2D
 {
 	[Export] private string description = "";
 
@@ -20,7 +20,7 @@ public class UpgradeButton : Position2D
 
 	[Export] public bool endUpgrading = false;
 
-	[Signal] public delegate void _on_pressed(MenuButtons button);
+	[Signal] public delegate void _on_pressed(MenuBtn button);
 	[Signal] public delegate void _update_upgrade_ui(string value);
 
 	public PlayerController player;

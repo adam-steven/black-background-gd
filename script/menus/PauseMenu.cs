@@ -30,7 +30,7 @@ public class PauseMenu : MenuController
 
 	#endregion
 
-	internal override void _OnButtonPress(MenuButtons button)
+	internal override void _OnButtonPress(MenuBtn button)
 	{
 		TogglePause(false);
 
@@ -54,19 +54,19 @@ public class PauseMenu : MenuController
 		}
 	}
 
-	private void Play(MenuButtons button)
+	private void Play(MenuBtn button)
 	{
 		this.EmitSignal("_play_game");
 		button.Disabled = true;
 	}
 
-	private void MainMenu(MenuButtons button)
+	private void MainMenu(MenuBtn button)
 	{
 		this.EmitSignal("_main_menu");
 		button.Disabled = true;
 	}
 
-	private void Options(MenuButtons button)
+	private void Options(MenuBtn button)
 	{
 		this.EmitSignal("_options");
 		button.Disabled = true;

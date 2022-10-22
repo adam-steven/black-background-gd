@@ -55,6 +55,7 @@ public partial class Main
 				break;
 			default:
 				GD.Print("Call SpawnUpgrades");
+                UpdateMultiplier(true);
 				SpawnUpgrades();
 				break;
 		}
@@ -89,7 +90,6 @@ public partial class Main
 
         UpdateScenes(mainData.Stage.Level);
         IncreaseEnemySpawn();
-        UpdateMultiplier(true);
     }
 
     //Displays how far along the stage the player is in the progress bar

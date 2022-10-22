@@ -5,12 +5,12 @@ using System.Threading.Tasks;
 public class OptionsMenu : MenuController
 {
     [Signal] internal delegate void _toggle_key_pick_overlay(bool visiable);
-    [Signal] internal delegate void _set_bool_setting(MenuButtons button, bool value);
-    [Signal] internal delegate void _set_string_setting(MenuButtons button, string value);
+    [Signal] internal delegate void _set_bool_setting(MenuBtn button, bool value);
+    [Signal] internal delegate void _set_string_setting(MenuBtn button, string value);
 
-    private MenuButtons waitingButton = null;
+    private MenuBtn waitingButton = null;
 
-    internal override void _OnButtonPress(MenuButtons button)
+    internal override void _OnButtonPress(MenuBtn button)
     {
         switch (button.action)
         {
@@ -53,19 +53,19 @@ public class OptionsMenu : MenuController
         }
     }
 
-    private void Return(MenuButtons button)
+    private void Return(MenuBtn button)
     {
         this.EmitSignal("_main_menu");
         button.Disabled = true;
     }
 
-    private void SaveToggle(MenuButtons button)
+    private void SaveToggle(MenuBtn button)
     {
         this.EmitSignal("_set_bool_setting", button, button.Pressed);
     }
 
     //Displays a blocking overlay for allowing the user to select a key
-    private void HandelKeyChange(MenuButtons button)
+    private void HandelKeyChange(MenuBtn button)
     {
         this.EmitSignal("_toggle_key_pick_overlay", true);
         waitingButton = button;

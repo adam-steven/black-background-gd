@@ -29,7 +29,7 @@ namespace Godot
 
             for (int i = 0; i < buttons.Count; i++)
             {
-                if (!buttons[i].GetType().Equals(typeof(MenuButtons))) { continue; }
+                if (!buttons[i].GetType().Equals(typeof(MenuBtn))) { continue; }
 
                 Godot.Button button = (Godot.Button)buttons[i];
                 Godot.Collections.Array pressedBtn = new Godot.Collections.Array(button);
@@ -42,8 +42,8 @@ namespace Godot
         }
 
         internal virtual void _MenuReady() { }
-        internal virtual void _OnButtonDown(MenuButtons button) { }
-        internal virtual void _OnButtonUp(MenuButtons button) { }
-        internal virtual void _OnButtonPress(MenuButtons button) { }
+        internal virtual void _OnButtonDown(MenuBtn button) { }
+        internal virtual void _OnButtonUp(MenuBtn button) { }
+        internal virtual void _OnButtonPress(MenuBtn button) { }
     }
 }

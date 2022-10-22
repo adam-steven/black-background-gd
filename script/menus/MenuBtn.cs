@@ -1,7 +1,7 @@
 using Godot;
 using static Enums;
 
-public class MenuButtons : Button
+public class MenuBtn : Button
 {
     [Export] public MenuButtonActions action;
 
