@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public class LeaderboardScreen : Levels
+public class LeaderboardScreen : Level
 {
     public override void _Ready()
     {

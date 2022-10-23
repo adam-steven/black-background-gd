@@ -12,7 +12,7 @@ public class UpgradeMenu : Control
 
     private Random rnd = new Random();
     public Vector2 levelCenter;
-    public PlayerController player;
+    public Player player;
 
     public Scenes storedUpgrades = null;
     public Scenes upgrades;
@@ -26,7 +26,7 @@ public class UpgradeMenu : Control
         bool showDesc = (bool)settings.GetValue(MenuButtonActions.UpgradeDesc.ToString(), false);
 
         //Connect exit listener
-        UpgradeButton exitBtn = this.GetNode<UpgradeButton>("Exit");
+        UpgradeBtn exitBtn = this.GetNode<UpgradeBtn>("Exit");
         exitBtn.Connect("_on_pressed", this, "_OnButtonPress");
         exitBtn.Connect("_update_upgrade_ui", this, "_UpdateUpgradeDesc");
         exitBtn.showNames = showNames;
@@ -60,11 +60,11 @@ public class UpgradeMenu : Control
     private string SpawnUpgrade(int index, Vector2 spawnPosition, bool showNames, bool showDesc) {
         string upgradePath = (storedUpgrades != null) ? storedUpgrades[index] : upgrades[rnd.Next(upgrades.Count)];
         PackedScene upgradeOptionScene = (PackedScene)GD.Load(upgradePath);
-        UpgradeButton upgradeOption = (UpgradeButton)upgradeOptionScene.Instance();
+        UpgradeBtn upgradeOption = (UpgradeBtn)upgradeOptionScene.Instance();
          
         upgradeOption.GlobalPosition = spawnPosition;
 
-        UpgradeButton upgradeOptionScript = upgradeOption;
+        UpgradeBtn upgradeOptionScript = upgradeOption;
         upgradeOptionScript.player = player;
         upgradeOptionScript.showNames = showNames;
         upgradeOptionScript.showDesc = showDesc;
@@ -76,7 +76,7 @@ public class UpgradeMenu : Control
         return upgradePath;
     }
 
-    private void _OnButtonPress(UpgradeButton button)
+    private void _OnButtonPress(UpgradeBtn button)
     {
         if (!button.endUpgrading) { DecreaseMultiplier(); }
 

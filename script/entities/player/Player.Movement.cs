@@ -2,7 +2,7 @@ using Godot;
 using System;
 using System.Threading.Tasks;
 
-public partial class PlayerController
+public partial class Player
 {
     [Export] private int maxBlockCounter = 5;
     private int blockCounter = 5;
@@ -16,6 +16,8 @@ public partial class PlayerController
     //When player collides with *any rigi-body bounce
     private void BodyEntered(Node2D body)
     {
+        Vector2 onHitVelocity = (LinearVelocity.x == 0 || LinearVelocity.y == 0) ? this.LinearVelocity : Vector2.Zero;
+
         //Collided rigid-body stats  
         Godot.Sprite hitBodySprint = body.GetNode<Godot.Sprite>("Sprite");
         Vector2 hitCenter = hitBodySprint.GlobalPosition;
@@ -29,8 +31,8 @@ public partial class PlayerController
             GetCollisionForceDirection(playerCenter.x, hitCenter.x, hitScaleHalf.x),
             GetCollisionForceDirection(playerCenter.y, hitCenter.y, hitScaleHalf.y)
         );
-
-        PushPlayer(direction);
+        
+        PushPlayer(direction, onHitVelocity);
     }
 
     //Verifies player center Axis is at the edge of a collided object same axis
@@ -52,16 +54,17 @@ public partial class PlayerController
 
     #region Movement Forces
 
-    private void PushPlayer(Vector2 thrustDirection)
+    private void PushPlayer(Vector2 thrustDirection, Vector2 addendVelocity = new Vector2())
     {
+        //oldMoveCancel - stop the player gaining/ losing speed when changing directions
+        Vector2 oldMoveCancel = Mathc.Abs(thrustDirection) * -this.LinearVelocity; 
         Vector2 thrust = thrustDirection * movementForce;
-        ApplyCentralImpulse(thrust);
+        ApplyCentralImpulse(thrust + addendVelocity + oldMoveCancel);
     }
 
     private void PushPlayer(Vector2 thrustDirection, string effectDirection)
     {
-        Vector2 thrust = thrustDirection * movementForce;
-        ApplyCentralImpulse(thrust);
+        PushPlayer(thrustDirection);
         PlayEffect(effectDirection);
     }
 

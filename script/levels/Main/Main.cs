@@ -5,7 +5,7 @@ using static Enums;
 
 
 //Main.tscn 
-public partial class Main : Levels
+public partial class Main : Level
 {
 	MainGameObj mainData = new MainGameObj(false);
 
@@ -16,7 +16,7 @@ public partial class Main : Levels
 
 	private int noOfEnemies = 0;
 
-	private PlayerController player;
+	private Player player;
 
 	private UiController uiNode;
 

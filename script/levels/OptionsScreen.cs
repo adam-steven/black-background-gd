@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public class OptionsScreen : Levels
+public class OptionsScreen : Level
 {
 	private OptionsObj optionsData = new OptionsObj();
 
@@ -39,9 +39,9 @@ public class OptionsScreen : Levels
 
 		for (int i = 0; i < buttons.Count; i++)
 		{
-			if (!buttons[i].GetType().Equals(typeof(MenuButtons))) { continue; }
+			if (!buttons[i].GetType().Equals(typeof(MenuBtn))) { continue; }
 
-			MenuButtons button = (MenuButtons)buttons[i];
+			MenuBtn button = (MenuBtn)buttons[i];
 
 			string action = button.action.ToString();
 			if (!savedSettings.ContainsKey(action)) { continue; }
@@ -99,13 +99,13 @@ public class OptionsScreen : Levels
 		keyPickOverlay.Visible = visiable;
 	}
 
-	private void SaveSettingBool(MenuButtons button, bool value)
+	private void SaveSettingBool(MenuBtn button, bool value)
 	{
 		GD.Print($"bool: {button.action.ToString()} = {value}");
 		settings.SetValue(button.action.ToString(), value);
 	}
 
-	private void SaveSettingString(MenuButtons button, string value)
+	private void SaveSettingString(MenuBtn button, string value)
 	{
 		GD.Print($"string: {button.action.ToString()} = {value}");
 		settings.SetValue(button.action.ToString(), value);

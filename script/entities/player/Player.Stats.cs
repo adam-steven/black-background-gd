@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using static Enums;
 
-public partial class PlayerController
+public partial class Player
 {
     public EntityStats GetStats() {
 		return new EntityStats(health, movementForce, shotDelay, noOfBullets, bulletForce, bulletStrength, bulletAccuracy, bulletBurstAmount, bulletTimeAlive, bulletSize, onBulletDestroyScenes);

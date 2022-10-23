@@ -2,9 +2,9 @@ using Newtonsoft.Json;
 
 namespace Godot
 {
-    public class Levels : Node2D
+    public class Level : Node2D
     {
-        public Levels() { }
+        public Level() { }
 
         internal Camera2D mainCamera;
 

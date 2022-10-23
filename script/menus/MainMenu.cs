@@ -5,7 +5,7 @@ using static Enums;
 //MainMenu.tscn 
 public class MainMenu : MenuController
 {
-	internal override void _OnButtonPress(MenuButtons button)
+	internal override void _OnButtonPress(MenuBtn button)
 	{
 		switch (button.action)
 		{
@@ -29,19 +29,19 @@ public class MainMenu : MenuController
 		this.QueueFree();
 	}
 
-	private void Play(MenuButtons button)
+	private void Play(MenuBtn button)
 	{
 		this.EmitSignal("_play_game");
 		button.Disabled = true;
 	}
 
-	private void Options(MenuButtons button)
+	private void Options(MenuBtn button)
 	{
 		this.EmitSignal("_options");
 		button.Disabled = true;
 	}
 
-	private void Leaderboard(MenuButtons button)
+	private void Leaderboard(MenuBtn button)
 	{
 		this.EmitSignal("_leaderboard");
 		button.Disabled = true;

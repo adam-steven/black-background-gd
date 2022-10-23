@@ -2,7 +2,7 @@ using Godot;
 using System;
 
 //DeathScreen.tscn 
-public class DeathScreen : Levels
+public class DeathScreen : Level
 {
     private GameOverObj deathData;
 

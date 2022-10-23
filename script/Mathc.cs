@@ -1,5 +1,6 @@
 using System.Runtime.ConstrainedExecution;
 using System.Security;
+using Godot;
 
 namespace System
 {
@@ -27,7 +28,8 @@ namespace System
         // Returns:
         //     Parameter val unchanged or val cropped to never exceed valMin or valMax.
         [ReliabilityContract(Consistency.WillNotCorruptState, Cer.Success)]
-        public static int Limit(int valMin, int val, int valMax){
+        public static int Limit(int valMin, int val, int valMax)
+        {
             return Math.Max(valMin, Math.Min(val, valMax));
         }
         //
@@ -47,7 +49,8 @@ namespace System
         // Returns:
         //     Parameter val unchanged or val cropped to never exceed valMin or valMax.
         [ReliabilityContract(Consistency.WillNotCorruptState, Cer.Success)]
-        public static decimal Limit(decimal valMin, decimal val, decimal valMax){
+        public static decimal Limit(decimal valMin, decimal val, decimal valMax)
+        {
             return Math.Max(valMin, Math.Min(val, valMax));
         }
         //
@@ -68,7 +71,8 @@ namespace System
         //     Parameter val unchanged or val cropped to never exceed valMin or valMax. If valMin, val, and/or valMax,
         //     are equal to System.Double.NaN, System.Double.NaN is returned.
         [ReliabilityContract(Consistency.WillNotCorruptState, Cer.Success)]
-        public static double Limit(double valMin, double val, double valMax){
+        public static double Limit(double valMin, double val, double valMax)
+        {
             return Math.Max(valMin, Math.Min(val, valMax));
         }
         //
@@ -89,7 +93,8 @@ namespace System
         //     Parameter val unchanged or val cropped to never exceed valMin or valMax. If valMin, val, and/or valMax,
         //     are equal to System.Single.NaN, System.Single.NaN is returned.
         [ReliabilityContract(Consistency.WillNotCorruptState, Cer.Success)]
-        public static float Limit(float valMin, float val, float valMax){
+        public static float Limit(float valMin, float val, float valMax)
+        {
             return Math.Max(valMin, Math.Min(val, valMax));
         }
         //
@@ -109,7 +114,8 @@ namespace System
         // Returns:
         //     Parameter val unchanged or val cropped to never exceed valMin or valMax.
         [ReliabilityContract(Consistency.WillNotCorruptState, Cer.Success)]
-        public static ulong Limit(ulong valMin, ulong val, ulong valMax){
+        public static ulong Limit(ulong valMin, ulong val, ulong valMax)
+        {
             return Math.Max(valMin, Math.Min(val, valMax));
         }
         //
@@ -129,7 +135,8 @@ namespace System
         // Returns:
         //     Parameter val unchanged or val cropped to never exceed valMin or valMax.
         [ReliabilityContract(Consistency.WillNotCorruptState, Cer.Success)]
-        public static long Limit(long valMin, long val, long valMax){
+        public static long Limit(long valMin, long val, long valMax)
+        {
             return Math.Max(valMin, Math.Min(val, valMax));
         }
         //
@@ -149,7 +156,8 @@ namespace System
         // Returns:
         //     Parameter val unchanged or val cropped to never exceed valMin or valMax.
         [ReliabilityContract(Consistency.WillNotCorruptState, Cer.Success)]
-        public static uint Limit(uint valMin, uint val, uint valMax){
+        public static uint Limit(uint valMin, uint val, uint valMax)
+        {
             return Math.Max(valMin, Math.Min(val, valMax));
         }
         //
@@ -169,7 +177,8 @@ namespace System
         // Returns:
         //     Parameter val unchanged or val cropped to never exceed valMin or valMax.
         [ReliabilityContract(Consistency.WillNotCorruptState, Cer.Success)]
-        public static ushort Limit(ushort valMin, ushort val, ushort valMax){
+        public static ushort Limit(ushort valMin, ushort val, ushort valMax)
+        {
             return Math.Max(valMin, Math.Min(val, valMax));
         }
         //
@@ -189,7 +198,8 @@ namespace System
         // Returns:
         //     Parameter val unchanged or val cropped to never exceed valMin or valMax.
         [ReliabilityContract(Consistency.WillNotCorruptState, Cer.Success)]
-        public static short Limit(short valMin, short val, short valMax){
+        public static short Limit(short valMin, short val, short valMax)
+        {
             return Math.Max(valMin, Math.Min(val, valMax));
         }
         //
@@ -209,7 +219,8 @@ namespace System
         // Returns:
         //     Parameter val unchanged or val cropped to never exceed valMin or valMax.
         [ReliabilityContract(Consistency.WillNotCorruptState, Cer.Success)]
-        public static sbyte Limit(sbyte valMin, sbyte val, sbyte valMax){
+        public static sbyte Limit(sbyte valMin, sbyte val, sbyte valMax)
+        {
             return Math.Max(valMin, Math.Min(val, valMax));
         }
         //
@@ -229,8 +240,29 @@ namespace System
         // Returns:
         //     Parameter val unchanged or val cropped to never exceed valMin or valMax.
         [ReliabilityContract(Consistency.WillNotCorruptState, Cer.Success)]
-        public static byte Limit(byte valMin, byte val, byte valMax){
+        public static byte Limit(byte valMin, byte val, byte valMax)
+        {
             return Math.Max(valMin, Math.Min(val, valMax));
+        }
+        //
+        // Summary:
+        //     Returns the absolute value of an Vector2.
+        //
+        // Parameters:
+        //   value:
+        //     A Vector2 that is greater than System.Double.MinValue, but less than or equal to
+        //     System.Double.MaxValue.
+        //
+        // Returns:
+        //     An Vector2, (x, y), such that 0 ≤ x ≤System.Double.MaxValue & 0 ≤ y ≤System.Double.MaxValue.
+        //
+        // Exceptions:
+        //   T:System.OverflowException:
+        //     value equals System.Double.MinValue.
+        [SecuritySafeCritical]
+        public static Vector2 Abs(Vector2 value)
+        {
+            return new Vector2(Math.Abs(value.x), Math.Abs(value.y));
         }
     }
 }

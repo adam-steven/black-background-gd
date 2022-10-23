@@ -9,9 +9,6 @@ public class Explosion : Projectile
 
     internal override void _ProjectileReady() 
     {
-		this.type = BulletVariations.Spectral;
-		this.Scale *= 1.5f;
-
 		Position2D edgeNode = this.GetNode<Position2D>("ExplosionEdge");
 		Vector2 explosionEdge = edgeNode.GlobalPosition;
 		maxLength = this.GlobalPosition.DistanceTo(explosionEdge);
@@ -22,9 +19,9 @@ public class Explosion : Projectile
 
     internal override void _RenderColour() 
     {
-        Particles2D particle = this.GetNode<Particles2D>("Particles2D");
-        ParticlesMaterial particleMaterial = (ParticlesMaterial)particle.ProcessMaterial;
-        particleMaterial.Color = colour;
+		this.type = BulletVariations.Spectral;
+		this.Modulate = colour.LinearInterpolate(Color.ColorN("white"), 0.65f) + new Godot.Color(0f, 0f, 0f, 0.15f);
+		this.Scale *= 1.5f;
     }
 
 	internal override void _BodyEntered(object body)
