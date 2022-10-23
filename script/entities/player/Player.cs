@@ -4,7 +4,7 @@ using static Enums;
 
 //Player movement and firing
 //Player acts as a bullet, movement done via impulse forces
-public partial class PlayerController : Entity
+public partial class Player : Entity
 {
 	[Signal] internal delegate void _update_health_ui(int health, bool healthIncrease);
 	[Signal] internal delegate void _player_left_camera();

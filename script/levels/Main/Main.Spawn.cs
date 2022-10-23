@@ -5,7 +5,7 @@ public partial class Main
     private void SpawnPlayer(Vector2 location, EntityStats storedStats = null)
     {
         PackedScene playerScene = (PackedScene)GD.Load("res://scenes/misc/Player.tscn");
-        player = (PlayerController)playerScene.Instance();
+        player = (Player)playerScene.Instance();
         player.GlobalPosition = location;
 
         player.Connect("_on_death", this, "EndGame");

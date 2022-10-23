@@ -12,7 +12,7 @@ public class UpgradeMenu : Control
 
     private Random rnd = new Random();
     public Vector2 levelCenter;
-    public PlayerController player;
+    public Player player;
 
     public Scenes storedUpgrades = null;
     public Scenes upgrades;

@@ -3,7 +3,7 @@ using Godot;
 using System;
 using static Enums;
 
-public partial class PlayerController
+public partial class Player
 {
     [Export] private int pointsOnBlock = 50;
 

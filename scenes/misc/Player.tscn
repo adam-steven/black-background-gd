@@ -1,7 +1,7 @@
 [gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://images/base_block.png" type="Texture" id=1]
-[ext_resource path="res://script/entities/player/PlayerController.cs" type="Script" id=2]
+[ext_resource path="res://script/entities/player/Player.cs" type="Script" id=2]
 [ext_resource path="res://images/ring_block.png" type="Texture" id=3]
 [ext_resource path="res://images/block_indicator.png" type="Texture" id=4]
 [ext_resource path="res://shaders/PlayerBlockCounter.gdshader" type="Shader" id=5]
@@ -742,6 +742,7 @@ tracks/3/keys = {
 
 [node name="Player" type="RigidBody2D"]
 position = Vector2( 960, 540 )
+scale = Vector2( 1.0046, 1.00542 )
 collision_layer = 2
 collision_mask = 13
 mode = 2
@@ -750,7 +751,6 @@ contacts_reported = 10
 contact_monitor = true
 script = ExtResource( 2 )
 shotDelay = 0.1
-onBulletDestroyScenes = PoolStringArray(  )
 
 [node name="Sprite" type="Sprite" parent="."]
 modulate = Color( 1, 1, 1, 0.501961 )

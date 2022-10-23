@@ -23,7 +23,7 @@ public class UpgradeBtn : Position2D
 	[Signal] public delegate void _on_pressed(MenuBtn button);
 	[Signal] public delegate void _update_upgrade_ui(string value);
 
-	public PlayerController player;
+	public Player player;
 	public bool showNames;
 	public bool showDesc;
 	private Godot.Button btn;

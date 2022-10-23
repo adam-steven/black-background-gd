@@ -16,7 +16,7 @@ public partial class Main : Level
 
 	private int noOfEnemies = 0;
 
-	private PlayerController player;
+	private Player player;
 
 	private UiController uiNode;
 
