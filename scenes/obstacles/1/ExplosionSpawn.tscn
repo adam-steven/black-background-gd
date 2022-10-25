@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://script/entities/obstacles/types/ExplosionSpawner.cs" type="Script" id=1]
+[ext_resource path="res://script/entities/obstacles/types/BulletSpawner.cs" type="Script" id=1]
 [ext_resource path="res://images/base_block.png" type="Texture" id=2]
 [ext_resource path="res://images/ring_block.png" type="Texture" id=3]
 
@@ -38,6 +38,7 @@ tracks/1/keys = {
 gravity_scale = 0.0
 script = ExtResource( 1 )
 defaultBulletPath = "res://scenes/misc/Explosion.tscn"
+facePlayer = false
 
 [node name="Sprite" type="Sprite" parent="."]
 scale = Vector2( 0.4, 0.4 )
