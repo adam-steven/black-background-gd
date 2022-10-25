@@ -92,6 +92,9 @@ namespace Godot
             CritHitFlashAsync();
             this.EmitSignal("_update_player_heath", healthOnCrit);
             this.EmitSignal("_update_score", healthOnCrit);
+
+            //Drop health on kill on repeated strike
+            healthOnCrit = (int)Math.Round(healthOnCrit / 1.25f);
         }
 
         private async void CritHitFlashAsync()
