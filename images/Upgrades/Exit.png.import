@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/ring_block.png-bf4978c1bb8e7d27a55ac62158c27cef.stex"
+path="res://.import/Exit.png-9d47a815eb77ebe6ba3cf0cef12d58c2.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/ring_block.png"
-dest_files=[ "res://.import/ring_block.png-bf4978c1bb8e7d27a55ac62158c27cef.stex" ]
+source_file="res://images/Upgrades/Exit.png"
+dest_files=[ "res://.import/Exit.png-9d47a815eb77ebe6ba3cf0cef12d58c2.stex" ]
 
 [params]
 

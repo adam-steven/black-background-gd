@@ -9,7 +9,6 @@
 [ext_resource path="res://script/menus/OptionsMenu.cs" type="Script" id=7]
 [ext_resource path="res://fonts/Teko-SemiBold-75.tres" type="DynamicFont" id=8]
 
-
 [sub_resource type="Animation" id=1]
 resource_name = "MenuBtnDeselected"
 length = 0.2

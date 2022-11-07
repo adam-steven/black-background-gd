@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/ring_block.png-bf4978c1bb8e7d27a55ac62158c27cef.stex"
+path="res://.import/Exit.png-be7a32d636e67e23c4d369f15eefbabc.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/ring_block.png"
-dest_files=[ "res://.import/ring_block.png-bf4978c1bb8e7d27a55ac62158c27cef.stex" ]
+source_file="res://images/Exit.png"
+dest_files=[ "res://.import/Exit.png-be7a32d636e67e23c4d369f15eefbabc.stex" ]
 
 [params]
 
@@ -20,7 +20,7 @@ compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=false
+flags/filter=true
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2
