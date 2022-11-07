@@ -142,6 +142,9 @@ public partial class Main
 	{
 		if (mainData.Stage.Level % 2 == 0) { mainData.EnemySpawnMax++; }
 		else { mainData.EnemySpawnMin++; }
+
+        //every X levels increase spawn diversity
+        if (mainData.Stage.Level % 3 == 0 && mainData.EnemySpawnDiversity < 3) { mainData.EnemySpawnDiversity++; }
 	}
 
     #endregion
