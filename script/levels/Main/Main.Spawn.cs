@@ -107,7 +107,7 @@ public partial class Main
     Scenes GenerateEntityPaths(Scenes entityList, int maxAddend) {
         Scenes pathList = new Scenes();
         int rndSpawnNum = rnd.Next(mainData.EnemySpawnMin, mainData.EnemySpawnMax + maxAddend);
-        Scenes croppedEntityList = new Scenes(entityList.OrderBy(x => rnd.Next()).Take(1)); //Limit list to max 3 unique scenes
+        Scenes croppedEntityList = new Scenes(entityList.OrderBy(x => rnd.Next()).Take(mainData.EnemySpawnDiversity)); //Limit list to max 3 unique scenes
 
         for (int i = 0; i < rndSpawnNum; i++) 
         { 

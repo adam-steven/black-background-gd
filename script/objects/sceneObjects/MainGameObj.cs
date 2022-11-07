@@ -16,6 +16,7 @@ public class MainGameObj
     public Scenes StoredUpgrades { get; set; }
     public Scenes StoredEnemies { get; set; }
 
+    public int EnemySpawnDiversity { get; set; }
     public int EnemySpawnMin { get; set; }
 	public int EnemySpawnMax { get; set; }
 
@@ -30,6 +31,7 @@ public class MainGameObj
         this.PlayerStats = null;
         this.StoredUpgrades = null;
         this.StoredEnemies = null;
+        this.EnemySpawnDiversity = 1;
         this.EnemySpawnMin = 1;
 	    this.EnemySpawnMax = 2;
     }
