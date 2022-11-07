@@ -7,8 +7,11 @@ uniform float BarWidth = 1;
 
 void fragment() 
 {
-	vec4 textureSum;	
+	vec4 textureSum = texture(Texture, UV);	
 	float lowestSegment = BarWidth / float(Segments + 1);
+
+	//Init texture clear
+	textureSum.a = 0.0;
 	
 	for (int i = 0; i < Segments; i++) {
 		float xPos = (lowestSegment * float(i + 1));
