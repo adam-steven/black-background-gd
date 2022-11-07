@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using Godot;
 
 public partial class Main
@@ -105,10 +107,11 @@ public partial class Main
     Scenes GenerateEntityPaths(Scenes entityList, int maxAddend) {
         Scenes pathList = new Scenes();
         int rndSpawnNum = rnd.Next(mainData.EnemySpawnMin, mainData.EnemySpawnMax + maxAddend);
+        Scenes croppedEntityList = new Scenes(entityList.OrderBy(x => rnd.Next()).Take(mainData.EnemySpawnDiversity)); //Limit list to max 3 unique scenes
 
         for (int i = 0; i < rndSpawnNum; i++) 
         { 
-            pathList.Add(entityList[rnd.Next(entityList.Count)]); 
+            pathList.Add(croppedEntityList[rnd.Next(croppedEntityList.Count)]); 
         }
 
         return pathList;
@@ -139,6 +142,9 @@ public partial class Main
 	{
 		if (mainData.Stage.Level % 2 == 0) { mainData.EnemySpawnMax++; }
 		else { mainData.EnemySpawnMin++; }
+
+        //every X levels increase spawn diversity
+        if (mainData.Stage.Level % 3 == 0 && mainData.EnemySpawnDiversity < 3) { mainData.EnemySpawnDiversity++; }
 	}
 
     #endregion

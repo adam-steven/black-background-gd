@@ -37,7 +37,7 @@ public partial class Main
 		mainData.StoredEnemies = spawnedEnemies;
 	}
 
-		private void ClearSpawnedEnemies() 
+	private void ClearSpawnedEnemies() 
 	{
 		mainData.StoredEnemies = null;
 	}
