@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Exit.png-be7a32d636e67e23c4d369f15eefbabc.stex"
+path="res://.import/health.png-4ffcde2feb597b11f16fdcfceeac2057.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/Exit.png"
-dest_files=[ "res://.import/Exit.png-be7a32d636e67e23c4d369f15eefbabc.stex" ]
+source_file="res://images/Upgrades/health.png"
+dest_files=[ "res://.import/health.png-4ffcde2feb597b11f16fdcfceeac2057.stex" ]
 
 [params]
 
@@ -20,7 +20,7 @@ compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=true
+flags/filter=false
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2
