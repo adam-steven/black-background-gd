@@ -8,7 +8,6 @@
 scale = Vector2( 1.2, 1.2 )
 script = ExtResource( 2 )
 description = "+40 health for a small amout of speed"
-health = 40
 movementForce = -100.0
 
 [node name="Button" parent="." instance=ExtResource( 1 )]
