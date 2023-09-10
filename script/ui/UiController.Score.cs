@@ -29,20 +29,20 @@ public partial class UiController
 
 	public void FlashPoints(int value)
 	{
-		if (pointIndicatorUi == null) { return; }
+		if (pointIndicatorUi is null) { return; }
 		pointIndicatorUi.Text = (value >= 0) ? $"+{value}" : value.ToString();
 		pointIndicatorAnim.Play("PointsIndicatorAppear");
 	}
 
 	public void UpdateScoreUi(long value)
 	{
-		if (scoreUi == null) { return; }
+		if (scoreUi is null) { return; }
 		scoreUi.Text = value.ToString("D6");
 	}
 
 	public void UpdateMultiplierUi(int value)
 	{
-		if (multiplierUi == null) { return; }
+		if (multiplierUi is null) { return; }
 		multiplierAnim.Connect("animation_finished", this, "MultiplierUiIdleAnim", null, (uint)Godot.Object.ConnectFlags.Oneshot);
 		multiplierAnim.Play("multiplierChange");
 		multiplierUi.Text = $"x{value}";

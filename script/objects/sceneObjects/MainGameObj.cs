@@ -1,5 +1,4 @@
 //Object for Main.tscn data in 
-
 public class MainGameObj
 {
     public bool InGame { get; set; } //true: auto play game, false: show main menu
@@ -11,7 +10,7 @@ public class MainGameObj
     public Score Score { get; set; }
     public Stage Stage { get; set; }
 
-    public EntityStats PlayerStats { get; set; }
+    public EntityStats? PlayerStats { get; set; }
 
     public Scenes StoredUpgrades { get; set; }
     public Scenes StoredEnemies { get; set; }

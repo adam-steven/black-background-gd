@@ -22,7 +22,7 @@ public class MultiBulletSpawner : Obstacle
 			guns.Add(gun);
 		}
 
-		float spawnSpeedModifier = shotDelay / rnd.Next(1, 3);
+		float spawnSpeedModifier = ShotDelay / rnd.Next(1, 3);
 		anim.PlaybackSpeed = spawnSpeedModifier;
 		anim.Connect("animation_finished", this, "ShootBullet");
 	}

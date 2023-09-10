@@ -1,35 +1,35 @@
-using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using System.Linq;
 
-public class EntityStats : IStats
+public struct EntityStats : IStats
 {
-    [JsonProperty] public int Health { get; private set; }
-    [JsonProperty] public float MovementForce { get; private set; }
+    [JsonProperty] public int Health { get; set; }
+    [JsonProperty] public float MovementForce { get; set; }
+    [JsonProperty] public float ShotDelay { get; set; }
+    [JsonProperty] public int NoOfBullets { get; set; }
+    [JsonProperty] public float BulletForce { get; set; }
+    [JsonProperty] public int BulletStrength { get; set; }
+    [JsonProperty] public float BulletAccuracy { get; set; }
+    [JsonProperty] public int BulletBurstAmount { get; set; }
+    [JsonProperty] public float BulletTimeAlive { get; set; }
+    [JsonProperty] public float BulletSize { get; set; }
+    [JsonProperty] public List<string> OnBulletDestroyScenes { get; set; }
 
-    [JsonProperty] public float ShotDelay { get; private set; }
-    [JsonProperty] public int NoOfBullets { get; private set; }
-    [JsonProperty] public float BulletForce { get; private set; }
-    [JsonProperty] public int BulletStrength { get; private set; }
-    [JsonProperty] public float BulletAccuracy { get; private set; }
-    [JsonProperty] public int BulletBurstAmount { get; private set; }
-    [JsonProperty] public float BulletTimeAlive { get; private set; }
-    [JsonProperty] public float BulletSize { get; private set; }
-    [JsonProperty] public List<string> OnBulletDestroyScenes { get; private set; }
-
-    [JsonProperty] public int health { get; set; }
-	[JsonProperty] public float movementForce { get; set; }
-	[JsonProperty]public float shotDelay { get; set; }
-	[JsonProperty] public int noOfBullets { get; set; }
-	[JsonProperty] public float bulletForce { get; set; }
-	[JsonProperty] public int bulletStrength { get; set; }
-	[JsonProperty] public float bulletAccuracy { get; set; }
-	[JsonProperty] public int bulletBurstAmount { get; set; }
-	[JsonProperty] public float bulletTimeAlive { get; set; }
-	[JsonProperty] public float bulletSize { get; set; }
-	[JsonProperty] public List<string> onBulletDestroyScenes { get; set; }
-
-    public EntityStats() {}
+    public EntityStats(IStats stats)
+    {
+        Health = stats.Health;
+        MovementForce = stats.MovementForce;
+        ShotDelay = stats.ShotDelay;
+        NoOfBullets = stats.NoOfBullets;
+        BulletForce = stats.BulletForce;
+        BulletStrength = stats.BulletStrength;
+        BulletAccuracy = stats.BulletAccuracy;
+        BulletBurstAmount = stats.BulletBurstAmount;
+        BulletTimeAlive = stats.BulletTimeAlive;
+        BulletSize = stats.BulletSize;
+        OnBulletDestroyScenes = stats.OnBulletDestroyScenes ?? new List<string>();  
+    }
 
     public EntityStats(int health, float movementForce, float shotDelay, int noOfBullets, float bulletForce, int bulletStrength, float bulletAccuracy, int bulletBurstAmount, float bulletTimeAlive, float bulletSize, List<string> onBulletDestroyScenes)
     {
@@ -44,5 +44,22 @@ public class EntityStats : IStats
         BulletTimeAlive = bulletTimeAlive;
         BulletSize = bulletSize;
         OnBulletDestroyScenes = onBulletDestroyScenes ?? new List<string>();  
+    }
+
+    public EntityStats Add(EntityStats item)
+    {
+        return new EntityStats(
+            Health + item.Health,
+            MovementForce + item.MovementForce,
+            ShotDelay + item.ShotDelay,
+            NoOfBullets + item.NoOfBullets,
+            BulletForce + item.BulletForce,
+            BulletStrength + item.BulletStrength,
+            BulletAccuracy + item.BulletAccuracy,
+            BulletBurstAmount + item.BulletBurstAmount,
+            BulletTimeAlive + item.BulletTimeAlive,
+            BulletSize + item.BulletSize,
+			new List<string> (OnBulletDestroyScenes.Concat(item.OnBulletDestroyScenes))
+		);
     }
 }

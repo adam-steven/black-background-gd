@@ -29,7 +29,7 @@ public class DeathScreen : Level
 
     public override void _Process(float delta)
     {
-        if (deathData == null) { return; }
+        if (deathData is null) { return; }
         if (scoreUiVal >= scoreAbs) { return; }
         UpdateScoreUi(delta);
     }
@@ -50,7 +50,7 @@ public class DeathScreen : Level
 
     public override void _LoadLevelParameters(System.Object sceneData)
     {
-        deathData = (sceneData != null) ? (GameOverObj)sceneData : new GameOverObj(0, 0);
+        deathData = (sceneData is not null) ? (GameOverObj)sceneData : new GameOverObj(0, 0);
         scoreAbs = Math.Abs(deathData.Score);
         tickAmount = Math.Max((scoreAbs / scoreNoOfTicks), 1);
         

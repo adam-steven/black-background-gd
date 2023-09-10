@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/fast_forward.png-5d457712c5a61bc0706bea5339e91fa0.stex"
+path="res://.import/fast_forward.png-22e1396423d36b47e59eaf124ac77cfe.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/fast_forward.png"
-dest_files=[ "res://.import/fast_forward.png-5d457712c5a61bc0706bea5339e91fa0.stex" ]
+source_file="res://images/Upgrades/fast_forward.png"
+dest_files=[ "res://.import/fast_forward.png-22e1396423d36b47e59eaf124ac77cfe.stex" ]
 
 [params]
 

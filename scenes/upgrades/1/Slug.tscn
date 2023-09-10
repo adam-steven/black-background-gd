@@ -7,11 +7,11 @@
 [node name="Slug" type="Position2D"]
 scale = Vector2( 1.2, 1.2 )
 script = ExtResource( 2 )
+ShotDelay = 0.05
+NoOfBullets = -1
+BulletStrength = 12
+BulletSize = 0.35
 description = "-1 bullet for heavier shots "
-shotDelay = 0.05
-noOfBullets = -1
-bulletStrength = 12
-bulletSize = 0.35
 
 [node name="Button" parent="." instance=ExtResource( 1 )]
 

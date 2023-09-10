@@ -38,7 +38,7 @@ public partial class Player
 
     private void DeductHealth(Projectile strikingBullet)
     {
-        if (health <= 0) return;
+        if (Health <= 0) return;
 
         //Decrease health
         _UpdateHealth(-strikingBullet.strength);
@@ -50,7 +50,7 @@ public partial class Player
         this.EmitSignal("_break_score_update");
 
         //Kill player if health is 0
-        if (health <= 0)
+        if (Health <= 0)
         {
             SetPhysicsProcess(false);
 
@@ -73,16 +73,16 @@ public partial class Player
     private void BlockEffect(Color backgroundColour, string flashText = null)
     {
         //Flash text
-        if (flashText != null) { this.EmitSignal("_section_text", flashText, true); }
+        if (flashText is not null) { this.EmitSignal("_section_text", flashText, true); }
 
         //Flash colour + freeze frame
-        Colour.FlashBackgroundColourAsync(backgroundColour, GetTree(), health);
+        Colour.FlashBackgroundColourAsync(backgroundColour, GetTree(), Health);
     }
 
     public override void _UpdateHealth(int addend)
     {
-        health = Mathc.Limit(0, health + addend, 1000);
-        this.EmitSignal("_update_health_ui", health, (addend > 0));
-        Colour.UpdateBackgroundColour(health);
+        Health = Mathc.Limit(0, Health + addend, 1000);
+        this.EmitSignal("_update_health_ui", Health, (addend > 0));
+        Colour.UpdateBackgroundColour(Health);
     }
 }

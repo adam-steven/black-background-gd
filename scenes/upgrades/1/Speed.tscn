@@ -2,14 +2,14 @@
 
 [ext_resource path="res://scenes/upgrades/.BaseUpgrade.tscn" type="PackedScene" id=1]
 [ext_resource path="res://script/menus/upgrades/UpgradeBtn.cs" type="Script" id=2]
-[ext_resource path="res://images/fast_forward.png" type="Texture" id=3]
+[ext_resource path="res://images/Upgrades/fast_forward.png" type="Texture" id=3]
 
 [node name="Speed" type="Position2D"]
 scale = Vector2( 1.2, 1.2 )
 script = ExtResource( 2 )
+MovementForce = 400.0
+BulletForce = -400.0
 description = "Take some speed from your bullets"
-movementForce = 400.0
-bulletForce = -400.0
 
 [node name="Button" parent="." instance=ExtResource( 1 )]
 

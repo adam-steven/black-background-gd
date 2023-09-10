@@ -7,11 +7,11 @@
 [node name="Sniper" type="Position2D"]
 scale = Vector2( 1.2, 1.2 )
 script = ExtResource( 2 )
+ShotDelay = 0.2
+BulletForce = 200.0
+BulletAccuracy = -0.1
+BulletTimeAlive = 0.05
 description = "Faster, more accurate shots for some fire rate"
-shotDelay = 0.2
-bulletForce = 200.0
-bulletAccuracy = -0.1
-bulletTimeAlive = 0.05
 
 [node name="Button" parent="." instance=ExtResource( 1 )]
 

@@ -7,8 +7,9 @@
 [node name="Health" type="Position2D"]
 scale = Vector2( 1.2, 1.2 )
 script = ExtResource( 2 )
+Health = 40
+MovementForce = -100.0
 description = "+40 health for a small amout of speed"
-movementForce = -100.0
 
 [node name="Button" parent="." instance=ExtResource( 1 )]
 

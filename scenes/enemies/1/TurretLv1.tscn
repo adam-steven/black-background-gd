@@ -86,7 +86,16 @@ collision_layer = 4
 collision_mask = 11
 gravity_scale = 0.0
 script = ExtResource( 3 )
-health = 200
+Health = 200
+MovementForce = 1000.0
+ShotDelay = 1.0
+NoOfBullets = 1
+BulletForce = 3000.0
+BulletStrength = 100
+BulletAccuracy = 0.2
+BulletBurstAmount = 1
+BulletTimeAlive = 0.25
+BulletSize = 1.5
 rotationSpeed = 1.0
 
 [node name="Sprite" type="Sprite" parent="."]

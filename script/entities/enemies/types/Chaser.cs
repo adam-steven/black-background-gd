@@ -1,7 +1,5 @@
 using Godot;
-using System;
 using System.Threading.Tasks;
-using static Enums;
 
 public class Chaser : Enemy
 {
@@ -21,7 +19,7 @@ public class Chaser : Enemy
 
     private async void StartAttackTimerAsync()
     {
-        int shotDelayMs = (int)(this.shotDelay * 1000) + 500; //+500 to account for anim time
+        int shotDelayMs = (int)(this.ShotDelay * 1000) + 500; //+500 to account for anim time
         await Task.Delay(shotDelayMs);
 
         while (_IsActive())

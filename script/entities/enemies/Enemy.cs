@@ -38,19 +38,19 @@ namespace Godot
 
         internal void MoveInDirection(Vector2 _thrustDirection)
         {
-            Vector2 _thrust = _thrustDirection * movementForce;
+            Vector2 _thrust = _thrustDirection * MovementForce;
             SetAxisVelocity(_thrust.Rotated(Rotation));
         }
 
         internal void PushInDirection(Vector2 _thrustDirection)
         {
-            Vector2 _thrust = _thrustDirection * movementForce;
+            Vector2 _thrust = _thrustDirection * MovementForce;
             ApplyCentralImpulse(_thrust);
         }
 
         internal override bool _IsActive()
         {
-            return (IsInstanceValid(player) && health > 0);
+            return IsInstanceValid(player) && Health > 0;
         }
 
         #endregion
@@ -69,9 +69,9 @@ namespace Godot
 
         public override void _UpdateHealth(int addend)
         {
-            health = Math.Max(0, health + addend);
+            Health = Math.Max(0, Health + addend);
 
-            if (health <= 0)
+            if (Health <= 0)
             {
                 SetPhysicsProcess(false);
 

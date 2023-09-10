@@ -23,10 +23,14 @@ tracks/0/keys = {
 [node name="SingleBulletSpawn" type="RigidBody2D"]
 gravity_scale = 0.0
 script = ExtResource( 2 )
-movementForce = 0.0
-shotDelay = 2.0
-bulletAccuracy = 0.0
-bulletTimeAlive = 1.0
+Health = 1
+ShotDelay = 2.0
+NoOfBullets = 1
+BulletForce = 3000.0
+BulletStrength = 100
+BulletBurstAmount = 1
+BulletTimeAlive = 1.0
+BulletSize = 1.5
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 1 )

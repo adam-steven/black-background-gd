@@ -18,7 +18,7 @@ public partial class UiController
 
     public void UpdateUpgradeDescUi(string value)
     {
-        if (upgradeDescUi == null) { return; }
+        if (upgradeDescUi is null) { return; }
         upgradeDescUi.Text = value;
     }
 

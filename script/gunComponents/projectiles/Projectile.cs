@@ -48,7 +48,7 @@ namespace Godot
 
         internal virtual void _SpawnOnDestroy() 
         {
-            if(onDestroyScenes.Count < 0) { return; }
+            if(onDestroyScenes is null || onDestroyScenes.Count <= 0) { return; }
             Random rnd = new Random();
             Godot.Node2D gameController = this.GetParent<Godot.Node2D>();
 

@@ -1,20 +1,62 @@
-using Godot;
-using System;
 using System.Collections.Generic;
-using static Enums;
 
-interface IStats
+public interface IStats
 {
-    int health { get; set; }
-    float movementForce { get; set; }
+    /// <summary>
+    /// Entity health, destroy self when x <= 0
+    /// </summary>
+    int Health { get; set; }
+
+    /// <summary>
+    /// How fast the entity moves
+    /// Used for both walking and pushing
+    /// </summary>
+    /// <value></value>
+    float MovementForce { get; set; }
     
-    float shotDelay { get; set; }
-    int noOfBullets { get; set; } //Number of bullets fired at once (Shotgun effect)
-    float bulletForce { get; set; } //Bullet's speed
-    int bulletStrength { get; set; } //Amount of damage the bullet does
-    float bulletAccuracy { get; set; } //Bullet's accuracy (0 is perfect accuracy)
-    int bulletBurstAmount { get; set; } //Number of bullets fired in quick succession (fixed delay interval)
-    float bulletTimeAlive { get; set; } //Bullet Range (>0 = 0.05f)
-    float bulletSize { get; set; } //Modifies the size of the bullet sprite
-    List<string> onBulletDestroyScenes { get; set; } //Scenes to spawn in a random direction after the bullet is destroyed 
+    /// <summary>
+    /// Time between gun fires
+    /// </summary>
+    /// <value></value>
+    float ShotDelay { get; set; }
+
+    /// <summary>
+    /// Number of bullets fired at once (Shotgun effect)
+    /// </summary>
+    int NoOfBullets { get; set; }
+
+    /// <summary>
+    /// Bullet's speed
+    /// </summary>
+    float BulletForce { get; set; }
+
+    /// <summary>
+    /// Amount of damage the bullet does
+    /// </summary>
+    int BulletStrength { get; set; }
+
+    /// <summary>
+    /// Bullet's accuracy (0 is perfect accuracy)
+    /// </summary>
+    float BulletAccuracy { get; set; }
+
+    /// <summary>
+    /// Number of bullets fired in quick succession (fixed delay interval)
+    /// </summary>
+    int BulletBurstAmount { get; set; }
+
+    /// <summary>
+    /// Bullet Range (>0 = 0.05f)
+    /// </summary>
+    float BulletTimeAlive { get; set; } 
+
+    /// <summary>
+    /// Modifies the size of the bullet sprite
+    /// </summary>
+    float BulletSize { get; set; }
+
+    /// <summary>
+    /// Scenes to spawn in a random direction after the bullet is destroyed 
+    /// </summary>
+    List<string> OnBulletDestroyScenes { get; set; }
 }

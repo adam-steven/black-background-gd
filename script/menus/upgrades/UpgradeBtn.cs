@@ -1,5 +1,4 @@
 using Godot;
-using System;
 using System.Collections.Generic;
 
 public class UpgradeBtn : Position2D, IStats
@@ -7,29 +6,17 @@ public class UpgradeBtn : Position2D, IStats
 	[Export] private string description = "";
 	[Export] public bool endUpgrading = false;
 
-	// [Export] internal int health = 0;
-	// [Export] internal float movementForce = 0f;
-	// [Export] internal float shotDelay = 0;
-	// [Export] internal int noOfBullets = 0; //Number of bullets fired at once (Shotgun effect)
-	// [Export] internal float bulletForce = 0; //Bullet's speed
-	// [Export] internal int bulletStrength = 0; //Amount of damage the bullet does
-	// [Export] internal float bulletAccuracy = 0; //Bullet's accuracy (0 is perfect accuracy)
-	// [Export] internal int bulletBurstAmount = 0; //Number of bullets fired in quick succession (fixed delay interval)
-	// [Export] internal float bulletTimeAlive = 0; //Bullet Range (>0 = 0.05f)
-	// [Export] internal float bulletSize = 0; //Modifies the size of the bullet sprite
-	// [Export] public List<string> onBulletDestroyScenes = new List<string>(); //Scenes to spawn in a random direction after the bullet is destroyed 
-
-	[Export] public int health { get; set; }
-	[Export] public float movementForce { get; set; }
-	[Export] public float shotDelay { get; set; }
-	[Export] public int noOfBullets { get; set; }
-	[Export] public float bulletForce { get; set; }
-	[Export] public int bulletStrength { get; set; }
-	[Export] public float bulletAccuracy { get; set; }
-	[Export] public int bulletBurstAmount { get; set; }
-	[Export] public float bulletTimeAlive { get; set; }
-	[Export] public float bulletSize { get; set; }
-	[Export] public List<string> onBulletDestroyScenes { get; set; }
+    [Export] public int Health { get; set; }
+    [Export] public float MovementForce { get; set; }
+    [Export] public float ShotDelay { get; set; }
+    [Export] public int NoOfBullets { get; set; }
+    [Export] public float BulletForce { get; set; }
+    [Export] public int BulletStrength { get; set; }
+    [Export] public float BulletAccuracy { get; set; }
+    [Export] public int BulletBurstAmount { get; set; }
+    [Export] public float BulletTimeAlive { get; set; }
+    [Export] public float BulletSize { get; set; }
+    [Export] public List<string> OnBulletDestroyScenes { get; set; }
 
 	[Signal] public delegate void _on_pressed(MenuBtn button);
 	[Signal] public delegate void _update_upgrade_ui(string value);
@@ -75,7 +62,7 @@ public class UpgradeBtn : Position2D, IStats
 		if (IsInstanceValid(player))
 		{
 			_UniqueCalcOnPress(player);
-			EntityStats addStats = new EntityStats(health, movementForce, shotDelay, noOfBullets, bulletForce, bulletStrength, bulletAccuracy, bulletBurstAmount, bulletTimeAlive, bulletSize, onBulletDestroyScenes);
+			EntityStats addStats = new EntityStats(this);
 			player.UpdateStats(addStats);
 		}
 

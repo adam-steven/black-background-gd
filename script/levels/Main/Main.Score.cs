@@ -17,7 +17,7 @@ public partial class Main
         if (delayCounter >= 1)
         {
             long? score = mainData.Score.ProcessRollingScore();
-            if (score != null) { uiNode.UpdateScoreUi(score.GetValueOrDefault()); }
+            if (score is not null) { uiNode.UpdateScoreUi(score.GetValueOrDefault()); }
             delayCounter = 0;
         }
     }

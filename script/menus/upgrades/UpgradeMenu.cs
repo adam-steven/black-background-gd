@@ -32,7 +32,7 @@ public class UpgradeMenu : Control
 		exitBtn.showNames = showNames;
 		exitBtn.showDesc = showDesc;
 
-		numOfItems = (storedUpgrades == null) ? numOfItems : storedUpgrades.Count;
+		numOfItems = (storedUpgrades is null) ? numOfItems : storedUpgrades.Count;
 		SpawnUpgrades(numOfItems, showNames, showDesc); 
 	}
 
@@ -58,7 +58,7 @@ public class UpgradeMenu : Control
 
 	//spawn 1 upgrade at a given location
 	private string SpawnUpgrade(int index, Vector2 spawnPosition, bool showNames, bool showDesc) {
-		string upgradePath = (storedUpgrades != null) ? storedUpgrades[index] : upgrades[rnd.Next(upgrades.Count)];
+		string upgradePath = (storedUpgrades is not null) ? storedUpgrades[index] : upgrades[rnd.Next(upgrades.Count)];
 		PackedScene upgradeOptionScene = (PackedScene)GD.Load(upgradePath);
 		UpgradeBtn upgradeOption = (UpgradeBtn)upgradeOptionScene.Instance();
 		 

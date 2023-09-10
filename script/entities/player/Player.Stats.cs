@@ -1,51 +1,37 @@
-using Godot;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using static Enums;
 
 public partial class Player
 {
     public EntityStats GetStats() {
-		return new EntityStats(health, movementForce, shotDelay, noOfBullets, bulletForce, bulletStrength, bulletAccuracy, bulletBurstAmount, bulletTimeAlive, bulletSize, onBulletDestroyScenes);
+		return new EntityStats(this);
 	}
 
-    public void SetStats(EntityStats stats, bool healthUpgrade = false) {
-		health = Mathc.Limit(0, stats.Health, 1000);
-		movementForce = Mathc.Limit(100f, stats.MovementForce, 5000f);
-		shotDelay = Mathc.Limit(0.1f, stats.ShotDelay, 10f);
-		noOfBullets = Mathc.Limit(1, stats.NoOfBullets, 30);
-		bulletForce = Mathc.Limit(100f, stats.BulletForce, 5000f);
-		bulletStrength = Mathc.Limit(1, stats.BulletStrength, 5000);
-		bulletAccuracy = Mathc.Limit(0f, stats.BulletAccuracy, 360f);
-		bulletBurstAmount = Mathc.Limit(1, stats.BulletBurstAmount, 15);
-		bulletTimeAlive = Mathc.Limit(0.05f, stats.BulletTimeAlive, 10f);
-		bulletSize = Mathc.Limit(0.5f, stats.BulletSize, 15f);
-		onBulletDestroyScenes = new List<string> (stats.OnBulletDestroyScenes.Take(10));
+    public void SetStats(EntityStats? stats, bool healthUpgrade = false) {
+		if(stats is null) { return; }
+		EntityStats entityStats = (EntityStats)stats;
+
+		Health = Mathc.Limit(0, entityStats.Health, 1000);
+		MovementForce = Mathc.Limit(100f, entityStats.MovementForce, 5000f);
+		ShotDelay = Mathc.Limit(0.1f, entityStats.ShotDelay, 10f);
+		NoOfBullets = Mathc.Limit(1, entityStats.NoOfBullets, 30);
+		BulletForce = Mathc.Limit(100f, entityStats.BulletForce, 5000f);
+		BulletStrength = Mathc.Limit(1, entityStats.BulletStrength, 5000);
+		BulletAccuracy = Mathc.Limit(0f, entityStats.BulletAccuracy, 360f);
+		BulletBurstAmount = Mathc.Limit(1, entityStats.BulletBurstAmount, 15);
+		BulletTimeAlive = Mathc.Limit(0.05f, entityStats.BulletTimeAlive, 10f);
+		BulletSize = Mathc.Limit(0.5f, entityStats.BulletSize, 15f);
+		OnBulletDestroyScenes = new List<string> (entityStats.OnBulletDestroyScenes.Take(10));
 
 		//Update background colour and health UI
-		this.EmitSignal("_update_health_ui", health, healthUpgrade);
-		Colour.UpdateBackgroundColour(health);
+		this.EmitSignal("_update_health_ui", Health, healthUpgrade);
+		Colour.UpdateBackgroundColour(Health);
 	}
 
 	public void UpdateStats(EntityStats addStats)
 	{
-        EntityStats stats = new EntityStats(
-            health + addStats.Health,
-            movementForce + addStats.MovementForce,
-            shotDelay + addStats.ShotDelay,
-            noOfBullets + addStats.NoOfBullets,
-            bulletForce + addStats.BulletForce,
-            bulletStrength + addStats.BulletStrength,
-            bulletAccuracy + addStats.BulletAccuracy,
-            bulletBurstAmount + addStats.BulletBurstAmount,
-            bulletTimeAlive + addStats.BulletTimeAlive,
-            bulletSize + addStats.BulletSize,
-			new List<string> (onBulletDestroyScenes.Concat(addStats.OnBulletDestroyScenes))
-		);
-		
-        SetStats(stats, (addStats.Health > 0));
+        EntityStats stats = new EntityStats(this).Add(addStats);
+        SetStats(stats, addStats.Health > 0);
 	}
-
-
 }

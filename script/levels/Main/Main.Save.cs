@@ -31,7 +31,7 @@ public partial class Main
         {
 			if (!child.GetType().IsSubclassOf(typeof(Obstacle))) { continue; }
 			Obstacle enemy = (Obstacle)child;
-			if(enemy.health > 0) { spawnedEnemies.Add(enemy.Filename); }
+			if(enemy.Health > 0) { spawnedEnemies.Add(enemy.Filename); }
         }
 
 		mainData.StoredEnemies = spawnedEnemies;
