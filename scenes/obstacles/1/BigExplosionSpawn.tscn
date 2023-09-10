@@ -49,8 +49,16 @@ tracks/2/keys = {
 [node name="ExplosionSpawn" type="RigidBody2D"]
 gravity_scale = 0.0
 script = ExtResource( 1 )
+Health = 1
+ShotDelay = 1.0
+NoOfBullets = 1
+BulletForce = 3000.0
+BulletStrength = 100
+BulletAccuracy = 0.2
+BulletBurstAmount = 1
+BulletTimeAlive = 0.25
+BulletSize = 2.5
 defaultBulletPath = "res://scenes/misc/Explosion.tscn"
-bulletSize = 2.5
 facePlayer = false
 
 [node name="Sprite" type="Sprite" parent="."]

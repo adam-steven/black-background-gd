@@ -85,8 +85,16 @@ collision_layer = 4
 collision_mask = 11
 gravity_scale = 0.0
 script = ExtResource( 2 )
-health = 200
-movementForce = 20.0
+Health = 200
+MovementForce = 20.0
+ShotDelay = 1.0
+NoOfBullets = 1
+BulletForce = 3000.0
+BulletStrength = 100
+BulletAccuracy = 0.2
+BulletBurstAmount = 1
+BulletTimeAlive = 0.25
+BulletSize = 1.5
 
 [node name="Sprite" type="Sprite" parent="."]
 scale = Vector2( 1.5, 1.5 )

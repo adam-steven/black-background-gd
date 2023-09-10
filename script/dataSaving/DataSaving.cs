@@ -1,7 +1,3 @@
-using System;
-using static Enums;
-using Newtonsoft.Json;
-
 namespace Godot
 {
     public class DataSaving
@@ -21,13 +17,13 @@ namespace Godot
         public object GetValue(string key, object defaultVal)
         {
             Settings data = GetAllValues();
-            return (data.ContainsKey(key)) ? data[key] : defaultVal;
+            return data.ContainsKey(key) ? data[key] : defaultVal;
         }
 
         public Settings GetAllValues()
         {
             object retrievedObj = file.RetrieveObj(fileName);
-            return (retrievedObj != null) ? (Settings)file.RetrieveObj(fileName) : new Settings();
+            return (retrievedObj is not null) ? (Settings)file.RetrieveObj(fileName) : new Settings();
         }
     }
 }

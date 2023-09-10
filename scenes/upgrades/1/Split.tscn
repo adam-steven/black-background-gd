@@ -54,9 +54,9 @@ tracks/0/keys = {
 [node name="Split" type="Position2D"]
 scale = Vector2( 1.2, 1.2 )
 script = ExtResource( 1 )
+BulletStrength = -30
+OnBulletDestroyScenes = [ "res://scenes/misc/Bullet.tscn", "res://scenes/misc/Bullet.tscn" ]
 description = "Splits your bullet on impact"
-bulletStrength = -30
-onBulletDestroyScenes = PoolStringArray( "res://scenes/misc/Bullet.tscn", "res://scenes/misc/Bullet.tscn" )
 
 [node name="Button" parent="." instance=ExtResource( 2 )]
 

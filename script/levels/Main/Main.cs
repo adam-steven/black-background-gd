@@ -32,7 +32,7 @@ public partial class Main : Level
 
 	public override void _LoadLevelParameters(System.Object sceneData)
 	{
-		if (sceneData != null)
+		if (sceneData is not null)
 		{
 			mainData = (MainGameObj)sceneData;
 		}

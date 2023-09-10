@@ -20,7 +20,7 @@ public partial class UiController
 
     public void UpdateHealthUi(int value, bool healthIncrease)
     {
-        if (healthUi == null) { return; }
+        if (healthUi is null) { return; }
         healthUi.Text = value.ToString("D4");
 
         //If health gain flash ui

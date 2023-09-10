@@ -65,10 +65,8 @@ public class OptionsScreen : Level
 
 	public override void _LoadLevelParameters(System.Object sceneData)
 	{
-		if (sceneData != null)
-		{
-			optionsData = (OptionsObj)sceneData;
-		}
+		if (sceneData is not null)
+		{ optionsData = (OptionsObj)sceneData; }
 	}
 
 	private string DecodeString(string value)

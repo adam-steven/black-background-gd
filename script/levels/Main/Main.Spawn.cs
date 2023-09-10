@@ -1,10 +1,9 @@
-using System.Collections.Generic;
 using System.Linq;
 using Godot;
 
 public partial class Main
 {
-    private void SpawnPlayer(Vector2 location, EntityStats storedStats = null)
+    private void SpawnPlayer(Vector2 location, EntityStats? storedStats = null)
     {
         PackedScene playerScene = (PackedScene)GD.Load("res://scenes/misc/Player.tscn");
         player = (Player)playerScene.Instance();
@@ -19,11 +18,7 @@ public partial class Main
         player.Connect("_player_left_camera", this, "ReframePlayer");
         player.Connect("_update_health_ui", uiNode, "UpdateHealthUi");
 
-        if (storedStats != null)
-        {
-            player.SetStats(storedStats);
-        }
-
+        player.SetStats(storedStats);
         this.AddChild(player);
     }
 

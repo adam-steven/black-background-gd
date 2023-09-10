@@ -750,7 +750,16 @@ gravity_scale = 0.0
 contacts_reported = 10
 contact_monitor = true
 script = ExtResource( 2 )
-shotDelay = 0.1
+Health = 1000
+MovementForce = 1000.0
+ShotDelay = 0.1
+NoOfBullets = 1
+BulletForce = 3000.0
+BulletStrength = 100
+BulletAccuracy = 0.2
+BulletBurstAmount = 1
+BulletTimeAlive = 0.25
+BulletSize = 1.5
 
 [node name="Sprite" type="Sprite" parent="."]
 modulate = Color( 1, 1, 1, 0.501961 )

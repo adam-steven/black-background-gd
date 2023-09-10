@@ -81,7 +81,7 @@ public class OptionsMenu : MenuController
 
     public override void _Input(InputEvent inputEvent)
     {
-        if (waitingButton == null) { return; }
+        if (waitingButton is null) { return; }
         if (!inputEvent.IsPressed()) { return; }
 
         if (inputEvent is InputEventKey keyEvent)

@@ -47,7 +47,14 @@ tracks/2/keys = {
 [node name="TriStaticBulletSpawn" type="RigidBody2D"]
 gravity_scale = 0.0
 script = ExtResource( 2 )
-bulletAccuracy = 0.0
+Health = 1
+ShotDelay = 1.0
+NoOfBullets = 1
+BulletForce = 3000.0
+BulletStrength = 100
+BulletBurstAmount = 1
+BulletTimeAlive = 0.25
+BulletSize = 1.5
 rotationSpeed = 2.0
 facePlayer = false
 spawnPoints = PoolStringArray( "Sprite", "Sprite2", "Sprite3" )

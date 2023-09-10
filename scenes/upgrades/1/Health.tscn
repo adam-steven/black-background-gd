@@ -1,17 +1,21 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://scenes/upgrades/.BaseUpgrade.tscn" type="PackedScene" id=1]
 [ext_resource path="res://script/menus/upgrades/UpgradeBtn.cs" type="Script" id=2]
-
+[ext_resource path="res://images/Upgrades/health.png" type="Texture" id=3]
 
 [node name="Health" type="Position2D"]
 scale = Vector2( 1.2, 1.2 )
 script = ExtResource( 2 )
+Health = 40
+MovementForce = -100.0
 description = "+40 health for a small amout of speed"
-health = 40
-movementForce = -100.0
 
 [node name="Button" parent="." instance=ExtResource( 1 )]
+
+[node name="Sprite" parent="Button" index="0"]
+scale = Vector2( 3, 3 )
+texture = ExtResource( 3 )
 
 [node name="Label" parent="Button" index="1"]
 text = "Health"

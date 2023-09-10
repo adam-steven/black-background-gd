@@ -55,7 +55,7 @@ public class GunController
     //isBursting = true lowers the nextShotThreshold
     private bool CanShoot()
     {
-        int shotDelayMs = (int)(ownerNode.shotDelay * 1000);
+        int shotDelayMs = (int)(ownerNode.ShotDelay * 1000);
         int nextShotThreshold = timeLastShot + shotDelayMs;
 
         int currentTime = (int)OS.GetTicksMsec();
@@ -69,10 +69,10 @@ public class GunController
     private async void BurstBulletsAsync(Godot.Node2D gameController, PackedScene bulletScene, BulletVariations bulletType)
     {
         //Make sure the burst is always faster than normal shots
-        float betweenBurstDelay = (ownerNode.shotDelay < 0.2f) ? ownerNode.shotDelay / 2f : 0.1f;
+        float betweenBurstDelay = (ownerNode.ShotDelay < 0.2f) ? ownerNode.ShotDelay / 2f : 0.1f;
         betweenBurstDelay *= 1000; //convert to ms
 
-        for (int i = 0; i < ownerNode.bulletBurstAmount; i++)
+        for (int i = 0; i < ownerNode.BulletBurstAmount; i++)
         {
             if(!Godot.Object.IsInstanceValid(ownerNode) || tree.Paused) { break; }
             SpawnBullets(gameController, bulletScene, bulletType);
@@ -89,7 +89,7 @@ public class GunController
         timeLastShot = (int)OS.GetTicksMsec();
 
         //Loop for shotgun effect
-        for (int i = 0; i < ownerNode.noOfBullets; i++)
+        for (int i = 0; i < ownerNode.NoOfBullets; i++)
         {
             SpawnBullet(gameController, bulletScene, bulletType);
         }
@@ -99,22 +99,22 @@ public class GunController
     private void SpawnBullet(Godot.Node2D gameController, PackedScene bulletScene, BulletVariations bulletType)
     {
         Projectile projectile = (Projectile)bulletScene.Instance();
-        float randomAccuracyDeviation = (float)((rnd.NextDouble() * ownerNode.bulletAccuracy) - (rnd.NextDouble() * ownerNode.bulletAccuracy));
+        float randomAccuracyDeviation = (float)((rnd.NextDouble() * ownerNode.BulletAccuracy) - (rnd.NextDouble() * ownerNode.BulletAccuracy));
 
         // Access bullet properties
         projectile.Position = ownerNode.Position;
         projectile.Rotation = spawnPoint.GlobalRotation + randomAccuracyDeviation;
-        projectile.Scale = new Vector2(ownerNode.bulletSize, ownerNode.bulletSize);
+        projectile.Scale = new Vector2(ownerNode.BulletSize, ownerNode.BulletSize);
         projectile.colour = ownerNode.bulletColour;
 
         // Access bullet script 
         projectile.bOwner = ownerNode.entityType;
         // bulletCon.openMotion = ownerNode.LinearVelocity/2f;
-        projectile.strength = ownerNode.bulletStrength;
-        projectile.movementForce = ownerNode.bulletForce;
-        projectile.timeAlive = ownerNode.bulletTimeAlive;
+        projectile.strength = ownerNode.BulletStrength;
+        projectile.movementForce = ownerNode.BulletForce;
+        projectile.timeAlive = ownerNode.BulletTimeAlive;
         projectile.type = bulletType;
-        projectile.onDestroyScenes = ownerNode.onBulletDestroyScenes;
+        projectile.onDestroyScenes = ownerNode.OnBulletDestroyScenes;
 
         // Shoot bullet + start cooldown 
         gameController.AddChild(projectile);

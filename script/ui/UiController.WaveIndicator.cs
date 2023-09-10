@@ -18,14 +18,14 @@ public partial class UiController
 
     public void SetWaveSegments(int noOfSegments)
     {
-        if (waveIndicatorUi == null) { return; }
+        if (waveIndicatorUi is null) { return; }
         var waveMaterial = waveIndicatorUi.Material;
         (waveMaterial as ShaderMaterial).SetShaderParam("Segments", (noOfSegments - 1));
     }
 
     public void SetWaveProgress(double value)
     {
-        if (waveIndicatorUi == null) { return; }
+        if (waveIndicatorUi is null) { return; }
         waveIndicatorUi.Value = value;
     }
 

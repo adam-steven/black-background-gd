@@ -46,7 +46,7 @@ public partial class Player
         if (playerAxisPos < objectLowerPoint || objectUpperPoint < playerAxisPos)
         {
             int direction = (int)(playerAxisPos - objectAxisPos);
-            return (direction / Math.Abs(direction));
+            return direction / Math.Abs(direction);
         }
 
         return 0;
@@ -58,7 +58,7 @@ public partial class Player
     {
         //oldMoveCancel - stop the player gaining/ losing speed when changing directions
         Vector2 oldMoveCancel = Mathc.Abs(thrustDirection) * -this.LinearVelocity; 
-        Vector2 thrust = thrustDirection * movementForce;
+        Vector2 thrust = thrustDirection * MovementForce;
         ApplyCentralImpulse(thrust + addendVelocity + oldMoveCancel);
     }
 
