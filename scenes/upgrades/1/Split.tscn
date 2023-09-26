@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://script/menus/upgrades/UpgradeBtn.cs" type="Script" id=1]
 [ext_resource path="res://scenes/upgrades/.BaseUpgrade.tscn" type="PackedScene" id=2]
+[ext_resource path="res://images/Upgrades/split_shot.png" type="Texture" id=3]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Init"
@@ -59,6 +60,10 @@ OnBulletDestroyScenes = [ "res://scenes/misc/Bullet.tscn", "res://scenes/misc/Bu
 description = "Splits your bullet on impact"
 
 [node name="Button" parent="." instance=ExtResource( 2 )]
+
+[node name="Sprite" parent="Button" index="0"]
+scale = Vector2( 3, 3 )
+texture = ExtResource( 3 )
 
 [node name="Label" parent="Button" index="1"]
 text = "Split"
