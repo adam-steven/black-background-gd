@@ -4,32 +4,28 @@ using System.Threading.Tasks;
 
 public partial class Player
 {
-    [Export] private int maxBlockCounter = 5;
-    private int blockCounter = 5;
-    private bool inBlockReGen = false;
-
     private void MouseRotation()
     {
         sprite.LookAt(GetGlobalMousePosition());
     }
 
     //When player collides with *any rigi-body bounce
-    private void BodyEntered(Node2D body)
+    private void OnBodyEntered(Node2D body)
     {
-        Vector2 onHitVelocity = (LinearVelocity.x == 0 || LinearVelocity.y == 0) ? this.LinearVelocity : Vector2.Zero;
+        Vector2 onHitVelocity = (LinearVelocity.X == 0 || LinearVelocity.Y == 0) ? this.LinearVelocity : Vector2.Zero;
 
         //Collided rigid-body stats  
-        Godot.Sprite hitBodySprint = body.GetNode<Godot.Sprite>("Sprite");
+        Godot.Sprite2D hitBodySprint = body.GetNode<Godot.Sprite2D>("Sprite2D");
         Vector2 hitCenter = hitBodySprint.GlobalPosition;
-        Vector2 hitScaleHalf = (hitBodySprint.GlobalScale / 2f) * 20f; //Sprite scale is x20 smaller than global position (might change)    
+        Vector2 hitScaleHalf = (hitBodySprint.GlobalScale / 2f) * 20f; //Sprite2D scale is x20 smaller than global position (might change)    
 
         //Player stats
         Vector2 playerCenter = this.GlobalPosition;
 
         //Apply opposite directional forces
         Vector2 direction = new Vector2(
-            GetCollisionForceDirection(playerCenter.x, hitCenter.x, hitScaleHalf.x),
-            GetCollisionForceDirection(playerCenter.y, hitCenter.y, hitScaleHalf.y)
+            GetCollisionForceDirection(playerCenter.X, hitCenter.X, hitScaleHalf.X),
+            GetCollisionForceDirection(playerCenter.Y, hitCenter.Y, hitScaleHalf.Y)
         );
         
         PushPlayer(direction, onHitVelocity);
@@ -70,55 +66,13 @@ public partial class Player
 
     private void StopPlayer()
     {
-        if (blockCounter <= 0) { return; }
         this.LinearVelocity = Vector2.Zero;
 
         Godot.Node2D effectNode = this.GetNode<Godot.Node2D>("Effects");
         Godot.Node2D directionNode = effectNode.GetNode<Godot.Node2D>("Stop");
         AnimationPlayer anim = directionNode.GetNode<AnimationPlayer>("AnimationPlayer");
 
-        if (string.IsNullOrEmpty(anim.CurrentAnimation))
-        {
-            PlayEffect(anim);
-            DecreaseBlock();
-        }
-    }
-
-    #endregion
-
-    #region Block
-
-    private void DecreaseBlock()
-    {
-        blockCounter--;
-        UpdateBlockIndicator(); 
-        ReGenBlockAsync();
-    }
-
-    private async void ReGenBlockAsync()
-    {
-        if (inBlockReGen) { return; }
-        int reGenDelay = 1000;
-        inBlockReGen = true;
-
-        await Task.Delay(reGenDelay);
-        while (blockCounter < maxBlockCounter && _IsActive())
-        {
-            if(!GetTree().Paused) 
-            {  
-                blockCounter++;
-                UpdateBlockIndicator();
-            }
-            await Task.Delay(reGenDelay);
-        }
-
-        inBlockReGen = false;
-    }
-
-    private void UpdateBlockIndicator() 
-    {
-        Material material = sprite.Material;
-        (material as ShaderMaterial).SetShaderParam("Segments", blockCounter);
+        if (string.IsNullOrEmpty(anim.CurrentAnimation)) { PlayEffect(anim); }
     }
 
     #endregion

@@ -1,12 +1,11 @@
 using Godot;
-using System;
 
-public class LeaderboardScreen : Level
+public partial class LeaderboardScreen : Level
 {
     public override void _Ready()
     {
-        Godot.Control control = this.GetNode<Godot.Control>("Control");
-        control.Connect("_main_menu", this, "Return");
+        MenuController control = this.GetNode<MenuController>("Control");
+        control.Connect(MenuController.SignalName.MainMenu, new Callable(this, "Return"));
     }
 
     private void Return()

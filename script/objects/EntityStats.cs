@@ -14,7 +14,7 @@ public struct EntityStats : IStats
     [JsonProperty] public int BulletBurstAmount { get; set; }
     [JsonProperty] public float BulletTimeAlive { get; set; }
     [JsonProperty] public float BulletSize { get; set; }
-    [JsonProperty] public List<string> OnBulletDestroyScenes { get; set; }
+    [JsonProperty] public Godot.Collections.Array<string> OnBulletDestroyScenes { get; set; }
 
     public EntityStats(IStats stats)
     {
@@ -28,10 +28,10 @@ public struct EntityStats : IStats
         BulletBurstAmount = stats.BulletBurstAmount;
         BulletTimeAlive = stats.BulletTimeAlive;
         BulletSize = stats.BulletSize;
-        OnBulletDestroyScenes = stats.OnBulletDestroyScenes ?? new List<string>();  
+        OnBulletDestroyScenes = stats.OnBulletDestroyScenes ?? new ();  
     }
 
-    public EntityStats(int health, float movementForce, float shotDelay, int noOfBullets, float bulletForce, int bulletStrength, float bulletAccuracy, int bulletBurstAmount, float bulletTimeAlive, float bulletSize, List<string> onBulletDestroyScenes)
+    public EntityStats(int health, float movementForce, float shotDelay, int noOfBullets, float bulletForce, int bulletStrength, float bulletAccuracy, int bulletBurstAmount, float bulletTimeAlive, float bulletSize, Godot.Collections.Array<string> onBulletDestroyScenes)
     {
         Health = health;
         MovementForce = movementForce;
@@ -43,7 +43,7 @@ public struct EntityStats : IStats
         BulletBurstAmount = bulletBurstAmount;
         BulletTimeAlive = bulletTimeAlive;
         BulletSize = bulletSize;
-        OnBulletDestroyScenes = onBulletDestroyScenes ?? new List<string>();  
+        OnBulletDestroyScenes = onBulletDestroyScenes ?? new ();  
     }
 
     public EntityStats Add(EntityStats item)
@@ -59,7 +59,7 @@ public struct EntityStats : IStats
             BulletBurstAmount + item.BulletBurstAmount,
             BulletTimeAlive + item.BulletTimeAlive,
             BulletSize + item.BulletSize,
-			new List<string> (OnBulletDestroyScenes.Concat(item.OnBulletDestroyScenes))
+			new (OnBulletDestroyScenes.Concat(item.OnBulletDestroyScenes))
 		);
     }
 }

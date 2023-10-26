@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public class OptionsScreen : Level
+public partial class OptionsScreen : Level
 {
 	private OptionsObj optionsData = new OptionsObj();
 
@@ -11,11 +11,11 @@ public class OptionsScreen : Level
 	{
 		OptionsMenu control = this.GetNode<OptionsMenu>("Control");
 
-		control.Connect("_main_menu", this, "Return");
-		control.Connect("_toggle_key_pick_overlay", this, "ToggleKeyPickOverlay");
+		control.Connect(MenuController.SignalName.MainMenu, new Callable(this, "Return"));
+		control.Connect(OptionsMenu.SignalName.ToggleKeyPickOverlay, new Callable(this, "ToggleKeyPickOverlay"));
 
-		control.Connect("_set_bool_setting", this, "SaveSettingBool");
-		control.Connect("_set_string_setting", this, "SaveSettingString");
+		control.Connect(OptionsMenu.SignalName.SetBoolSetting, new Callable(this, "SaveSettingBool"));
+		control.Connect(OptionsMenu.SignalName.SetStringSetting, new Callable(this, "SaveSettingString"));
 
 		LoadSavedOptions(control);
 	}
@@ -27,7 +27,7 @@ public class OptionsScreen : Level
 		if (savedSettings == new Settings()) { return; }
 
 		Godot.VBoxContainer buttonContainer = control.GetNode<Godot.VBoxContainer>("Buttons");
-		Godot.Collections.Array buttons = buttonContainer.GetChildren();
+        Godot.Collections.Array<Node> buttons = buttonContainer.GetChildren();
 
 		//Add the children in the tab
 		for (int i = 0; i < control.uniqueContainers.Length; i++)
@@ -50,7 +50,7 @@ public class OptionsScreen : Level
 			switch (settingVal)
 			{
 				case Boolean boolean:
-					button.Pressed = (bool)settingVal;
+					button.ButtonPressed = (bool)settingVal;
 					break;
 				case String str:
 					string decodedVal = DecodeString((string)settingVal);
@@ -63,7 +63,7 @@ public class OptionsScreen : Level
 		}
 	}
 
-	public override void _LoadLevelParameters(System.Object sceneData)
+	public override void _LoadLevelParameters(object sceneData)
 	{
 		if (sceneData is not null)
 		{ optionsData = (OptionsObj)sceneData; }
@@ -79,7 +79,7 @@ public class OptionsScreen : Level
 			bool codeParseSuccess = Int32.TryParse(value.Remove(0, 1), out int code);
 			if (codeParseSuccess)
 			{
-				return ((KeyList)code).ToString();
+				return ((Key)code).ToString();
 			}
 		}
 

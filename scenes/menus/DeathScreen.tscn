@@ -1,291 +1,303 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=18 format=3 uid="uid://c8sr6w0atpwk0"]
 
-[ext_resource path="res://script/menus/MenuBtn.cs" type="Script" id=1]
-[ext_resource path="res://script/levels/DeathScreen.cs" type="Script" id=2]
-[ext_resource path="res://fonts/Teko-Bold-90.tres" type="DynamicFont" id=3]
-[ext_resource path="res://fonts/Teko-Bold-120.tres" type="DynamicFont" id=4]
-[ext_resource path="res://fonts/Teko-SemiBold-75.tres" type="DynamicFont" id=5]
-[ext_resource path="res://script/menus/DeathMenu.cs" type="Script" id=6]
+[ext_resource type="Script" path="res://script/menus/MenuBtn.cs" id="1"]
+[ext_resource type="Script" path="res://script/levels/DeathScreen.cs" id="2"]
+[ext_resource type="FontFile" uid="uid://b45o0a6k0g8x5" path="res://fonts/ttf/Teko-Bold.ttf" id="3_iul23"]
+[ext_resource type="FontFile" uid="uid://drjq40avb6u3j" path="res://fonts/ttf/Teko-SemiBold.ttf" id="4_phew7"]
+[ext_resource type="Script" path="res://script/menus/DeathMenu.cs" id="6"]
 
-
-[sub_resource type="Animation" id=14]
+[sub_resource type="Animation" id="14"]
 resource_name = "MenuBtnDeselected"
 length = 0.2
 tracks/0/type = "value"
-tracks/0/path = NodePath("Position2D:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
+tracks/0/path = NodePath("Marker2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [ Vector2( 1.2, 1.2 ), Vector2( 1, 1 ) ]
+"values": [Vector2(1.2, 1.2), Vector2(1, 1)]
 }
 
-[sub_resource type="Animation" id=15]
+[sub_resource type="Animation" id="15"]
 resource_name = "MenuBtnInit"
 length = 0.1
 tracks/0/type = "value"
-tracks/0/path = NodePath("Position2D:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
+tracks/0/path = NodePath("Marker2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [ Vector2( 1, 1 ) ]
+"values": [Vector2(1, 1)]
 }
 
-[sub_resource type="Animation" id=16]
+[sub_resource type="Animation" id="16"]
 resource_name = "MenuBtnSelected"
 length = 0.2
 tracks/0/type = "value"
-tracks/0/path = NodePath("Position2D:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
+tracks/0/path = NodePath("Marker2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [ Vector2( 1, 1 ), Vector2( 1.2, 1.2 ) ]
+"values": [Vector2(1, 1), Vector2(1.2, 1.2)]
 }
 
-[sub_resource type="Animation" id=17]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5gcsv"]
+_data = {
+"MenuBtnDeselected": SubResource("14"),
+"MenuBtnInit": SubResource("15"),
+"MenuBtnSelected": SubResource("16")
+}
+
+[sub_resource type="Animation" id="17"]
 resource_name = "MenuBtnDeselected"
 length = 0.2
 tracks/0/type = "value"
-tracks/0/path = NodePath("Position2D:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
+tracks/0/path = NodePath("Marker2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [ Vector2( 1.2, 1.2 ), Vector2( 1, 1 ) ]
+"values": [Vector2(1.2, 1.2), Vector2(1, 1)]
 }
 
-[sub_resource type="Animation" id=18]
+[sub_resource type="Animation" id="18"]
 resource_name = "MenuBtnInit"
 length = 0.1
 tracks/0/type = "value"
-tracks/0/path = NodePath("Position2D:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
+tracks/0/path = NodePath("Marker2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [ Vector2( 1, 1 ) ]
+"values": [Vector2(1, 1)]
 }
 
-[sub_resource type="Animation" id=19]
+[sub_resource type="Animation" id="19"]
 resource_name = "MenuBtnSelected"
 length = 0.2
 tracks/0/type = "value"
-tracks/0/path = NodePath("Position2D:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
+tracks/0/path = NodePath("Marker2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [ Vector2( 1, 1 ), Vector2( 1.2, 1.2 ) ]
+"values": [Vector2(1, 1), Vector2(1.2, 1.2)]
 }
 
-[sub_resource type="Animation" id=23]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2mr80"]
+_data = {
+"MenuBtnDeselected": SubResource("17"),
+"MenuBtnInit": SubResource("18"),
+"MenuBtnSelected": SubResource("19")
+}
+
+[sub_resource type="Animation" id="23"]
 resource_name = "MenuBtnDeselected"
 length = 0.2
 tracks/0/type = "value"
-tracks/0/path = NodePath("Position2D:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
+tracks/0/path = NodePath("Marker2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [ Vector2( 1.2, 1.2 ), Vector2( 1, 1 ) ]
+"values": [Vector2(1.2, 1.2), Vector2(1, 1)]
 }
 
-[sub_resource type="Animation" id=24]
+[sub_resource type="Animation" id="24"]
 resource_name = "MenuBtnInit"
 length = 0.1
 tracks/0/type = "value"
-tracks/0/path = NodePath("Position2D:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
+tracks/0/path = NodePath("Marker2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [ Vector2( 1, 1 ) ]
+"values": [Vector2(1, 1)]
 }
 
-[sub_resource type="Animation" id=25]
+[sub_resource type="Animation" id="25"]
 resource_name = "MenuBtnSelected"
 length = 0.2
 tracks/0/type = "value"
-tracks/0/path = NodePath("Position2D:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
+tracks/0/path = NodePath("Marker2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [ Vector2( 1, 1 ), Vector2( 1.2, 1.2 ) ]
+"values": [Vector2(1, 1), Vector2(1.2, 1.2)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_syoiv"]
+_data = {
+"MenuBtnDeselected": SubResource("23"),
+"MenuBtnInit": SubResource("24"),
+"MenuBtnSelected": SubResource("25")
 }
 
 [node name="DeathScreen" type="Node2D"]
-script = ExtResource( 2 )
+script = ExtResource("2")
 
 [node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-script = ExtResource( 6 )
+script = ExtResource("6")
 
 [node name="ColorRect" type="ColorRect" parent="Control"]
-margin_right = 40.0
-margin_bottom = 40.0
-rect_min_size = Vector2( 1920, 1080 )
-color = Color( 0, 0, 0, 1 )
+custom_minimum_size = Vector2(1920, 1080)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+color = Color(0, 0, 0, 1)
 
 [node name="Labels" type="VBoxContainer" parent="Control"]
-margin_left = 540.0
-margin_top = 116.0
-margin_right = 1380.0
-margin_bottom = 300.0
+layout_mode = 0
+offset_left = 540.0
+offset_top = 116.0
+offset_right = 1380.0
+offset_bottom = 300.0
 
 [node name="GameOver" type="Label" parent="Control/Labels"]
-margin_right = 840.0
-margin_bottom = 122.0
-rect_min_size = Vector2( 840, 0 )
-custom_fonts/font = ExtResource( 4 )
+custom_minimum_size = Vector2(840, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_iul23")
+theme_override_font_sizes/font_size = 120
 text = "Game Over"
-align = 1
+horizontal_alignment = 1
 
 [node name="Score" type="Label" parent="Control/Labels"]
-margin_top = 126.0
-margin_right = 840.0
-margin_bottom = 184.0
-grow_horizontal = 2
-grow_vertical = 2
-rect_min_size = Vector2( 840, 0 )
-custom_fonts/font = ExtResource( 5 )
+custom_minimum_size = Vector2(840, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_phew7")
+theme_override_font_sizes/font_size = 75
 text = "000000"
-align = 1
+horizontal_alignment = 1
 
 [node name="Buttons" type="VBoxContainer" parent="Control"]
-margin_left = 540.0
-margin_top = 300.0
-margin_right = 1380.0
-margin_bottom = 1001.0
-custom_constants/separation = 46
+layout_mode = 0
+offset_left = 540.0
+offset_top = 300.0
+offset_right = 1380.0
+offset_bottom = 1001.0
+theme_override_constants/separation = 46
 alignment = 1
 
 [node name="Replay" type="Button" parent="Control/Buttons"]
-margin_top = 124.0
-margin_right = 840.0
-margin_bottom = 244.0
-rect_min_size = Vector2( 200, 120 )
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 2
 flat = true
-script = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+script = ExtResource("1")
 action = 1
 
-[node name="Position2D" type="Position2D" parent="Control/Buttons/Replay"]
-position = Vector2( 420, 65 )
-scale = Vector2( 1.2, 1.2 )
+[node name="Marker2D" type="Marker2D" parent="Control/Buttons/Replay"]
+position = Vector2(420, 65)
+scale = Vector2(1.2, 1.2)
 
-[node name="Label" type="Label" parent="Control/Buttons/Replay/Position2D"]
-margin_left = -420.0
-margin_top = -65.0
-margin_right = 420.0
-margin_bottom = 65.0
-rect_min_size = Vector2( 840, 0 )
-custom_fonts/font = ExtResource( 3 )
+[node name="Label" type="Label" parent="Control/Buttons/Replay/Marker2D"]
+custom_minimum_size = Vector2(840, 0)
+offset_left = -420.0
+offset_top = -65.0
+offset_right = 420.0
+offset_bottom = 65.0
+theme_override_fonts/font = ExtResource("3_iul23")
+theme_override_font_sizes/font_size = 90
 text = "Replay"
-align = 1
+horizontal_alignment = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Control/Buttons/Replay"]
 autoplay = "MenuBtnInit"
-anims/MenuBtnDeselected = SubResource( 14 )
-anims/MenuBtnInit = SubResource( 15 )
-anims/MenuBtnSelected = SubResource( 16 )
+libraries = {
+"": SubResource("AnimationLibrary_5gcsv")
+}
 
 [node name="Leaderboard" type="Button" parent="Control/Buttons"]
-margin_top = 290.0
-margin_right = 840.0
-margin_bottom = 410.0
-rect_min_size = Vector2( 200, 120 )
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 2
 flat = true
-script = ExtResource( 1 )
+script = ExtResource("1")
 action = 3
 
-[node name="Position2D" type="Position2D" parent="Control/Buttons/Leaderboard"]
-position = Vector2( 420, 65 )
-scale = Vector2( 1.2, 1.2 )
+[node name="Marker2D" type="Marker2D" parent="Control/Buttons/Leaderboard"]
+position = Vector2(420, 65)
+scale = Vector2(1.2, 1.2)
 
-[node name="Label" type="Label" parent="Control/Buttons/Leaderboard/Position2D"]
-margin_left = -420.0
-margin_top = -65.0
-margin_right = 420.0
-margin_bottom = 65.0
-rect_min_size = Vector2( 840, 0 )
-custom_fonts/font = ExtResource( 3 )
+[node name="Label" type="Label" parent="Control/Buttons/Leaderboard/Marker2D"]
+custom_minimum_size = Vector2(840, 0)
+offset_left = -420.0
+offset_top = -65.0
+offset_right = 420.0
+offset_bottom = 65.0
+theme_override_fonts/font = ExtResource("3_iul23")
+theme_override_font_sizes/font_size = 90
 text = "Leaderboard"
-align = 1
+horizontal_alignment = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Control/Buttons/Leaderboard"]
 autoplay = "MenuBtnInit"
-anims/MenuBtnDeselected = SubResource( 17 )
-anims/MenuBtnInit = SubResource( 18 )
-anims/MenuBtnSelected = SubResource( 19 )
-
-[node name="MainMenu" type="Button" parent="Control/Buttons"]
-margin_top = 456.0
-margin_right = 840.0
-margin_bottom = 576.0
-rect_min_size = Vector2( 200, 120 )
-flat = true
-script = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
+libraries = {
+"": SubResource("AnimationLibrary_2mr80")
 }
 
-[node name="Position2D" type="Position2D" parent="Control/Buttons/MainMenu"]
-position = Vector2( 420, 65 )
+[node name="MainMenu" type="Button" parent="Control/Buttons"]
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 2
+flat = true
+script = ExtResource("1")
 
-[node name="Label" type="Label" parent="Control/Buttons/MainMenu/Position2D"]
-margin_left = -420.0
-margin_top = -65.0
-margin_right = 420.0
-margin_bottom = 65.0
-rect_min_size = Vector2( 840, 0 )
-custom_fonts/font = ExtResource( 3 )
+[node name="Marker2D" type="Marker2D" parent="Control/Buttons/MainMenu"]
+position = Vector2(420, 65)
+
+[node name="Label" type="Label" parent="Control/Buttons/MainMenu/Marker2D"]
+custom_minimum_size = Vector2(840, 0)
+offset_left = -420.0
+offset_top = -65.0
+offset_right = 420.0
+offset_bottom = 65.0
+theme_override_fonts/font = ExtResource("3_iul23")
+theme_override_font_sizes/font_size = 90
 text = "Main Menu"
-align = 1
+horizontal_alignment = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Control/Buttons/MainMenu"]
 autoplay = "MenuBtnInit"
-anims/MenuBtnDeselected = SubResource( 23 )
-anims/MenuBtnInit = SubResource( 24 )
-anims/MenuBtnSelected = SubResource( 25 )
+libraries = {
+"": SubResource("AnimationLibrary_syoiv")
+}

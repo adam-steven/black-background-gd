@@ -1,11 +1,11 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=3 format=3 uid="uid://b3dpr325bwsia"]
 
-[ext_resource path="res://script/testing/FpsCounter.cs" type="Script" id=1]
-[ext_resource path="res://fonts/Teko-SemiBold-75.tres" type="DynamicFont" id=2]
+[ext_resource type="Script" path="res://script/testing/FpsCounter.cs" id="1"]
+[ext_resource type="FontFile" uid="uid://drjq40avb6u3j" path="res://fonts/ttf/Teko-SemiBold.ttf" id="1_bti7n"]
 
 [node name="FpsCounter" type="Label"]
-margin_right = 40.0
-margin_bottom = 14.0
-custom_fonts/font = ExtResource( 2 )
+offset_right = 40.0
+offset_bottom = 14.0
+theme_override_fonts/font = ExtResource("1_bti7n")
 text = "0000"
-script = ExtResource( 1 )
+script = ExtResource("1")

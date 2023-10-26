@@ -1,7 +1,7 @@
 using System;
 using Godot;
 
-public class BulletSpawner : Obstacle
+public partial class BulletSpawner : Obstacle
 {
 	Random rnd = new Random();
 	[Export] bool facePlayer = true;
@@ -11,11 +11,11 @@ public class BulletSpawner : Obstacle
 		SetProcess(facePlayer);
 
 		float spawnSpeedModifier = ShotDelay / rnd.Next(1, 3);
-		anim.PlaybackSpeed = spawnSpeedModifier;
-		anim.Connect("animation_finished", this, "ShootBullet");
+		anim.SpeedScale = spawnSpeedModifier;
+		anim.Connect(AnimationPlayer.SignalName.AnimationFinished, new Callable(this, "ShootBullet"));
 	}
 
-	public override void _Process(float delta)
+	public override void _Process(double delta)
 	{
 		if (!IsInstanceValid(player)) return;
 		TurnToPlayer(delta);

@@ -1,17 +1,17 @@
 using Godot;
 using System.Threading.Tasks;
 
-public class Chaser : Enemy
+public partial class Chaser : Enemy
 {
     internal override void _EntityReady()
     {
         InitDelayedStart();
 
-        anim.Connect("animation_finished", this, "Attack");
+        anim.Connect(AnimationPlayer.SignalName.AnimationFinished, new Callable(this, "Attack"));
         StartAttackTimerAsync();
     }
 
-    public override void _PhysicsProcess(float delta)
+    public override void _PhysicsProcess(double delta)
     {
         TurnToPlayer(delta);
         MoveInDirection(Vector2.Right);

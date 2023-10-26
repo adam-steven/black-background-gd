@@ -24,14 +24,14 @@ public partial class Main
 
 	private void SaveSpawnedEnemies() 
 	{
-        GdArray children = this.GetChildren();
+        Godot.Collections.Array<Node> children = this.GetChildren();
 		Scenes spawnedEnemies = new Scenes();
 
 		foreach (var child in children)
         {
 			if (!child.GetType().IsSubclassOf(typeof(Obstacle))) { continue; }
 			Obstacle enemy = (Obstacle)child;
-			if(enemy.Health > 0) { spawnedEnemies.Add(enemy.Filename); }
+			if(enemy.Health > 0) { spawnedEnemies.Add(enemy.SceneFilePath); }
         }
 
 		mainData.StoredEnemies = spawnedEnemies;

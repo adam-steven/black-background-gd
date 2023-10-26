@@ -1,1052 +1,1048 @@
-[gd_scene load_steps=39 format=2]
+[gd_scene load_steps=47 format=3 uid="uid://brovh5fx0wajn"]
 
-[ext_resource path="res://fonts/Teko-Bold-90.tres" type="DynamicFont" id=1]
-[ext_resource path="res://script/menus/MenuBtn.cs" type="Script" id=2]
-[ext_resource path="res://script/levels/OptionsScreen.cs" type="Script" id=3]
-[ext_resource path="res://images/Checkbox_Unchecked.png" type="Texture" id=4]
-[ext_resource path="res://fonts/Teko-Bold-120.tres" type="DynamicFont" id=5]
-[ext_resource path="res://images/Checkbox_Checked.png" type="Texture" id=6]
-[ext_resource path="res://script/menus/OptionsMenu.cs" type="Script" id=7]
-[ext_resource path="res://fonts/Teko-SemiBold-75.tres" type="DynamicFont" id=8]
+[ext_resource type="Script" path="res://script/menus/MenuBtn.cs" id="2"]
+[ext_resource type="Script" path="res://script/levels/OptionsScreen.cs" id="3"]
+[ext_resource type="FontFile" uid="uid://b45o0a6k0g8x5" path="res://fonts/ttf/Teko-Bold.ttf" id="3_l4nip"]
+[ext_resource type="FontFile" uid="uid://drjq40avb6u3j" path="res://fonts/ttf/Teko-SemiBold.ttf" id="5_ifxil"]
+[ext_resource type="Script" path="res://script/menus/OptionsMenu.cs" id="7"]
 
-[sub_resource type="Animation" id=1]
+[sub_resource type="Animation" id="1"]
 resource_name = "MenuBtnDeselected"
 length = 0.2
 tracks/0/type = "value"
-tracks/0/path = NodePath("Position2D:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
+tracks/0/path = NodePath("Marker2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [ Vector2( 1.2, 1.2 ), Vector2( 1, 1 ) ]
+"values": [Vector2(1.2, 1.2), Vector2(1, 1)]
 }
 
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id="2"]
 resource_name = "MenuBtnInit"
 length = 0.1
 tracks/0/type = "value"
-tracks/0/path = NodePath("Position2D:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
+tracks/0/path = NodePath("Marker2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [ Vector2( 1, 1 ) ]
+"values": [Vector2(1, 1)]
 }
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id="3"]
 resource_name = "MenuBtnSelected"
 length = 0.2
 tracks/0/type = "value"
-tracks/0/path = NodePath("Position2D:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
+tracks/0/path = NodePath("Marker2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [ Vector2( 1, 1 ), Vector2( 1.2, 1.2 ) ]
+"values": [Vector2(1, 1), Vector2(1.2, 1.2)]
 }
 
-[sub_resource type="Animation" id=43]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_a774g"]
+_data = {
+"MenuBtnDeselected": SubResource("1"),
+"MenuBtnInit": SubResource("2"),
+"MenuBtnSelected": SubResource("3")
+}
+
+[sub_resource type="Animation" id="43"]
 resource_name = "MenuBtnDeselected"
 length = 0.2
 tracks/0/type = "value"
-tracks/0/path = NodePath("Position2D:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
+tracks/0/path = NodePath("Marker2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [ Vector2( 1.2, 1.2 ), Vector2( 1, 1 ) ]
+"values": [Vector2(1.2, 1.2), Vector2(1, 1)]
 }
 
-[sub_resource type="Animation" id=44]
+[sub_resource type="Animation" id="44"]
 resource_name = "MenuBtnInit"
 length = 0.1
 tracks/0/type = "value"
-tracks/0/path = NodePath("Position2D:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
+tracks/0/path = NodePath("Marker2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [ Vector2( 1, 1 ) ]
+"values": [Vector2(1, 1)]
 }
 
-[sub_resource type="Animation" id=45]
+[sub_resource type="Animation" id="45"]
 resource_name = "MenuBtnSelected"
 length = 0.2
 tracks/0/type = "value"
-tracks/0/path = NodePath("Position2D:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
+tracks/0/path = NodePath("Marker2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [ Vector2( 1, 1 ), Vector2( 1.2, 1.2 ) ]
+"values": [Vector2(1, 1), Vector2(1.2, 1.2)]
 }
 
-[sub_resource type="Animation" id=46]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_hb3ph"]
+_data = {
+"MenuBtnDeselected": SubResource("43"),
+"MenuBtnInit": SubResource("44"),
+"MenuBtnSelected": SubResource("45")
+}
+
+[sub_resource type="Animation" id="46"]
 resource_name = "MenuBtnDeselected"
 length = 0.2
 tracks/0/type = "value"
-tracks/0/path = NodePath("Position2D:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
+tracks/0/path = NodePath("Marker2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [ Vector2( 1.2, 1.2 ), Vector2( 1, 1 ) ]
+"values": [Vector2(1.2, 1.2), Vector2(1, 1)]
 }
 
-[sub_resource type="Animation" id=47]
+[sub_resource type="Animation" id="47"]
 resource_name = "MenuBtnInit"
 length = 0.1
 tracks/0/type = "value"
-tracks/0/path = NodePath("Position2D:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
+tracks/0/path = NodePath("Marker2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [ Vector2( 1, 1 ) ]
+"values": [Vector2(1, 1)]
 }
 
-[sub_resource type="Animation" id=48]
+[sub_resource type="Animation" id="48"]
 resource_name = "MenuBtnSelected"
 length = 0.2
 tracks/0/type = "value"
-tracks/0/path = NodePath("Position2D:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
+tracks/0/path = NodePath("Marker2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [ Vector2( 1, 1 ), Vector2( 1.2, 1.2 ) ]
+"values": [Vector2(1, 1), Vector2(1.2, 1.2)]
 }
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ylvv6"]
+_data = {
+"MenuBtnDeselected": SubResource("46"),
+"MenuBtnInit": SubResource("47"),
+"MenuBtnSelected": SubResource("48")
+}
+
+[sub_resource type="Animation" id="4"]
 resource_name = "MenuBtnDeselected"
 length = 0.2
 tracks/0/type = "value"
-tracks/0/path = NodePath("Position2D:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
+tracks/0/path = NodePath("Marker2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [ Vector2( 1.2, 1.2 ), Vector2( 1, 1 ) ]
+"values": [Vector2(1.2, 1.2), Vector2(1, 1)]
 }
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id="5"]
 resource_name = "MenuBtnInit"
 length = 0.1
 tracks/0/type = "value"
-tracks/0/path = NodePath("Position2D:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
+tracks/0/path = NodePath("Marker2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [ Vector2( 1, 1 ) ]
+"values": [Vector2(1, 1)]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id="6"]
 resource_name = "MenuBtnSelected"
 length = 0.2
 tracks/0/type = "value"
-tracks/0/path = NodePath("Position2D:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
+tracks/0/path = NodePath("Marker2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [ Vector2( 1, 1 ), Vector2( 1.2, 1.2 ) ]
+"values": [Vector2(1, 1), Vector2(1.2, 1.2)]
 }
 
-[sub_resource type="Animation" id=25]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_b1uji"]
+_data = {
+"MenuBtnDeselected": SubResource("4"),
+"MenuBtnInit": SubResource("5"),
+"MenuBtnSelected": SubResource("6")
+}
+
+[sub_resource type="Animation" id="25"]
 resource_name = "MenuBtnDeselected"
 length = 0.2
 tracks/0/type = "value"
-tracks/0/path = NodePath("Position2D:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
+tracks/0/path = NodePath("Marker2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [ Vector2( 1.2, 1.2 ), Vector2( 1, 1 ) ]
+"values": [Vector2(1.2, 1.2), Vector2(1, 1)]
 }
 
-[sub_resource type="Animation" id=26]
+[sub_resource type="Animation" id="26"]
 resource_name = "MenuBtnInit"
 length = 0.1
 tracks/0/type = "value"
-tracks/0/path = NodePath("Position2D:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
+tracks/0/path = NodePath("Marker2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [ Vector2( 1, 1 ) ]
+"values": [Vector2(1, 1)]
 }
 
-[sub_resource type="Animation" id=27]
+[sub_resource type="Animation" id="27"]
 resource_name = "MenuBtnSelected"
 length = 0.2
 tracks/0/type = "value"
-tracks/0/path = NodePath("Position2D:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
+tracks/0/path = NodePath("Marker2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [ Vector2( 1, 1 ), Vector2( 1.2, 1.2 ) ]
+"values": [Vector2(1, 1), Vector2(1.2, 1.2)]
 }
 
-[sub_resource type="Animation" id=28]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_roan2"]
+_data = {
+"MenuBtnDeselected": SubResource("25"),
+"MenuBtnInit": SubResource("26"),
+"MenuBtnSelected": SubResource("27")
+}
+
+[sub_resource type="Animation" id="28"]
 resource_name = "MenuBtnDeselected"
 length = 0.2
 tracks/0/type = "value"
-tracks/0/path = NodePath("Position2D:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
+tracks/0/path = NodePath("Marker2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [ Vector2( 1.2, 1.2 ), Vector2( 1, 1 ) ]
+"values": [Vector2(1.2, 1.2), Vector2(1, 1)]
 }
 
-[sub_resource type="Animation" id=29]
+[sub_resource type="Animation" id="29"]
 resource_name = "MenuBtnInit"
 length = 0.1
 tracks/0/type = "value"
-tracks/0/path = NodePath("Position2D:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
+tracks/0/path = NodePath("Marker2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [ Vector2( 1, 1 ) ]
+"values": [Vector2(1, 1)]
 }
 
-[sub_resource type="Animation" id=30]
+[sub_resource type="Animation" id="30"]
 resource_name = "MenuBtnSelected"
 length = 0.2
 tracks/0/type = "value"
-tracks/0/path = NodePath("Position2D:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
+tracks/0/path = NodePath("Marker2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [ Vector2( 1, 1 ), Vector2( 1.2, 1.2 ) ]
+"values": [Vector2(1, 1), Vector2(1.2, 1.2)]
 }
 
-[sub_resource type="Animation" id=31]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qpytd"]
+_data = {
+"MenuBtnDeselected": SubResource("28"),
+"MenuBtnInit": SubResource("29"),
+"MenuBtnSelected": SubResource("30")
+}
+
+[sub_resource type="Animation" id="31"]
 resource_name = "MenuBtnDeselected"
 length = 0.2
 tracks/0/type = "value"
-tracks/0/path = NodePath("Position2D:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
+tracks/0/path = NodePath("Marker2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [ Vector2( 1.2, 1.2 ), Vector2( 1, 1 ) ]
+"values": [Vector2(1.2, 1.2), Vector2(1, 1)]
 }
 
-[sub_resource type="Animation" id=32]
+[sub_resource type="Animation" id="32"]
 resource_name = "MenuBtnInit"
 length = 0.1
 tracks/0/type = "value"
-tracks/0/path = NodePath("Position2D:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
+tracks/0/path = NodePath("Marker2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [ Vector2( 1, 1 ) ]
+"values": [Vector2(1, 1)]
 }
 
-[sub_resource type="Animation" id=33]
+[sub_resource type="Animation" id="33"]
 resource_name = "MenuBtnSelected"
 length = 0.2
 tracks/0/type = "value"
-tracks/0/path = NodePath("Position2D:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
+tracks/0/path = NodePath("Marker2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [ Vector2( 1, 1 ), Vector2( 1.2, 1.2 ) ]
+"values": [Vector2(1, 1), Vector2(1.2, 1.2)]
 }
 
-[sub_resource type="Animation" id=34]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_p22v0"]
+_data = {
+"MenuBtnDeselected": SubResource("31"),
+"MenuBtnInit": SubResource("32"),
+"MenuBtnSelected": SubResource("33")
+}
+
+[sub_resource type="Animation" id="34"]
 resource_name = "MenuBtnDeselected"
 length = 0.2
 tracks/0/type = "value"
-tracks/0/path = NodePath("Position2D:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
+tracks/0/path = NodePath("Marker2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [ Vector2( 1.2, 1.2 ), Vector2( 1, 1 ) ]
+"values": [Vector2(1.2, 1.2), Vector2(1, 1)]
 }
 
-[sub_resource type="Animation" id=35]
+[sub_resource type="Animation" id="35"]
 resource_name = "MenuBtnInit"
 length = 0.1
 tracks/0/type = "value"
-tracks/0/path = NodePath("Position2D:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
+tracks/0/path = NodePath("Marker2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [ Vector2( 1, 1 ) ]
+"values": [Vector2(1, 1)]
 }
 
-[sub_resource type="Animation" id=36]
+[sub_resource type="Animation" id="36"]
 resource_name = "MenuBtnSelected"
 length = 0.2
 tracks/0/type = "value"
-tracks/0/path = NodePath("Position2D:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
+tracks/0/path = NodePath("Marker2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [ Vector2( 1, 1 ), Vector2( 1.2, 1.2 ) ]
+"values": [Vector2(1, 1), Vector2(1.2, 1.2)]
 }
 
-[sub_resource type="Animation" id=37]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_q6l50"]
+_data = {
+"MenuBtnDeselected": SubResource("34"),
+"MenuBtnInit": SubResource("35"),
+"MenuBtnSelected": SubResource("36")
+}
+
+[sub_resource type="Animation" id="37"]
 resource_name = "MenuBtnDeselected"
 length = 0.2
 tracks/0/type = "value"
-tracks/0/path = NodePath("Position2D:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
+tracks/0/path = NodePath("Marker2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [ Vector2( 1.2, 1.2 ), Vector2( 1, 1 ) ]
+"values": [Vector2(1.2, 1.2), Vector2(1, 1)]
 }
 
-[sub_resource type="Animation" id=38]
+[sub_resource type="Animation" id="38"]
 resource_name = "MenuBtnInit"
 length = 0.1
 tracks/0/type = "value"
-tracks/0/path = NodePath("Position2D:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
+tracks/0/path = NodePath("Marker2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [ Vector2( 1, 1 ) ]
+"values": [Vector2(1, 1)]
 }
 
-[sub_resource type="Animation" id=39]
+[sub_resource type="Animation" id="39"]
 resource_name = "MenuBtnSelected"
 length = 0.2
 tracks/0/type = "value"
-tracks/0/path = NodePath("Position2D:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
+tracks/0/path = NodePath("Marker2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [ Vector2( 1, 1 ), Vector2( 1.2, 1.2 ) ]
+"values": [Vector2(1, 1), Vector2(1.2, 1.2)]
 }
 
-[sub_resource type="Animation" id=40]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_yh1k7"]
+_data = {
+"MenuBtnDeselected": SubResource("37"),
+"MenuBtnInit": SubResource("38"),
+"MenuBtnSelected": SubResource("39")
+}
+
+[sub_resource type="Animation" id="40"]
 resource_name = "MenuBtnDeselected"
 length = 0.2
 tracks/0/type = "value"
-tracks/0/path = NodePath("Position2D:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
+tracks/0/path = NodePath("Marker2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [ Vector2( 1.2, 1.2 ), Vector2( 1, 1 ) ]
+"values": [Vector2(1.2, 1.2), Vector2(1, 1)]
 }
 
-[sub_resource type="Animation" id=41]
+[sub_resource type="Animation" id="41"]
 resource_name = "MenuBtnInit"
 length = 0.1
 tracks/0/type = "value"
-tracks/0/path = NodePath("Position2D:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
+tracks/0/path = NodePath("Marker2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [ Vector2( 1, 1 ) ]
+"values": [Vector2(1, 1)]
 }
 
-[sub_resource type="Animation" id=42]
+[sub_resource type="Animation" id="42"]
 resource_name = "MenuBtnSelected"
 length = 0.2
 tracks/0/type = "value"
-tracks/0/path = NodePath("Position2D:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
+tracks/0/path = NodePath("Marker2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [ Vector2( 1, 1 ), Vector2( 1.2, 1.2 ) ]
+"values": [Vector2(1, 1), Vector2(1.2, 1.2)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_l6fq4"]
+_data = {
+"MenuBtnDeselected": SubResource("40"),
+"MenuBtnInit": SubResource("41"),
+"MenuBtnSelected": SubResource("42")
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wp3lw"]
+_data = {
+"MenuBtnDeselected": SubResource("1"),
+"MenuBtnInit": SubResource("2"),
+"MenuBtnSelected": SubResource("3")
 }
 
 [node name="OptionsScreen" type="Node2D"]
-script = ExtResource( 3 )
+script = ExtResource("3")
 
 [node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-script = ExtResource( 7 )
-uniqueContainers = PoolStringArray( "Buttons/TabContainer/General", "Buttons/TabContainer/Controls/VBoxContainer" )
+script = ExtResource("7")
+uniqueContainers = PackedStringArray("Buttons/TabContainer/General", "Buttons/TabContainer/Controls/VBoxContainer")
 
 [node name="ColorRect" type="ColorRect" parent="Control"]
-margin_right = 40.0
-margin_bottom = 40.0
-rect_min_size = Vector2( 1920, 1080 )
-color = Color( 0, 0, 0, 1 )
+custom_minimum_size = Vector2(1920, 1080)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+color = Color(0, 0, 0, 1)
 
 [node name="Buttons" type="VBoxContainer" parent="Control"]
-margin_left = 540.0
-margin_top = 80.0
-margin_right = 1380.0
-margin_bottom = 1000.0
-custom_constants/separation = 46
+layout_mode = 0
+offset_left = 540.0
+offset_top = 80.0
+offset_right = 1380.0
+offset_bottom = 1000.0
+theme_override_constants/separation = 46
 alignment = 1
 
 [node name="Label" type="Label" parent="Control/Buttons"]
-margin_top = 91.0
-margin_right = 840.0
-margin_bottom = 213.0
-rect_min_size = Vector2( 840, 0 )
-custom_fonts/font = ExtResource( 5 )
+custom_minimum_size = Vector2(840, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_l4nip")
+theme_override_font_sizes/font_size = 120
 text = "Options"
-align = 1
+horizontal_alignment = 1
 
 [node name="TabContainer" type="TabContainer" parent="Control/Buttons"]
-margin_top = 259.0
-margin_right = 840.0
-margin_bottom = 663.0
-grow_horizontal = 2
-grow_vertical = 2
-tab_align = 0
+layout_mode = 2
 
 [node name="General" type="VBoxContainer" parent="Control/Buttons/TabContainer"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 4.0
-margin_top = 32.0
-margin_right = -4.0
-margin_bottom = -4.0
+layout_mode = 2
 
 [node name="CountDown" type="CheckButton" parent="Control/Buttons/TabContainer/General"]
-margin_right = 832.0
-margin_bottom = 120.0
-rect_min_size = Vector2( 0, 120 )
-custom_icons/off = ExtResource( 4 )
-custom_icons/on = ExtResource( 6 )
-script = ExtResource( 2 )
+custom_minimum_size = Vector2(0, 120)
+layout_mode = 2
+script = ExtResource("2")
 action = 6
 
-[node name="Position2D" type="Position2D" parent="Control/Buttons/TabContainer/General/CountDown"]
-position = Vector2( 350, 65 )
-scale = Vector2( 1.2, 1.2 )
+[node name="Marker2D" type="Marker2D" parent="Control/Buttons/TabContainer/General/CountDown"]
+position = Vector2(350, 65)
+scale = Vector2(1.2, 1.2)
 
-[node name="Label" type="Label" parent="Control/Buttons/TabContainer/General/CountDown/Position2D"]
-margin_left = -420.0
-margin_top = -65.0
-margin_right = 420.0
-margin_bottom = 65.0
-rect_min_size = Vector2( 840, 0 )
-custom_fonts/font = ExtResource( 1 )
+[node name="Label" type="Label" parent="Control/Buttons/TabContainer/General/CountDown/Marker2D"]
+custom_minimum_size = Vector2(840, 0)
+offset_left = -420.0
+offset_top = -65.0
+offset_right = 420.0
+offset_bottom = 65.0
+theme_override_fonts/font = ExtResource("3_l4nip")
+theme_override_font_sizes/font_size = 90
 text = "Start Countdown"
-align = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Control/Buttons/TabContainer/General/CountDown"]
 autoplay = "MenuBtnInit"
-anims/MenuBtnDeselected = SubResource( 1 )
-anims/MenuBtnInit = SubResource( 2 )
-anims/MenuBtnSelected = SubResource( 3 )
+libraries = {
+"": SubResource("AnimationLibrary_a774g")
+}
 
 [node name="UpgradeName" type="CheckButton" parent="Control/Buttons/TabContainer/General"]
-margin_top = 124.0
-margin_right = 832.0
-margin_bottom = 244.0
-rect_min_size = Vector2( 0, 120 )
-custom_icons/off = ExtResource( 4 )
-custom_icons/on = ExtResource( 6 )
-script = ExtResource( 2 )
+custom_minimum_size = Vector2(0, 120)
+layout_mode = 2
+script = ExtResource("2")
 action = 14
 
-[node name="Position2D" type="Position2D" parent="Control/Buttons/TabContainer/General/UpgradeName"]
-position = Vector2( 350, 65 )
-scale = Vector2( 1.2, 1.2 )
+[node name="Marker2D" type="Marker2D" parent="Control/Buttons/TabContainer/General/UpgradeName"]
+position = Vector2(350, 65)
+scale = Vector2(1.2, 1.2)
 
-[node name="Label" type="Label" parent="Control/Buttons/TabContainer/General/UpgradeName/Position2D"]
-margin_left = -420.0
-margin_top = -65.0
-margin_right = 420.0
-margin_bottom = 65.0
-rect_min_size = Vector2( 840, 0 )
-custom_fonts/font = ExtResource( 1 )
+[node name="Label" type="Label" parent="Control/Buttons/TabContainer/General/UpgradeName/Marker2D"]
+custom_minimum_size = Vector2(840, 0)
+offset_left = -420.0
+offset_top = -65.0
+offset_right = 420.0
+offset_bottom = 65.0
+theme_override_fonts/font = ExtResource("3_l4nip")
+theme_override_font_sizes/font_size = 90
 text = "Upgrade Names"
-align = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Control/Buttons/TabContainer/General/UpgradeName"]
 autoplay = "MenuBtnInit"
-anims/MenuBtnDeselected = SubResource( 43 )
-anims/MenuBtnInit = SubResource( 44 )
-anims/MenuBtnSelected = SubResource( 45 )
+libraries = {
+"": SubResource("AnimationLibrary_hb3ph")
+}
 
 [node name="UpgradeDesc" type="CheckButton" parent="Control/Buttons/TabContainer/General"]
-margin_top = 248.0
-margin_right = 832.0
-margin_bottom = 368.0
-rect_min_size = Vector2( 0, 120 )
-custom_icons/off = ExtResource( 4 )
-custom_icons/on = ExtResource( 6 )
-script = ExtResource( 2 )
+custom_minimum_size = Vector2(0, 120)
+layout_mode = 2
+script = ExtResource("2")
 action = 15
 
-[node name="Position2D" type="Position2D" parent="Control/Buttons/TabContainer/General/UpgradeDesc"]
-position = Vector2( 350, 65 )
-scale = Vector2( 1.2, 1.2 )
+[node name="Marker2D" type="Marker2D" parent="Control/Buttons/TabContainer/General/UpgradeDesc"]
+position = Vector2(350, 65)
+scale = Vector2(1.2, 1.2)
 
-[node name="Label" type="Label" parent="Control/Buttons/TabContainer/General/UpgradeDesc/Position2D"]
-margin_left = -420.0
-margin_top = -65.0
-margin_right = 420.0
-margin_bottom = 65.0
-rect_min_size = Vector2( 840, 0 )
-custom_fonts/font = ExtResource( 1 )
+[node name="Label" type="Label" parent="Control/Buttons/TabContainer/General/UpgradeDesc/Marker2D"]
+custom_minimum_size = Vector2(840, 0)
+offset_left = -420.0
+offset_top = -65.0
+offset_right = 420.0
+offset_bottom = 65.0
+theme_override_fonts/font = ExtResource("3_l4nip")
+theme_override_font_sizes/font_size = 90
 text = "Upgrade Hints"
-align = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Control/Buttons/TabContainer/General/UpgradeDesc"]
 autoplay = "MenuBtnInit"
-anims/MenuBtnDeselected = SubResource( 46 )
-anims/MenuBtnInit = SubResource( 47 )
-anims/MenuBtnSelected = SubResource( 48 )
+libraries = {
+"": SubResource("AnimationLibrary_ylvv6")
+}
 
 [node name="Controls" type="ScrollContainer" parent="Control/Buttons/TabContainer"]
 visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 4.0
-margin_top = 32.0
-margin_right = -4.0
-margin_bottom = -4.0
-rect_min_size = Vector2( 0, 600 )
+custom_minimum_size = Vector2(0, 600)
+layout_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Control/Buttons/TabContainer/Controls"]
-margin_right = 832.0
-margin_bottom = 864.0
+layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="Up" type="Button" parent="Control/Buttons/TabContainer/Controls/VBoxContainer"]
-margin_right = 820.0
-margin_bottom = 120.0
-rect_min_size = Vector2( 200, 120 )
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 2
 flat = true
-script = ExtResource( 2 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+script = ExtResource("2")
 action = 7
-valueLabelPath = "Position2D/HBoxContainer/Key"
+valueLabelPath = "Marker2D/HBoxContainer/Key"
 
-[node name="Position2D" type="Position2D" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Up"]
-position = Vector2( 420, 65 )
+[node name="Marker2D" type="Marker2D" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Up"]
+position = Vector2(420, 65)
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Up/Position2D"]
-margin_left = -420.0
-margin_top = -70.0
-margin_right = 400.0
-margin_bottom = 60.0
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Up/Marker2D"]
+custom_minimum_size = Vector2(820, 120)
+offset_left = -420.0
+offset_top = -70.0
+offset_right = 400.0
+offset_bottom = 60.0
 grow_horizontal = 2
 grow_vertical = 2
-rect_min_size = Vector2( 820, 120 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_constants/separation = 50
+theme_override_constants/separation = 50
 alignment = 1
 
-[node name="Label" type="Label" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Up/Position2D/HBoxContainer"]
-margin_left = 300.0
-margin_right = 413.0
-margin_bottom = 130.0
-custom_fonts/font = ExtResource( 1 )
+[node name="Label" type="Label" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Up/Marker2D/HBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_l4nip")
+theme_override_font_sizes/font_size = 90
 text = "Up:"
-align = 1
 
-[node name="Key" type="Label" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Up/Position2D/HBoxContainer"]
-margin_left = 463.0
-margin_top = 36.0
-margin_right = 519.0
-margin_bottom = 94.0
-custom_fonts/font = ExtResource( 8 )
+[node name="Key" type="Label" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Up/Marker2D/HBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_ifxil")
+theme_override_font_sizes/font_size = 75
 text = "W"
-align = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Up"]
 autoplay = "MenuBtnInit"
-anims/MenuBtnDeselected = SubResource( 4 )
-anims/MenuBtnInit = SubResource( 5 )
-anims/MenuBtnSelected = SubResource( 6 )
+libraries = {
+"": SubResource("AnimationLibrary_b1uji")
+}
 
 [node name="Down" type="Button" parent="Control/Buttons/TabContainer/Controls/VBoxContainer"]
-margin_top = 124.0
-margin_right = 820.0
-margin_bottom = 244.0
-rect_min_size = Vector2( 200, 120 )
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 2
 flat = true
-script = ExtResource( 2 )
+script = ExtResource("2")
 action = 8
-valueLabelPath = "Position2D/HBoxContainer/Key"
+valueLabelPath = "Marker2D/HBoxContainer/Key"
 
-[node name="Position2D" type="Position2D" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Down"]
-position = Vector2( 420, 65 )
+[node name="Marker2D" type="Marker2D" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Down"]
+position = Vector2(420, 65)
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Down/Position2D"]
-margin_left = -420.0
-margin_top = -70.0
-margin_right = 400.0
-margin_bottom = 60.0
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Down/Marker2D"]
+custom_minimum_size = Vector2(820, 120)
+offset_left = -420.0
+offset_top = -70.0
+offset_right = 400.0
+offset_bottom = 60.0
 grow_horizontal = 2
 grow_vertical = 2
-rect_min_size = Vector2( 820, 120 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_constants/separation = 50
+theme_override_constants/separation = 50
 alignment = 1
 
-[node name="Label" type="Label" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Down/Position2D/HBoxContainer"]
-margin_left = 259.0
-margin_right = 478.0
-margin_bottom = 130.0
-custom_fonts/font = ExtResource( 1 )
+[node name="Label" type="Label" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Down/Marker2D/HBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_l4nip")
+theme_override_font_sizes/font_size = 90
 text = "Down:"
-align = 1
 
-[node name="Key" type="Label" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Down/Position2D/HBoxContainer"]
-margin_left = 528.0
-margin_top = 36.0
-margin_right = 561.0
-margin_bottom = 94.0
-custom_fonts/font = ExtResource( 8 )
+[node name="Key" type="Label" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Down/Marker2D/HBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_ifxil")
+theme_override_font_sizes/font_size = 75
 text = "S"
-align = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Down"]
 autoplay = "MenuBtnInit"
-anims/MenuBtnDeselected = SubResource( 25 )
-anims/MenuBtnInit = SubResource( 26 )
-anims/MenuBtnSelected = SubResource( 27 )
+libraries = {
+"": SubResource("AnimationLibrary_roan2")
+}
 
 [node name="Left" type="Button" parent="Control/Buttons/TabContainer/Controls/VBoxContainer"]
-margin_top = 248.0
-margin_right = 820.0
-margin_bottom = 368.0
-rect_min_size = Vector2( 200, 120 )
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 2
 flat = true
-script = ExtResource( 2 )
+script = ExtResource("2")
 action = 9
-valueLabelPath = "Position2D/HBoxContainer/Key"
+valueLabelPath = "Marker2D/HBoxContainer/Key"
 
-[node name="Position2D" type="Position2D" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Left"]
-position = Vector2( 420, 65 )
+[node name="Marker2D" type="Marker2D" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Left"]
+position = Vector2(420, 65)
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Left/Position2D"]
-margin_left = -420.0
-margin_top = -70.0
-margin_right = 400.0
-margin_bottom = 60.0
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Left/Marker2D"]
+custom_minimum_size = Vector2(820, 120)
+offset_left = -420.0
+offset_top = -70.0
+offset_right = 400.0
+offset_bottom = 60.0
 grow_horizontal = 2
 grow_vertical = 2
-rect_min_size = Vector2( 820, 120 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_constants/separation = 50
+theme_override_constants/separation = 50
 alignment = 1
 
-[node name="Label" type="Label" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Left/Position2D/HBoxContainer"]
-margin_left = 288.0
-margin_right = 445.0
-margin_bottom = 130.0
-custom_fonts/font = ExtResource( 1 )
+[node name="Label" type="Label" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Left/Marker2D/HBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_l4nip")
+theme_override_font_sizes/font_size = 90
 text = "Left:"
-align = 1
 
-[node name="Key" type="Label" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Left/Position2D/HBoxContainer"]
-margin_left = 495.0
-margin_top = 36.0
-margin_right = 531.0
-margin_bottom = 94.0
-custom_fonts/font = ExtResource( 8 )
+[node name="Key" type="Label" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Left/Marker2D/HBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_ifxil")
+theme_override_font_sizes/font_size = 75
 text = "A"
-align = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Left"]
 autoplay = "MenuBtnInit"
-anims/MenuBtnDeselected = SubResource( 28 )
-anims/MenuBtnInit = SubResource( 29 )
-anims/MenuBtnSelected = SubResource( 30 )
+libraries = {
+"": SubResource("AnimationLibrary_qpytd")
+}
 
 [node name="Right" type="Button" parent="Control/Buttons/TabContainer/Controls/VBoxContainer"]
-margin_top = 372.0
-margin_right = 820.0
-margin_bottom = 492.0
-rect_min_size = Vector2( 200, 120 )
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 2
 flat = true
-script = ExtResource( 2 )
+script = ExtResource("2")
 action = 10
-valueLabelPath = "Position2D/HBoxContainer/Key"
+valueLabelPath = "Marker2D/HBoxContainer/Key"
 
-[node name="Position2D" type="Position2D" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Right"]
-position = Vector2( 420, 65 )
+[node name="Marker2D" type="Marker2D" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Right"]
+position = Vector2(420, 65)
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Right/Position2D"]
-margin_left = -420.0
-margin_top = -70.0
-margin_right = 400.0
-margin_bottom = 60.0
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Right/Marker2D"]
+custom_minimum_size = Vector2(820, 120)
+offset_left = -420.0
+offset_top = -70.0
+offset_right = 400.0
+offset_bottom = 60.0
 grow_horizontal = 2
 grow_vertical = 2
-rect_min_size = Vector2( 820, 120 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_constants/separation = 50
+theme_override_constants/separation = 50
 alignment = 1
 
-[node name="Label" type="Label" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Right/Position2D/HBoxContainer"]
-margin_left = 264.0
-margin_right = 470.0
-margin_bottom = 130.0
-custom_fonts/font = ExtResource( 1 )
+[node name="Label" type="Label" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Right/Marker2D/HBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_l4nip")
+theme_override_font_sizes/font_size = 90
 text = "Right:"
-align = 1
 
-[node name="Key" type="Label" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Right/Position2D/HBoxContainer"]
-margin_left = 520.0
-margin_top = 36.0
-margin_right = 556.0
-margin_bottom = 94.0
-custom_fonts/font = ExtResource( 8 )
+[node name="Key" type="Label" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Right/Marker2D/HBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_ifxil")
+theme_override_font_sizes/font_size = 75
 text = "D"
-align = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Right"]
 autoplay = "MenuBtnInit"
-anims/MenuBtnDeselected = SubResource( 31 )
-anims/MenuBtnInit = SubResource( 32 )
-anims/MenuBtnSelected = SubResource( 33 )
+libraries = {
+"": SubResource("AnimationLibrary_p22v0")
+}
 
 [node name="Fire" type="Button" parent="Control/Buttons/TabContainer/Controls/VBoxContainer"]
-margin_top = 496.0
-margin_right = 820.0
-margin_bottom = 616.0
-rect_min_size = Vector2( 200, 120 )
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 2
 flat = true
-script = ExtResource( 2 )
+script = ExtResource("2")
 action = 11
-valueLabelPath = "Position2D/HBoxContainer/Key"
+valueLabelPath = "Marker2D/HBoxContainer/Key"
 
-[node name="Position2D" type="Position2D" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Fire"]
-position = Vector2( 420, 65 )
+[node name="Marker2D" type="Marker2D" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Fire"]
+position = Vector2(420, 65)
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Fire/Position2D"]
-margin_left = -420.0
-margin_top = -70.0
-margin_right = 400.0
-margin_bottom = 60.0
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Fire/Marker2D"]
+custom_minimum_size = Vector2(820, 120)
+offset_left = -420.0
+offset_top = -70.0
+offset_right = 400.0
+offset_bottom = 60.0
 grow_horizontal = 2
 grow_vertical = 2
-rect_min_size = Vector2( 820, 120 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_constants/separation = 50
+theme_override_constants/separation = 50
 alignment = 1
 
-[node name="Label" type="Label" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Fire/Position2D/HBoxContainer"]
-margin_left = 272.0
-margin_right = 430.0
-margin_bottom = 130.0
-custom_fonts/font = ExtResource( 1 )
+[node name="Label" type="Label" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Fire/Marker2D/HBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_l4nip")
+theme_override_font_sizes/font_size = 90
 text = "Fire:"
-align = 1
 
-[node name="Key" type="Label" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Fire/Position2D/HBoxContainer"]
-margin_left = 480.0
-margin_top = 36.0
-margin_right = 548.0
-margin_bottom = 94.0
-custom_fonts/font = ExtResource( 8 )
+[node name="Key" type="Label" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Fire/Marker2D/HBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_ifxil")
+theme_override_font_sizes/font_size = 75
 text = "M1"
-align = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Fire"]
 autoplay = "MenuBtnInit"
-anims/MenuBtnDeselected = SubResource( 34 )
-anims/MenuBtnInit = SubResource( 35 )
-anims/MenuBtnSelected = SubResource( 36 )
+libraries = {
+"": SubResource("AnimationLibrary_q6l50")
+}
 
 [node name="Block" type="Button" parent="Control/Buttons/TabContainer/Controls/VBoxContainer"]
-margin_top = 620.0
-margin_right = 820.0
-margin_bottom = 740.0
-rect_min_size = Vector2( 200, 120 )
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 2
 flat = true
-script = ExtResource( 2 )
+script = ExtResource("2")
 action = 12
-valueLabelPath = "Position2D/HBoxContainer/Key"
+valueLabelPath = "Marker2D/HBoxContainer/Key"
 
-[node name="Position2D" type="Position2D" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Block"]
-position = Vector2( 420, 65 )
+[node name="Marker2D" type="Marker2D" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Block"]
+position = Vector2(420, 65)
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Block/Position2D"]
-margin_left = -420.0
-margin_top = -70.0
-margin_right = 400.0
-margin_bottom = 60.0
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Block/Marker2D"]
+custom_minimum_size = Vector2(820, 120)
+offset_left = -420.0
+offset_top = -70.0
+offset_right = 400.0
+offset_bottom = 60.0
 grow_horizontal = 2
 grow_vertical = 2
-rect_min_size = Vector2( 820, 120 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_constants/separation = 50
+theme_override_constants/separation = 50
 alignment = 1
 
-[node name="Label" type="Label" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Block/Position2D/HBoxContainer"]
-margin_left = 237.0
-margin_right = 456.0
-margin_bottom = 130.0
-custom_fonts/font = ExtResource( 1 )
+[node name="Label" type="Label" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Block/Marker2D/HBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_l4nip")
+theme_override_font_sizes/font_size = 90
 text = "Block:"
-align = 1
 
-[node name="Key" type="Label" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Block/Position2D/HBoxContainer"]
-margin_left = 506.0
-margin_top = 36.0
-margin_right = 583.0
-margin_bottom = 94.0
-custom_fonts/font = ExtResource( 8 )
+[node name="Key" type="Label" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Block/Marker2D/HBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_ifxil")
+theme_override_font_sizes/font_size = 75
 text = "M2"
-align = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Block"]
 autoplay = "MenuBtnInit"
-anims/MenuBtnDeselected = SubResource( 37 )
-anims/MenuBtnInit = SubResource( 38 )
-anims/MenuBtnSelected = SubResource( 39 )
+libraries = {
+"": SubResource("AnimationLibrary_yh1k7")
+}
 
 [node name="Pause" type="Button" parent="Control/Buttons/TabContainer/Controls/VBoxContainer"]
-margin_top = 744.0
-margin_right = 820.0
-margin_bottom = 864.0
-rect_min_size = Vector2( 200, 120 )
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 2
 flat = true
-script = ExtResource( 2 )
+script = ExtResource("2")
 action = 13
-valueLabelPath = "Position2D/HBoxContainer/Key"
+valueLabelPath = "Marker2D/HBoxContainer/Key"
 
-[node name="Position2D" type="Position2D" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Pause"]
-position = Vector2( 420, 65 )
+[node name="Marker2D" type="Marker2D" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Pause"]
+position = Vector2(420, 65)
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Pause/Position2D"]
-margin_left = -420.0
-margin_top = -70.0
-margin_right = 400.0
-margin_bottom = 60.0
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Pause/Marker2D"]
+custom_minimum_size = Vector2(820, 120)
+offset_left = -420.0
+offset_top = -70.0
+offset_right = 400.0
+offset_bottom = 60.0
 grow_horizontal = 2
 grow_vertical = 2
-rect_min_size = Vector2( 820, 120 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_constants/separation = 50
+theme_override_constants/separation = 50
 alignment = 1
 
-[node name="Label" type="Label" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Pause/Position2D/HBoxContainer"]
-margin_left = 171.0
-margin_right = 408.0
-margin_bottom = 130.0
-custom_fonts/font = ExtResource( 1 )
+[node name="Label" type="Label" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Pause/Marker2D/HBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_l4nip")
+theme_override_font_sizes/font_size = 90
 text = "Pause:"
-align = 1
 
-[node name="Key" type="Label" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Pause/Position2D/HBoxContainer"]
-margin_left = 458.0
-margin_top = 36.0
-margin_right = 648.0
-margin_bottom = 94.0
-custom_fonts/font = ExtResource( 8 )
+[node name="Key" type="Label" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Pause/Marker2D/HBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_ifxil")
+theme_override_font_sizes/font_size = 75
 text = "Escape"
-align = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Control/Buttons/TabContainer/Controls/VBoxContainer/Pause"]
 autoplay = "MenuBtnInit"
-anims/MenuBtnDeselected = SubResource( 40 )
-anims/MenuBtnInit = SubResource( 41 )
-anims/MenuBtnSelected = SubResource( 42 )
+libraries = {
+"": SubResource("AnimationLibrary_l6fq4")
+}
 
 [node name="Return" type="Button" parent="Control/Buttons"]
-margin_top = 709.0
-margin_right = 840.0
-margin_bottom = 829.0
-rect_min_size = Vector2( 200, 120 )
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 2
 flat = true
-script = ExtResource( 2 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+script = ExtResource("2")
 action = 5
 
-[node name="Position2D" type="Position2D" parent="Control/Buttons/Return"]
-position = Vector2( 420, 65 )
+[node name="Marker2D" type="Marker2D" parent="Control/Buttons/Return"]
+position = Vector2(420, 65)
 
-[node name="Label" type="Label" parent="Control/Buttons/Return/Position2D"]
-margin_left = -420.0
-margin_top = -65.0
-margin_right = 420.0
-margin_bottom = 65.0
-rect_min_size = Vector2( 840, 0 )
-custom_fonts/font = ExtResource( 1 )
+[node name="Label" type="Label" parent="Control/Buttons/Return/Marker2D"]
+custom_minimum_size = Vector2(840, 0)
+offset_left = -420.0
+offset_top = -65.0
+offset_right = 420.0
+offset_bottom = 65.0
+theme_override_fonts/font = ExtResource("3_l4nip")
+theme_override_font_sizes/font_size = 90
 text = "Return"
-align = 1
+horizontal_alignment = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Control/Buttons/Return"]
 autoplay = "MenuBtnInit"
-anims/MenuBtnDeselected = SubResource( 1 )
-anims/MenuBtnInit = SubResource( 2 )
-anims/MenuBtnSelected = SubResource( 3 )
+libraries = {
+"": SubResource("AnimationLibrary_wp3lw")
+}
 
 [node name="BlockingOverlay" type="Control" parent="."]
 visible = false
-margin_right = 40.0
-margin_bottom = 40.0
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
 
 [node name="ColorRect" type="ColorRect" parent="BlockingOverlay"]
-margin_right = 40.0
-margin_bottom = 40.0
-rect_min_size = Vector2( 1920, 1080 )
-color = Color( 0, 0, 0, 0.862745 )
+custom_minimum_size = Vector2(1920, 1080)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+color = Color(0, 0, 0, 0.862745)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="BlockingOverlay"]
-margin_right = 40.0
-margin_bottom = 40.0
-rect_min_size = Vector2( 1920, 1080 )
+custom_minimum_size = Vector2(1920, 1080)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="BlockingOverlay/VBoxContainer"]
-margin_top = 479.0
-margin_right = 1920.0
-margin_bottom = 601.0
+layout_mode = 2
 alignment = 1
 
 [node name="Label" type="Label" parent="BlockingOverlay/VBoxContainer/HBoxContainer"]
-margin_left = 540.0
-margin_right = 1380.0
-margin_bottom = 122.0
-rect_min_size = Vector2( 840, 0 )
-custom_fonts/font = ExtResource( 5 )
+custom_minimum_size = Vector2(840, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_l4nip")
+theme_override_font_sizes/font_size = 120
 text = "Press Any Key"
-align = 1
+horizontal_alignment = 1

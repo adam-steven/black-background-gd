@@ -1,7 +1,5 @@
 using Godot;
-using System;
 using Newtonsoft.Json;
-
 
 public partial class Scene : Node2D
 {
@@ -21,7 +19,7 @@ public partial class Scene : Node2D
 
 		mainCamera = this.GetNode<Camera2D>("Camera2D");
 		anim = this.GetNode<AnimationPlayer>("AnimationPlayer");
-		anim.Connect("animation_finished", this, "AnimationFinished");
+		anim.Connect(AnimationPlayer.SignalName.AnimationFinished, new Callable(this, "AnimationFinished"));
 
 		obstaclesSections = FileManager.GetScenesViaFolders(Globals.obstaclesFolder);
 		enemiesSections = FileManager.GetScenesViaFolders(Globals.enemyFolder);
@@ -31,27 +29,27 @@ public partial class Scene : Node2D
 		HandelSceneDataPass(currentScene, null);
 	}
 
-	public void ChangeScene(string scenePath, float animSpeed, string jsonData)
+	public void ChangeSceneToFile(string scenePath, float animSpeed, string jsonData)
 	{
-		if (String.IsNullOrEmpty(scenePath)) { return; }
+		if (string.IsNullOrEmpty(scenePath)) { return; }
 
 		LoadKeyBinds();
 
 		PackedScene newScene = (PackedScene)GD.Load(scenePath);
-		newSceneInstance = (Node2D)newScene.Instance();
+		newSceneInstance = newScene.Instantiate<Node2D>();
 		newSceneInstance.Visible = false;
 		AddChild(newSceneInstance);
 
 		var settings = new JsonSerializerSettings();
 		settings.TypeNameHandling = TypeNameHandling.Objects;
-		System.Object deserializedData = JsonConvert.DeserializeObject<System.Object>(jsonData, settings);
+		object deserializedData = JsonConvert.DeserializeObject<object>(jsonData, settings);
 		HandelSceneDataPass(newSceneInstance, deserializedData);
 
-		anim.PlaybackSpeed = animSpeed;
+		anim.SpeedScale = animSpeed;
 		anim.Play("SceneTransition");
 	}
 
-	private void HandelSceneDataPass(Node2D newScene, System.Object data = null)
+	private void HandelSceneDataPass(Node2D newScene, object data = null)
 	{
 		Level newSceneLevel = (Level)newScene;
 
@@ -61,7 +59,7 @@ public partial class Scene : Node2D
 		newSceneLevel.upgradeSections = upgradeSections;
 
 		newSceneLevel._LoadLevelParameters(data);
-		newSceneLevel.Connect("_change_scene", this, "ChangeScene");
+		newSceneLevel.Connect(Level.SignalName.ChangeScene, new Callable(this, "ChangeSceneToFile"));
 	}
 
 	private void AnimationFinished(string animName)

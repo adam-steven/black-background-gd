@@ -1,0 +1,9 @@
+Control
+Node2D
+PanelContainer
+Container
+AnimationPlayer
+ColorRect
+CanvasLayer
+WorldEnvironment
+Camera2D

@@ -1,0 +1,47 @@
+res://enviroments/default_env.tres
+res://scenes/gameEnvironment/UI.tscn
+res://shaders/WaveSegmentShader.gdshader
+res://enviroments/glow_environment.tres
+res://shaders/PlayerBlockCounter.gdshader
+res://scenes/Scene.tscn
+res://script/dataSaving/FileSave.cs
+res://script/entities/enemies/Enemy.cs
+res://script/entities/enemies/types/Chaser.cs
+res://script/entities/enemies/types/TurretLv1.cs
+res://script/entities/enemies/WeakPoint.cs
+res://script/entities/Entity.cs
+res://script/entities/obstacles/Obstacle.cs
+res://script/entities/obstacles/types/BulletSpawner.cs
+res://script/entities/obstacles/types/MultiBulletSpawner.cs
+res://script/entities/player/Player.cs
+res://script/gunComponents/projectiles/Bullet.cs
+res://script/gunComponents/projectiles/Explosion.cs
+res://script/gunComponents/projectiles/Projectile.cs
+res://script/levels/DeathScreen.cs
+res://script/levels/LeaderboardScreen.cs
+res://script/levels/Level.cs
+res://script/levels/Main/Main.cs
+res://script/levels/OptionsScreen.cs
+res://script/mainControllers/Camera.cs
+res://script/mainControllers/Scene/Scene.cs
+res://script/menus/DeathMenu.cs
+res://script/menus/LeaderboardMenu.cs
+res://script/menus/MainMenu.cs
+res://script/menus/MenuBtn.cs
+res://script/menus/MenuController.cs
+res://script/menus/OptionsMenu.cs
+res://script/menus/PauseMenu.cs
+res://script/menus/upgrades/uniqueUpgrades/BulletsForDamage.cs
+res://script/menus/upgrades/uniqueUpgrades/DamageMultiplier.cs
+res://script/menus/upgrades/UpgradeBtn.cs
+res://script/menus/upgrades/UpgradeMenu.cs
+res://script/testing/FpsCounter.cs
+res://script/ui/UiController.cs
+res://testing - learning godot/inputTestSprite.cs
+res://testing - learning godot/signalTest.cs
+res://testing - learning godot/World.cs
+res://scenes/misc/Bullet.tscn
+res://scenes/enemies/1/TurretLv1.tscn
+res://scenes/enemies/.WeekPoint.tscn
+res://scenes/misc/Player.tscn
+res://scenes/gameEnvironment/Main.tscn

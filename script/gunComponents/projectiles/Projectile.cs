@@ -1,11 +1,10 @@
 using System;
 using System.Collections.Generic;
-using Godot;
 using static Enums;
 
 namespace Godot
 {
-    public class Projectile : Area2D 
+    public partial class Projectile : Area2D 
     {
         public BulletOwner bOwner;
         public int strength = 5;
@@ -24,7 +23,7 @@ namespace Godot
 
         public override void _Ready()
         {
-            this.Connect("body_entered", this, "_BodyEntered");
+            this.Connect(Area2D.SignalName.BodyEntered, new Callable(this, "_BodyEntered"));
 
             float angle = this.Rotation;
 		    closedMotion = new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle)) * movementForce;
@@ -38,7 +37,7 @@ namespace Godot
 
         internal virtual void _ProjectileReady() {}
         internal virtual void _RenderColour() {}
-        internal virtual void _BodyEntered(object body) {}
+        internal virtual void _BodyEntered(Node2D body) {}
 
         internal virtual void _DestroySelf() 
         {
@@ -50,12 +49,12 @@ namespace Godot
         {
             if(onDestroyScenes is null || onDestroyScenes.Count <= 0) { return; }
             Random rnd = new Random();
-            Godot.Node2D gameController = this.GetParent<Godot.Node2D>();
+            Node2D gameController = this.GetParent<Node2D>();
 
             for (int i = 0; i < onDestroyScenes.Count; i++)
             {
                 PackedScene bulletScene = (PackedScene)GD.Load(onDestroyScenes[i]);
-                Projectile projectile = (Projectile)bulletScene.Instance();
+                Projectile projectile = bulletScene.Instantiate<Projectile>();
                 float randomAccuracyDeviation = (float)((rnd.NextDouble() * 360) - (rnd.NextDouble() * 360));
 
                 // Access bullet properties
@@ -83,7 +82,7 @@ namespace Godot
             if(timeAlive <= 0 || !IsInstanceValid(timer)) { return; }
 
 		    timer.WaitTime = timeAlive;
-		    timer.Connect("timeout", this, "_DestroySelf");
+		    timer.Connect(Timer.SignalName.Timeout, new Callable(this, "_DestroySelf"));
 		    timer.Start();
         }
 

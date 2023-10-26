@@ -1,34 +1,32 @@
 using Godot;
-using System;
 using static Enums;
 
 //Player movement and firing
 //Player acts as a bullet, movement done via impulse forces
 public partial class Player : Entity
 {
-	[Signal] internal delegate void _update_health_ui(int health, bool healthIncrease);
-	[Signal] internal delegate void _player_left_camera();
+	[Signal] public delegate void UpdateHealthUiEventHandler(int health, bool healthIncrease); //Event: the player has gained/lost health
+    [Signal] public delegate void PlayerLeftCameraEventHandler(); //Event: the player has left the cameras view (VisibleOnScreenNotifier2D bubble up)
 
-	private Godot.Sprite sprite;
+    private Godot.Sprite2D sprite;
 
 	public override void _Ready()
 	{
 		this.entityType = BulletOwner.PlayerController;
 
-		sprite = this.GetNode<Godot.Sprite>("Sprite");
+		sprite = this.GetNode<Godot.Sprite2D>("Sprite2D");
 		gun = new GunController(this, sprite, GetTree());
 
-		this.Connect("body_entered", this, "BodyEntered");
+		this.Connect(RigidBody2D.SignalName.BodyEntered, new Callable(this, "OnBodyEntered"));
 
-		VisibilityNotifier2D vis = this.GetNode<VisibilityNotifier2D>("VisibilityNotifier2D");
-		vis.Connect("screen_exited", this, "ScreenExited");
+		VisibleOnScreenNotifier2D vis = this.GetNode<VisibleOnScreenNotifier2D>("VisibleOnScreenNotifier2D");
+		vis.Connect(VisibleOnScreenNotifier2D.SignalName.ScreenExited, new Callable(this, "ScreenExited"));
 
 		//ReSet the health UI, background colour, and block indicator
 		_UpdateHealth(0);
-		UpdateBlockIndicator();
 	}
 
-	public override void _PhysicsProcess(float delta)
+	public override void _PhysicsProcess(double delta)
 	{
 		MouseRotation();
 
@@ -52,7 +50,7 @@ public partial class Player : Entity
 
 	private void ScreenExited()
 	{
-		this.EmitSignal("_player_left_camera");
+		this.EmitSignal(SignalName.PlayerLeftCamera);
 	}
 }
 

@@ -11,7 +11,7 @@ public partial class Main
         uiNode.SetWaveSegments(mainData.Stage.NoOfWaves);
     }
 
-    public void _StageProcess(float delta)
+    public void _StageProcess(double delta)
     {
         bool? stageTimerEnd = mainData.Stage.ProcessStageCountDown(delta);
 

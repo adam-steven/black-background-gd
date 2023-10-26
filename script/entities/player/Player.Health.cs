@@ -23,12 +23,12 @@ public partial class Player
 
                 case BulletVariations.NormalStrong:
                     GainHealth(strikingBullet, Colour.LevelColour, "NICE");
-                    this.EmitSignal("_destroy_all_bullets");
+                    this.EmitSignal(Entity.SignalName.DestroyAllBullets);
                     return;
 
                 case BulletVariations.Spectral:
                     strikingBullet.strength = 0;
-                    GainHealth(strikingBullet, Color.ColorN("black"));
+                    GainHealth(strikingBullet, new Color(Colors.Black));
                     return;
             }
         }
@@ -46,8 +46,8 @@ public partial class Player
         //Damage indication
         AnimationPlayer anim = this.GetNode<AnimationPlayer>("AnimationPlayer");
         anim.Play("PlayerHit");
-        this.EmitSignal("_shake_screen", 12, 0.2f);
-        this.EmitSignal("_break_score_update");
+        this.EmitSignal(Entity.SignalName.ShakeScreen, 12, 0.2f);
+        this.EmitSignal(Entity.SignalName.BreakScoreUpdate);
 
         //Kill player if health is 0
         if (Health <= 0)
@@ -57,14 +57,14 @@ public partial class Player
             anim.Play("PlayerDeath");
 
             //Go to game-over screen
-            this.EmitSignal("_on_death");
+            this.EmitSignal(Entity.SignalName.OnDeath);
         }
     }
 
     private void GainHealth(Projectile strikingBullet, Color backgroundColour, string flashText = null)
     {
         _UpdateHealth((int)Math.Round(strikingBullet.strength / 1.5f));
-        this.EmitSignal("_update_score", pointsOnBlock);
+        this.EmitSignal(Entity.SignalName.UpdateScore, pointsOnBlock);
 
         //Show effect
         BlockEffect(backgroundColour, flashText);
@@ -73,7 +73,7 @@ public partial class Player
     private void BlockEffect(Color backgroundColour, string flashText = null)
     {
         //Flash text
-        if (flashText is not null) { this.EmitSignal("_section_text", flashText, true); }
+        if (flashText is not null) { this.EmitSignal(Entity.SignalName.SectionText, flashText, true); }
 
         //Flash colour + freeze frame
         Colour.FlashBackgroundColourAsync(backgroundColour, GetTree(), Health);
@@ -82,7 +82,7 @@ public partial class Player
     public override void _UpdateHealth(int addend)
     {
         Health = Mathc.Limit(0, Health + addend, 1000);
-        this.EmitSignal("_update_health_ui", Health, (addend > 0));
+        this.EmitSignal(SignalName.UpdateHealthUi, Health, (addend > 0));
         Colour.UpdateBackgroundColour(Health);
     }
 }

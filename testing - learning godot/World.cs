@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public class World : Node2D
+public partial class World : Node2D
 {
 	PackedScene packedScene;
 
@@ -12,7 +12,7 @@ public class World : Node2D
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(float delta)
+	public override void _Process(double delta)
 	{
 
 	}
@@ -20,7 +20,7 @@ public class World : Node2D
 	public override void _UnhandledInput(InputEvent @event)
 	{
 		if(@event is InputEventMouseButton mouseEvent){
-		   Node2D sprite = (Node2D)packedScene.Instance();
+		   Node2D sprite = packedScene.Instantiate<Node2D>();
 		   sprite.Position = mouseEvent.Position;
 		   this.AddChild(sprite);
 		}

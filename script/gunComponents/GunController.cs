@@ -2,8 +2,9 @@ using System;
 using Godot;
 using static Enums;
 using System.Threading.Tasks;
+using System.Linq;
 
-public class GunController
+public partial class GunController
 {
     Random rnd = new Random();
 
@@ -58,7 +59,7 @@ public class GunController
         int shotDelayMs = (int)(ownerNode.ShotDelay * 1000);
         int nextShotThreshold = timeLastShot + shotDelayMs;
 
-        int currentTime = (int)OS.GetTicksMsec();
+        int currentTime = (int)Time.GetTicksMsec();
         bool canShoot = (currentTime >= nextShotThreshold);
         if (canShoot) timeLastShot = currentTime;
 
@@ -74,7 +75,7 @@ public class GunController
 
         for (int i = 0; i < ownerNode.BulletBurstAmount; i++)
         {
-            if(!Godot.Object.IsInstanceValid(ownerNode) || tree.Paused) { break; }
+            if(!GodotObject.IsInstanceValid(ownerNode) || tree.Paused) { break; }
             SpawnBullets(gameController, bulletScene, bulletType);
             await Task.Delay((int)betweenBurstDelay);
         }
@@ -83,10 +84,8 @@ public class GunController
     //Loop spawn bullets for shotgun effect
     private void SpawnBullets(Godot.Node2D gameController, PackedScene bulletScene, BulletVariations bulletType)
     {
-        
-
         //Set can shoot timer here so thats the burst will never be slower than shoot rate
-        timeLastShot = (int)OS.GetTicksMsec();
+        timeLastShot = (int)Time.GetTicksMsec();
 
         //Loop for shotgun effect
         for (int i = 0; i < ownerNode.NoOfBullets; i++)
@@ -98,7 +97,7 @@ public class GunController
     //Spawn 1 bullet
     private void SpawnBullet(Godot.Node2D gameController, PackedScene bulletScene, BulletVariations bulletType)
     {
-        Projectile projectile = (Projectile)bulletScene.Instance();
+        Projectile projectile = bulletScene.Instantiate<Projectile>();
         float randomAccuracyDeviation = (float)((rnd.NextDouble() * ownerNode.BulletAccuracy) - (rnd.NextDouble() * ownerNode.BulletAccuracy));
 
         // Access bullet properties
@@ -114,7 +113,7 @@ public class GunController
         projectile.movementForce = ownerNode.BulletForce;
         projectile.timeAlive = ownerNode.BulletTimeAlive;
         projectile.type = bulletType;
-        projectile.onDestroyScenes = ownerNode.OnBulletDestroyScenes;
+        projectile.onDestroyScenes = ownerNode.OnBulletDestroyScenes?.ToList();
 
         // Shoot bullet + start cooldown 
         gameController.AddChild(projectile);

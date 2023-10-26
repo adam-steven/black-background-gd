@@ -32,22 +32,22 @@ public static class Colour
         //make sure the number is never less than 0
         float healthPercent = Math.Max(0.0f, 0.5f - (playerHealth / 1000.0f));
         int red = (int)Math.Floor(50 * healthPercent);
-        VisualServer.SetDefaultClearColor(Color.Color8((byte)red, 0, 0));
+        RenderingServer.SetDefaultClearColor(Color.Color8((byte)red, 0, 0));
     }
 
     //Flash a colour on the Scene of a sec + freeze frame
     public static async void FlashBackgroundColourAsync(Color colourToFlash, SceneTree tree, int playerHealth)
     {
-        bool isFlashBlack = colourToFlash.IsEqualApprox(Color.ColorN("black"));
+        bool isFlashBlack = colourToFlash.IsEqualApprox(new Color(Colors.Black));
         Node2D rootScene = (!isFlashBlack) ? (Node2D)tree.CurrentScene : new Node2D();
 
-        rootScene.Modulate = Color.ColorN("black");
-        VisualServer.SetDefaultClearColor(colourToFlash);
+        rootScene.Modulate = new Color(Colors.Black);
+        RenderingServer.SetDefaultClearColor(colourToFlash);
 
         //Freeze frame always with colour flash to minimise seizure risk
         await FreezeFrameAsync(tree);
 
-        rootScene.Modulate = Color.ColorN("white");
+        rootScene.Modulate = new Color(Colors.White);
         UpdateBackgroundColour(playerHealth);
     }
 

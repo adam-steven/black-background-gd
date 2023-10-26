@@ -3,14 +3,14 @@ using Newtonsoft.Json;
 using System;
 using static Enums;
 
-public class UpgradeMenu : Control
+public partial class UpgradeMenu : Control
 {
-	[Signal] public delegate void _spawned_upgrades(string spawnedUpgrades);
-	[Signal] public delegate void _decrease_multiplier(int reset);
-	[Signal] public delegate void _upgrading_finished();
-	[Signal] public delegate void _update_upgrade_ui(string value);
+	[Signal] public delegate void SpawnedUpgradesEventHandler(string spawnedUpgrades); //Event: spawn upgrade to choose
+	[Signal] public delegate void DecreaseMultiplierEventHandler(int reset); //Event: decrease the players round multiplier
+	[Signal] public delegate void UpgradingFinishedEventHandler(); //Event: the upgrading stage has finished
+	[Signal] public delegate void UpdateUpgradeUiEventHandler(string value); //Event: bubble up UpgradeBtn event
 
-	private Random rnd = new Random();
+    private Random rnd = new Random();
 	public Vector2 levelCenter;
 	public Player player;
 
@@ -27,8 +27,8 @@ public class UpgradeMenu : Control
 
 		//Connect exit listener
 		UpgradeBtn exitBtn = this.GetNode<UpgradeBtn>("Exit");
-		exitBtn.Connect("_on_pressed", this, "_OnButtonPress");
-		exitBtn.Connect("_update_upgrade_ui", this, "_UpdateUpgradeDesc");
+        exitBtn.Connect(UpgradeBtn.SignalName.OnPressed, new Callable(this, "_OnButtonPressed"));
+		exitBtn.Connect(UpgradeBtn.SignalName.UpdateUpgradeUi, new Callable(this, "_UpdateUpgradeDesc"));
 		exitBtn.showNames = showNames;
 		exitBtn.showDesc = showDesc;
 
@@ -45,8 +45,8 @@ public class UpgradeMenu : Control
 
 		for (int i = 0; i < numOfItems; i++)
 		{
-			double x = levelCenter.x + radius * Math.Cos((2 * Math.PI * i / numOfItems) - (Math.PI/2)); 
-			double y = levelCenter.y + radius * Math.Sin((2 * Math.PI * i / numOfItems) - (Math.PI/2));
+			double x = levelCenter.X + radius * Math.Cos((2 * Math.PI * i / numOfItems) - (Math.PI/2)); 
+			double y = levelCenter.Y + radius * Math.Sin((2 * Math.PI * i / numOfItems) - (Math.PI/2));
 			Vector2 spawnPosition = new Vector2((float)x, (float)y + yAxisOffSet);
 
 			string upgradePath = SpawnUpgrade(i, spawnPosition, showNames, showDesc);
@@ -60,7 +60,7 @@ public class UpgradeMenu : Control
 	private string SpawnUpgrade(int index, Vector2 spawnPosition, bool showNames, bool showDesc) {
 		string upgradePath = (storedUpgrades is not null) ? storedUpgrades[index] : upgrades[rnd.Next(upgrades.Count)];
 		PackedScene upgradeOptionScene = (PackedScene)GD.Load(upgradePath);
-		UpgradeBtn upgradeOption = (UpgradeBtn)upgradeOptionScene.Instance();
+		UpgradeBtn upgradeOption = upgradeOptionScene.Instantiate<UpgradeBtn>();
 		 
 		upgradeOption.GlobalPosition = spawnPosition;
 
@@ -69,50 +69,48 @@ public class UpgradeMenu : Control
 		upgradeOptionScript.showNames = showNames;
 		upgradeOptionScript.showDesc = showDesc;
 
-		upgradeOption.Connect("_on_pressed", this, "_OnButtonPress");
-		upgradeOption.Connect("_update_upgrade_ui", this, "_UpdateUpgradeDesc");
+		upgradeOption.Connect(UpgradeBtn.SignalName.OnPressed, new Callable(this, "_OnButtonPressed"));
+		upgradeOption.Connect(UpgradeBtn.SignalName.UpdateUpgradeUi, new Callable(this, "EmitUpdateUpgradeDesc"));
 
 		this.AddChild(upgradeOption);
 		return upgradePath;
 	}
 
-	private void _OnButtonPress(UpgradeBtn button)
+	private void _OnButtonPressed(UpgradeBtn button)
 	{
-		if (!button.endUpgrading) { DecreaseMultiplier(); }
+		if (!button.endUpgrading) { EmitDecreaseMultiplier(); }
 
 		//If the button has endUpgrading set or only the exit button is left
-		Godot.Collections.Array buttons = this.GetChildren();
+		Godot.Collections.Array<Node> buttons = this.GetChildren();
+
 		if (button.endUpgrading || (buttons.Count - 1) <= 1)
-		{
-			FinishedUpgrading();
-		}
+		{ EmitFinishedUpgrading(); }
 	}
 
 	private void SaveSpawnedUpgrades(Scenes spawnedUpgrades) {
 		 var settings = new JsonSerializerSettings();
 		settings.TypeNameHandling = TypeNameHandling.Objects;
 		string jsonData = JsonConvert.SerializeObject(spawnedUpgrades, settings);
-		this.EmitSignal("_spawned_upgrades", jsonData);
+		this.EmitSignal(SignalName.SpawnedUpgrades, jsonData);
 	}
 
-	private void _UpdateUpgradeDesc(string value)
+	private void EmitUpdateUpgradeDesc(string value)
 	{
-		this.EmitSignal("_update_upgrade_ui", value);
+		this.EmitSignal(SignalName.UpdateUpgradeUi, value);
 	}
 
 	//Emit signal to decrement score multiplier
-	public void DecreaseMultiplier()
+	public void EmitDecreaseMultiplier()
 	{
-		this.EmitSignal("_decrease_multiplier", false);
+		this.EmitSignal(SignalName.DecreaseMultiplier, false);
 	}
 
 	//Emit signal to delete any existing upgrades
-	public void FinishedUpgrading()
+	public void EmitFinishedUpgrading()
 	{
-		this.EmitSignal("_upgrading_finished");
+		this.EmitSignal(SignalName.UpgradingFinished);
 		this.QueueFree();
 	}
-
 
 	#region Testing Functions
 

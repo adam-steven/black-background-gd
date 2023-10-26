@@ -2,24 +2,24 @@ using Godot;
 
 public partial class UiController
 {
-	private Godot.Label pointIndicatorUi;
+	private Label pointIndicatorUi;
 	private AnimationPlayer pointIndicatorAnim;
-	private Godot.Label scoreUi;
-	private Godot.Label multiplierUi;
+	private Label scoreUi;
+	private Label multiplierUi;
 	private AnimationPlayer multiplierAnim;
 
 	#region GetElements
 
 	private void GetScoreUi()
 	{
-		Godot.BoxContainer leftPanel = this.GetNode<Godot.BoxContainer>("HBoxContainer/VBoxContainer");
+		BoxContainer leftPanel = this.GetNode<BoxContainer>("HBoxContainer/VBoxContainer");
 
-		pointIndicatorUi = leftPanel.GetNode<Godot.Label>("PointsIndicator");
+		pointIndicatorUi = leftPanel.GetNode<Label>("PointsIndicator");
 		pointIndicatorAnim = pointIndicatorUi.GetNode<AnimationPlayer>("AnimationPlayer");
 
-		scoreUi = leftPanel.GetNode<Godot.Label>("Score");
+		scoreUi = leftPanel.GetNode<Label>("Score");
 
-		multiplierUi = leftPanel.GetNode<Godot.Label>("ScoreMultiplier");
+		multiplierUi = leftPanel.GetNode<Label>("ScoreMultiplierControl/ScoreMultiplier");
 		multiplierAnim = multiplierUi.GetNode<AnimationPlayer>("AnimationPlayer");
 	}
 
@@ -43,7 +43,7 @@ public partial class UiController
 	public void UpdateMultiplierUi(int value)
 	{
 		if (multiplierUi is null) { return; }
-		multiplierAnim.Connect("animation_finished", this, "MultiplierUiIdleAnim", null, (uint)Godot.Object.ConnectFlags.Oneshot);
+		multiplierAnim.Connect(AnimationPlayer.SignalName.AnimationFinished, new Callable(this, "MultiplierUiIdleAnim"), (uint)ConnectFlags.OneShot);
 		multiplierAnim.Play("multiplierChange");
 		multiplierUi.Text = $"x{value}";
 	}

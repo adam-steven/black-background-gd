@@ -6,17 +6,17 @@ public partial class Main
     private void SpawnPlayer(Vector2 location, EntityStats? storedStats = null)
     {
         PackedScene playerScene = (PackedScene)GD.Load("res://scenes/misc/Player.tscn");
-        player = (Player)playerScene.Instance();
+        player = playerScene.Instantiate<Player>();
         player.GlobalPosition = location;
 
-        player.Connect("_on_death", this, "EndGame");
-        player.Connect("_shake_screen", (Camera)mainCamera, "StartShakeScreen");
-        player.Connect("_section_text", this, "DisplaySectionText");
-        player.Connect("_destroy_all_bullets", this, "DestroyBullets");
-        player.Connect("_update_score", this, "UpdateScore");
-        player.Connect("_break_score_update", this, "BreakScoreUpdate");
-        player.Connect("_player_left_camera", this, "ReframePlayer");
-        player.Connect("_update_health_ui", uiNode, "UpdateHealthUi");
+        player.Connect(Entity.SignalName.OnDeath, new Callable(this, "EndGame"));
+        player.Connect(Entity.SignalName.ShakeScreen, new Callable((Camera)mainCamera, "StartShakeScreen"));
+        player.Connect(Entity.SignalName.SectionText, new Callable(this, "DisplaySectionText"));
+        player.Connect(Entity.SignalName.DestroyAllBullets, new Callable(this, "DestroyBullets"));
+        player.Connect(Entity.SignalName.UpdateScore, new Callable(this, "UpdateScore"));
+        player.Connect(Entity.SignalName.BreakScoreUpdate, new Callable(this, "BreakScoreUpdate"));
+        player.Connect(Player.SignalName.PlayerLeftCamera, new Callable(this, "ReframePlayer"));
+        player.Connect(Player.SignalName.UpdateHealthUi, new Callable(uiNode, "UpdateHealthUi"));
 
         player.SetStats(storedStats);
         this.AddChild(player);
@@ -25,11 +25,11 @@ public partial class Main
     private void SpawnMainMenu()
     {
         PackedScene mainMenuScene = (PackedScene)GD.Load("res://scenes/menus/MainMenu.tscn");
-        Godot.Control mainMenu = (Godot.Control)mainMenuScene.Instance();
+        MenuController mainMenu = mainMenuScene.Instantiate<MenuController>();
 
-        mainMenu.Connect("_play_game", this, "PlayGame");
-        mainMenu.Connect("_options", this, "GoToOptions");
-        mainMenu.Connect("_leaderboard", this, "GoToLeaderboard");
+        mainMenu.Connect(MenuController.SignalName.PlayGame, new Callable(this, "PlayGame"));
+        mainMenu.Connect(MenuController.SignalName.Options, new Callable(this, "GoToOptions"));
+        mainMenu.Connect(MenuController.SignalName.Leaderboard, new Callable(this, "GoToLeaderboard"));
 
         this.AddChild(mainMenu);
     }
@@ -60,8 +60,8 @@ public partial class Main
         for (int i = 0; i < pathsToSpawn.Count; i++)
         {
             Entity enemy = GetEntityData(pathsToSpawn[i]);
-            enemy.Connect("_update_score", this, "UpdateScore", new Godot.Collections.Array(mainData.Stage.Level));
-            enemy.Connect("_update_player_heath", player, "_UpdateHealth");
+            enemy.UpdateScore += (points) => UpdateScore(points, mainData.Stage.Level);
+            enemy.UpdatePlayerHeath += (health) => player._UpdateHealth(health);
             this.AddChild(enemy);
         }
 
@@ -81,17 +81,17 @@ public partial class Main
         GD.Print("Response SpawnUpgrades\n");
 
         PackedScene upgradeMenuScene = (PackedScene)GD.Load("res://scenes/menus/UpgradeMenu.tscn");
-        UpgradeMenu upgradeMenu = (UpgradeMenu)upgradeMenuScene.Instance();
+        UpgradeMenu upgradeMenu = upgradeMenuScene.Instantiate<UpgradeMenu>();
 
         upgradeMenu.levelCenter = levelCenter;
         upgradeMenu.player = player;
         upgradeMenu.upgrades = mainData.Upgrades;
         upgradeMenu.storedUpgrades = mainData.StoredUpgrades;
 
-        upgradeMenu.Connect("_spawned_upgrades", this, "SaveSpawnedUpgrades");
-        upgradeMenu.Connect("_upgrading_finished", this, "UpgradingFinished");
-        upgradeMenu.Connect("_decrease_multiplier", this, "UpdateMultiplier");
-        upgradeMenu.Connect("_update_upgrade_ui", uiNode, "UpdateUpgradeDescUi");
+        upgradeMenu.Connect(UpgradeMenu.SignalName.SpawnedUpgrades, new Callable(this, "SaveSpawnedUpgrades"));
+        upgradeMenu.Connect(UpgradeMenu.SignalName.UpgradingFinished, new Callable(this, "UpgradingFinished"));
+        upgradeMenu.Connect(UpgradeMenu.SignalName.DecreaseMultiplier, new Callable(this, "UpdateMultiplier"));
+        upgradeMenu.Connect(UpgradeMenu.SignalName.UpdateUpgradeUi, new Callable(uiNode, "UpdateUpgradeDescUi"));
    
         this.AddChild(upgradeMenu);
     }
@@ -116,10 +116,10 @@ public partial class Main
     private Entity GetEntityData(string entityPath) 
     {
         PackedScene entityScene = (PackedScene)GD.Load(entityPath);
-        Entity entity = (Entity)entityScene.Instance();
+        Entity entity = entityScene.Instantiate<Entity>();
 
-        int spawnPosX = rnd.Next((int)-Globals.levelSize.x, (int)Globals.levelSize.x);
-        int spawnPosY = rnd.Next((int)-Globals.levelSize.y, (int)Globals.levelSize.y);
+        int spawnPosX = rnd.Next((int)-Globals.levelSize.X, (int)Globals.levelSize.X);
+        int spawnPosY = rnd.Next((int)-Globals.levelSize.Y, (int)Globals.levelSize.Y);
         Vector2 spawnPosition = new Vector2(spawnPosX, spawnPosY) + levelCenter;
         entity.GlobalPosition = spawnPosition;
 
@@ -127,7 +127,7 @@ public partial class Main
         entity.colour = Colour.LevelColour;
         entity.bulletColour = Colour.HarmonizingColour;
 
-        entity.Connect("_on_death", this, "CheckIfEnemies");
+        entity.Connect(Entity.SignalName.OnDeath, new Callable(this, "CheckIfEnemies"));
 
         return entity;
     }

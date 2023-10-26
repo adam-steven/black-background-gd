@@ -1,8 +1,5 @@
 using Godot;
-using GdArray = Godot.Collections.Array;
 using System;
-using static Enums;
-
 
 //Main.tscn 
 public partial class Main : Level
@@ -24,13 +21,13 @@ public partial class Main : Level
 	{
 		uiNode = this.GetNode<UiController>("UI");
 
-		levelNode = this.GetNode<Godot.Node2D>("Level");
+		levelNode = this.GetNode<Node2D>("Level");
 		levelCenter = levelNode.GlobalPosition;
 
 		this.SetProcess(false);
 	}
 
-	public override void _LoadLevelParameters(System.Object sceneData)
+	public override void _LoadLevelParameters(object sceneData)
 	{
 		if (sceneData is not null)
 		{
@@ -51,7 +48,7 @@ public partial class Main : Level
 		}
 	}
 
-	public override void _Process(float delta)
+	public override void _Process(double delta)
 	{
 		_ScoreProcess(delta);
 		_StageProcess(delta);
@@ -73,12 +70,11 @@ public partial class Main : Level
 	//Used to indicate the changes in gameplay sections 
 	private void DisplaySectionText(string text, bool inverted = false)
 	{
-		Position2D sectionText = this.GetNode<Position2D>("SectionText");
+		Marker2D sectionText = this.GetNode<Marker2D>("SectionText");
 		Godot.Label label = sectionText.GetNode<Godot.Label>("Label");
 		AnimationPlayer anim = sectionText.GetNode<AnimationPlayer>("AnimationPlayer");
 
-		string textColor = inverted ? "black" : "white";
-		sectionText.Modulate = Color.ColorN(textColor);
+		sectionText.Modulate = new Color(inverted ? Colors.Black : Colors.White);
 
 		label.Text = text;
 		anim.Play("SectionTxtDisplay");
@@ -88,7 +84,7 @@ public partial class Main : Level
 	{
 		AnimationPlayer anim = this.GetNode<AnimationPlayer>("SectionText/AnimationPlayer");
 
-		anim.Connect("animation_finished", this, callFunction, null, (uint)ConnectFlags.Oneshot);
+		anim.Connect(AnimationPlayer.SignalName.AnimationFinished, new Callable(this, callFunction), (uint)ConnectFlags.OneShot);
 		anim.Play("SectionTextCountDown");
 	}
 
@@ -103,7 +99,7 @@ public partial class Main : Level
 	//Destroys all bullets on the screen
 	private void DestroyBullets()
 	{
-		GdArray children = this.GetChildren();
+        Godot.Collections.Array<Node> children = this.GetChildren();
 
 		foreach (var child in children)
 			if (child.GetType() == typeof(Bullet))
@@ -113,7 +109,7 @@ public partial class Main : Level
 	private void ReframePlayer()
 	{
 		//If camera locked, move player to center
-		Vector2 cameraCenter = mainCamera.GetCameraScreenCenter();
+		Vector2 cameraCenter = mainCamera.GetScreenCenterPosition();
 		player.Position = cameraCenter;
 
 		//TODO: If camera free, move camera to player

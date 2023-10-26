@@ -7,13 +7,13 @@ using System.Collections.Generic;
 public partial class Scene
 {
     private static Dictionary<MenuButtonActions, object> actions = new Dictionary<MenuButtonActions, object> {
-            {MenuButtonActions.Up, KeyList.W},
-            {MenuButtonActions.Down, KeyList.S},
-            {MenuButtonActions.Left, KeyList.A},
-            {MenuButtonActions.Right, KeyList.D},
-            {MenuButtonActions.Shoot, ButtonList.Left},
-            {MenuButtonActions.Block, ButtonList.Right},
-            {MenuButtonActions.Pause, KeyList.Escape}
+            {MenuButtonActions.Up, Key.W},
+            {MenuButtonActions.Down, Key.S},
+            {MenuButtonActions.Left, Key.A},
+            {MenuButtonActions.Right, Key.D},
+            {MenuButtonActions.Shoot, MouseButton.Left},
+            {MenuButtonActions.Block, MouseButton.Right},
+            {MenuButtonActions.Pause, Key.Escape}
             };
 
     private void LoadKeyBinds()
@@ -23,7 +23,7 @@ public partial class Scene
         foreach (var action in actions)
         {
             object keyBind = settings.GetValue(action.Key.ToString(), action.Value);
-            var actionList = InputMap.GetActionList(action.Key.ToString());
+            var actionList = InputMap.ActionGetEvents(action.Key.ToString());
 
             InputMap.ActionEraseEvent(action.Key.ToString(), (InputEvent)actionList[0]);
 
@@ -47,9 +47,9 @@ public partial class Scene
             switch (inputType)
             {
                 case 'K': //KeyBoard
-                    return (KeyList)code;
+                    return (Key)code;
                 case 'M': //Mouse
-                    return (ButtonList)code;
+                    return (MouseButton)code;
                     // case 'C': //Controller
                     //     return (JoystickList)code;
             }
@@ -62,13 +62,13 @@ public partial class Scene
     {
         switch (keyBind)
         {
-            case KeyList keyList:
+            case Key Key:
                 InputEventKey newKey = new InputEventKey();
-                newKey.PhysicalScancode = (uint)(int)keyBind;
+                newKey.PhysicalKeycode = Key;
                 return newKey;
-            case ButtonList buttonList:
+            case MouseButton MouseButton:
                 InputEventMouseButton newMouseBtn = new InputEventMouseButton();
-                newMouseBtn.ButtonIndex = (int)keyBind;
+                newMouseBtn.ButtonIndex = MouseButton;
                 return newMouseBtn;
             default:
                 InputEventKey newEmptyKey = new InputEventKey();

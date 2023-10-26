@@ -1,10 +1,9 @@
 using Godot;
-using System;
 using static Enums;
 
-public class LeaderboardMenu : MenuController
+public partial class LeaderboardMenu : MenuController
 {
-    internal override void _OnButtonPress(MenuBtn button)
+    internal override void _OnButtonPressed(MenuBtn button)
     {
         switch (button.action)
         {
@@ -19,7 +18,7 @@ public class LeaderboardMenu : MenuController
 
     private void Return(MenuBtn button)
     {
-        this.EmitSignal("_main_menu");
+        this.EmitSignal(MenuController.SignalName.MainMenu);
         button.Disabled = true;
     }
 }

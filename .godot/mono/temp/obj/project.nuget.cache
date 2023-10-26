@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "dgSpecHash": "W7qpJPp8xTsc/gShdWNursnYr7JK8TiPf7JktWbCbwiPZ53zOUO0X47ct9KAz4z8CNmyY+e3vVX4GPTbYCWAHg==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\adams\\Documents\\GitHub\\black-background-gd\\Black Background.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\adams\\.nuget\\packages\\godot.sourcegenerators\\4.1.1\\godot.sourcegenerators.4.1.1.nupkg.sha512",
+    "C:\\Users\\adams\\.nuget\\packages\\godotsharp\\4.1.1\\godotsharp.4.1.1.nupkg.sha512",
+    "C:\\Users\\adams\\.nuget\\packages\\godotsharpeditor\\4.1.1\\godotsharpeditor.4.1.1.nupkg.sha512",
+    "C:\\Users\\adams\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}

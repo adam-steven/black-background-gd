@@ -1,8 +1,8 @@
 public partial class Main
 {
     //tick up delay
-    private float delay = 60;
-    private float delayCounter = 0;
+    private double delay = 60;
+    private double delayCounter = 0;
 
     public void _ScoreReady()
     {
@@ -10,7 +10,7 @@ public partial class Main
         uiNode.UpdateMultiplierUi(mainData.Score.ScoreMultiplier);
     }
 
-    public void _ScoreProcess(float delta)
+    public void _ScoreProcess(double delta)
     {
         delayCounter += delay * delta;
 

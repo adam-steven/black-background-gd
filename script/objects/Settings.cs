@@ -1,3 +1,3 @@
 using System.Collections.Generic;
 
-public class Settings : Dictionary<string, object> { }
+public partial class Settings : Dictionary<string, object> { }

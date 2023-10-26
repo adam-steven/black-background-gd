@@ -2,29 +2,29 @@ using Godot;
 using System;
 using static Enums;
 
-public class Explosion : Projectile
+public partial class Explosion : Projectile
 {
 	[Export] private float pushForce = 2000;
 	private float maxLength;
 
     internal override void _ProjectileReady() 
     {
-		Position2D edgeNode = this.GetNode<Position2D>("ExplosionEdge");
+		Marker2D edgeNode = this.GetNode<Marker2D>("ExplosionEdge");
 		Vector2 explosionEdge = edgeNode.GlobalPosition;
 		maxLength = this.GlobalPosition.DistanceTo(explosionEdge);
 
         AnimationPlayer anim = this.GetNode<AnimationPlayer>("AnimationPlayer");
-        anim.Connect("animation_finished", this, "_DestroySelf");
+        anim.Connect(AnimationPlayer.SignalName.AnimationFinished, new Callable(this, "_DestroySelf"));
     }
 
     internal override void _RenderColour() 
     {
 		this.type = BulletVariations.Spectral;
-		this.Modulate = colour.LinearInterpolate(Color.ColorN("white"), 0.65f) + new Godot.Color(0f, 0f, 0f, 0.15f);
+		this.Modulate = colour.Lerp(new Color(Colors.White), 0.65f) + new Godot.Color(0f, 0f, 0f, 0.15f);
 		this.Scale *= 1.5f;
     }
 
-	internal override void _BodyEntered(object body)
+	internal override void _BodyEntered(Node2D body)
 	{
 		//Make sure i hit an entity
 		Type bodyType = body.GetType();

@@ -2,13 +2,13 @@ using Godot;
 using System;
 using static Enums;
 
-public class Bullet : Projectile
+public partial class Bullet : Projectile
 {
 	//internal override void _ProjectileReady() {}
 
-	public override void _Process(float delta)
+	public override void _Process(double delta)
 	{
-		this.Position += (closedMotion + openMotion) * delta;
+		this.Position += (closedMotion + openMotion) * (float)delta;
 		ProcessTrail();
 	}
 
@@ -22,7 +22,7 @@ public class Bullet : Projectile
 				strength *= 2;
 				break;
 			case BulletVariations.Spectral:
-				this.Modulate = colour.LinearInterpolate(Color.ColorN("white"), 0.65f) + new Godot.Color(0f, 0f, 0f, 0.15f);
+				this.Modulate = colour.Lerp(new Color(Colors.White), 0.65f) + new Godot.Color(0f, 0f, 0f, 0.15f);
 				strength *= 2;
 				break;
 			default:
@@ -31,14 +31,14 @@ public class Bullet : Projectile
 		}
 	  
 	  	if(IsInstanceValid(trail))
-		{ 
-			trail.SetAsToplevel(true);
+		{
+			trail.TopLevel = true;
 			trail.DefaultColor = this.Modulate;
-			trail.Width *= this.Scale.x;
+			trail.Width *= this.Scale.X;
 		}
 	}
 
-	internal override void _BodyEntered(object body)
+	internal override void _BodyEntered(Node2D body)
 	{
 		//Make sure i hit an entity
 		Type bodyType = body.GetType();

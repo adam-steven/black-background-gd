@@ -3,7 +3,7 @@ using static Enums;
 
 namespace Godot
 {
-    public class Obstacle : Entity
+    public partial class Obstacle : Entity
     {
         [Export] private float rotationSpeed = 3f;
 
@@ -31,11 +31,11 @@ namespace Godot
             this.LookAt(player.GlobalPosition);
         }
 
-        internal void TurnToPlayer(float delta)
+        internal void TurnToPlayer(double delta)
         {
             Vector2 direction = (player.GlobalPosition - this.GlobalPosition);
-            Single angleTo = this.Transform.x.AngleTo(direction);
-            this.Rotate(Math.Sign(angleTo) * Math.Min(delta * rotationSpeed, Math.Abs(angleTo)));
+            Single angleTo = this.Transform.X.AngleTo(direction);
+            this.Rotate(Math.Sign(angleTo) * Math.Min((float)delta * rotationSpeed, Math.Abs(angleTo)));
         }
 
         internal override bool _IsActive()
@@ -48,7 +48,7 @@ namespace Godot
         {
             this.Health = 0; //Saving enemies checks health, this prevents the dying enemy from being saved 
 
-            this.EmitSignal("_on_death");
+            this.EmitSignal(Entity.SignalName.OnDeath);
             this.QueueFree();
         }
 

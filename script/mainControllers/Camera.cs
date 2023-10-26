@@ -2,7 +2,7 @@ using Godot;
 using System;
 using System.Threading.Tasks;
 
-public class Camera : Camera2D
+public partial class Camera : Camera2D
 {
     Random rnd = new Random();
 
@@ -14,7 +14,7 @@ public class Camera : Camera2D
     public void StartShakeScreen(int shakeForce, float shakeDuration)
     {
         this.shakeForce = shakeForce;
-        this.shakeDuration = (int)OS.GetTicksMsec() + (int)(shakeDuration * 1000);
+        this.shakeDuration = (int)Time.GetTicksMsec() + (int)(shakeDuration * 1000);
         
         if(!isShaking) { ShakeScreenAsync(); }
     }
@@ -23,7 +23,7 @@ public class Camera : Camera2D
     {
         isShaking = true;
 
-        while ((int)OS.GetTicksMsec() < shakeDuration)
+        while ((int)Time.GetTicksMsec() < shakeDuration)
         {
             this.GlobalPosition = (this.GlobalPosition == Vector2.Zero)
                 ? new Vector2(rnd.Next(0, shakeForce), rnd.Next(0, shakeForce))

@@ -12,7 +12,7 @@ public static class TestingDots
 
         Node rootNode = tree.Root.GetChild(0);
         PackedScene testingDot = (PackedScene)GD.Load("res://scenes/testing/TestingDot.tscn");
-        Godot.Sprite tDot = (Godot.Sprite)testingDot.Instance();
+        Godot.Sprite2D tDot = testingDot.Instantiate<Godot.Sprite2D>();
         tDot.GlobalPosition = tDotPos;
         rootNode.AddChild(tDot);
     }

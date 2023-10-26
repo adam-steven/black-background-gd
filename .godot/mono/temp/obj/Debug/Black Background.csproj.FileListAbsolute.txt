@@ -1,0 +1,18 @@
+C:\Users\adams\Documents\GitHub\black-background-gd\.godot\mono\temp\obj\Debug\Black Background.csproj.AssemblyReference.cache
+C:\Users\adams\Documents\GitHub\black-background-gd\.godot\mono\temp\obj\Debug\Black Background.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\adams\Documents\GitHub\black-background-gd\.godot\mono\temp\obj\Debug\Black Background.AssemblyInfoInputs.cache
+C:\Users\adams\Documents\GitHub\black-background-gd\.godot\mono\temp\obj\Debug\Black Background.AssemblyInfo.cs
+C:\Users\adams\Documents\GitHub\black-background-gd\.godot\mono\temp\obj\Debug\Black Background.csproj.CoreCompileInputs.cache
+C:\Users\adams\Documents\GitHub\black-background-gd\.godot\mono\temp\bin\Debug\Black Background.deps.json
+C:\Users\adams\Documents\GitHub\black-background-gd\.godot\mono\temp\bin\Debug\Black Background.runtimeconfig.json
+C:\Users\adams\Documents\GitHub\black-background-gd\.godot\mono\temp\bin\Debug\Black Background.dll
+C:\Users\adams\Documents\GitHub\black-background-gd\.godot\mono\temp\bin\Debug\Black Background.pdb
+C:\Users\adams\Documents\GitHub\black-background-gd\.godot\mono\temp\bin\Debug\GodotSharp.dll
+C:\Users\adams\Documents\GitHub\black-background-gd\.godot\mono\temp\bin\Debug\GodotSharpEditor.dll
+C:\Users\adams\Documents\GitHub\black-background-gd\.godot\mono\temp\bin\Debug\Newtonsoft.Json.dll
+C:\Users\adams\Documents\GitHub\black-background-gd\.godot\mono\temp\obj\Debug\Black Background.csproj.CopyComplete
+C:\Users\adams\Documents\GitHub\black-background-gd\.godot\mono\temp\obj\Debug\Black Background.dll
+C:\Users\adams\Documents\GitHub\black-background-gd\.godot\mono\temp\obj\Debug\refint\Black Background.dll
+C:\Users\adams\Documents\GitHub\black-background-gd\.godot\mono\temp\obj\Debug\Black Background.pdb
+C:\Users\adams\Documents\GitHub\black-background-gd\.godot\mono\temp\obj\Debug\Black Background.genruntimeconfig.cache
+C:\Users\adams\Documents\GitHub\black-background-gd\.godot\mono\temp\obj\Debug\ref\Black Background.dll

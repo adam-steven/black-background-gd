@@ -1,7 +1,6 @@
 using Godot;
-using System.Collections.Generic;
 
-public class UpgradeBtn : Position2D, IStats
+public partial class UpgradeBtn : Marker2D, IStats
 {
 	[Export] private string description = "";
 	[Export] public bool endUpgrading = false;
@@ -16,10 +15,10 @@ public class UpgradeBtn : Position2D, IStats
     [Export] public int BulletBurstAmount { get; set; }
     [Export] public float BulletTimeAlive { get; set; }
     [Export] public float BulletSize { get; set; }
-    [Export] public List<string> OnBulletDestroyScenes { get; set; }
+    [Export] public Godot.Collections.Array<string> OnBulletDestroyScenes { get; set; }
 
-	[Signal] public delegate void _on_pressed(MenuBtn button);
-	[Signal] public delegate void _update_upgrade_ui(string value);
+	[Signal] public delegate void OnPressedEventHandler(MenuBtn button); //Event: the menu button has been pressed
+    [Signal] public delegate void UpdateUpgradeUiEventHandler(string value); //Event: request to display the upgrades description
 
 	public Player player;
 	public bool showNames;
@@ -28,12 +27,12 @@ public class UpgradeBtn : Position2D, IStats
 
 	public override void _Ready()
 	{
-		btn = this.GetNode<Godot.Button>("Button");
-		btn.Connect("mouse_entered", this, "MouseEntered");
-		btn.Connect("mouse_exited", this, "MouseExited");
-		btn.Connect("pressed", this, "_OnButtonPress");
+		btn = this.GetNode<Button>("Button");
+		btn.Connect(Control.SignalName.MouseEntered, new Callable(this, "MouseEntered"));
+		btn.Connect(Control.SignalName.MouseExited, new Callable(this, "MouseExited"));
+		btn.Connect(BaseButton.SignalName.Pressed, new Callable(this, "_OnButtonPressed"));
 
-		Godot.Label label = btn.GetNode<Godot.Label>("Label");
+		Label label = btn.GetNode<Label>("Label");
 		label.Visible = false;
 
 		_UniqueCalcOnLoad(player);
@@ -57,7 +56,7 @@ public class UpgradeBtn : Position2D, IStats
 		ShowDescriptionUi("");
 	}
 
-	private void _OnButtonPress()
+	private void _OnButtonPressed()
 	{
 		if (IsInstanceValid(player))
 		{
@@ -67,21 +66,21 @@ public class UpgradeBtn : Position2D, IStats
 		}
 
 		ShowDescriptionUi("");
-		this.EmitSignal("_on_pressed", this);
+		this.EmitSignal(SignalName.OnPressed, this);
 		this.QueueFree();
 	}
 
 	private void ShowDescriptionUi(bool visiable)
 	{
 		if (!showNames) { return; }
-		Godot.Label label = btn.GetNode<Godot.Label>("Label");
+		Label label = btn.GetNode<Label>("Label");
 		label.Visible = visiable;
 	}
 
 	private void ShowDescriptionUi(string value)
 	{
 		if (!showDesc) { return; }
-		this.EmitSignal("_update_upgrade_ui", value);
+		this.EmitSignal(SignalName.UpdateUpgradeUi, value);
 	}
 
 	#region Unique Upgrade Helpers

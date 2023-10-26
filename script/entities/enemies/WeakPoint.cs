@@ -1,9 +1,9 @@
 using Godot;
 using static Enums;
 
-public class WeakPoint : Entity
+public partial class WeakPoint : Entity
 {
-    [Signal] internal delegate void _hit();
+    [Signal] public delegate void HitEventHandler(); //Event: on bullet touching
 
     public override void _Ready()
     {
@@ -11,12 +11,12 @@ public class WeakPoint : Entity
 
         //Center flash particle 
         Node2D parent = this.GetParent<Node2D>();
-        Particles2D particles = this.GetNode<Particles2D>("Particles2D");
+        GpuParticles2D particles = this.GetNode<GpuParticles2D>("GPUParticles2D");
         particles.GlobalPosition = parent.GlobalPosition;
     }
 
     public override void _TakeDamage(Projectile strikingBullet)
     {
-        this.EmitSignal("_hit", strikingBullet);
+        this.EmitSignal(SignalName.Hit, strikingBullet);
     }
 }

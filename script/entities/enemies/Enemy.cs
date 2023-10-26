@@ -4,7 +4,7 @@ using static Enums;
 
 namespace Godot
 {
-    public class Enemy : Obstacle
+    public partial class Enemy : Obstacle
     {
         [Export] private int pointsOnKill = 100;
         [Export] private int healthOnCrit = 20; //Also handles points
@@ -14,16 +14,16 @@ namespace Godot
             this.entityType = BulletOwner.EnemyController;
 
             //Set the sprites colour to level colour
-            Godot.Sprite sprite = this.GetNode<Godot.Sprite>("Sprite");
+            Sprite2D sprite = this.GetNode<Sprite2D>("Sprite2D");
             sprite.SelfModulate = colour;
 
             //Configure weakpoint if one exists 
-            Godot.Node2D weakPoint = this.GetNodeOrNull<Godot.Node2D>("WeakPoint");
+            WeakPoint weakPoint = this.GetNodeOrNull<WeakPoint>("WeakPoint");
             if (IsInstanceValid(weakPoint))
             {
-                Godot.Sprite weakPointSprite = weakPoint.GetNode<Godot.Sprite>("Sprite");
+                Sprite2D weakPointSprite = weakPoint.GetNode<Sprite2D>("Sprite2D");
                 weakPointSprite.SelfModulate = bulletColour;
-                weakPoint.Connect("_hit", this, "WeakPointHit");
+                weakPoint.Connect(WeakPoint.SignalName.Hit, new Callable(this, "WeakPointHit"));
             }
 
             //Init fixed components
@@ -76,10 +76,10 @@ namespace Godot
                 SetPhysicsProcess(false);
 
                 //Give score
-                this.EmitSignal("_update_score", pointsOnKill);
+                this.EmitSignal(Entity.SignalName.UpdateScore, pointsOnKill);
 
                 //Start death sequence 
-                anim.Connect("animation_finished", this, "EmitDeathSignal");
+                anim.Connect(AnimationPlayer.SignalName.AnimationFinished, new Callable(this, "EmitDeathSignal"));
                 anim.Play("EnemyDeath");
             }
         }
@@ -90,8 +90,8 @@ namespace Godot
             _UpdateHealth(-strikingBullet.strength * 2);
 
             CritHitFlashAsync();
-            this.EmitSignal("_update_player_heath", healthOnCrit);
-            this.EmitSignal("_update_score", healthOnCrit);
+            this.EmitSignal(Entity.SignalName.UpdatePlayerHeath, healthOnCrit);
+            this.EmitSignal(Entity.SignalName.UpdateScore, healthOnCrit);
 
             //Drop health on kill on repeated strike
             healthOnCrit = (int)Math.Round(healthOnCrit / 1.25f);
@@ -99,9 +99,9 @@ namespace Godot
 
         private async void CritHitFlashAsync()
         {
-            Godot.Sprite sprite = this.GetNodeOrNull<Godot.Sprite>("Sprite");
-            Godot.Sprite weakPointSprite = this.GetNodeOrNull<Godot.Sprite>("WeakPoint/Sprite");
-            Godot.Particles2D weakPointParticles = this.GetNodeOrNull<Godot.Particles2D>("WeakPoint/Particles2D");
+            Sprite2D sprite = this.GetNodeOrNull<Sprite2D>("Sprite2D");
+            Sprite2D weakPointSprite = this.GetNodeOrNull<Sprite2D>("WeakPoint/Sprite2D");
+            GpuParticles2D weakPointParticles = this.GetNodeOrNull<GpuParticles2D>("WeakPoint/GPUParticles2D");
 
             SetPhysicsProcess(false); //0.3 second stun
             sprite.SelfModulate = Color.Color8(251, 255, 255);
@@ -131,17 +131,17 @@ namespace Godot
             SetPhysicsProcess(false);
             ToggleLoadingVisuals(true);
 
-            Godot.Position2D loadingSpinner = this.GetNode<Godot.Position2D>("LoadingSpinner");
+            Marker2D loadingSpinner = this.GetNode<Marker2D>("LoadingSpinner");
             AnimationPlayer loadingAnim = loadingSpinner.GetNode<AnimationPlayer>("AnimationPlayer");
-            loadingAnim.Connect("animation_finished", this, "Start");
+            loadingAnim.Connect(AnimationPlayer.SignalName.AnimationFinished, new Callable(this, "Start"));
         }
 
         private void ToggleLoadingVisuals(bool loading)
         {
-            Godot.Position2D loadingSpinner = this.GetNode<Godot.Position2D>("LoadingSpinner");
-            Godot.CollisionShape2D collider = this.GetNode<Godot.CollisionShape2D>("CollisionShape2D");
-            Godot.Sprite sprite = this.GetNode<Godot.Sprite>("Sprite");
-            Godot.Node2D weakPoint = this.GetNodeOrNull<Godot.Node2D>("WeakPoint");
+            Marker2D loadingSpinner = this.GetNode<Marker2D>("LoadingSpinner");
+            CollisionShape2D collider = this.GetNode<CollisionShape2D>("CollisionShape2D");
+            Sprite2D sprite = this.GetNode<Sprite2D>("Sprite2D");
+            Node2D weakPoint = this.GetNodeOrNull<Node2D>("WeakPoint");
 
             if (loading) { loadingSpinner.Visible = loading; }
             else { loadingSpinner.QueueFree(); }
@@ -150,7 +150,7 @@ namespace Godot
             sprite.Visible = !loading;
             if (IsInstanceValid(weakPoint))
             {
-                Godot.CollisionShape2D weakPointCollider = weakPoint.GetNode<Godot.CollisionShape2D>("CollisionShape2D");
+                CollisionShape2D weakPointCollider = weakPoint.GetNode<CollisionShape2D>("CollisionShape2D");
                 weakPointCollider.Disabled = loading;
                 weakPoint.Visible = !loading;
             }

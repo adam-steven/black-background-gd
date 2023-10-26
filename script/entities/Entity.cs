@@ -3,7 +3,7 @@ using static Enums;
 
 namespace Godot
 {
-    public class Entity : RigidBody2D, IStats
+    public partial class Entity : RigidBody2D, IStats
     {
         public BulletOwner entityType;
 
@@ -25,18 +25,18 @@ namespace Godot
         [Export] public int BulletBurstAmount { get; set; }
         [Export] public float BulletTimeAlive { get; set; }
         [Export] public float BulletSize { get; set; }
-        [Export] public List<string> OnBulletDestroyScenes { get; set; }
+        [Export] public Godot.Collections.Array<string> OnBulletDestroyScenes { get; set; }
         
         #region Signals
 
-        [Signal] internal delegate void _destroy_all_bullets();
-        [Signal] internal delegate void _section_text(string text, bool inverted);
-        [Signal] internal delegate void _shake_screen(int shakeForce, float shakeDuration);
+        [Signal] public delegate void DestroyAllBulletsEventHandler(); //Event: destroy all instances of bullets on screen
+        [Signal] public delegate void SectionTextEventHandler(string text, bool inverted); //Event: request text to flash in the background
+        [Signal] public delegate void ShakeScreenEventHandler(int shakeForce, float shakeDuration); //Event: request the camera to shake
 
-        [Signal] internal delegate void _update_score(int points);
-        [Signal] internal delegate void _update_player_heath(int health);
-        [Signal] internal delegate void _break_score_update();
-        [Signal] internal delegate void _on_death();
+        [Signal] public delegate void UpdateScoreEventHandler(int points); //Event: increase/decrease the players score
+        [Signal] public delegate void UpdatePlayerHeathEventHandler(int health); //Event: the player has gained/lost health
+        [Signal] public delegate void BreakScoreUpdateEventHandler(); //Event: stop the update ticker add the currently displayed value
+        [Signal] public delegate void OnDeathEventHandler(); //Event: this entity has died
 
         #endregion
 

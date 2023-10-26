@@ -7,15 +7,14 @@ public static class FileManager
     public static Scenes GetScenes(string path)
     {
         Scenes files = new Scenes();
-        Directory dir = new Directory();
-        dir.Open(path);
+        DirAccess dir = DirAccess.Open(path);
         dir.ListDirBegin();
 
         while (true)
         {
             string file = dir.GetNext();
             if (file == "") break;
-            if (file.BeginsWith(".")) continue;
+            if (file.StartsWith(".")) continue;
             if (!file.EndsWith(".tscn")) continue;
 
             files.Add($"{path}{file}");
@@ -29,15 +28,14 @@ public static class FileManager
     public static SectionedScenes GetScenesViaFolders(string path)
     {
         SectionedScenes sectionedFiles = new SectionedScenes();
-        Directory dir = new Directory();
-        dir.Open(path);
+        DirAccess dir = DirAccess.Open(path);
         dir.ListDirBegin();
 
         while (true)
         {
             string file = dir.GetNext();
             if (file == "") break;
-            if (file.BeginsWith(".")) continue;
+            if (file.StartsWith(".")) continue;
             if (!dir.CurrentIsDir()) continue;
 
             Scenes files = GetScenes($"{path}{file}/");

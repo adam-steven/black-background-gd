@@ -2,7 +2,7 @@ using System;
 using static Enums;
 using Newtonsoft.Json;
 
-public class Stage
+public partial class Stage
 {
     [JsonProperty] public bool NewLevel { get; private set; }
     [JsonProperty] public int Level { get; private set; }
@@ -47,7 +47,7 @@ public class Stage
     }
 
     ///<returns>timer ended</returns>
-    public Nullable<bool> ProcessStageCountDown(float delta)
+    public Nullable<bool> ProcessStageCountDown(double delta)
     {
         if (CurrentWaveCounter >= StageWaveValues[StageCounter] - 1) { return null; }
 

@@ -1,17 +1,17 @@
 using Godot;
 using System.Threading.Tasks;
 
-public class TurretLv1 : Enemy
+public partial class TurretLv1 : Enemy
 {
 	internal override void _EntityReady()
 	{
 		InitDelayedStart();
 
-		anim.Connect("animation_finished", this, "Attack");
+		anim.Connect(AnimationPlayer.SignalName.AnimationFinished, new Callable(this, "Attack"));
 		StartAttackTimerAsync();
 	}
 
-	public override void _PhysicsProcess(float delta)
+	public override void _PhysicsProcess(double delta)
 	{
 		TurnToPlayer(delta);
 	}

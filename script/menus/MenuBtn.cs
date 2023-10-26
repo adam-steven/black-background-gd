@@ -1,7 +1,7 @@
 using Godot;
 using static Enums;
 
-public class MenuBtn : Button
+public partial class MenuBtn : Button
 {
     [Export] public MenuButtonActions action;
 
@@ -10,8 +10,8 @@ public class MenuBtn : Button
 
     public override void _Ready()
     {
-        this.Connect("mouse_entered", this, "_OnMouseEntered");
-        this.Connect("mouse_exited", this, "_OnMouseExit");
+        this.Connect(Control.SignalName.MouseEntered, new Callable(this, "_OnMouseEntered"));
+        this.Connect(Control.SignalName.MouseExited, new Callable(this, "_OnMouseExit"));
     }
 
     //Play expand anim

@@ -1,7 +1,7 @@
 using Godot;
 using System.Threading.Tasks;
 
-public class FpsCounter : Label
+public partial class FpsCounter : Label
 {
     public override void _Ready()
     {
@@ -13,7 +13,7 @@ public class FpsCounter : Label
     {
         while (true)
         {
-            float fpsCount = Engine.GetFramesPerSecond();
+            double fpsCount = Engine.GetFramesPerSecond();
             this.Text = fpsCount.ToString();
             await Task.Delay(2000);
         }

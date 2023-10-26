@@ -1,7 +1,7 @@
 using System;
 using Newtonsoft.Json;
 
-public class Score
+public partial class Score
 {
     [JsonProperty] public long Value { get; private set; }
     [JsonProperty] public long TempValue { get; private set; } //Temporarily holds the full score value for a tick up effect

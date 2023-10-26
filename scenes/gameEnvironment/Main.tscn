@@ -1,18 +1,18 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=5 format=3 uid="uid://du5gd4c3p8cb0"]
 
-[ext_resource path="res://scenes/gameEnvironment/Level.tscn" type="PackedScene" id=1]
-[ext_resource path="res://scenes/gameEnvironment/SectionText.tscn" type="PackedScene" id=2]
-[ext_resource path="res://script/levels/Main/Main.cs" type="Script" id=3]
-[ext_resource path="res://scenes/gameEnvironment/UI.tscn" type="PackedScene" id=4]
+[ext_resource type="PackedScene" uid="uid://dti6aytsb8woj" path="res://scenes/gameEnvironment/Level.tscn" id="1"]
+[ext_resource type="PackedScene" uid="uid://bau1x386l82ak" path="res://scenes/gameEnvironment/SectionText.tscn" id="2"]
+[ext_resource type="Script" path="res://script/levels/Main/Main.cs" id="3"]
+[ext_resource type="PackedScene" uid="uid://cl77c45cykel5" path="res://scenes/gameEnvironment/UI.tscn" id="4"]
 
 [node name="GameController" type="Node2D"]
-script = ExtResource( 3 )
+script = ExtResource("3")
 
-[node name="UI" parent="." instance=ExtResource( 4 )]
+[node name="UI" parent="." instance=ExtResource("4")]
 
-[node name="SectionText" parent="." instance=ExtResource( 2 )]
-pause_mode = 2
-position = Vector2( 960, 540 )
+[node name="SectionText" parent="." instance=ExtResource("2")]
+process_mode = 3
+position = Vector2(960, 540)
 
-[node name="Level" parent="." instance=ExtResource( 1 )]
-position = Vector2( 960, 540 )
+[node name="Level" parent="." instance=ExtResource("1")]
+position = Vector2(960, 540)

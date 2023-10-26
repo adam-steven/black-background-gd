@@ -3,20 +3,20 @@ using System;
 using static Enums;
 
 //MainMenu.tscn 
-public class MainMenu : MenuController
+public partial class MainMenu : MenuController
 {
-	internal override void _OnButtonPress(MenuBtn button)
+	internal override void _OnButtonPressed(MenuBtn button)
 	{
 		switch (button.action)
 		{
 			case MenuButtonActions.Play:
-				Play(button);
+                EmitPlay(button);
 				break;
 			case MenuButtonActions.Options:
-				Options(button);
+                EmitOptions(button);
 				break;
 			case MenuButtonActions.Leaderboard:
-				Leaderboard(button);
+                EmitLeaderboard(button);
 				break;
 			case MenuButtonActions.Quit:
 				Quit();
@@ -29,21 +29,21 @@ public class MainMenu : MenuController
 		this.QueueFree();
 	}
 
-	private void Play(MenuBtn button)
+	private void EmitPlay(MenuBtn button)
 	{
-		this.EmitSignal("_play_game");
+		this.EmitSignal(MenuController.SignalName.PlayGame);
 		button.Disabled = true;
 	}
 
-	private void Options(MenuBtn button)
+	private void EmitOptions(MenuBtn button)
 	{
-		this.EmitSignal("_options");
+		this.EmitSignal(MenuController.SignalName.Options);
 		button.Disabled = true;
 	}
 
-	private void Leaderboard(MenuBtn button)
+	private void EmitLeaderboard(MenuBtn button)
 	{
-		this.EmitSignal("_leaderboard");
+		this.EmitSignal(MenuController.SignalName.Leaderboard);
 		button.Disabled = true;
 	}
 

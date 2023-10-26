@@ -31,13 +31,13 @@ public partial class Main
         this.ProgressGame(true);
 
         PackedScene pauseMenuScene = (PackedScene)GD.Load("res://scenes/menus/PauseMenu.tscn");
-        Godot.Control pauseMenu = (Godot.Control)pauseMenuScene.Instance();
+        MenuController pauseMenu = pauseMenuScene.Instantiate<MenuController>();
         pauseMenu.Visible = false;
         this.AddChild(pauseMenu);
 
-        pauseMenu.Connect("_play_game", this, "RestartGame");
-        pauseMenu.Connect("_main_menu", this, "ReturnToMenu");
-        pauseMenu.Connect("_options", this, "GoToOptions");
+        pauseMenu.Connect(MenuController.SignalName.PlayGame, new Callable(this, "RestartGame"));
+        pauseMenu.Connect(MenuController.SignalName.MainMenu, new Callable(this, "ReturnToMenu"));
+        pauseMenu.Connect(MenuController.SignalName.Options, new Callable(this, "GoToOptions"));
     }
 
     private void RestartGame()

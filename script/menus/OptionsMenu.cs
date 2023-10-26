@@ -2,15 +2,15 @@ using Godot;
 using static Enums;
 using System.Threading.Tasks;
 
-public class OptionsMenu : MenuController
+public partial class OptionsMenu : MenuController
 {
-    [Signal] internal delegate void _toggle_key_pick_overlay(bool visiable);
-    [Signal] internal delegate void _set_bool_setting(MenuBtn button, bool value);
-    [Signal] internal delegate void _set_string_setting(MenuBtn button, string value);
+    [Signal] public delegate void ToggleKeyPickOverlayEventHandler(bool visiable); //Event: show/hide blocking overlay for the user to select a key
+    [Signal] public delegate void SetBoolSettingEventHandler(MenuBtn button, bool value); //Event: update a boolean setting
+    [Signal] public delegate void SetStringSettingEventHandler(MenuBtn button, string value); //Event: update a string setting
 
     private MenuBtn waitingButton = null;
 
-    internal override void _OnButtonPress(MenuBtn button)
+    internal override void _OnButtonPressed(MenuBtn button)
     {
         switch (button.action)
         {
@@ -55,19 +55,19 @@ public class OptionsMenu : MenuController
 
     private void Return(MenuBtn button)
     {
-        this.EmitSignal("_main_menu");
+        this.EmitSignal(MenuController.SignalName.MainMenu);
         button.Disabled = true;
     }
 
     private void SaveToggle(MenuBtn button)
     {
-        this.EmitSignal("_set_bool_setting", button, button.Pressed);
+        this.EmitSignal(SignalName.SetBoolSetting, button, button.ButtonPressed);
     }
 
     //Displays a blocking overlay for allowing the user to select a key
     private void HandelKeyChange(MenuBtn button)
     {
-        this.EmitSignal("_toggle_key_pick_overlay", true);
+        this.EmitSignal(SignalName.ToggleKeyPickOverlay, true);
         waitingButton = button;
     }
 
@@ -75,7 +75,7 @@ public class OptionsMenu : MenuController
     private async void EndKeyChangeAsync()
     {
         await Task.Delay(200);
-        this.EmitSignal("_toggle_key_pick_overlay", false);
+        this.EmitSignal(SignalName.ToggleKeyPickOverlay, false);
         waitingButton = null;
     }
 
@@ -86,16 +86,16 @@ public class OptionsMenu : MenuController
 
         if (inputEvent is InputEventKey keyEvent)
         {
-            var keyCode = keyEvent.PhysicalScancode;
-            waitingButton.SetValueLabel(((KeyList)keyCode).ToString());
-            this.EmitSignal("_set_string_setting", waitingButton, $"K{(int)keyCode}");
+            var keyCode = keyEvent.PhysicalKeycode;
+            waitingButton.SetValueLabel(((Key)keyCode).ToString());
+            this.EmitSignal(SignalName.SetStringSetting, waitingButton, $"K{(int)keyCode}");
         }
 
         if (inputEvent is InputEventMouseButton mouseEvent)
         {
             var mouseButtonCode = mouseEvent.ButtonIndex;
             waitingButton.SetValueLabel($"M{(int)mouseButtonCode}");
-            this.EmitSignal("_set_string_setting", waitingButton, $"M{(int)mouseButtonCode}");
+            this.EmitSignal(SignalName.SetStringSetting, waitingButton, $"M{(int)mouseButtonCode}");
         }
 
         EndKeyChangeAsync();

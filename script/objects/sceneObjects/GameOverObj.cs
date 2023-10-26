@@ -1,6 +1,6 @@
 //Object for DeathScreen.tscn data in 
 
-public class GameOverObj
+public partial class GameOverObj
 {
     public long Score { get; set; }
     public int Time { get; set; }

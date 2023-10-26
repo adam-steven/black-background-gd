@@ -2,13 +2,13 @@ using System;
 using System.Collections.Generic;
 using Godot;
 
-public class MultiBulletSpawner : Obstacle
+public partial class MultiBulletSpawner : Obstacle
 {
 	Random rnd = new Random();
 
 	[Export] bool facePlayer = true;
 
-	[Export] List<string> spawnPoints = new List<string>();
+	[Export] Godot.Collections.Array<string> spawnPoints = new ();
 	List<GunController> guns = new List<GunController>();
 	
 	internal override void _EntityReady()
@@ -23,11 +23,11 @@ public class MultiBulletSpawner : Obstacle
 		}
 
 		float spawnSpeedModifier = ShotDelay / rnd.Next(1, 3);
-		anim.PlaybackSpeed = spawnSpeedModifier;
-		anim.Connect("animation_finished", this, "ShootBullet");
+		anim.SpeedScale = spawnSpeedModifier;
+		anim.Connect(AnimationPlayer.SignalName.AnimationFinished, new Callable(this, "ShootBullet"));
 	}
 
-	public override void _Process(float delta)
+	public override void _Process(double delta)
 	{
 		if (!IsInstanceValid(player)) return;
 		TurnToPlayer(delta);

@@ -2,7 +2,7 @@ using Godot;
 using System;
 using static Enums;
 
-public class PauseMenu : MenuController
+public partial class PauseMenu : MenuController
 {
 
 	#region Handel Pause
@@ -30,7 +30,7 @@ public class PauseMenu : MenuController
 
 	#endregion
 
-	internal override void _OnButtonPress(MenuBtn button)
+	internal override void _OnButtonPressed(MenuBtn button)
 	{
 		TogglePause(false);
 
@@ -40,13 +40,13 @@ public class PauseMenu : MenuController
 				//Do nothing
 				break;
 			case MenuButtonActions.Play:
-				Play(button);
+                EmitPlay(button);
 				break;
 			case MenuButtonActions.MainMenu:
-				MainMenu(button);
+                EmitMainMenu(button);
 				break;
 			case MenuButtonActions.Options:
-				Options(button);
+                EmitOptions(button);
 				break;
 			default:
 				GD.Print($"Warning: unused btn action: {button.action}");
@@ -54,21 +54,21 @@ public class PauseMenu : MenuController
 		}
 	}
 
-	private void Play(MenuBtn button)
+	private void EmitPlay(MenuBtn button)
 	{
-		this.EmitSignal("_play_game");
+		this.EmitSignal(MenuController.SignalName.PlayGame);
 		button.Disabled = true;
 	}
 
-	private void MainMenu(MenuBtn button)
+	private void EmitMainMenu(MenuBtn button)
 	{
-		this.EmitSignal("_main_menu");
+		this.EmitSignal(MenuController.SignalName.MainMenu);
 		button.Disabled = true;
 	}
 
-	private void Options(MenuBtn button)
+	private void EmitOptions(MenuBtn button)
 	{
-		this.EmitSignal("_options");
+		this.EmitSignal(MenuController.SignalName.Options);
 		button.Disabled = true;
 	}
 }

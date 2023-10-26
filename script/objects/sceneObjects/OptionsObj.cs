@@ -1,6 +1,6 @@
 //Object for OptionsScreen.tscn data in 
 
-public class OptionsObj
+public partial class OptionsObj
 {
     public MainGameObj GameObj { get; set; } //true: return to game, false: return to main menu
 

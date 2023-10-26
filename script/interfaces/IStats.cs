@@ -58,5 +58,5 @@ public interface IStats
     /// <summary>
     /// Scenes to spawn in a random direction after the bullet is destroyed 
     /// </summary>
-    List<string> OnBulletDestroyScenes { get; set; }
+    Godot.Collections.Array<string> OnBulletDestroyScenes { get; set; }
 }

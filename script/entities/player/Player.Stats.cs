@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
 public partial class Player
@@ -22,10 +21,10 @@ public partial class Player
 		BulletBurstAmount = Mathc.Limit(1, entityStats.BulletBurstAmount, 15);
 		BulletTimeAlive = Mathc.Limit(0.05f, entityStats.BulletTimeAlive, 10f);
 		BulletSize = Mathc.Limit(0.5f, entityStats.BulletSize, 15f);
-		OnBulletDestroyScenes = new List<string> (entityStats.OnBulletDestroyScenes.Take(10));
+		OnBulletDestroyScenes = new (entityStats.OnBulletDestroyScenes.Take(10));
 
 		//Update background colour and health UI
-		this.EmitSignal("_update_health_ui", Health, healthUpgrade);
+		this.EmitSignal(SignalName.UpdateHealthUi, Health, healthUpgrade);
 		Colour.UpdateBackgroundColour(Health);
 	}
 

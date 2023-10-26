@@ -1,21 +1,20 @@
 using Godot;
-using System;
 using static Enums;
 
-public class DeathMenu : MenuController
+public partial class DeathMenu : MenuController
 {
-    internal override void _OnButtonPress(MenuBtn button)
+    internal override void _OnButtonPressed(MenuBtn button)
     {
         switch (button.action)
         {
             case MenuButtonActions.Play:
-                Replay(button);
+                EmitReplay(button);
                 break;
             case MenuButtonActions.MainMenu:
-                MainMenu(button);
+                EmitMainMenu(button);
                 break;
             case MenuButtonActions.Leaderboard:
-                Leaderboard(button);
+                EmitLeaderboard(button);
                 break;
             default:
                 GD.Print($"Warning: unused btn action: {button.action}");
@@ -23,21 +22,21 @@ public class DeathMenu : MenuController
         }
     }
 
-    private void Replay(MenuBtn button)
+    private void EmitReplay(MenuBtn button)
     {
-        this.EmitSignal("_play_game");
+        this.EmitSignal(MenuController.SignalName.PlayGame);
         button.Disabled = true;
     }
 
-    private void MainMenu(MenuBtn button)
+    private void EmitMainMenu(MenuBtn button)
     {
-        this.EmitSignal("_main_menu");
+        this.EmitSignal(MenuController.SignalName.MainMenu);
         button.Disabled = true;
     }
 
-    private void Leaderboard(MenuBtn button)
+    private void EmitLeaderboard(MenuBtn button)
     {
-        this.EmitSignal("_leaderboard");
+        this.EmitSignal(MenuController.SignalName.Leaderboard);
         button.Disabled = true;
     }
 }

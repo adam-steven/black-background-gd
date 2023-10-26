@@ -1,6 +1,6 @@
 namespace Godot
 {
-    public class SettingsController : DataSaving
+    public partial class SettingsController : DataSaving
     {
         public SettingsController()
         {

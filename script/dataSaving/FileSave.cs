@@ -2,7 +2,7 @@ using System;
 using System.IO;
 using Newtonsoft.Json;
 
-public class FileSave : Godot.Reference
+public partial class FileSave : Godot.RefCounted
 {
     public void SaveObj(object data, string path)
     {

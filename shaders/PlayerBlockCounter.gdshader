@@ -18,7 +18,7 @@ void fragment()
 		textureSum += texture(Texture, UV + vec2((0.5 - xPos), -0.25));
 	}
 	
-	textureSum.rgb = MODULATE.rgb;
+	textureSum.rgb = COLOR.rgb;
 	textureSum.a = 1.0 - textureSum.a;
 	
 	COLOR = textureSum;

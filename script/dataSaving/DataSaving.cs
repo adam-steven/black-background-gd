@@ -1,6 +1,6 @@
 namespace Godot
 {
-    public class DataSaving
+    public partial class DataSaving
     {
         protected internal string fileName = "";
 

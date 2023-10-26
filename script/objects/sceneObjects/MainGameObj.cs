@@ -1,5 +1,5 @@
 //Object for Main.tscn data in 
-public class MainGameObj
+public partial class MainGameObj
 {
     public bool InGame { get; set; } //true: auto play game, false: show main menu
 

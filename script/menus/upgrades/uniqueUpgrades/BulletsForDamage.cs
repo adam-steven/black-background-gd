@@ -1,7 +1,7 @@
 /// <summary> Adds/Deletes a percentage of the users bullet, add number to damage </summary> 
 ///<param name="noOfBullets">multiplier of the users bullet (-neg deletes bullets)</param>
 ///<param name="bulletStrength">UNUSED</param>
-public class BulletsForDamage : UpgradeBtn
+public partial class BulletsForDamage : UpgradeBtn
 {
     internal override void _UniqueCalcOnPress(Player player) 
     {
